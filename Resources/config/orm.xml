@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+    
+    <parameters>
+        <parameter key="forum.category_object.class">Bundle\ForumBundle\Entity\Category</parameter>
+        <parameter key="forum.topic_object.class">Bundle\ForumBundle\Entity\Topic</parameter>
+        <parameter key="forum.post_object.class">Bundle\ForumBundle\Entity\Post</parameter>
+    </parameters>
+
+    <services>
+        <!-- Object Manager Service -->
+        <service id="forum.object_manager" alias="Doctrine.ORM.EntityManager" />
+    </services>
+    
+</container>

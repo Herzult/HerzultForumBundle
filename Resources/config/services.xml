@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Category Repository Service -->
+        <service id="forum.category_repository" class="Bundle\ForumBundle\ForumBundle" factory-method="getRepository" shared="true">
+            <argument type="string">%forum.category_object.class%</argument>
+            <argument type="service" id="forum.object_manager" />
+        </service>
+
+        <!-- Topic Repository Service -->
+        <service id="forum.topic_repository" class="Bundle\ForumBundle\ForumBundle" factory-method="getRepository" shared="true">
+            <argument type="string">%forum.topic_object.class%</argument>
+            <argument type="service" id="forum.object_manager" />
+        </service>
+
+        <!-- Post Repository Service -->
+        <service id="forum.post_repository" class="Bundle\ForumBundle\ForumBundle" factory-method="getRepository" shared="true">
+            <argument type="string">%forum.post_object.class%</argument>
+            <argument type="service" id="forum.object_manager" />
+        </service>
+    </services>
+
+</container>
