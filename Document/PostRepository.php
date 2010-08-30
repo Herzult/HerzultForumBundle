@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Entity;
+namespace Bundle\ForumBundle\Document;
 
 use Bundle\ForumBundle\DAO\PostRepositoryInterface;
 

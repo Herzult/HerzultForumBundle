@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Entity;
+namespace Bundle\ForumBundle\Document;
 
 use Bundle\ForumBundle\DAO\CategoryRepositoryInterface;
 
@@ -16,15 +16,11 @@ class CategoryRepository extends ObjectRepository implements CategoryRepositoryI
     }
 
     /**
-     * @see CategoryRepositoryInteface::findAll
+     * @see CategoryRepositoryInterface::findAll
      */
     public function findAll()
     {
-        return $this->createQueryBuilder('c')
-                ->select('c')
-                ->orderBy('c.position')
-                ->getQuery()
-                ->execute();
+        return $this->createQuery()->sort('position')->execute();
     }
 
 }

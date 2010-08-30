@@ -1,11 +1,12 @@
 <?php
 
-namespace Bundle\ForumBundle\Entity;
+namespace Bundle\ForumBundle\Document;
 
 use Bundle\ForumBundle\DAO\TopicRepositoryInterface;
 
 class TopicRepository extends ObjectRepository implements TopicRepositoryInterface
 {
+
     /**
      * @see TopicRepositoryInterface::findOneById
      */
@@ -13,4 +14,5 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
     {
         return $this->findOneBy(array('id' => $id));
     }
+
 }
