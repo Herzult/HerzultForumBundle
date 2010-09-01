@@ -4,23 +4,35 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="templating.helper.forum.class">Bundle\ForumBundle\Templating\Helper\ForumHelper</parameter>
+        <parameter key="forum.topics_per_page">20</parameter>
+        <parameter key="forum.posts_per_page">10</parameter>
+    </parameters>
+
     <services>
         <!-- Category Repository Service -->
         <service id="forum.category_repository" class="Bundle\ForumBundle\ForumBundle" factory-method="getRepository" shared="true">
-            <argument type="string">%forum.category_object.class%</argument>
             <argument type="service" id="forum.object_manager" />
+            <argument type="string">%forum.category_object.class%</argument>
         </service>
 
         <!-- Topic Repository Service -->
         <service id="forum.topic_repository" class="Bundle\ForumBundle\ForumBundle" factory-method="getRepository" shared="true">
-            <argument type="string">%forum.topic_object.class%</argument>
             <argument type="service" id="forum.object_manager" />
+            <argument type="string">%forum.topic_object.class%</argument>
         </service>
 
         <!-- Post Repository Service -->
         <service id="forum.post_repository" class="Bundle\ForumBundle\ForumBundle" factory-method="getRepository" shared="true">
-            <argument type="string">%forum.post_object.class%</argument>
             <argument type="service" id="forum.object_manager" />
+            <argument type="string">%forum.post_object.class%</argument>
+        </service>
+
+        <!-- Templating Helper Service -->
+        <service id="templating.helper.forum" class="%templating.helper.forum.class%">
+            <tag name="templating.helper" alias="forum" />
+            <argument type="service" id="router" />
         </service>
     </services>
 

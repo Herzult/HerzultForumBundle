@@ -42,7 +42,7 @@
 
         <one-to-many target-entity="Post" mapped-by="topic" field="posts">
             <order-by>
-                <order-by-field name="created_at" direction="ASC" />
+                <order-by-field name="createdAt" direction="ASC" />
             </order-by>
         </one-to-many>
 

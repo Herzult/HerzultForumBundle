@@ -4,6 +4,21 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.symfony-project.org/schema/routing http://www.symfony-project.org/schema/routing/routing-1.0.xsd">
 
-    
+    <route id="forum" pattern="/">
+        <default key="_controller">ForumBundle:Forum:index</default>
+        <requirement key="_method">GET</requirement>
+    </route>
 
+    <route id="forum_category" pattern="/:category_slug">
+        <default key="_controller">ForumBundle:Forum:category</default>
+        <requirement key="_method">GET</requirement>
+        <requirement key="category_slug">[-0-1a-z]+</requirement>
+    </route>
+
+    <route id="forum_topic" pattern="/topic/:topic_id">
+        <default key="_controller">ForumBundle:Forum:topic</default>
+        <requirement key="_method">GET</requirement>
+        <requirement key="topic_id">\d+</requirement>
+    </route>
+    
 </routes>

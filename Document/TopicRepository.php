@@ -15,4 +15,20 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
         return $this->findOneBy(array('id' => $id));
     }
 
+    /**
+     * @see TopicRepositoryInterface::findAll
+     */
+    public function findAll($maxResults = null, $firstResult = null)
+    {
+        throw new \Exception('Not implemented yet.');
+    }
+
+    /**
+     * @see TopicRepositoryInterface::findAllByCategory
+     */
+    public function findAllByCategory($category, $maxResults = null, $firstResult = null)
+    {
+        throw new \Exception('Not implemented yet.');
+    }
+
 }

@@ -1,0 +1,95 @@
+/*
+    Document   : forum.css
+    Created on : 1 sept. 2010, 14:56:45
+    Author     : Antoine Hérault <antoine.herault@gmail.com>
+    Description:
+        Stylesheet for the Symfony2 ForumBundle.
+*/
+
+body {
+    margin: 0;
+    font-family: Georgia,'Times New Roman',times,serif;
+    font-size: 16px;
+    line-height: 180%;
+}
+
+a { color: #108ae7; }
+a:hover { color: #ff005c; }
+
+h2 {
+    padding: 10px;
+    font-weight: normal;
+    color: #333;
+    border-bottom: 1px solid #999;
+    text-transform: uppercase;
+}
+
+h3 {
+    color: #666;
+    font-size: 26px;
+    font-weight: normal;
+    font-variant: small-caps;
+}
+
+/*
+    HEADER
+*/
+
+#header {
+    border-bottom: 3px solid #eee;
+    background: #fefefe;
+    overflow: hidden;
+}
+
+#site-identity { padding: 10px; }
+#site-identity .name {
+    font-size: 44px;
+    font-weight: normal;
+    color: #ff005c;
+    text-shadow: #ccc 1px 1px 1px;
+}
+#site-identity .slogan {
+    font-size: 18px;
+    font-style: italic;
+    color: #cccccc;
+    float: right;
+    font-weight: normal;
+}
+
+/*
+    Global Layout
+*/
+
+.container { width: 960px; margin: auto; }
+
+.forum { overflow: hidden; }
+.forum .main { float: left; width: 60%; }
+.forum .side { float: right; width: 36%; }
+
+/*
+    Categories List
+*/
+
+.forum_categories_list,
+.forum_categories_list li { margin: 0; padding: 0; list-style: none; }
+.forum_categories_list li { position: relative; border-bottom: 1px dotted #eee; }
+.forum_categories_list .metas { font-size: .8em; }
+
+/*
+    Topics List
+*/
+
+.forum_topics_list,
+.forum_topics_list li { margin: 0; padding: 0; list-style: none; }
+.forum_topics_list li { position: relative; border-bottom: 1px dotted #eee; }
+.forum_topics_list .metas { font-size: .8em; }
+
+/*
+    Posts List
+*/
+
+.forum_posts_list,
+.forum_posts_list li { margin: 0; padding: 0; list-style: none; }
+.forum_posts_list .metas { color: #999; }
+.forum_posts_list .author { color: #333; }
+.forum_posts_list .createdAt { color: #333; }
