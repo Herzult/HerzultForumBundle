@@ -33,18 +33,20 @@ class CategoryRepositoryTest extends WebTestCase
         $this->assertTrue($categories instanceof \Iterator, '::findAll return an array even if there is no category');
         $this->assertEquals(0, count($categories), '::findAll return an empty array if there is no category');
 
+        $categoryClass = $repository->getObjectClass();
+
         // add some categories
-        $category1 = new Category();
+        $category1 = new $categoryClass();
         $category1->setName('Category 1');
         $category1->setPosition(1);
         $om->persist($category1);
 
-        $category3 = new Category();
+        $category3 = new $categoryClass();
         $category3->setName('Category 3');
         $category3->setPosition(3);
         $om->persist($category3);
 
-        $category2 = new Category();
+        $category2 = new $categoryClass();
         $category2->setName('Category 2');
         $category2->setPosition(2);
         $om->persist($category2);
