@@ -55,7 +55,7 @@ class CategoryRepositoryTest extends WebTestCase
 
         $categories = $repository->findAll();
 
-        $this->assertTrue($categories instanceof \Iterator, '::findAll return an array of categories');
+        $this->assertInternalType('array', $categories, '::findAll return an array even if there is no category');
         $this->assertEquals(3, count($categories), '::findAll find ALL categories');
         
         $this->assertEquals($category1, $categories[0], '::findAll return categories in the right order');
@@ -70,7 +70,8 @@ class CategoryRepositoryTest extends WebTestCase
 
         $this->assertEquals(null, $repository->findOneBySlug('there-is-no-category-matching-to-this-slug'), '::findOneBySlug returns NULL if the specified slug does not match any category');
 
-        $category = new Category();
+        $categoryClass = $repository->getObjectClass();
+        $category = new $categoryClass();
         $category->setName('Foo bar');
 
         $om->persist($category);
@@ -79,7 +80,7 @@ class CategoryRepositoryTest extends WebTestCase
         $foundCategory = $repository->findOneBySlug($category->getSlug());
 
         $this->assertNotEmpty($foundCategory, '::findOneBySlug find a category for the specified slug');
-        $this->assertInstanceOf('Bundle\ForumBundle\Entity\Category', $foundCategory, '::findOneBySlug returns a Category instance');
+        $this->assertInstanceOf($categoryClass, $foundCategory, '::findOneBySlug returns a Category instance');
         $this->assertEquals($category, $foundCategory, '::findOneBySlug find the good category for the specified slug');
     }
 }

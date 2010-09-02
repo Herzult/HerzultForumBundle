@@ -20,7 +20,7 @@ class CategoryRepository extends ObjectRepository implements CategoryRepositoryI
      */
     public function findAll()
     {
-        return $this->createQuery()->sort('position', 'ASC')->execute()->getResults();
+        return array_values($this->createQuery()->sort('position', 'ASC')->execute()->getResults());
     }
 
 }
