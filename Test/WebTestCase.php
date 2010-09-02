@@ -37,6 +37,10 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
             $kernel->boot();
         }
 
+        if(!$kernel->getContainer()->has($name)) {
+            $this->markTestSkipped(sprintf('The service %s is not available', $name));
+        }
+
         return $kernel->getContainer()->get($name);
     }
 
