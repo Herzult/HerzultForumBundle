@@ -30,7 +30,7 @@ class CategoryRepositoryTest extends WebTestCase
         // there is no category
         $categories = $repository->findAll();
         
-        $this->assertInternalType('array', $categories, '::findAll return an array even if there is no category');
+        $this->assertTrue($categories instanceof \Iterator, '::findAll return an array even if there is no category');
         $this->assertEquals(0, count($categories), '::findAll return an empty array if there is no category');
 
         // add some categories
