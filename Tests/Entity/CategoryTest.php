@@ -50,9 +50,7 @@ class CategoryTest extends WebTestCase
 
     public function testNumTopics()
     {
-        $kernel = $this->createKernel();
-        $kernel->boot();
-        $em = $kernel->getContainer()->get('Doctrine.ORM.EntityManager');
+        $em = $this->getService('Doctrine.ORM.EntityManager');
 
         $category = new Category();
         $category->setName(\uniqid('Test category '));
