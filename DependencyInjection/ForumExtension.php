@@ -22,8 +22,6 @@ class ForumExtension extends Extension
                 $loader->load('orm.xml');
                 break;
             case 'odm':
-                // TODO: Implement the ODM database driver
-                throw new \Exception(sprintf('Sorry, the ODM database driver is not implemented yet.'));
                 $loader->load('odm.xml');
                 break;
             default:
