@@ -14,9 +14,9 @@
 
         <field name="slug" fieldName="slug" type="string" unique="true" />
 
-        <field name="position" fieldName="position" type="integer" />
+        <field name="position" fieldName="position" type="int" />
 
-        <field name="numTopics" fieldName="numTopics" type="integer" />
+        <field name="numTopics" fieldName="numTopics" type="int" />
 
         <reference-one target-document="Topic" field="lastTopic">
         </reference-one>
