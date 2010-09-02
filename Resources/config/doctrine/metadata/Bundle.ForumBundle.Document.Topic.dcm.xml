@@ -20,9 +20,9 @@
 
         <field name="isBuried" fieldName="isBuried" type="boolean" />
 
-        <field name="createdAt" fieldName="createdAt" type="datetime" />
+        <field name="createdAt" fieldName="createdAt" type="date" />
 
-        <field name="pulledAt" fieldName="pulledAt" type="datetime" />
+        <field name="pulledAt" fieldName="pulledAt" type="date" />
 
         <reference-one target-document="Category" field="category">
         </reference-one>
