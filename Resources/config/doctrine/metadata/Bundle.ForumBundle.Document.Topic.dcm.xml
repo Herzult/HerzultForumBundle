@@ -32,7 +32,7 @@
 
         <reference-one target-document="Post" field="lastPost" />
 
-        <reference-many target-document="Post" field="posts" strategy="set" />
+        <reference-many target-document="Post" field="posts" />
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="setCreatedNow" />
