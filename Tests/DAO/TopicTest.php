@@ -3,16 +3,23 @@
 namespace Bundle\ForumBundle\Tests\DAO;
 
 use Bundle\ForumBundle\Test\WebTestCase;
-use Bundle\ForumBundle\Entity\Category;
-use Bundle\ForumBundle\Entity\Topic;
-use Bundle\ForumBundle\Entity\Post;
 
 class TopicTest extends WebTestCase
 {
+    protected $topicClass;
+
+    public function setUp()
+    {
+        parent::setUp();
+        if(null === $this->topicClass) {
+            $this->topicClass = $this->getService('forum.object_manager')->getRepository('ForumBundle:Topic')->getObjectClass();
+        }
+    }
 
     public function testSubject()
     {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
+        $class = $this->topicClass;
+        $topic = new $class($this->getMock('Bundle\ForumBundle\Entity\Category'));
         $this->assertEmpty($topic->getSubject());
         $topic->setSubject('A topic sample');
         $this->assertEquals('A topic sample', $topic->getSubject());
@@ -20,47 +27,52 @@ class TopicTest extends WebTestCase
 
     public function testNumViews()
     {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
+        $class = $this->topicClass;
+        $topic = new $class($this->getMock('Bundle\ForumBundle\Entity\Category'));
         $this->assertEquals(0, $topic->getNumViews());
     }
 
     public function testNumReplies()
     {
-        $em = $this->getService('Doctrine.ORM.EntityManager');
+        $om = $this->getService('forum.object_manager');
 
-        $category = new Category();
+        $categoryClass = $om->getRepository('ForumBundle:Category')->getObjectClass();
+        $category = new $categoryClass();
         $category->setName('Topic test');
-        $em->persist($category);
+        $om->persist($category);
         
-        $topic = new Topic($category);
+        $topicClass = $this->topicClass;
+        $topic = new $topicClass($category);
         $topic->setSubject('Testing the number of replies');
-        $em->persist($topic);
+        $om->persist($topic);
 
-        $firstPost = new Post($topic);
+        $postClass = $om->getRepository('ForumBundle:Post')->getObjectClass();
+        $firstPost = new $postClass($topic);
         $firstPost->setMessage('First post message');
-        $em->persist($firstPost);
+        $om->persist($firstPost);
 
-        $em->flush();
+        $om->flush();
 
         $this->assertEquals(0, $topic->getNumReplies());
         
-        $secondPost = new Post($topic);
+        $secondPost = new $postClass($topic);
         $secondPost->setMessage('Second post (or first reply)');
-        $em->persist($secondPost);
+        $om->persist($secondPost);
 
-        $em->flush();
+        $om->flush();
 
         $this->assertEquals(1, $topic->getNumReplies());
 
-        $em->remove($secondPost);
-        $em->flush();
+        $om->remove($secondPost);
+        $om->flush();
 
         $this->assertEquals(0, $topic->getNumReplies());
     }
 
     public function testIsClosed()
     {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
+        $class = $this->topicClass;
+        $topic = new $class($this->getCategoryMock());
         $this->assertFalse($topic->getIsClosed());
         $topic->setIsClosed(true);
         $this->assertTrue($topic->getIsClosed());
@@ -68,7 +80,8 @@ class TopicTest extends WebTestCase
 
     public function testIsPinned()
     {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
+        $class = $this->topicClass;
+        $topic = new $class($this->getCategoryMock());
         $this->assertFalse($topic->getIsPinned());
         $topic->setIsPinned(true);
         $this->assertTrue($topic->getIsPinned());
@@ -76,7 +89,8 @@ class TopicTest extends WebTestCase
 
     public function testIsBuried()
     {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
+        $class = $this->topicClass;
+        $topic = new $class($this->getCategoryMock());
         $this->assertFalse($topic->getIsBuried());
         $topic->setIsBuried(true);
         $this->assertTrue($topic->getIsBuried());
@@ -84,7 +98,8 @@ class TopicTest extends WebTestCase
 
     public function testCreatedAt()
     {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
+        $class = $this->topicClass;
+        $topic = new $class($this->getCategoryMock());
         $this->assertEmpty($topic->getCreatedAt());
         $topic->setCreatedNow();
         $this->assertInstanceOf('\DateTime', $topic->getCreatedAt());
@@ -93,11 +108,17 @@ class TopicTest extends WebTestCase
 
     public function testPulledAt()
     {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
+        $class = $this->topicClass;
+        $topic = new $class($this->getCategoryMock());
         $this->assertEmpty($topic->getPulledAt());
         $topic->setPulledNow();
         $this->assertInstanceOf('\DateTime', $topic->getPulledAt());
         $this->assertEquals(new \DateTime('now'), $topic->getPulledAt());
+    }
+
+    protected function getCategoryMock()
+    {
+        return $this->getMock($this->getService('forum.object_manager')->getRepository('ForumBundle:Category')->getObjectClass());
     }
 
 }
