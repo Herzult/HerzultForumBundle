@@ -3,8 +3,6 @@
 namespace Bundle\ForumBundle\Tests\DAO;
 
 use Bundle\ForumBundle\Test\WebTestCase;
-use Bundle\ForumBundle\Entity\Category;
-use Bundle\ForumBundle\Entity\CategoryRepository;
 
 class CategoryRepositoryTest extends WebTestCase
 {
