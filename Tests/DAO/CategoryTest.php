@@ -3,15 +3,23 @@
 namespace Bundle\ForumBundle\Tests\DAO;
 
 use Bundle\ForumBundle\Test\WebTestCase;
-use Bundle\ForumBundle\Entity\Category;
-use Bundle\ForumBundle\Entity\Topic;
-use Bundle\ForumBundle\Entity\Post;
 
 class CategoryTest extends WebTestCase
 {
+    protected $categoryClass;
+
+    public function setUp()
+    {
+        parent::setUp();
+        if(null === $this->categoryClass) {
+            $this->categoryClass = $this->getService('forum.object_manager')->getRepository('ForumBundle:Category')->getObjectClass();
+        }
+    }
+
     public function testName()
     {
-        $category = new Category();
+        $class = $this->categoryClass;
+        $category = new $class();
         $this->assertEmpty($category->getName());
         $category->setName('Test category');
         $this->assertEquals('Test category', $category->getName());
@@ -19,7 +27,8 @@ class CategoryTest extends WebTestCase
 
     public function testSlugGeneration()
     {
-        $category = new Category();
+        $class = $this->categoryClass;
+        $category = new $class();
         $this->assertEmpty($category->getSlug());
         $category->generateSlug();
         $this->assertEmpty($category->getSlug());
@@ -42,7 +51,8 @@ class CategoryTest extends WebTestCase
 
     public function testPosition()
     {
-        $category = new Category();
+        $class = $this->categoryClass;
+        $category = new $class();
         $this->assertEquals(0, $category->getPosition());
         $category->setPosition(4);
         $this->assertEquals(4, $category->getPosition());
@@ -50,24 +60,26 @@ class CategoryTest extends WebTestCase
 
     public function testNumTopics()
     {
-        $em = $this->getService('Doctrine.ORM.EntityManager');
+        $om = $this->getService('forum.object_manager');
 
-        $category = new Category();
+        $class = $this->categoryClass;
+        $category = new $class();
         $category->setName(\uniqid('Test category '));
 
-        $em->persist($category);
-        $em->flush();
+        $om->persist($category);
+        $om->flush();
 
-        $topic = new Topic($category);
+        $topicClass = $om->getRepository('ForumBundle:Topic')->getObjectClass();
+        $topic = new $topicClass($category);
         $topic->setSubject('Test topic');
 
-        $em->persist($topic);
-        $em->flush();
+        $om->persist($topic);
+        $om->flush();
 
         $this->assertEquals(1, $category->getNumTopics());
 
-        $em->remove($topic);
-        $em->flush();
+        $om->remove($topic);
+        $om->flush();
 
         $this->assertEquals(0, $category->getNumTopics());
     }
