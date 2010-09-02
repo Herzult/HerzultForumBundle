@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\Entity;
+namespace Bundle\ForumBundle\Tests\DAO;
 
 use Bundle\ForumBundle\Test\WebTestCase;
 use Bundle\ForumBundle\Entity\Category;

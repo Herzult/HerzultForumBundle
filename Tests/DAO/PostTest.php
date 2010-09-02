@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\Entity;
+namespace Bundle\ForumBundle\Tests\DAO;
 
 use Bundle\ForumBundle\Entity\Post;
 
