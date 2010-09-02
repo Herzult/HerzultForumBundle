@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+                  
+    <document name="Bundle\ForumBundle\Document\Topic" collection="forum_topic" repository-class="Bundle\ForumBundle\Document\TopicRepository">
+
+        <field name="id" fieldName="id" id="true" />
+
+        <field name="subject" fieldName="subject" type="string" />
+
+        <field name="numViews" fieldName="numViews" type="int" />
+
+        <field name="numReplies" fieldName="numReplies" type="int" />
+
+        <field name="isClosed" fieldName="isClosed" type="boolean" />
+
+        <field name="isPinned" fieldName="isPinned" type="boolean" />
+
+        <field name="isBuried" fieldName="isBuried" type="boolean" />
+
+        <field name="createdAt" fieldName="createdAt" type="datetime" />
+
+        <field name="pulledAt" fieldName="pulledAt" type="datetime" />
+
+        <reference-one target-document="Category" field="category">
+        </reference-one>
+
+        <reference-one field="author" target-document="Bundle\DoctrineUserBundle\Document\User" />
+
+        <!--<one-to-one field="firstPost" target-document="Post">-->
+            <!--<join-column name="first_post_id" referenced-column-name="id" on-delete="CASCADE" />-->
+        <!--</one-to-one>-->
+
+        <!--<one-to-one field="lastPost" target-document="Post">-->
+            <!--<join-column name="last_post_id" referenced-column-name="id" on-delete="SET NULL" />-->
+        <!--</one-to-one>-->
+
+        <!--<one-to-many target-document="Post" mapped-by="topic" field="posts">-->
+            <!--<order-by>-->
+                <!--<order-by-field name="createdAt" direction="ASC" />-->
+            <!--</order-by>-->
+        <!--</one-to-many>-->
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="setCreatedNow" />
+            <lifecycle-callback type="prePersist" method="setPulledNow" />
+            <lifecycle-callback type="prePersist" method="incrementCategoryNumTopicsOnPrePersist" />
+            <lifecycle-callback type="preRemove" method="decrementCategoryNumTopicsOnPreRemove" />
+        </lifecycle-callbacks>
+
+    </document>
+
+</doctrine-mapping>
