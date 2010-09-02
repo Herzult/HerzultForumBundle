@@ -24,24 +24,15 @@
 
         <field name="pulledAt" fieldName="pulledAt" type="date" />
 
-        <reference-one target-document="Category" field="category">
-        </reference-one>
+        <reference-one target-document="Category" field="category" />
 
         <reference-one field="author" target-document="Bundle\DoctrineUserBundle\Document\User" />
 
-        <!--<one-to-one field="firstPost" target-document="Post">-->
-            <!--<join-column name="first_post_id" referenced-column-name="id" on-delete="CASCADE" />-->
-        <!--</one-to-one>-->
+        <reference-one target-document="Post" field="firstPost" />
 
-        <!--<one-to-one field="lastPost" target-document="Post">-->
-            <!--<join-column name="last_post_id" referenced-column-name="id" on-delete="SET NULL" />-->
-        <!--</one-to-one>-->
+        <reference-one target-document="Post" field="lastPost" />
 
-        <!--<one-to-many target-document="Post" mapped-by="topic" field="posts">-->
-            <!--<order-by>-->
-                <!--<order-by-field name="createdAt" direction="ASC" />-->
-            <!--</order-by>-->
-        <!--</one-to-many>-->
+        <reference-many target-document="Post" field="posts" strategy="set" />
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="setCreatedNow" />
