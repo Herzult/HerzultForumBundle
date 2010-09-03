@@ -3,35 +3,45 @@
 namespace Bundle\ForumBundle\Tests\DAO;
 
 use Bundle\ForumBundle\Test\WebTestCase;
-use Bundle\ForumBundle\Entity\Category;
-use Bundle\ForumBundle\Entity\Topic;
-use Bundle\ForumBundle\Entity\Post;
 
 class PostRepositoryTest extends WebTestCase
 {
+    protected $postClass;
+
+    public function setUp()
+    {
+        parent::setUp();
+        if(null === $this->postClass) {
+            $this->postClass = $this->getService('forum.object_manager')->getRepository('ForumBundle:Post')->getObjectClass();
+        }
+    }
+
     public function testFindOneById()
     {
-        $em = $this->getService('Doctrine.ORM.EntityManager');
-        $repository = $em->getRepository('ForumBundle:Post');
+        $om = $this->getService('forum.object_manager');
+        $repository = $om->getRepository('ForumBundle:Post');
 
-        $category = new Category();
+        $categoryClass = $om->getRepository('ForumBundle:Category')->getObjectClass();
+        $category = new $categoryClass();
         $category->setName('Post repository test');
-        $em->persist($category);
+        $om->persist($category);
 
-        $topic = new Topic($category);
+        $topicClass = $this->getService('forum.object_manager')->getRepository('ForumBundle:Topic')->getObjectClass();
+        $topic = new $topicClass($category);
         $topic->setSubject('We are testing the Post entity repository');
-        $em->persist($topic);
+        $om->persist($topic);
 
-        $post = new Post($topic);
+        $postClass = $this->postClass;
+        $post = new $postClass($topic);
         $post->setMessage('Hello, I\'ll be deleted after the test...');
-        $em->persist($post);
+        $om->persist($post);
 
-        $em->flush();
+        $om->flush();
 
         $foundPost = $repository->findOneById($post->getId());
 
         $this->assertNotEmpty($foundPost, '::findOneById find a post for the specified id');
-        $this->assertInstanceOf('Bundle\ForumBundle\Entity\Post', $foundPost, '::findOneById return a Post instance');
+        $this->assertInstanceOf($postClass, $foundPost, '::findOneById return a Post instance');
         $this->assertEquals($post, $foundPost, '::findOneById find the right post');
     }
 }
