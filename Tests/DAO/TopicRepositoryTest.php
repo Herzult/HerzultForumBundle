@@ -38,7 +38,7 @@ class TopicRepositoryTest extends WebTestCase
         $foundTopic = $repository->findOneById($topic->getId());
 
         $this->assertNotEmpty($foundTopic, '::findOneById find a topic for the specified id');
-        $this->assertInstanceOf('Bundle\ForumBundle\Entity\Topic', $foundTopic, '::findOneById return a Topic instance');
+        $this->assertInstanceOf($this->topicClass, $foundTopic, '::findOneById return a Topic instance');
         $this->assertEquals($topic, $foundTopic, '::findOneById find the right topic');
     }
 }

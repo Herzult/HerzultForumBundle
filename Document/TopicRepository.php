@@ -12,7 +12,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findOneById($id)
     {
-        return $this->findOneBy(array('id' => $id));
+        return $this->find($id);
     }
 
     /**
