@@ -8,20 +8,32 @@ use Bundle\ForumBundle\Entity\Topic;
 
 class TopicRepositoryTest extends WebTestCase
 {
+    protected $topicClass;
+
+    public function setUp()
+    {
+        parent::setUp();
+        if(null === $this->topicClass) {
+            $this->topicClass = $this->getService('forum.object_manager')->getRepository('ForumBundle:Topic')->getObjectClass();
+        }
+    }
+
     public function testFindOneById()
     {
-        $em = $this->getService('Doctrine.ORM.EntityManager');
-        $repository = $em->getRepository('ForumBundle:Topic');
+        $om = $this->getService('forum.object_manager');
+        $repository = $om->getRepository('ForumBundle:Topic');
 
-        $category = new Category();
+        $categoryClass = $om->getRepository('ForumBundle:Category')->getObjectClass();
+        $category = new $categoryClass();
         $category->setName('Topic repository test');
-        $em->persist($category);
+        $om->persist($category);
 
-        $topic = new Topic($category);
+        $topicClass = $this->topicClass;
+        $topic = new $topicClass($category);
         $topic->setSubject('Testing the ::findOneById method');
-        $em->persist($topic);
+        $om->persist($topic);
 
-        $em->flush();
+        $om->flush();
 
         $foundTopic = $repository->findOneById($topic->getId());
 
