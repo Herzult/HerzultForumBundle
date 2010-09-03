@@ -6,6 +6,14 @@ use Bundle\ForumBundle\Test\WebTestCase;
 
 class CategoryTest extends WebTestCase
 {
+    public function setUp()
+    {
+        $om = parent::setUp();
+        
+        $om->getRepository('ForumBundle:Category')->cleanUp();
+        $om->getRepository('ForumBundle:Topic')->cleanUp();
+    }
+
     public function testName()
     {
         $class = $this->categoryClass;

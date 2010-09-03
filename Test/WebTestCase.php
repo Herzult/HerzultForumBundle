@@ -28,26 +28,6 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         return $om;
     }
 
-    /**
-     * Remove all entities/documents from a table/collection 
-     * 
-     * @param string $className something like 'ForumBundle:Category'
-     * @param mixed $om 
-     * @return void
-     */
-    protected function cleanUpRepository($className, $om = null)
-    {
-        $om = $om ?: $this->getService('forum.object_manager');
-        $repository = $om->getRepository($className);
-
-        $documents = $repository->findAll();
-        foreach ($documents as $document) {
-            $om->remove($document);
-        }
-
-        $om->flush();
-    }
-
     protected function runCommand($name, array $params = array())
     {
         \array_unshift($params, $name);

@@ -10,8 +10,7 @@ class CategoryRepositoryTest extends WebTestCase
     {
         $om = parent::setUp();
         
-        // remove all categories before each test
-        $this->cleanUpRepository('ForumBundle:Category', $om);
+        $om->getRepository('ForumBundle:Category')->cleanUp();
     }
 
     public function testFindAll()
