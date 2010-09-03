@@ -32,4 +32,11 @@ abstract class ObjectRepository extends DocumentRepository implements Repository
         return $this->getClassMetadata()->identifier;
     }
 
+    /**
+     * @see RepositoryInterface::cleanUp
+     */
+    public function cleanUp()
+    {
+        $this->createQuery()->remove()->execute();
+    }
 }
