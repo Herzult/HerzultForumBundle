@@ -20,7 +20,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findAll($maxResults = null, $firstResult = null)
     {
-        throw new \Exception('Not implemented yet.');
+        return array_values($this->createQuery()->sort('position', 'ASC')->execute()->getResults());
     }
 
     /**
