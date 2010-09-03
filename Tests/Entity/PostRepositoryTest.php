@@ -16,16 +16,17 @@ class PostRepositoryTest extends WebTestCase
 
         $category = new Category();
         $category->setName('Post repository test');
-        $em->persist($category);
-
-        $topic = new Topic($category);
+        
+        $topic = new Topic();
         $topic->setSubject('We are testing the Post entity repository');
-        $em->persist($topic);
+        $topic->setCategory($category);
 
         $post = new Post($topic);
         $post->setMessage('Hello, I\'ll be deleted after the test...');
+        
+        $em->persist($category);
+        $em->persist($topic);
         $em->persist($post);
-
         $em->flush();
 
         $foundPost = $repository->findOneById($post->getId());

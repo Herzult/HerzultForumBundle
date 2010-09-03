@@ -2,35 +2,41 @@
 
 namespace Bundle\ForumBundle\Tests\Entity;
 
+use Bundle\ForumBundle\Test\WebTestCase;
+use Bundle\ForumBundle\Entity\Category;
+use Bundle\ForumBundle\Entity\Topic;
 use Bundle\ForumBundle\Entity\Post;
 
-class PostTest extends \PHPUnit_Framework_TestCase
+class PostTest extends WebTestCase
 {
 
-    public function testMessage()
+    public function testTimestamps()
     {
-        $post = new Post($this->getMock('Bundle\ForumBundle\Entity\Topic', array(), array(), '', false));
-        $this->assertEmpty($post->getMessage());
+        $em = $this->getService('Doctrine.ORM.EntityManager');
+
+        $category = new Category();
+        $category->setName('Categoty Unit Test : Entity\PostTest');
+        $em->persist($category);
+
+        $topic = new Topic();
+        $topic->setSubject('Testing timestampable functionality');
+        $topic->setCategory($category);
+
+        $post = new Post($topic);
         $post->setMessage('Foo bar bla bla...');
-        $this->assertEquals('Foo bar bla bla...', $post->getMessage());
-    }
 
-    public function testCreatedAt()
-    {
-        $post = new Post($this->getMock('Bundle\ForumBundle\Entity\Topic', array(), array(), '', false));
-        $this->assertEmpty($post->getCreatedAt());
-        $post->setCreatedNow();
-        $this->assertInstanceOf('\DateTime', $post->getCreatedAt());
-        $this->assertEquals(new \DateTime('now'), $post->getCreatedAt());
-    }
+        $em->persist($topic);
+        $em->persist($post);
+        $em->flush();
 
-    public function testUpdatedAt()
-    {
-        $post = new Post($this->getMock('Bundle\ForumBundle\Entity\Topic', array(), array(), '', false));
-        $this->assertEmpty($post->getUpdatedAt());
-        $post->setUpdatedNow();
-        $this->assertInstanceOf('\DateTime', $post->getUpdatedAt());
-        $this->assertEquals(new \DateTime('now'), $post->getUpdatedAt());
+        $this->assertAttributeInstanceOf('DateTime', 'createdAt', $post, 'the creation timestamp is automatically set on insert');
+        $this->assertAttributeEmpty('updatedAt', $post, 'the update timestamp is not set on insert');
+
+        $post->setMessage('Updated foo bar bla bla...');
+
+        $em->flush();
+
+        $this->assertAttributeInstanceOf('DateTime', 'updatedAt', $post, 'the update timestamp is automatically set on update');
     }
 
 }

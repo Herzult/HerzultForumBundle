@@ -10,94 +10,72 @@ use Bundle\ForumBundle\Entity\Post;
 class TopicTest extends WebTestCase
 {
 
-    public function testSubject()
-    {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
-        $this->assertEmpty($topic->getSubject());
-        $topic->setSubject('A topic sample');
-        $this->assertEquals('A topic sample', $topic->getSubject());
-    }
-
-    public function testNumViews()
-    {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
-        $this->assertEquals(0, $topic->getNumViews());
-    }
-
-    public function testNumReplies()
+    public function testFirstPost()
     {
         $em = $this->getService('Doctrine.ORM.EntityManager');
 
         $category = new Category();
-        $category->setName('Topic test');
+        $category->setName('Tests Entity\Topic::testFirstPost()');
+
+        $topic = new Topic();
+        $topic->setSubject('Testing the first post');
+        $topic->setCategory($category);
+
+        try {
+            $em->persist($topic);
+            $this->fail('A topic must have at least the firt post before being persisted');
+        } catch (\Exception $e) {
+            
+        }
+
+        $post = new Post($topic);
+        $post->setMessage('Some content, foo bar, bla bla...');
+
         $em->persist($category);
-        
-        $topic = new Topic($category);
-        $topic->setSubject('Testing the number of replies');
         $em->persist($topic);
+        $em->persist($post);
 
-        $firstPost = new Post($topic);
-        $firstPost->setMessage('First post message');
-        $em->persist($firstPost);
+        $this->assertEquals($post, $topic->getFirstPost(), 'the first post added to a topic is set as ::$firstPost');
 
-        $em->flush();
+        try {
+            $em->remove($post);
+            $this->fail('The first post of a topic can not be removed');
+        } catch (\Exception $e) {
 
-        $this->assertEquals(0, $topic->getNumReplies());
+        }
+    }
+    
+    public function testNumReplies()
+    {
+
+        $em = $this->getService('Doctrine.ORM.EntityManager');
+
+        $category = new Category();
+        $category->setName('Tests Entity\Topic::testNumReplies()');
+
+        $topic = new Topic();
+        $topic->setSubject('Testing the number of replies');
+        $topic->setCategory($category);
+
+        $post = new Post($topic);
+        $post->setMessage('Some content, foo bar, bla bla...');
+
+        $em->persist($category);
+        $em->persist($topic);
+        $em->persist($post);
+
+        $this->assertEquals(0, $topic->getNumReplies(), 'the first post is not considered as a reply');
+
+        $firstReply = new Post($topic);
+        $firstReply->setMessage('First reply post message');
         
-        $secondPost = new Post($topic);
-        $secondPost->setMessage('Second post (or first reply)');
-        $em->persist($secondPost);
+        $em->persist($firstReply);
 
-        $em->flush();
+        $this->assertEquals(1, $topic->getNumReplies(), 'the number of replies is automatically increased on post insertion');
 
-        $this->assertEquals(1, $topic->getNumReplies());
+        $em->remove($firstReply);
 
-        $em->remove($secondPost);
-        $em->flush();
-
-        $this->assertEquals(0, $topic->getNumReplies());
-    }
-
-    public function testIsClosed()
-    {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
-        $this->assertFalse($topic->getIsClosed());
-        $topic->setIsClosed(true);
-        $this->assertTrue($topic->getIsClosed());
-    }
-
-    public function testIsPinned()
-    {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
-        $this->assertFalse($topic->getIsPinned());
-        $topic->setIsPinned(true);
-        $this->assertTrue($topic->getIsPinned());
-    }
-
-    public function testIsBuried()
-    {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
-        $this->assertFalse($topic->getIsBuried());
-        $topic->setIsBuried(true);
-        $this->assertTrue($topic->getIsBuried());
-    }
-
-    public function testCreatedAt()
-    {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
-        $this->assertEmpty($topic->getCreatedAt());
-        $topic->setCreatedNow();
-        $this->assertInstanceOf('\DateTime', $topic->getCreatedAt());
-        $this->assertEquals(new \DateTime('now'), $topic->getCreatedAt());
-    }
-
-    public function testPulledAt()
-    {
-        $topic = new Topic($this->getMock('Bundle\ForumBundle\Entity\Category'));
-        $this->assertEmpty($topic->getPulledAt());
-        $topic->setPulledNow();
-        $this->assertInstanceOf('\DateTime', $topic->getPulledAt());
-        $this->assertEquals(new \DateTime('now'), $topic->getPulledAt());
+        $this->assertEquals(0, $topic->getNumReplies(), 'the number of  replies is automatically decreased on post deletion');
     }
 
 }

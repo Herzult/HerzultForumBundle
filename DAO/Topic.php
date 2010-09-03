@@ -21,9 +21,8 @@ abstract class Topic
     protected $lastPost;
     protected $posts;
 
-    public function __construct(Category $category)
+    public function __construct()
     {
-        $this->category = $category;
         $this->numViews = $this->numReplies = 0;
         $this->isClosed = $this->isPinned = $this->isBuried = false;
         $this->posts = new ArrayCollection();
@@ -66,7 +65,7 @@ abstract class Topic
      */
     public function setNumViews($numViews)
     {
-        $this->numViews = $numViews;
+        $this->numViews = \intval($numViews);
     }
 
     /**
@@ -84,7 +83,7 @@ abstract class Topic
      */
     public function incrementNumViews()
     {
-        $this->numView++;
+        $this->numViews++;
     }
 
     /**
@@ -102,7 +101,7 @@ abstract class Topic
      */
     public function setNumReplies($numReplies)
     {
-        $this->numReplies = $numReplies;
+        $this->numReplies = \intval($numReplies);
     }
 
     /**
@@ -138,7 +137,7 @@ abstract class Topic
      */
     public function setIsClosed($isClosed)
     {
-        $this->isClosed = $isClosed;
+        $this->isClosed = (bool) $isClosed;
     }
 
     /**
@@ -158,7 +157,7 @@ abstract class Topic
      */
     public function setIsPinned($isPinned)
     {
-        $this->isPinned = $isPinned;
+        $this->isPinned = (bool) $isPinned;
     }
 
     /**
@@ -178,7 +177,7 @@ abstract class Topic
      */
     public function setIsBuried($isBuried)
     {
-        $this->isBuried = $isBuried;
+        $this->isBuried = (bool) $isBuried;
     }
 
     /**
@@ -296,6 +295,16 @@ abstract class Topic
     }
 
     /**
+     * Sets the category
+     *
+     * @param Category $category
+     */
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+    }
+
+    /**
      * Gets the category
      *
      * @return Category
@@ -307,6 +316,14 @@ abstract class Topic
 
     public function incrementCategoryNumTopicsOnPrePersist()
     {
+        if (empty($this->firstPost)) {
+            throw new \Exception('You must add at least one post as first post to persist the topic.');
+        }
+
+        if (empty($this->category)) {
+            throw new \Exception('You must set a category to persist the topic.');
+        }
+
         $this->category->setLastTopic($this);
         $this->category->incrementNumTopics();
     }

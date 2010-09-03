@@ -107,7 +107,7 @@ abstract class Category
      */
     public function setPosition($position)
     {
-        $this->position = $position;
+        $this->position = \intval($position);
     }
 
     /**
@@ -127,7 +127,7 @@ abstract class Category
      */
     public function setNumTopics($numTopics)
     {
-        $this->numTopics = $numTopics;
+        $this->numTopics = \intval($numTopics);
     }
 
     /**
