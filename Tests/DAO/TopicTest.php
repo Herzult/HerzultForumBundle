@@ -6,16 +6,6 @@ use Bundle\ForumBundle\Test\WebTestCase;
 
 class TopicTest extends WebTestCase
 {
-    protected $topicClass;
-
-    public function setUp()
-    {
-        parent::setUp();
-        if(null === $this->topicClass) {
-            $this->topicClass = $this->getService('forum.object_manager')->getRepository('ForumBundle:Topic')->getObjectClass();
-        }
-    }
-
     public function testSubject()
     {
         $class = $this->topicClass;
@@ -36,7 +26,7 @@ class TopicTest extends WebTestCase
     {
         $om = $this->getService('forum.object_manager');
 
-        $categoryClass = $om->getRepository('ForumBundle:Category')->getObjectClass();
+        $categoryClass = $this->categoryClass;
         $category = new $categoryClass();
         $category->setName('Topic test');
         $om->persist($category);
@@ -46,7 +36,7 @@ class TopicTest extends WebTestCase
         $topic->setSubject('Testing the number of replies');
         $om->persist($topic);
 
-        $postClass = $om->getRepository('ForumBundle:Post')->getObjectClass();
+        $postClass = $this->postClass;
         $firstPost = new $postClass($topic);
         $firstPost->setMessage('First post message');
         $om->persist($firstPost);
@@ -118,7 +108,7 @@ class TopicTest extends WebTestCase
 
     protected function getCategoryMock()
     {
-        return $this->getMock($this->getService('forum.object_manager')->getRepository('ForumBundle:Category')->getObjectClass());
+        return $this->getMock($this->categoryClass);
     }
 
 }

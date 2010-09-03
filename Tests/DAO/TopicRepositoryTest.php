@@ -8,22 +8,12 @@ use Bundle\ForumBundle\Entity\Topic;
 
 class TopicRepositoryTest extends WebTestCase
 {
-    protected $topicClass;
-
-    public function setUp()
-    {
-        parent::setUp();
-        if(null === $this->topicClass) {
-            $this->topicClass = $this->getService('forum.object_manager')->getRepository('ForumBundle:Topic')->getObjectClass();
-        }
-    }
-
     public function testFindOneById()
     {
         $om = $this->getService('forum.object_manager');
         $repository = $om->getRepository('ForumBundle:Topic');
 
-        $categoryClass = $om->getRepository('ForumBundle:Category')->getObjectClass();
+        $categoryClass = $this->categoryClass;
         $category = new $categoryClass();
         $category->setName('Topic repository test');
         $om->persist($category);

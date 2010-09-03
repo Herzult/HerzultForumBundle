@@ -6,27 +6,18 @@ use Bundle\ForumBundle\Test\WebTestCase;
 
 class PostRepositoryTest extends WebTestCase
 {
-    protected $postClass;
-
-    public function setUp()
-    {
-        parent::setUp();
-        if(null === $this->postClass) {
-            $this->postClass = $this->getService('forum.object_manager')->getRepository('ForumBundle:Post')->getObjectClass();
-        }
-    }
 
     public function testFindOneById()
     {
         $om = $this->getService('forum.object_manager');
         $repository = $om->getRepository('ForumBundle:Post');
 
-        $categoryClass = $om->getRepository('ForumBundle:Category')->getObjectClass();
+        $categoryClass = $this->categoryClass;
         $category = new $categoryClass();
         $category->setName('Post repository test');
         $om->persist($category);
 
-        $topicClass = $this->getService('forum.object_manager')->getRepository('ForumBundle:Topic')->getObjectClass();
+        $topicClass = $this->topicClass;
         $topic = new $topicClass($category);
         $topic->setSubject('We are testing the Post entity repository');
         $om->persist($topic);

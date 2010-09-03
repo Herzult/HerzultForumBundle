@@ -6,17 +6,17 @@ use Bundle\ForumBundle\Test\WebTestCase;
 
 class CategoryRepositoryTest extends WebTestCase
 {
-
     public function setUp()
     {
+        $om = parent::setUp();
         // remove all categories before each test
-        $om = $this->getService('forum.object_manager');
         $repository = $om->getRepository('ForumBundle:Category');
 
         $categories = $repository->findAll();
         foreach ($categories as $category) {
             $om->remove($category);
         }
+
         $om->flush();
     }
 
@@ -31,7 +31,7 @@ class CategoryRepositoryTest extends WebTestCase
         $this->assertInternalType('array', $categories, '::findAll return an array even if there is no category');
         $this->assertEquals(0, count($categories), '::findAll return an empty array if there is no category');
 
-        $categoryClass = $repository->getObjectClass();
+        $categoryClass = $this->categoryClass;
 
         // add some categories
         $category1 = new $categoryClass();
@@ -68,7 +68,7 @@ class CategoryRepositoryTest extends WebTestCase
 
         $this->assertEquals(null, $repository->findOneBySlug('there-is-no-category-matching-to-this-slug'), '::findOneBySlug returns NULL if the specified slug does not match any category');
 
-        $categoryClass = $repository->getObjectClass();
+        $categoryClass = $this->categoryClass;
         $category = new $categoryClass();
         $category->setName('Foo bar');
 
