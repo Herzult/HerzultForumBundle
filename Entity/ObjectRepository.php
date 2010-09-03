@@ -32,4 +32,12 @@ abstract class ObjectRepository extends EntityRepository implements RepositoryIn
         return reset($this->getClassMetadata()->identifier);
     }
 
+    /**
+     * @see RepositoryInterface::cleanUp
+     */
+    public function cleanUp()
+    {
+        $this->createQueryBuilder('o')->delete()->getQuery()->execute();
+    }
+
 }

@@ -25,4 +25,11 @@ interface RepositoryInterface
      * @return string
      */
     public function getObjectIdentifier();
+
+    /**
+     * Remove all entities/documents from a table/collection 
+     * 
+     * @return null
+     */
+    public function cleanUp();
 }
