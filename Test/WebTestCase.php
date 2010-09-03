@@ -13,6 +13,11 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
     protected $topicClass;
     protected $postClass;
 
+    /**
+     * Prepare entity/document classes for usage in tests 
+     *
+     * @return mixed om
+     */
     public function setUp()
     {
         $om = $this->getService('forum.object_manager');
@@ -21,6 +26,26 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         $this->postClass = $om->getRepository('ForumBundle:Post')->getObjectClass();
 
         return $om;
+    }
+
+    /**
+     * Remove all entities/documents from a table/collection 
+     * 
+     * @param string $className something like 'ForumBundle:Category'
+     * @param mixed $om 
+     * @return void
+     */
+    protected function cleanUpRepository($className, $om = null)
+    {
+        $om = $om ?: $this->getService('forum.object_manager');
+        $repository = $om->getRepository($className);
+
+        $documents = $repository->findAll();
+        foreach ($documents as $document) {
+            $om->remove($document);
+        }
+
+        $om->flush();
     }
 
     protected function runCommand($name, array $params = array())
