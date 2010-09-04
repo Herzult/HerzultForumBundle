@@ -6,11 +6,14 @@ use Bundle\ForumBundle\Test\WebTestCase;
 
 class CategoryRepositoryTest extends WebTestCase
 {
+
     public function setUp()
     {
         $om = parent::setUp();
-        
+
         $om->getRepository('ForumBundle:Category')->cleanUp();
+        $om->getRepository('ForumBundle:Topic')->cleanUp();
+        $om->getRepository('ForumBundle:Post')->cleanUp();
     }
 
     public function testFindAll()
@@ -20,7 +23,7 @@ class CategoryRepositoryTest extends WebTestCase
 
         // there is no category
         $categories = $repository->findAll();
-        
+
         $this->assertInternalType('array', $categories, '::findAll return an array even if there is no category');
         $this->assertEquals(0, count($categories), '::findAll return an empty array if there is no category');
 
@@ -48,7 +51,7 @@ class CategoryRepositoryTest extends WebTestCase
 
         $this->assertInternalType('array', $categories, '::findAll return an array even if there is no category');
         $this->assertEquals(3, count($categories), '::findAll find ALL categories');
-        
+
         $this->assertEquals($category1, $categories[0], '::findAll return categories in the right order');
         $this->assertEquals($category2, $categories[1], '::findAll return categories in the right order');
         $this->assertEquals($category3, $categories[2], '::findAll return categories in the right order');
@@ -74,4 +77,5 @@ class CategoryRepositoryTest extends WebTestCase
         $this->assertInstanceOf($categoryClass, $foundCategory, '::findOneBySlug returns a Category instance');
         $this->assertEquals($category, $foundCategory, '::findOneBySlug find the good category for the specified slug');
     }
+
 }

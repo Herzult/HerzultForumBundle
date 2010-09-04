@@ -1,11 +1,21 @@
 <?php
 
 namespace Bundle\ForumBundle\Tests\DAO;
+
 use Bundle\ForumBundle\Test\WebTestCase;
 
 class PostTest extends WebTestCase
 {
-    
+
+    public function setUp()
+    {
+        $om = parent::setUp();
+
+        $om->getRepository('ForumBundle:Category')->cleanUp();
+        $om->getRepository('ForumBundle:Topic')->cleanUp();
+        $om->getRepository('ForumBundle:Post')->cleanUp();
+    }
+
     public function testMessage()
     {
         $class = $this->postClass;
@@ -29,7 +39,7 @@ class PostTest extends WebTestCase
         $this->assertAttributeEquals($date, 'createdAt', $post, '::setCreatedNow() sets the creation timestamp as now');
         $this->assertEquals($date, $post->getCreatedAt(), '::getCreatedAt() gets the creation timestamp');
     }
-    
+
     public function testUpdatedAt()
     {
         $class = $this->postClass;
@@ -41,7 +51,7 @@ class PostTest extends WebTestCase
         $this->assertAttributeInstanceOf('DateTime', 'updatedAt', $post, '::setUpdatedNow() sets the update timestamp as a DateTime object');
         $this->assertAttributeEquals($date, 'updatedAt', $post, '::setUpdatedNow() sets the update timestamp as now');
         $this->assertEquals($date, $post->getUpdatedAt(), '::getUpdatedAt() gets the update timestamp');
-    }    
+    }
 
     public function testTimestamps()
     {
@@ -50,16 +60,16 @@ class PostTest extends WebTestCase
         $categoryClass = $this->categoryClass;
         $category = new $categoryClass();
         $category->setName('Test Category');
-        
+
         $topicClass = $this->topicClass;
         $topic = new $topicClass();
         $topic->setSubject('Testing timestampable functionality');
         $topic->setCategory($category);
-        
+
         $postClass = $this->postClass;
         $post = new $postClass($topic);
         $post->setMessage('Foo bar bla bla...');
-        
+
         $om->persist($category);
         $om->persist($topic);
         $om->persist($post);

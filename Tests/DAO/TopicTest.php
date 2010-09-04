@@ -7,6 +7,15 @@ use Bundle\ForumBundle\Test\WebTestCase;
 class TopicTest extends WebTestCase
 {
 
+    public function setUp()
+    {
+        $om = parent::setUp();
+
+        $om->getRepository('ForumBundle:Category')->cleanUp();
+        $om->getRepository('ForumBundle:Topic')->cleanUp();
+        $om->getRepository('ForumBundle:Post')->cleanUp();
+    }
+
     public function testSubject()
     {
         $topicClass = $this->topicClass;
@@ -20,7 +29,7 @@ class TopicTest extends WebTestCase
 
     public function testNumViews()
     {
-		$topicClass = $this->topicClass;
+        $topicClass = $this->topicClass;
         $topic = new $topicClass($this->getMock($this->categoryClass));
         $this->assertAttributeEquals(0, 'numViews', $topic, 'the number of views is set to 0 during creation');
 
@@ -37,20 +46,20 @@ class TopicTest extends WebTestCase
         $topic->setNumViews('SomeString');
         $this->assertAttributeInternalType('integer', 'numViews', $topic, 'the number of views is mandatory an integer');
     }
-    
+
     public function testNumReplies()
     {
         $om = $this->getService('Doctrine.ORM.EntityManager');
-        
+
         $categoryClass = $this->categoryClass;
         $category = new $categoryClass();
         $category->setName('Test Category');
-        
+
         $topicClass = $this->topicClass;
         $topic = new $topicClass();
         $topic->setSubject('Testing the number of replies');
         $topic->setCategory($category);
-        
+
         $this->assertAttributeEquals(0, 'numReplies', $topic, 'the number of replies is set to 0 during creation');
 
         $topic->setNumReplies(4);
@@ -65,9 +74,9 @@ class TopicTest extends WebTestCase
 
         $topic->setNumReplies('SomeString');
         $this->assertAttributeInternalType('integer', 'numReplies', $topic, 'the number of replies is mandatory an integer');
-		
-		$topic->setNumReplies(0);        
-		
+
+        $topic->setNumReplies(0);
+
         $postClass = $this->postClass;
         $post = new Post($topic);
         $post->setMessage('Some content, foo bar, bla bla...');
@@ -80,7 +89,7 @@ class TopicTest extends WebTestCase
 
         $firstReply = new $postClass($topic);
         $firstReply->setMessage('First reply post message');
-        
+
         $om->persist($firstReply);
 
         $this->assertEquals(1, $topic->getNumReplies(), 'the number of replies is automatically increased on post insertion');
@@ -175,11 +184,11 @@ class TopicTest extends WebTestCase
     public function testFirstPost()
     {
         $om = $this->getService('forum.object_manager');
-        
+
         $categoryClass = $this->categoryClass;
         $category = new $categoryClass();
         $category->setName('Tests Category');
-        
+
         $topicClass = $this->topicClass;
         $topic = new $topicClass();
         $topic->setSubject('Testing the first post');
@@ -191,11 +200,11 @@ class TopicTest extends WebTestCase
         } catch (\Exception $e) {
             
         }
-        
+
         $postClass = $this->postClass;
         $post = new $postClass($topic);
         $post->setMessage('Some content, foo bar, bla bla...');
-		
+
         $om->persist($category);
         $om->persist($topic);
         $om->persist($post);

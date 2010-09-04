@@ -13,11 +13,11 @@ class MetadataTest extends WebTestCase
 
         try {
             $allClasses = $om->getMetadataFactory()->getAllMetadata();
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->fail(sprintf('%s %s', get_class($e), $e->getMessage()));
         }
 
         $this->pass();
     }
+
 }

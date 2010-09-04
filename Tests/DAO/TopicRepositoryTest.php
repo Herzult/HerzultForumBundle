@@ -8,12 +8,14 @@ use Bundle\ForumBundle\Entity\Topic;
 
 class TopicRepositoryTest extends WebTestCase
 {
+
     public function setUp()
     {
         $om = parent::setUp();
-        
-        $om->getRepository('ForumBundle:Topic')->cleanUp();
+
         $om->getRepository('ForumBundle:Category')->cleanUp();
+        $om->getRepository('ForumBundle:Topic')->cleanUp();
+        $om->getRepository('ForumBundle:Post')->cleanUp();
     }
 
     public function testFindAll()
@@ -23,7 +25,7 @@ class TopicRepositoryTest extends WebTestCase
 
         // there is no topic
         $topics = $repository->findAll();
-        
+
         $this->assertInternalType('array', $topics, '::findAll return an array even if there is no topic');
         $this->assertEquals(0, count($topics), '::findAll return an empty array if there is no topic');
 
@@ -51,7 +53,7 @@ class TopicRepositoryTest extends WebTestCase
 
         $this->assertInternalType('array', $topics, '::findAll return an array even if there is no topic');
         $this->assertEquals(3, count($topics), '::findAll find ALL topics');
-        
+
         $this->assertEquals($topic1, $topics[0], '::findAll return topics in the right order');
         $this->assertEquals($topic3, $topics[1], '::findAll return topics in the right order');
         $this->assertEquals($topic2, $topics[2], '::findAll return topics in the right order');
@@ -80,4 +82,5 @@ class TopicRepositoryTest extends WebTestCase
         $this->assertInstanceOf($this->topicClass, $foundTopic, '::findOneById return a Topic instance');
         $this->assertEquals($topic, $foundTopic, '::findOneById find the right topic');
     }
+
 }

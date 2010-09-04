@@ -7,6 +7,15 @@ use Bundle\ForumBundle\Test\WebTestCase;
 class PostRepositoryTest extends WebTestCase
 {
 
+    public function setUp()
+    {
+        $om = parent::setUp();
+
+        $om->getRepository('ForumBundle:Category')->cleanUp();
+        $om->getRepository('ForumBundle:Topic')->cleanUp();
+        $om->getRepository('ForumBundle:Post')->cleanUp();
+    }
+
     public function testFindOneById()
     {
         $om = $this->getService('forum.object_manager');
@@ -35,4 +44,5 @@ class PostRepositoryTest extends WebTestCase
         $this->assertInstanceOf($postClass, $foundPost, '::findOneById return a Post instance');
         $this->assertEquals($post, $foundPost, '::findOneById find the right post');
     }
+
 }

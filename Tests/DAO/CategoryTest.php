@@ -6,12 +6,14 @@ use Bundle\ForumBundle\Test\WebTestCase;
 
 class CategoryTest extends WebTestCase
 {
+
     public function setUp()
     {
         $om = parent::setUp();
-        
+
         $om->getRepository('ForumBundle:Category')->cleanUp();
         $om->getRepository('ForumBundle:Topic')->cleanUp();
+        $om->getRepository('ForumBundle:Post')->cleanUp();
     }
 
     public function testName()
@@ -40,7 +42,7 @@ class CategoryTest extends WebTestCase
         $category->setName('Renamed category');
         $category->generateSlug();
         $this->assertAttributeEquals('test-category', 'slug', $category, '::generateSlug() does not replace an existing slug');
-        
+
         $category->setSlug('custom-slug');
         $this->assertAttributeEquals('custom-slug', 'slug', $category, '::setSlug() sets the slug');
 
@@ -53,7 +55,7 @@ class CategoryTest extends WebTestCase
         $class = $this->categoryClass;
         $category = new $class();
         $this->assertAttributeEquals(0, 'position', $category, 'the position is set to 0 during creation');
-        
+
         $category->setPosition(4);
         $this->assertAttributeEquals(4, 'position', $category, '::setPosition() sets the position');
         $this->assertEquals(4, $category->getPosition(), '::getPosition() gets the slug');
@@ -63,7 +65,7 @@ class CategoryTest extends WebTestCase
     }
 
     public function testNumTopics()
-    {		
+    {
         $class = $this->categoryClass;
         $category = new $class();
         $category->setName('Test category ');
@@ -82,18 +84,18 @@ class CategoryTest extends WebTestCase
 
         $category->setNumTopics('SomeString');
         $this->assertAttributeInternalType('integer', 'numTopics', $category, 'the number of topics is mandatory an integer');
-        
+
         $category->setNumTopics(0);
-        
-		$topicClass = $om->getRepository('ForumBundle:Topic')->getObjectClass();
+
+        $topicClass = $om->getRepository('ForumBundle:Topic')->getObjectClass();
         $topic = new $topicClass();
         $topic->setSubject('Test topic');
         $topic->setCategory($category);
-        
+
         $postClass = $this->postClass;
         $post = new $postClass($topic);
         $post->setMessage('Foo bar bla bla...');
-        
+
         $om->persist($topic);
         $om->persist($post);
         $om->flush();
