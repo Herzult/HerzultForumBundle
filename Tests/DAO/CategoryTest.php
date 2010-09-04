@@ -2,12 +2,22 @@
 
 namespace Bundle\ForumBundle\Tests\DAO;
 
-class CategoryTest extends \PHPUnit_Framework_TestCase
+use Bundle\ForumBundle\Test\WebTestCase;
+
+class CategoryTest extends WebTestCase
 {
+    public function setUp()
+    {
+        $om = parent::setUp();
+        
+        $om->getRepository('ForumBundle:Category')->cleanUp();
+        $om->getRepository('ForumBundle:Topic')->cleanUp();
+    }
 
     public function testName()
     {
-        $category = $this->getMock('Bundle\ForumBundle\DAO\Category', null);
+        $class = $this->categoryClass;
+        $category = new $class();
         $this->assertAttributeEmpty('name', $category, 'the name is empty during creation');
 
         $category->setName('Test category');
@@ -17,7 +27,8 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
 
     public function testSlugGeneration()
     {
-        $category = $this->getMock('Bundle\ForumBundle\DAO\Category', null);
+        $class = $this->categoryClass;
+        $category = new $class();
         $category->setName('Test category');
         $this->assertAttributeEmpty('slug', $category, 'the slug is empty during creation');
 
@@ -39,7 +50,8 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
 
     public function testPosition()
     {
-        $category = $this->getMock('Bundle\ForumBundle\DAO\Category', null);
+        $class = $this->categoryClass;
+        $category = new $class();
         $this->assertAttributeEquals(0, 'position', $category, 'the position is set to 0 during creation');
         
         $category->setPosition(4);
@@ -51,8 +63,11 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testNumTopics()
-    {
-        $category = $this->getMock('Bundle\ForumBundle\DAO\Category', null);
+    {		
+        $class = $this->categoryClass;
+        $category = new $class();
+        $category->setName('Test category ');
+
         $this->assertAttributeEquals(0, 'numTopics', $category, 'the number of topics is set to 0 during creation');
 
         $category->setNumTopics(4);
@@ -67,6 +82,28 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
 
         $category->setNumTopics('SomeString');
         $this->assertAttributeInternalType('integer', 'numTopics', $category, 'the number of topics is mandatory an integer');
+        
+        $category->setNumTopics(0);
+        
+		$topicClass = $om->getRepository('ForumBundle:Topic')->getObjectClass();
+        $topic = new $topicClass();
+        $topic->setSubject('Test topic');
+        $topic->setCategory($category);
+        
+        $postClass = $this->postClass;
+        $post = new $postClass($topic);
+        $post->setMessage('Foo bar bla bla...');
+        
+        $om->persist($topic);
+        $om->persist($post);
+        $om->flush();
+
+        $this->assertEquals(1, $category->getNumTopics(), 'the number of topics is automatically increased on persist');
+
+        $om->remove($topic);
+        $om->flush();
+
+        $this->assertEquals(0, $category->getNumTopics(), 'the number of topics is automatically decreased on remove');
     }
 
 }

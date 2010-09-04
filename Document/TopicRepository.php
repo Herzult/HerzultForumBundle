@@ -12,7 +12,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findOneById($id)
     {
-        return $this->findOneBy(array('id' => $id));
+        return $this->find($id);
     }
 
     /**
@@ -20,7 +20,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findAll($maxResults = null, $firstResult = null)
     {
-        throw new \Exception('Not implemented yet.');
+        return array_values($this->createQuery()->sort('position', 'ASC')->execute()->getResults());
     }
 
     /**

@@ -2,12 +2,15 @@
 
 namespace Bundle\ForumBundle\Tests\DAO;
 
-class TopicTest extends \PHPUnit_Framework_TestCase
+use Bundle\ForumBundle\Test\WebTestCase;
+
+class TopicTest extends WebTestCase
 {
 
     public function testSubject()
     {
-        $topic = $this->getMock('Bundle\ForumBundle\DAO\Topic', null);
+        $topicClass = $this->topicClass;
+        $topic = new $topicClass($this->getMock($this->categoryClass));
         $this->assertAttributeEmpty('subject', $topic, 'the subject is empty during creation');
 
         $topic->setSubject('A topic sample');
@@ -17,7 +20,8 @@ class TopicTest extends \PHPUnit_Framework_TestCase
 
     public function testNumViews()
     {
-        $topic = $this->getMock('Bundle\ForumBundle\DAO\Topic', null);
+		$topicClass = $this->topicClass;
+        $topic = new $topicClass($this->getMock($this->categoryClass));
         $this->assertAttributeEquals(0, 'numViews', $topic, 'the number of views is set to 0 during creation');
 
         $topic->setNumViews(4);
@@ -33,11 +37,21 @@ class TopicTest extends \PHPUnit_Framework_TestCase
         $topic->setNumViews('SomeString');
         $this->assertAttributeInternalType('integer', 'numViews', $topic, 'the number of views is mandatory an integer');
     }
-
+    
     public function testNumReplies()
     {
-        $topic = $this->getMock('Bundle\ForumBundle\DAO\Topic', null);
-        $this->assertAttributeEquals(0, 'numViews', $topic, 'the number of replies is set to 0 during creation');
+        $om = $this->getService('Doctrine.ORM.EntityManager');
+        
+        $categoryClass = $this->categoryClass;
+        $category = new $categoryClass();
+        $category->setName('Test Category');
+        
+        $topicClass = $this->topicClass;
+        $topic = new $topicClass();
+        $topic->setSubject('Testing the number of replies');
+        $topic->setCategory($category);
+        
+        $this->assertAttributeEquals(0, 'numReplies', $topic, 'the number of replies is set to 0 during creation');
 
         $topic->setNumReplies(4);
         $this->assertAttributeEquals(4, 'numReplies', $topic, '::setNumReplies() sets the number of replies');
@@ -51,13 +65,37 @@ class TopicTest extends \PHPUnit_Framework_TestCase
 
         $topic->setNumReplies('SomeString');
         $this->assertAttributeInternalType('integer', 'numReplies', $topic, 'the number of replies is mandatory an integer');
+		
+		$topic->setNumReplies(0);        
+		
+        $postClass = $this->postClass;
+        $post = new Post($topic);
+        $post->setMessage('Some content, foo bar, bla bla...');
+
+        $om->persist($category);
+        $om->persist($topic);
+        $om->persist($post);
+
+        $this->assertEquals(0, $topic->getNumReplies(), 'the first post is not considered as a reply');
+
+        $firstReply = new $postClass($topic);
+        $firstReply->setMessage('First reply post message');
+        
+        $om->persist($firstReply);
+
+        $this->assertEquals(1, $topic->getNumReplies(), 'the number of replies is automatically increased on post insertion');
+
+        $om->remove($firstReply);
+
+        $this->assertEquals(0, $topic->getNumReplies(), 'the number of  replies is automatically decreased on post deletion');
     }
 
     public function testCategory()
     {
-        $category = $this->getMock('Bundle\ForumBundle\DAO\Category');
+        $category = $this->getMock($this->categoryClass);
 
-        $topic = $this->getMock('Bundle\ForumBundle\DAO\Topic', null);
+        $topicClass = $this->topicClass;
+        $topic = new $topicClass($this->getMock($this->categoryClass));
         $this->assertAttributeEmpty('category', $topic, 'the category is not set during creation');
 
         $topic->setCategory($category);
@@ -67,7 +105,8 @@ class TopicTest extends \PHPUnit_Framework_TestCase
 
     public function testIsClosed()
     {
-        $topic = $this->getMock('Bundle\ForumBundle\DAO\Topic', null);
+        $topicClass = $this->topicClass;
+        $topic = new $topicClass($this->getMock($this->categoryClass));
         $this->assertAttributeEquals(false, 'isClosed', $topic, 'the topic is not closed during creation');
 
         $this->assertAttributeEquals($topic->getIsClosed(), 'isClosed', $topic, '::getIsClosed() gets the closure status');
@@ -81,7 +120,8 @@ class TopicTest extends \PHPUnit_Framework_TestCase
 
     public function testIsPinned()
     {
-        $topic = $this->getMock('Bundle\ForumBundle\DAO\Topic', null);
+        $topicClass = $this->topicClass;
+        $topic = new $topicClass($this->getMock($this->categoryClass));
         $this->assertAttributeEquals(false, 'isPinned', $topic, 'the topic is not pinned during creation');
 
         $this->assertAttributeEquals($topic->getIsPinned(), 'isPinned', $topic, '::getIsPinned() gets the pinning status');
@@ -95,7 +135,8 @@ class TopicTest extends \PHPUnit_Framework_TestCase
 
     public function testIsBuried()
     {
-        $topic = $this->getMock('Bundle\ForumBundle\DAO\Topic', null);
+        $topicClass = $this->topicClass;
+        $topic = new $topicClass($this->getMock($this->categoryClass));
         $this->assertAttributeEquals(false, 'isBuried', $topic, 'the topic is not buried during creation');
 
         $this->assertAttributeEquals($topic->getIsBuried(), 'isBuried', $topic, '::getBuried() gets the buring status');
@@ -109,7 +150,8 @@ class TopicTest extends \PHPUnit_Framework_TestCase
 
     public function testCreatedAt()
     {
-        $topic = $this->getMock('Bundle\ForumBundle\DAO\Topic', null);
+        $topicClass = $this->topicClass;
+        $topic = new $topicClass($this->getMock($this->categoryClass));
         $this->assertAttributeEmpty('createdAt', $topic, 'the creation timestamp is not set during creation');
 
         $date = new \DateTime('now');
@@ -120,13 +162,52 @@ class TopicTest extends \PHPUnit_Framework_TestCase
 
     public function testPulledAt()
     {
-        $topic = $this->getMock('Bundle\ForumBundle\DAO\Topic', null);
+        $topicClass = $this->topicClass;
+        $topic = new $topicClass($this->getMock($this->categoryClass));
         $this->assertAttributeEmpty('pulledAt', $topic, 'the pull timestamp is not set during creation');
 
         $date = new \DateTime('now');
         $topic->setPulledNow();
         $this->assertAttributeEquals($date, 'pulledAt', $topic, '::setPulledNow() sets the pull timestamp as now as a DateTime object');
         $this->assertEquals($date, $topic->getPulledAt(), '::getPulledDate() gets the pull timestamp as a DateTime object');
+    }
+
+    public function testFirstPost()
+    {
+        $om = $this->getService('forum.object_manager');
+        
+        $categoryClass = $this->categoryClass;
+        $category = new $categoryClass();
+        $category->setName('Tests Category');
+        
+        $topicClass = $this->topicClass;
+        $topic = new $topicClass();
+        $topic->setSubject('Testing the first post');
+        $topic->setCategory($category);
+
+        try {
+            $om->persist($topic);
+            $this->fail('A topic must have at least the firt post before being persisted');
+        } catch (\Exception $e) {
+            
+        }
+        
+        $postClass = $this->postClass;
+        $post = new $postClass($topic);
+        $post->setMessage('Some content, foo bar, bla bla...');
+		
+        $om->persist($category);
+        $om->persist($topic);
+        $om->persist($post);
+
+        $this->assertEquals($post, $topic->getFirstPost(), 'the first post added to a topic is set as ::$firstPost');
+
+        try {
+            $om->remove($post);
+            $this->fail('The first post of a topic can not be removed');
+        } catch (\Exception $e) {
+
+        }
     }
 
 }

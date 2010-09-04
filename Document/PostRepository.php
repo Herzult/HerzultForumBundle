@@ -12,7 +12,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
      */
     public function findOneById($id)
     {
-        return $this->findOneBy(array('id' => $id));
+        return $this->find($id);
     }
 
 }
