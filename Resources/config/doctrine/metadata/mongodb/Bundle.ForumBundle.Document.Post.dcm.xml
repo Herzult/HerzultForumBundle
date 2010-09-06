@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+<?xml version="1.0" charset="UTF-8"?>
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                        http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
     <document name="Bundle\ForumBundle\Document\Post" table="forum_post" repository-class="Bundle\ForumBundle\Document\PostRepository">
 
@@ -13,11 +13,7 @@
         <field name="createdAt" fieldName="createdAt" type="date" />
 
         <field name="updatedAt" fieldName="updatedAt" type="date" />
-
-        <reference-one target-document="Bundle\DoctrineUserBundle\Document\User" field="author" />
-
-        <reference-one target-document="Topic" field="topic" />
-
+        
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="setCreatedNow" />
             <lifecycle-callback type="preUpdate" method="setUpdatedNow" />
@@ -26,4 +22,4 @@
 
     </document>
 
-</doctrine-mapping>
+</doctrine-mongo-mapping>
