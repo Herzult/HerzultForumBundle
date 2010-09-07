@@ -21,8 +21,9 @@ abstract class Topic
     protected $lastPost;
     protected $posts;
 
-    public function __construct()
+    public function __construct(Category $category = null)
     {
+        $this->category = $category;
         $this->numViews = $this->numReplies = 0;
         $this->isClosed = $this->isPinned = $this->isBuried = false;
         $this->posts = new ArrayCollection();
