@@ -3,10 +3,10 @@
 namespace Bundle\ForumBundle\Tests\DAO;
 
 use Bundle\ForumBundle\Test\WebTestCase;
+use Bundle\ForumBundle\Document\Post;
 
 class TopicTest extends WebTestCase
 {
-
     public function setUp()
     {
         $om = parent::setUp();
