@@ -48,6 +48,17 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 
     protected function getService($name, $kernel = null)
     {
+        return $this->getBootedKernel()->getContainer()->get($name);
+    }
+
+    protected function hasService($name, $kernel = null)
+    {
+
+        return $this->getBootedKernel()->getContainer()->has($name);
+    }
+
+    protected function getBootedKernel($kernel = null)
+    {
         if (null === $kernel) {
             $kernel = $this->createKernel();
         }
@@ -56,7 +67,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
             $kernel->boot();
         }
 
-        return $kernel->getContainer()->get($name);
+        return $kernel;
     }
 
 }
