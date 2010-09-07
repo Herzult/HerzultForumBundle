@@ -6,7 +6,6 @@ use Bundle\ForumBundle\Test\WebTestCase;
 
 class CategoryTest extends WebTestCase
 {
-
     public function setUp()
     {
         $om = parent::setUp();

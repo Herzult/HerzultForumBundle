@@ -17,7 +17,7 @@ class MetadataTest extends WebTestCase
             $this->fail(sprintf('%s %s', get_class($e), $e->getMessage()));
         }
 
-        $this->anything();
+        $this->assertFalse(empty($allClasses));
     }
 
 }
