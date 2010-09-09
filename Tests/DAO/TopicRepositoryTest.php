@@ -25,28 +25,43 @@ class TopicRepositoryTest extends WebTestCase
 
         // there is no topic
         $topics = $repository->findAll();
-
         $this->assertInternalType('array', $topics, '::findAll return an array even if there is no topic');
         $this->assertEquals(0, count($topics), '::findAll return an empty array if there is no topic');
 
-        $categoryClass = $this->categoryClass;
-        $category = new $categoryClass();
+        $category = new $this->categoryClass();
         $category->setName('Test category');
+
         $om->persist($category);
 
-        $topicClass = $this->topicClass;
-        $topic1 = new $topicClass($category);
-        $topic1->setSubject('Category 1');
+        $topic1 = new $this->topicClass($category);
+        $topic1->setSubject('Topic 1');
+        $topic1->setCategory($category);
+
+        $post1 = new $this->postClass($topic1);
+        $post1->setMessage('Foo bar...');
+
         $om->persist($topic1);
+        $om->persist($post1);
 
-        $topic3 = new $topicClass($category);
+        $topic3 = new $this->topicClass();
         $topic3->setSubject('Category 3');
+        $topic3->setCategory($category);
+
+        $post3 = new $this->postClass($topic3);
+        $post3->setMessage('Foo bar...');
+
         $om->persist($topic3);
+        $om->persist($post3);
 
-        $topic2 = new $topicClass($category);
+        $topic2 = new $this->topicClass();
         $topic2->setSubject('Category 2');
-        $om->persist($topic2);
+        $topic2->setCategory($category);
 
+        $post2 = new $this->postClass($topic2);
+        $post2->setMessage('Foo bar...');
+
+        $om->persist($topic2);
+        $om->persist($post2);
         $om->flush();
 
         $topics = $repository->findAll();
@@ -64,16 +79,19 @@ class TopicRepositoryTest extends WebTestCase
         $om = $this->getService('forum.object_manager');
         $repository = $om->getRepository('ForumBundle:Topic');
 
-        $categoryClass = $this->categoryClass;
-        $category = new $categoryClass();
+        $category = new $this->categoryClass();
         $category->setName('Topic repository test');
-        $om->persist($category);
 
-        $topicClass = $this->topicClass;
-        $topic = new $topicClass($category);
+        $topic = new $this->topicClass();
         $topic->setSubject('Testing the ::findOneById method');
-        $om->persist($topic);
+        $topic->setCategory($category);
 
+        $post = new $this->postClass($topic);
+        $post->setMessage('Foo bar...');
+
+        $om->persist($category);
+        $om->persist($topic);
+        $om->persist($post);
         $om->flush();
 
         $foundTopic = $repository->findOneById($topic->getId());

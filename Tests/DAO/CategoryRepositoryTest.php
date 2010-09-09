@@ -23,24 +23,21 @@ class CategoryRepositoryTest extends WebTestCase
 
         // there is no category
         $categories = $repository->findAll();
-
         $this->assertInternalType('array', $categories, '::findAll return an array even if there is no category');
         $this->assertEquals(0, count($categories), '::findAll return an empty array if there is no category');
 
-        $categoryClass = $this->categoryClass;
-
         // add some categories
-        $category1 = new $categoryClass();
+        $category1 = new $this->categoryClass();
         $category1->setName('Category 1');
         $category1->setPosition(1);
         $om->persist($category1);
 
-        $category3 = new $categoryClass();
+        $category3 = new $this->categoryClass();
         $category3->setName('Category 3');
         $category3->setPosition(3);
         $om->persist($category3);
 
-        $category2 = new $categoryClass();
+        $category2 = new $this->categoryClass();
         $category2->setName('Category 2');
         $category2->setPosition(2);
         $om->persist($category2);
@@ -64,8 +61,7 @@ class CategoryRepositoryTest extends WebTestCase
 
         $this->assertEquals(null, $repository->findOneBySlug('there-is-no-category-matching-to-this-slug'), '::findOneBySlug returns NULL if the specified slug does not match any category');
 
-        $categoryClass = $this->categoryClass;
-        $category = new $categoryClass();
+        $category = new $this->categoryClass();
         $category->setName('Foo bar');
 
         $om->persist($category);
@@ -74,7 +70,7 @@ class CategoryRepositoryTest extends WebTestCase
         $foundCategory = $repository->findOneBySlug($category->getSlug());
 
         $this->assertNotEmpty($foundCategory, '::findOneBySlug find a category for the specified slug');
-        $this->assertInstanceOf($categoryClass, $foundCategory, '::findOneBySlug returns a Category instance');
+        $this->assertInstanceOf($this->categoryClass, $foundCategory, '::findOneBySlug returns a Category instance');
         $this->assertEquals($category, $foundCategory, '::findOneBySlug find the good category for the specified slug');
     }
 

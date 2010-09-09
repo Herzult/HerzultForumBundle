@@ -18,8 +18,7 @@ class CategoryTest extends WebTestCase
 
     public function testName()
     {
-        $class = $this->categoryClass;
-        $category = new $class();
+        $category = new $this->categoryClass();
         $this->assertAttributeEmpty('name', $category, 'the name is empty during creation');
 
         $category->setName('Test category');
@@ -29,8 +28,7 @@ class CategoryTest extends WebTestCase
 
     public function testSlugGeneration()
     {
-        $class = $this->categoryClass;
-        $category = new $class();
+        $category = new $this->categoryClass();
         $category->setName('Test category');
         $this->assertAttributeEmpty('slug', $category, 'the slug is empty during creation');
 
@@ -52,8 +50,7 @@ class CategoryTest extends WebTestCase
 
     public function testPosition()
     {
-        $class = $this->categoryClass;
-        $category = new $class();
+        $category = new $this->categoryClass();
         $this->assertAttributeEquals(0, 'position', $category, 'the position is set to 0 during creation');
 
         $category->setPosition(4);
@@ -66,10 +63,8 @@ class CategoryTest extends WebTestCase
 
     public function testNumTopics()
     {
-        $class = $this->categoryClass;
-        $category = new $class();
+        $category = new $this->categoryClass();
         $category->setName('Test category ');
-
         $this->assertAttributeEquals(0, 'numTopics', $category, 'the number of topics is set to 0 during creation');
 
         $category->setNumTopics(4);
@@ -87,15 +82,15 @@ class CategoryTest extends WebTestCase
 
         $category->setNumTopics(0);
 
-        $topicClass = $om->getRepository('ForumBundle:Topic')->getObjectClass();
-        $topic = new $topicClass();
+        $topic = new $this->topicClass();
         $topic->setSubject('Test topic');
         $topic->setCategory($category);
 
-        $postClass = $this->postClass;
-        $post = new $postClass($topic);
+        $post = new $this->postClass($topic);
         $post->setMessage('Foo bar bla bla...');
 
+        $om = $this->getService('forum.object_manager');
+        $om->persist($category);
         $om->persist($topic);
         $om->persist($post);
         $om->flush();

@@ -57,17 +57,14 @@ class PostTest extends WebTestCase
     {
         $om = $this->getService('forum.object_manager');
 
-        $categoryClass = $this->categoryClass;
-        $category = new $categoryClass();
+        $category = new $this->categoryClass();
         $category->setName('Test Category');
 
-        $topicClass = $this->topicClass;
-        $topic = new $topicClass();
+        $topic = new $this->topicClass();
         $topic->setSubject('Testing timestampable functionality');
         $topic->setCategory($category);
 
-        $postClass = $this->postClass;
-        $post = new $postClass($topic);
+        $post = new $this->postClass($topic);
         $post->setMessage('Foo bar bla bla...');
 
         $om->persist($category);

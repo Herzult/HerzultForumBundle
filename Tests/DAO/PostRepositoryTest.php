@@ -18,30 +18,27 @@ class PostRepositoryTest extends WebTestCase
 
     public function testFindOneById()
     {
-        $om = $this->getService('forum.object_manager');
-        $repository = $om->getRepository('ForumBundle:Post');
-
-        $categoryClass = $this->categoryClass;
-        $category = new $categoryClass();
+        $category = new $this->categoryClass();
         $category->setName('Post repository test');
-        $om->persist($category);
-
-        $topicClass = $this->topicClass;
-        $topic = new $topicClass($category);
+        
+        $topic = new $this->topicClass();
         $topic->setSubject('We are testing the Post entity repository');
-        $om->persist($topic);
+        $topic->setCategory($category);
 
-        $postClass = $this->postClass;
-        $post = new $postClass($topic);
+        $post = new $this->postClass($topic);
         $post->setMessage('Hello, I\'ll be deleted after the test...');
-        $om->persist($post);
 
+        $om = $this->getService('forum.object_manager');
+        $om->persist($category);
+        $om->persist($topic);
+        $om->persist($post);
         $om->flush();
 
+        $repository = $om->getRepository('ForumBundle:Post');
         $foundPost = $repository->findOneById($post->getId());
 
         $this->assertNotEmpty($foundPost, '::findOneById find a post for the specified id');
-        $this->assertInstanceOf($postClass, $foundPost, '::findOneById return a Post instance');
+        $this->assertInstanceOf($this->postClass, $foundPost, '::findOneById return a Post instance');
         $this->assertEquals($post, $foundPost, '::findOneById find the right post');
     }
 
