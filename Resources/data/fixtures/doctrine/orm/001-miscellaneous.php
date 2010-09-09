@@ -27,7 +27,8 @@ $categories = array(
 
 for ($i = 0; $i < 100; $i++)
 {
-    $topic = new Topic($categories[mt_rand(0, count($categories) - 1)]);
+    $topic = new Topic();
+    $topic->setCategory($categories[mt_rand(0, count($categories) - 1)]);
     $topic->setSubject('Test topic number '.$i);
 
     $ii = 0;
