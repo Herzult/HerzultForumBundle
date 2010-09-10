@@ -7,6 +7,7 @@ use Symfony\Component\Templating\Helper\Helper;
 use Bundle\ForumBundle\DAO\Category;
 use Bundle\ForumBundle\DAO\Topic;
 use Bundle\ForumBundle\DAO\Post;
+use Bundle\DoctrineUserBundle\DAO\User;
 
 class ForumHelper extends Helper
 {
@@ -25,6 +26,8 @@ class ForumHelper extends Helper
             return $this->urlForCategory($object);
         } elseif ($object instanceof Topic) {
             return $this->urlForTopic($object);
+        } elseif ($object instanceof User) {
+
         } else {
             throw new \Exception(sprintf('Could not generate url for object "%s".', \get_class($object)));
         }
@@ -41,6 +44,13 @@ class ForumHelper extends Helper
     {
         return $this->router->generate('forum_topic', array(
             'topic_id' => $topic->getId()
+        ));
+    }
+
+    public function urlForUser(User $user)
+    {
+        return $this->router->generate('doctrine_user_user_show', array(
+           'username' => $user->getUsername()
         ));
     }
 

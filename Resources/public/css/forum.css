@@ -63,8 +63,8 @@ h3 {
 .container { width: 960px; margin: auto; }
 
 .forum { overflow: hidden; }
-.forum .main { float: left; width: 60%; }
-.forum .side { float: right; width: 36%; }
+.forum .main { float: left; clear: left; width: 60%; }
+.forum .side { float: right; clear: right; width: 36%; }
 
 /*
     Categories List
@@ -90,6 +90,23 @@ h3 {
 
 .forum_posts_list,
 .forum_posts_list li { margin: 0; padding: 0; list-style: none; }
-.forum_posts_list .metas { color: #999; }
-.forum_posts_list .author { color: #333; }
-.forum_posts_list .createdAt { color: #333; }
+.forum_posts_list li { margin-bottom: 40px; }
+.forum_posts_list .metas {
+    position: relative;
+    padding-left: 80px;
+    height: 80px;
+}
+.forum_posts_list .avatar {
+    float: left;
+    margin-left: -80px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+.forum_posts_list .username { font-size: 1.2em; padding: 5px; }
+.forum_posts_list .date {
+    font-size: 1.1em;
+    font-style: italic;
+    color: #666;
+    padding: 5px;
+}
