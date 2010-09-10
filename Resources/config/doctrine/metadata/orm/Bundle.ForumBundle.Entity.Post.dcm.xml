@@ -16,7 +16,7 @@
 
         <field name="updatedAt" column="updated_at" type="datetime" nullable="true" />
 
-        <one-to-one field="author" target-entity="Bundle\DoctrineUserBundle\Entity\User" />
+        <many-to-one field="author" target-entity="Bundle\DoctrineUserBundle\Entity\User" />
 
         <many-to-one target-entity="Topic" field="topic" inversed-by="topics">
             <join-column name="topic_id" referenced-column-name="id" on-delete="cascade" />
