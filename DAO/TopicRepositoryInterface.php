@@ -2,6 +2,8 @@
 
 namespace Bundle\ForumBundle\DAO;
 
+use Zend\Paginator\Paginator;
+
 interface TopicRepositoryInterface extends RepositoryInterface
 {
 
@@ -16,16 +18,18 @@ interface TopicRepositoryInterface extends RepositoryInterface
     /**
      * Finds all topics ordered by their last pull date
      *
-     * @return array An array of Topic objects
+     * @param boolean $asPaginator Will return a Paginator instance if true
+     * @return array|Paginator
      */
-    public function findAll($maxResults, $firstResult);
+    public function findAll($asPaginator);
 
     /**
      * Finds all topics matching to the specified Category ordered by their
      * last pull date
      *
      * @param integer|Category $category
-     * @return array An array of Topic objects
+     * @param boolean $asPaginator Will return a Paginator instance if true
+     * @return array|Paginator
      */
-    public function findAllByCategory($category, $maxResults, $firstResult);
+    public function findAllByCategory($category, $asPaginator);
 }

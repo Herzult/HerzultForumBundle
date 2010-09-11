@@ -3,6 +3,8 @@
 namespace Bundle\ForumBundle\Entity;
 
 use Bundle\ForumBundle\DAO\TopicRepositoryInterface;
+use Bundle\DoctrinePaginatorBundle\Paginator;
+use Bundle\DoctrinePaginatorBundle\PaginatorORMAdapter;
 
 class TopicRepository extends ObjectRepository implements TopicRepositoryInterface
 {
@@ -18,29 +20,35 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
     /**
      * @see TopicRepositoryInterface::findAll
      */
-    public function findAll($maxResults = null, $firstResult = null)
+    public function findAll($asPaginator = false)
     {
-        return $this->createQueryBuilder('topic')
-                ->orderBy('topic.pulledAt', 'DESC')
-                ->setMaxResults($maxResults)
-                ->setFirstResult($firstResult)
-                ->getQuery()
-                ->execute();
+        $query = $this->createQueryBuilder('topic')
+                        ->orderBy('topic.pulledAt', 'DESC')
+                        ->getQuery();
+
+        if ($asPaginator) {
+            return new Paginator(new PaginatorORMAdapter($query));
+        } else {
+            return $query->execute();
+        }
     }
 
     /**
      * @see TopicRepositoryInterface::findAllByCategory
      */
-    public function findAllByCategory($category, $maxResults = null, $firstResult = null)
+    public function findAllByCategory($category, $asPaginator = false)
     {
-        return $this->createQueryBuilder('topic')
-                ->orderBy('topic.pulledAt', 'DESC')
-                ->setMaxResults($maxResults)
-                ->setFirstResult($firstResult)
-                ->where('topic.category = :category')
-                ->setParameter('category', $category)
-                ->getQuery()
-                ->execute();
+        $query = $this->createQueryBuilder('topic')
+                        ->orderBy('topic.pulledAt', 'DESC')
+                        ->where('topic.category = :category')
+                        ->setParameter('category', $category)
+                        ->getQuery();
+
+        if ($asPaginator) {
+            return new Paginator(new PaginatorORMAdapter($query));
+        } else {
+            return $query->execute();
+        }
     }
 
 }

@@ -29,6 +29,7 @@ class ForumExtension extends Extension
         }
 
         $loader->load('services.xml');
+        $loader->load('forum.xml');
     }
 
     /**

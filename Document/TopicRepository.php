@@ -3,6 +3,8 @@
 namespace Bundle\ForumBundle\Document;
 
 use Bundle\ForumBundle\DAO\TopicRepositoryInterface;
+use Bundle\DoctrinePaginatorBundle\Paginator;
+use Bundle\DoctrinePaginatorBundle\PaginatorODMAdapter;
 
 class TopicRepository extends ObjectRepository implements TopicRepositoryInterface
 {
@@ -18,15 +20,21 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
     /**
      * @see TopicRepositoryInterface::findAll
      */
-    public function findAll($maxResults = null, $firstResult = null)
+    public function findAll($asPaginator = false)
     {
-        return array_values($this->createQuery()->sort('position', 'ASC')->execute()->getResults());
+        $query = $this->createQuery()->sort('position', 'ASC');
+
+        if ($asPaginator) {
+            return array_values($query->execute()->getResults());
+        } else {
+            return new Paginator(new PaginatorODMAdapter($query));
+        }
     }
 
     /**
      * @see TopicRepositoryInterface::findAllByCategory
      */
-    public function findAllByCategory($category, $maxResults = null, $firstResult = null)
+    public function findAllByCategory($category, $asPaginator = false)
     {
         throw new \Exception('Not implemented yet.');
     }
