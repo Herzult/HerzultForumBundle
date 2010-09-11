@@ -1,6 +1,9 @@
 <?php $view->extend('ForumBundle::layout') ?>
 <?php $view['slots']->set('title', 'All Topics List') ?>
 <div class="forum forum_index">
+    <ul class="crumbs">
+        <li>Forum</li>
+    </ul>
     <div class="main topics">
         <h2>All Topics</h2>
         <?php echo $view['actions']->render('ForumBundle:Topic:list') ?>

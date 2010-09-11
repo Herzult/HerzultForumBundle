@@ -66,6 +66,15 @@ h3 {
 .forum .main { float: left; clear: left; width: 60%; }
 .forum .side { float: right; clear: right; width: 36%; }
 
+.forum .crumbs,
+.forum .crumbs li { margin: 0; padding: 0; list-style: none; }
+.forum .crumbs { border: 1px solid #dedede; margin: 20px 0; }
+.forum .crumbs li { 
+    float: left;
+    padding: 5px 10px;
+    background: url(../images/crumbs.gif) no-repeat right;
+}
+
 /*
     Categories List
 */

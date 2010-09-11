@@ -33,6 +33,11 @@ class ForumHelper extends Helper
         }
     }
 
+    public function urlForIndex()
+    {
+        return $this->router->generate('forum');
+    }
+
     public function urlForCategory(Category $category)
     {
         return $this->router->generate('forum_category', array(

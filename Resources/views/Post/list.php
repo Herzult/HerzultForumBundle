@@ -7,7 +7,7 @@
                 <img src="<?php echo $view['gravatar']->getUrl($author->getEmail(), 60) ?>" alt="" class="avatar" />
                 <a href="<?php echo $view['forum']->urlForUser($author) ?>" class="username"><?php echo $author->getUsername() ?></a>
                 <?php else: ?>
-                <img src="<?php echo $view['gravatar']->getUrl($author->getEmail(), 60) ?>" alt="" class="avatar" />
+                <img src="<?php echo $view['gravatar']->getUrl(null, 60) ?>" alt="" class="avatar" />
                 <span class="username">Anonymous</span>
                 <?php endif ?>
             </div>
