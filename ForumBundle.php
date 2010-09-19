@@ -2,7 +2,7 @@
 
 namespace Bundle\ForumBundle;
 
-use Symfony\Framework\Bundle\Bundle;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class ForumBundle extends Bundle
 {
