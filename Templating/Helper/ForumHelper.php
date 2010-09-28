@@ -35,7 +35,7 @@ class ForumHelper extends Helper
 
     public function urlForIndex()
     {
-        return $this->router->generate('forum');
+        return $this->router->generate('forum_index');
     }
 
     public function urlForCategory(Category $category)
