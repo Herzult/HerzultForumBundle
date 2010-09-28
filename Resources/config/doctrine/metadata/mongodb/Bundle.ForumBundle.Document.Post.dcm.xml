@@ -4,7 +4,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <document name="Bundle\ForumBundle\Document\Post" table="forum_post" repository-class="Bundle\ForumBundle\Document\PostRepository">
+    <document name="Bundle\ForumBundle\Document\Post" collection="forum_post" repository-class="Bundle\ForumBundle\Document\PostRepository">
 
         <field name="id" fieldName="id" id="true" />
 
