@@ -40,15 +40,15 @@ class ForumHelper extends Helper
 
     public function urlForCategory(Category $category)
     {
-        return $this->router->generate('forum_category', array(
-            'category_slug' => $category->getSlug()
+        return $this->router->generate('forum_category_show', array(
+            'slug' => $category->getSlug()
         ));
     }
 
     public function urlForTopic(Topic $topic)
     {
-        return $this->router->generate('forum_topic', array(
-            'topic_id' => $topic->getId()
+        return $this->router->generate('forum_topic_show', array(
+            'id' => $topic->getId()
         ));
     }
 
