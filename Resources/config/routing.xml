@@ -10,7 +10,7 @@
     </route>
 
     <route id="forum_category_show" pattern="/:slug">
-        <default key="_controller">ForumBundle:Forum:category</default>
+        <default key="_controller">ForumBundle:Category:show</default>
         <requirement key="_method">GET</requirement>
         <requirement key="slug">[-\w\d]+</requirement>
     </route>
