@@ -79,21 +79,25 @@ $categories = array();
 
 $general = new $categoryClass();
 $general->setName('General');
+$general->setDescription('Hierdie is ïn kort maar baie goeie deskripsie van die seksie. Dit kan nie langer us dit wees nie. Die borrel luik nie te sleg nie.');
 $general->setPosition(0);
 $categories[] = $general;
 
 $documentation = new $categoryClass();
 $documentation->setName('Documentation');
+$documentation->setDescription('Hierdie is ïn kort maar baie goeie deskripsie van die seksie. Dit kan nie langer us dit wees nie. Die borrel luik nie te sleg nie.');
 $documentation->setPosition(1);
 $categories[] = $documentation;
 
 $helpAndSupport = new $categoryClass();
 $helpAndSupport->setName('Help & Support');
+$helpAndSupport->setDescription('Hierdie is ïn kort maar baie goeie deskripsie van die seksie. Dit kan nie langer us dit wees nie. Die borrel luik nie te sleg nie.');
 $helpAndSupport->setPosition(2);
 $categories[] = $helpAndSupport;
 
 $development = new $categoryClass();
 $development->setName('Development');
+$development->setDescription('Hierdie is ïn kort maar baie goeie deskripsie van die seksie. Dit kan nie langer us dit wees nie. Die borrel luik nie te sleg nie.');
 $development->setPosition(3);
 $categories[] = $development;
 
