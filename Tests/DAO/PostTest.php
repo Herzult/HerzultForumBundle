@@ -82,4 +82,31 @@ class PostTest extends WebTestCase
         $this->assertAttributeInstanceOf('DateTime', 'updatedAt', $post, 'the update timestamp is automatically set on update');
     }
 
+    public function testGetTopic()
+    {
+        $om = $this->getService('forum.object_manager');
+
+        $category = new $this->categoryClass();
+        $category->setName('Test Category');
+
+        $topic = new $this->topicClass();
+        $topic->setSubject('Testing category getter');
+        $topic->setCategory($category);
+
+        $post = new $this->postClass($topic);
+        $post->setMessage('Foo bar bla bla...');
+
+        $om->persist($category);
+        $om->persist($topic);
+        $om->persist($post);
+        $om->flush();
+        $om->clear();
+
+        $this->markTestSkipped();
+        $post = $om->getRepository('ForumBundle:Post')->findOneById($post->getId());
+        $postTopic = $post->getTopic();
+        $this->assertInstanceOf('Bundle\ForumBundle\Document\Topic', $postTopic);
+        $this->assertEquals($topic->getId(), $postTopic->getId());
+    }
+
 }
