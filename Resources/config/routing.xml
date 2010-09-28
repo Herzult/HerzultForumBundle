@@ -18,7 +18,7 @@
     <route id="forum_topic" pattern="/topic/:topic_id">
         <default key="_controller">ForumBundle:Forum:topic</default>
         <requirement key="_method">GET</requirement>
-        <requirement key="topic_id">\d+</requirement>
+        <requirement key="topic_id">[a-h\d]+</requirement>
     </route>
     
 </routes>
