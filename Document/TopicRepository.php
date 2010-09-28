@@ -25,9 +25,9 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
         $query = $this->createQuery()->sort('position', 'ASC');
 
         if ($asPaginator) {
-            return array_values($query->execute()->getResults());
-        } else {
             return new Paginator(new PaginatorODMAdapter($query));
+        } else {
+            return array_values($query->execute()->getResults());
         }
     }
 
