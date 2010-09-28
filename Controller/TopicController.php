@@ -3,6 +3,7 @@
 namespace Bundle\ForumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TopicController extends Controller
 {
@@ -16,6 +17,17 @@ class TopicController extends Controller
         }
 
         return $this->render('ForumBundle:Topic:list', array('topics' => $topics));
+    }
+
+    public function showAction($id)
+    {
+        $topic = $this['forum.topic_repository']->findOneById($id);
+
+        if (!$topic) {
+            throw new NotFoundHttpException('The topic does not exist.');
+        }
+
+        return $this->render('ForumBundle:Forum:Topic:show'.$this->getRenderer(), array('topic' => $topic));
     }
 
 }

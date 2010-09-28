@@ -26,17 +26,6 @@ class ForumController extends Controller
         ));
     }
 
-    public function topicAction($topic_id)
-    {
-        $topic = $this['forum.topic_repository']->findOneById($topic_id);
-
-        if (!$topic) {
-            throw new NotFoundHttpException('The topic does not exist.');
-        }
-
-        return $this->render('ForumBundle:Forum:topic:'.$this->getRenderer(), array('topic' => $topic));
-    }
-
 
     protected function getRenderer()
     {
