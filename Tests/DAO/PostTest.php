@@ -102,7 +102,6 @@ class PostTest extends WebTestCase
         $om->flush();
         $om->clear();
 
-        $this->markTestSkipped();
         $post = $om->getRepository('ForumBundle:Post')->findOneById($post->getId());
         $postTopic = $post->getTopic();
         $this->assertInstanceOf('Bundle\ForumBundle\Document\Topic', $postTopic);

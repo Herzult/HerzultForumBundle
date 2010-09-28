@@ -13,6 +13,8 @@
         <field name="createdAt" fieldName="createdAt" type="date" />
 
         <field name="updatedAt" fieldName="updatedAt" type="date" />
+
+        <reference-one target-document="Topic" field="topic" />
         
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="setCreatedNow" />
