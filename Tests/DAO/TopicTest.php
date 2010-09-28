@@ -98,7 +98,7 @@ class TopicTest extends WebTestCase
         
         $topic = new $this->topicClass($this->getMock($this->categoryClass));
 
-        $this->assertAttributeEmpty('category', $topic, 'the category is not set during creation');
+        $this->assertAttributeNotEmpty('category', $topic, 'the category is set during creation');
 
         $topic->setCategory($category);
         $this->assertAttributeEquals($category, 'category', $topic, '::setCategory() sets the category');
