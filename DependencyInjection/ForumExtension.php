@@ -30,6 +30,11 @@ class ForumExtension extends Extension
 
         $loader->load('services.xml');
         $loader->load('forum.xml');
+        $loader->load('controller.xml');
+
+        if (isset($config['template_renderer'])) {
+            $container->setParameter('forum.template.renderer', $config['template_renderer']);
+        }
     }
 
     /**

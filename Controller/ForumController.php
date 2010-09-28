@@ -21,7 +21,7 @@ class ForumController extends Controller
             throw new NotFoundHttpException('The topic does not exist.');
         }
 
-        return $this->render('ForumBundle:Forum:category', array(
+        return $this->render('ForumBundle:Forum:category:'.$this->getRenderer(), array(
             'category' => $category
         ));
     }
@@ -34,7 +34,12 @@ class ForumController extends Controller
             throw new NotFoundHttpException('The topic does not exist.');
         }
 
-        return $this->render('ForumBundle:Forum:topic', array('topic' => $topic));
+        return $this->render('ForumBundle:Forum:topic:'.$this->getRenderer(), array('topic' => $topic));
     }
 
+
+    protected function getRenderer()
+    {
+        return $this->container->getParameter('forum.template.renderer');
+    }
 }
