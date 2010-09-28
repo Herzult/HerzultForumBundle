@@ -47,7 +47,7 @@ class TopicTest extends WebTestCase
 
     public function testNumReplies()
     {
-        $om = $this->getService('Doctrine.ORM.EntityManager');
+        $om = $this->getService('forum.object_manager');
 
         $category = new $this->categoryClass();
         $category->setName('Test Category');
