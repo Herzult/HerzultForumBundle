@@ -10,7 +10,7 @@ class CategoryController extends Controller
     {
         $categories = $this['forum.category_repository']->findAll();
 
-        return $this->render('ForumBundle:Category:list:'.$this->getRenderer(), array('categories' => $categories));
+        return $this->render('ForumBundle:Category:list.'.$this->getRenderer(), array('categories' => $categories));
     }
 
     public function showAction($slug)
@@ -21,7 +21,7 @@ class CategoryController extends Controller
             throw new NotFoundHttpException('The topic does not exist.');
         }
 
-        return $this->render('ForumBundle:Category:show:'.$this->getRenderer(), array(
+        return $this->render('ForumBundle:Category:show.'.$this->getRenderer(), array(
             'category' => $category
         ));
     }

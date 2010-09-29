@@ -16,7 +16,7 @@ class TopicController extends Controller
             $topics = $this['forum.topic_repository']->findAll();
         }
 
-        return $this->render('ForumBundle:Topic:list:'.$this->getRenderer(), array('topics' => $topics));
+        return $this->render('ForumBundle:Topic:list.'.$this->getRenderer(), array('topics' => $topics));
     }
 
     public function showAction($id)
@@ -27,7 +27,7 @@ class TopicController extends Controller
             throw new NotFoundHttpException('The topic does not exist.');
         }
 
-        return $this->render('ForumBundle:Topic:show:'.$this->getRenderer(), array('topic' => $topic));
+        return $this->render('ForumBundle:Topic:show.'.$this->getRenderer(), array('topic' => $topic));
     }
 
     protected function getRenderer()
