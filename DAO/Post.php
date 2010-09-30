@@ -114,11 +114,35 @@ abstract class Post
     }
 
     /**
-     * Decrement the topic number of replies on preRemove
+     * Increment the topic number of posts on prePersist
      */
-    public function decrementTopicNumRepliesOnPreRemove()
+    public function incrementTopicNumPosts()
     {
-        $this->topic->decrementNumReplies();
+        $this->getTopic()->incrementNumPosts();
+    }
+
+    /**
+     * Increment the category number of posts on prePersist
+     */
+    public function incrementCategoryNumPosts()
+    {
+        $this->getTopic()->getCategory()->incrementNumPosts();
+    }
+
+    /**
+     * Decrement the topic number of posts on preRemove
+     */
+    public function decrementTopicNumPosts()
+    {
+        $this->getTopic()->decrementNumPosts();
+    }
+
+    /**
+     * Decrement the category number of posts on preRemove
+     */
+    public function decrementCategoryNumPosts()
+    {
+        $this->getTopic()->getCategory()->decrementNumPosts();
     }
 
 }

@@ -12,7 +12,7 @@
                 <span class="author">Anonymous</span>
             <?php endif ?>
             </span>
-            | <span class="numReplies"><?php echo $topic->getNumReplies() . ' ' . ($topic->getNumReplies() > 1 ? 'replies' : 'reply') ?></span>
+            | <span class="numPosts"><?php echo $topic->getNumPosts() . ' ' . ($topic->getNumPosts() > 1 ? 'posts' : 'post') ?></span>
             | <a class="category" href="<?php echo $view['forum']->urlForCategory($topic->getCategory()) ?>"><?php echo $topic->getCategory()->getName() ?></a>
         </div>
     </li>

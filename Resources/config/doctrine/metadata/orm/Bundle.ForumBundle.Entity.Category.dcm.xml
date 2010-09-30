@@ -20,6 +20,8 @@
 
         <field name="numTopics" column="num_topics" type="integer" />
 
+        <field name="numPosts" column="num_posts" type="integer" />
+
         <one-to-one field="lastTopic" target-entity="Topic">
             <join-column name="last_topic_id" referenced-column-name="id" on-delete="SET NULL" />
         </one-to-one>

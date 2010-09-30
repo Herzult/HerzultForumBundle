@@ -12,12 +12,14 @@ abstract class Category
     protected $slug;
     protected $position;
     protected $numTopics;
+    protected $numPosts;
     protected $lastTopic;
 
     public function __construct()
     {
         $this->position = 0;
         $this->numTopics = 0;
+        $this->numPosts = 0;
     }
 
     /**
@@ -154,6 +156,42 @@ abstract class Category
     public function decrementNumTopics()
     {
         $this->numTopics--;
+    }
+
+    /**
+     * Gets the number of posts
+     *
+     * @return integer
+     */
+    public function getNumPosts()
+    {
+        return $this->numPosts;
+    }
+
+    /**
+     * Sets the number of posts
+     *
+     * @param integer $numPosts
+     */
+    public function setNumPosts($numPosts)
+    {
+        $this->numPosts = \intval($numPosts);
+    }
+
+    /**
+     * Increments the number of posts
+     */
+    public function incrementNumPosts($quantity = 1)
+    {
+        $this->numPosts += $quantity;
+    }
+
+    /**
+     * Decrements the number of posts
+     */
+    public function decrementNumPosts($quantity = 1)
+    {
+        $this->numPosts -= $quantity;
     }
 
     /**

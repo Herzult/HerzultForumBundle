@@ -42,7 +42,7 @@ class TopicRepositoryTest extends WebTestCase
         $om->persist($post1);
 
         $topic3 = new $this->topicClass();
-        $topic3->setSubject('Category 3');
+        $topic3->setSubject('Topic 3');
         $topic3->setCategory($category);
 
         $post3 = new $this->postClass($topic3);
@@ -52,7 +52,7 @@ class TopicRepositoryTest extends WebTestCase
         $om->persist($post3);
 
         $topic2 = new $this->topicClass();
-        $topic2->setSubject('Category 2');
+        $topic2->setSubject('Topic 2');
         $topic2->setCategory($category);
 
         $post2 = new $this->postClass($topic2);
@@ -67,9 +67,9 @@ class TopicRepositoryTest extends WebTestCase
         $this->assertInternalType('array', $topics, '::findAll return an array even if there is no topic');
         $this->assertEquals(3, count($topics), '::findAll find ALL topics');
 
-        $this->assertEquals($topic1, $topics[0], '::findAll return topics in the right order');
-        $this->assertEquals($topic3, $topics[1], '::findAll return topics in the right order');
-        $this->assertEquals($topic2, $topics[2], '::findAll return topics in the right order');
+        $this->assertEquals($topic1->getSubject(), $topics[0]->getSubject(), '::findAll return topics in the right order');
+        $this->assertEquals($topic3->getSubject(), $topics[1]->getSubject(), '::findAll return topics in the right order');
+        $this->assertEquals($topic2->getSubject(), $topics[2]->getSubject(), '::findAll return topics in the right order');
     }
 
     public function testFindOneById()

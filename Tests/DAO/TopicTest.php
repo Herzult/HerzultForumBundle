@@ -45,7 +45,7 @@ class TopicTest extends WebTestCase
         $this->assertAttributeInternalType('integer', 'numViews', $topic, 'the number of views is mandatory an integer');
     }
 
-    public function testNumReplies()
+    public function testNumPosts()
     {
         $om = $this->getService('forum.object_manager');
 
@@ -53,52 +53,52 @@ class TopicTest extends WebTestCase
         $category->setName('Test Category');
 
         $topic = new $this->topicClass();
-        $this->assertAttributeEquals(0, 'numReplies', $topic, 'the number of replies is set to 0 during creation');
+        $this->assertAttributeEquals(0, 'numPosts', $topic, 'the number of posts is set to 0 during creation');
 
-        $topic->setSubject('Testing the number of replies');
+        $topic->setSubject('Testing the number of posts');
         $topic->setCategory($category);
 
-        $topic->setNumReplies(4);
-        $this->assertAttributeEquals(4, 'numReplies', $topic, '::setNumReplies() sets the number of replies');
-        $this->assertEquals(4, $topic->getNumReplies(), '::getNumReplies() gets the number of replies');
+        $topic->setNumPosts(4);
+        $this->assertAttributeEquals(4, 'numPosts', $topic, '::setNumPosts() sets the number of posts');
+        $this->assertEquals(4, $topic->getNumPosts(), '::getNumPosts() gets the number of posts');
 
-        $topic->incrementNumReplies();
-        $this->assertAttributeEquals(5, 'numReplies', $topic, '::incrementNumReplies() increases the number of replies');
+        $topic->incrementNumPosts();
+        $this->assertAttributeEquals(5, 'numPosts', $topic, '::incrementNumPosts() increases the number of posts');
 
-        $topic->decrementNumReplies();
-        $this->assertAttributeEquals(4, 'numReplies', $topic, '::decrementNumReplies() decreases the number of replies');
+        $topic->decrementNumPosts();
+        $this->assertAttributeEquals(4, 'numPosts', $topic, '::decrementNumPosts() decreases the number of posts');
 
-        $topic->setNumReplies('SomeString');
-        $this->assertAttributeInternalType('integer', 'numReplies', $topic, 'the number of replies is mandatory an integer');
+        $topic->setNumPosts('SomeString');
+        $this->assertAttributeInternalType('integer', 'numPosts', $topic, 'the number of posts is mandatory an integer');
 
-        $topic->setNumReplies(0);
+        $topic->setNumPosts(0);
 
         $post = new $this->postClass($topic);
         $post->setMessage('Some content, foo bar, bla bla...');
 
         $om->persist($category, $topic, $post);
 
-        $this->assertEquals(0, $topic->getNumReplies(), 'the first post is not considered as a reply');
+        $this->assertEquals(0, $topic->getNumPosts(), 'the first post is not considered as a post');
 
         $firstReply = new $this->postClass($topic);
-        $firstReply->setMessage('First reply post message');
+        $firstReply->setMessage('First post post message');
 
         $om->persist($firstReply);
 
-        $this->assertEquals(1, $topic->getNumReplies(), 'the number of replies is automatically increased on post insertion');
+        $this->assertEquals(1, $topic->getNumPosts(), 'the number of posts is automatically increased on post insertion');
 
         $om->remove($firstReply);
 
-        $this->assertEquals(0, $topic->getNumReplies(), 'the number of  replies is automatically decreased on post deletion');
+        $this->assertEquals(0, $topic->getNumPosts(), 'the number of  posts is automatically decreased on post deletion');
     }
 
     public function testCategory()
     {
         $category = $this->getMock($this->categoryClass);
         
-        $topic = new $this->topicClass($this->getMock($this->categoryClass));
+        $topic = new $this->topicClass();
 
-        $this->assertAttributeNotEmpty('category', $topic, 'the category is set during creation');
+        $this->assertAttributeEmpty('category', $topic, 'the category is not set during creation');
 
         $topic->setCategory($category);
         $this->assertAttributeEquals($category, 'category', $topic, '::setCategory() sets the category');

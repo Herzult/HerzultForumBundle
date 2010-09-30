@@ -14,7 +14,7 @@
 
         <field name="numViews" column="num_views" type="integer" />
 
-        <field name="numReplies" column="num_replies" type="integer" />
+        <field name="numPosts" column="num_posts" type="integer" />
 
         <field name="isClosed" column="is_closed" type="boolean" />
 
@@ -51,10 +51,12 @@
         </one-to-many>
 
         <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="validateBeforePersist" />
             <lifecycle-callback type="prePersist" method="setCreatedNow" />
             <lifecycle-callback type="prePersist" method="setPulledNow" />
-            <lifecycle-callback type="prePersist" method="incrementCategoryNumTopicsOnPrePersist" />
-            <lifecycle-callback type="preRemove" method="decrementCategoryNumTopicsOnPreRemove" />
+            <lifecycle-callback type="prePersist" method="setAsCategoryLastTopic" />
+            <lifecycle-callback type="prePersist" method="incrementCategoryNumTopics" />
+            <lifecycle-callback type="preRemove" method="decrementCategoryNumTopics" />
         </lifecycle-callbacks>
 
     </entity>

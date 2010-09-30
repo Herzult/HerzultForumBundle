@@ -85,6 +85,57 @@ class CategoryTest extends WebTestCase
         $topic->setSubject('Test topic');
         $topic->setCategory($category);
 
+        $post1 = new $this->postClass($topic);
+        $post1->setMessage('Foo bar bla bla...');
+
+        $post2 = new $this->postClass($topic);
+        $post2->setMessage('Foo bar bla bla...');
+
+        $om = $this->getService('forum.object_manager');
+        $om->persist($category);
+        $om->persist($topic);
+        $om->persist($post1);
+        $om->persist($post2);
+        $om->flush();
+
+        $this->assertEquals(2, $category->getNumPosts(), 'the number of posts is automatically increased on persist');
+
+        $om->remove($post2);
+        $om->flush();
+
+        $this->assertEquals(1, $category->getNumPosts(), 'the number of posts is automatically decreased on remove');
+
+        $om->remove($topic);
+        $om->flush();
+
+        $this->assertEquals(0, $category->getNumPosts(), 'the number of posts is automatically decreased on remove');
+    }
+
+    public function testNumPosts()
+    {
+        $category = new $this->categoryClass();
+        $category->setName('Test category ');
+        $this->assertAttributeEquals(0, 'numPosts', $category, 'the number of posts is set to 0 during creation');
+
+        $category->setNumPosts(4);
+        $this->assertAttributeEquals(4, 'numPosts', $category, '::setNumPosts() sets the number of posts');
+        $this->assertEquals(4, $category->getNumPosts(), '::getNumPosts() gets the number of posts');
+
+        $category->incrementNumPosts();
+        $this->assertAttributeEquals(5, 'numPosts', $category, '::incrementNumPosts() increases the number of posts');
+
+        $category->decrementNumPosts();
+        $this->assertAttributeEquals(4, 'numPosts', $category, '::decrementNumPosts() decreases the number of posts');
+
+        $category->setNumPosts('SomeString');
+        $this->assertAttributeInternalType('integer', 'numPosts', $category, 'the number of posts is mandatory an integer');
+
+        $category->setNumPosts(0);
+
+        $topic = new $this->topicClass();
+        $topic->setSubject('Test topic');
+        $topic->setCategory($category);
+
         $post = new $this->postClass($topic);
         $post->setMessage('Foo bar bla bla...');
 
@@ -94,12 +145,12 @@ class CategoryTest extends WebTestCase
         $om->persist($post);
         $om->flush();
 
-        $this->assertEquals(1, $category->getNumTopics(), 'the number of topics is automatically increased on persist');
+        $this->assertEquals(1, $category->getNumPosts(), 'the number of topics is automatically increased on persist');
 
         $om->remove($topic);
         $om->flush();
 
-        $this->assertEquals(0, $category->getNumTopics(), 'the number of topics is automatically decreased on remove');
+        $this->assertEquals(0, $category->getNumPosts(), 'the number of topics is automatically decreased on remove');
     }
 
 }

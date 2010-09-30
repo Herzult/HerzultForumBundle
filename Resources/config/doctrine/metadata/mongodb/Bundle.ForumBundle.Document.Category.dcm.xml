@@ -18,6 +18,8 @@
 
         <field name="numTopics" fieldName="numTopics" type="int" />
 
+        <field name="numPosts" fieldName="numPosts" type="int" />;
+
         <reference-one target-document="Topic" field="lastTopic" />
 
         <lifecycle-callbacks>

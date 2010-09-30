@@ -15,11 +15,14 @@
         <field name="updatedAt" fieldName="updatedAt" type="date" />
 
         <reference-one target-document="Topic" field="topic" />
-        
+
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="setCreatedNow" />
+            <lifecycle-callback type="prePersist" method="incrementTopicNumPosts" />
+            <lifecycle-callback type="prePersist" method="incrementCategoryNumPosts" />
             <lifecycle-callback type="preUpdate" method="setUpdatedNow" />
-            <lifecycle-callback type="preRemove" method="decrementTopicNumRepliesOnPreRemove" />
+            <lifecycle-callback type="preRemove" method="decrementTopicNumPosts" />
+            <lifecycle-callback type="preRemove" method="decrementCategoryNumPosts" />
         </lifecycle-callbacks>
 
     </document>

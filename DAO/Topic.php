@@ -9,7 +9,7 @@ abstract class Topic
     protected $id;
     protected $subject;
     protected $numViews;
-    protected $numReplies;
+    protected $numPosts;
     protected $isClosed;
     protected $isPinned;
     protected $isBuried;
@@ -21,10 +21,9 @@ abstract class Topic
     protected $lastPost;
     protected $posts;
 
-    public function __construct(Category $category = null)
+    public function __construct()
     {
-        $this->category = $category;
-        $this->numViews = $this->numReplies = 0;
+        $this->numViews = $this->numPosts = 0;
         $this->isClosed = $this->isPinned = $this->isBuried = false;
         $this->posts = new ArrayCollection();
     }
@@ -96,39 +95,39 @@ abstract class Topic
     }
 
     /**
-     * Sets the number of replies
+     * Sets the number of posts
      *
-     * @param integer $numReplies
+     * @param integer $numPosts
      */
-    public function setNumReplies($numReplies)
+    public function setNumPosts($numPosts)
     {
-        $this->numReplies = \intval($numReplies);
+        $this->numPosts = \intval($numPosts);
     }
 
     /**
-     * Gets the number of replies
+     * Gets the number of posts
      *
      * @return integer
      */
-    public function getNumReplies()
+    public function getNumPosts()
     {
-        return $this->numReplies;
+        return $this->numPosts;
     }
 
     /**
-     * Increments the number of replies
+     * Increments the number of posts
      */
-    public function incrementNumReplies()
+    public function incrementNumPosts()
     {
-        $this->numReplies++;
+        $this->numPosts++;
     }
 
     /**
-     * Decrements the number of replies
+     * Decrements the number of posts
      */
-    public function decrementNumReplies()
+    public function decrementNumPosts()
     {
-        $this->numReplies--;
+        $this->numPosts--;
     }
 
     /**
@@ -278,8 +277,6 @@ abstract class Topic
 
         if (count($this->posts) === 1) {
             $this->firstPost = $post;
-        } else {
-            $this->incrementNumReplies();
         }
 
         $this->lastPost = $post;
@@ -315,23 +312,35 @@ abstract class Topic
         return $this->category;
     }
 
-    public function incrementCategoryNumTopicsOnPrePersist()
+    public function validateBeforePersist()
     {
         if (empty($this->firstPost)) {
-            throw new \Exception('You must add at least one post as first post to persist the topic.');
+            throw new \RuntimeException('You must add at least one post as first post to persist the topic.');
         }
 
         if (empty($this->category)) {
-            throw new \Exception('You must set a category to persist the topic.');
+            throw new \RuntimeException('You must set a category to persist the topic.');
         }
-
-        $this->category->setLastTopic($this);
-        $this->category->incrementNumTopics();
     }
 
-    public function decrementCategoryNumTopicsOnPreRemove()
+    public function setAsCategoryLastTopic()
     {
-        $this->category->decrementNumtopics();
+        $this->getCategory()->setLastTopic($this);
+    }
+
+    public function incrementCategoryNumTopics()
+    {
+        $this->getCategory()->incrementNumTopics();
+    }
+
+    public function decrementCategoryNumTopics()
+    {
+        $this->category->decrementNumTopics();
+    }
+
+    public function decrementCategoryNumPosts()
+    {
+        $this->category->decrementNumPosts($this->getNumPosts());
     }
 
 }

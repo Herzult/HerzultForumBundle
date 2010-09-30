@@ -12,7 +12,7 @@
 
         <field name="numViews" fieldName="numViews" type="int" />
 
-        <field name="numReplies" fieldName="numReplies" type="int" />
+        <field name="numPosts" fieldName="numPosts" type="int" />
 
         <field name="isClosed" fieldName="isClosed" type="boolean" />
 
@@ -35,10 +35,13 @@
         <reference-many target-document="Post" field="posts" />
 
         <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="ValidateBeforePersist" />
             <lifecycle-callback type="prePersist" method="setCreatedNow" />
             <lifecycle-callback type="prePersist" method="setPulledNow" />
-            <lifecycle-callback type="prePersist" method="incrementCategoryNumTopicsOnPrePersist" />
-            <lifecycle-callback type="preRemove" method="decrementCategoryNumTopicsOnPreRemove" />
+            <lifecycle-callback type="prePersist" method="setAsCategoryLastTopic" />
+            <lifecycle-callback type="prePersist" method="incrementCategoryNumTopics" />
+            <lifecycle-callback type="preRemove" method="decrementCategoryNumTopics" />
+            <lifecycle-callback type="preRemove" method="decrementCategoryNumPosts" />
         </lifecycle-callbacks>
 
     </document>
