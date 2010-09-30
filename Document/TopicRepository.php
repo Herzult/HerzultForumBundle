@@ -26,9 +26,9 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
 
         if ($asPaginator) {
             return new Paginator(new PaginatorODMAdapter($query));
-        } else {
-            return array_values($query->execute()->getResults());
         }
+
+        return array_values($query->execute()->getResults());
     }
 
     /**
@@ -36,7 +36,16 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findAllByCategory($category, $asPaginator = false)
     {
-        throw new \Exception('Not implemented yet.');
+        $query = $this->createQuery()
+            ->sort('createdAt', 'DESC')
+            ->field('category.$id')
+            ->equals(new \MongoId($category->getId()));
+
+        if ($asPaginator) {
+            return new Paginator(new PaginatorODMAdapter($query));
+        }
+
+        return array_values($query->execute()->getResults());
     }
 
 }
