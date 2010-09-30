@@ -3,7 +3,7 @@
 namespace Bundle\ForumBundle\Document;
 
 use Bundle\ForumBundle\DAO\TopicRepositoryInterface;
-use Bundle\DoctrinePaginatorBundle\Paginator;
+use Zend\Paginator\Paginator;
 use Bundle\DoctrinePaginatorBundle\PaginatorODMAdapter;
 
 class TopicRepository extends ObjectRepository implements TopicRepositoryInterface

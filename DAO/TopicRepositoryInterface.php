@@ -2,8 +2,6 @@
 
 namespace Bundle\ForumBundle\DAO;
 
-use Zend\Paginator\Paginator;
-
 interface TopicRepositoryInterface extends RepositoryInterface
 {
 
