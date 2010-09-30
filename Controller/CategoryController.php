@@ -21,8 +21,11 @@ class CategoryController extends Controller
             throw new NotFoundHttpException('The topic does not exist.');
         }
 
+        $topics = $this['forum.topic_repository']->findAllByCategory($category, true);
+
         return $this->render('ForumBundle:Category:show.'.$this->getRenderer(), array(
-            'category' => $category
+            'category' => $category,
+            'topics' => $topics
         ));
     }
 

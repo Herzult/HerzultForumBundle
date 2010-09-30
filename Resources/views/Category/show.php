@@ -7,7 +7,7 @@
     </ul>
     <div class="main topics">
         <h2><?php echo $category->getName() ?></h2>
-        <?php echo $view['actions']->render('ForumBundle:Topic:list', array('category' => $category)) ?>
+        <?php echo $view['actions']->render('ForumBundle:Topic:list', array('topics' => $topics)) ?>
     </div>
     <div class="side categories">
         <h2>Categories</h2>
