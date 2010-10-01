@@ -115,6 +115,16 @@ abstract class Topic
     }
 
     /**
+     * Get the number of replies
+     *
+     * @return integer
+     **/
+    public function getNumReplies()
+    {
+        return $this->getNumPosts() - 1;
+    }
+
+    /**
      * Increments the number of posts
      */
     public function incrementNumPosts()
