@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="forum.topic_form.class">Bundle\ForumBundle\Form\TopicForm</parameter>
+        <parameter key="forum.post_form.class">Bundle\ForumBundle\Form\PostForm</parameter>
     </parameters>
 
 </container>
