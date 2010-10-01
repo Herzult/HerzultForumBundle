@@ -37,7 +37,14 @@ If you want ready to use routing, include the builtin routes:
 
     # app/config/routing.yml
     forum:
-        resource: ForumBundle/Resources/config/routing.xml
+        resource: ForumBundle/Resources/config/routing/forum.xml
+        prefix:     /forum
+    forum_category:
+        resource: ForumBundle/Resources/config/routing/category.xml
+        prefix:     /forum
+    forum_topic:
+        resource: ForumBundle/Resources/config/routing/topic.xml
+        prefix:     /forum
 
 in xml
 
