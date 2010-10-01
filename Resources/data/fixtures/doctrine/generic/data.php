@@ -109,7 +109,7 @@ $categories[] = $development;
 
 for ($i = 0; $i < 50; $i++) {
     $topic = new $topicClass();
-    $topic->setCategory($categories[$i%(count($categories)-1) + 1]);
+    $topic->setCategory($categories[$i%(count($categories)-2) + 1]);
     $topic->setSubject('Test topic number ' . $i);
     $topic->setAuthor($users[$i%(count($users)-1) + 1]);
 
