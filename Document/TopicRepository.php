@@ -22,7 +22,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findAll($asPaginator = false)
     {
-        $query = $this->createQuery()->sort('position', 'ASC');
+        $query = $this->createQuery()->sort('pulledAt', 'ASC');
 
         if ($asPaginator) {
             return new Paginator(new PaginatorODMAdapter($query));
