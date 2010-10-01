@@ -16,6 +16,8 @@
 
         <reference-one target-document="Topic" field="topic" />
 
+        <reference-one target-document="Bundle\DoctrineUserBundle\Document\User" field="author" />
+
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="setCreatedNow" />
             <lifecycle-callback type="prePersist" method="incrementTopicNumPosts" />
