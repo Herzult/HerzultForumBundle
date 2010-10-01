@@ -37,7 +37,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
     public function findAllByCategory($category, $asPaginator = false)
     {
         $query = $this->createQuery()
-            ->sort('createdAt', 'DESC')
+            ->sort('pulledAt', 'DESC')
             ->field('category.$id')
             ->equals(new \MongoId($category->getId()));
 
