@@ -4,7 +4,7 @@ namespace Bundle\ForumBundle\Document;
 
 use Bundle\ForumBundle\DAO\Category as BaseCategory;
 
-class Category extends BaseCategory
+abstract class Category extends BaseCategory
 {
     
 }
