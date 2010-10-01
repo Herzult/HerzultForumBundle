@@ -4,7 +4,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <document name="Bundle\ForumBundle\Document\Category" collection="forum_category" repository-class="Bundle\ForumBundle\Document\CategoryRepository">
+    <mapped-superclass name="Bundle\ForumBundle\Document\Category" collection="forum_category" repository-class="Bundle\ForumBundle\Document\CategoryRepository">
 
         <field name="id" fieldName="id" id="true" />
 
@@ -27,6 +27,6 @@
             <lifecycle-callback type="preUpdate" method="generateSlug" />
         </lifecycle-callbacks>
 
-    </document>
+    </mapped-superclass>
 
 </doctrine-mongo-mapping>
