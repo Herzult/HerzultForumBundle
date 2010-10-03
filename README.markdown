@@ -51,16 +51,15 @@ Post:
 
     class Post extends BasePost {}
 
-### Choose ORM or ODM database driver
+### Choose ORM or ODM database driver and declare object classes
 
     # app/config.yml
     forum.config:
         db_driver: orm # can be orm or odm
-
-or if you prefer xml
-
-    # app/config.xml
-    <forum:config db_driver="orm"/> <!-- can be orm or odm -->
+        category_class: Bundle\Application\ForumBundle\Entity\Category
+        topic_class: Bundle\Application\ForumBundle\Entity\Topic
+        post_class: Bundle\Application\ForumBundle\Entity\Post
+        user_class: Bundle\Application\DoctrineUserBundle\Entity\User
 
 ### Add authentication routes
 
