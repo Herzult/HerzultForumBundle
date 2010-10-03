@@ -16,6 +16,29 @@ class PostTest extends WebTestCase
         $om->getRepository('ForumBundle:Post')->cleanUp();
     }
 
+    public function testObjectClass()
+    {
+        $class = $this->getService('forum.post_repository')->getClassMetadata();
+        $this->assertEquals($this->postClass, $class->name);
+    }
+
+    public function testTopicClass()
+    {
+        $class = $this->getService('forum.post_repository')->getClassMetadata();
+        $topic = $class->getFieldMapping('topic');
+        $this->assertNotNull($topic);
+        $this->assertEquals($this->topicClass, $topic['targetDocument']);
+    }
+
+    public function testAuthorClass()
+    {
+        $userClass = $this->getService('doctrine_user.user_repository')->getObjectClass();
+        $class = $this->getService('forum.post_repository')->getClassMetadata();
+        $author = $class->getFieldMapping('author');
+        $this->assertNotNull($author);
+        $this->assertEquals($userClass, $author['targetDocument']);
+    }
+
     public function testMessage()
     {
         $class = $this->postClass;

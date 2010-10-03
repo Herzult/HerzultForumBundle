@@ -16,6 +16,36 @@ class TopicTest extends WebTestCase
         $om->getRepository('ForumBundle:Post')->cleanUp();
     }
 
+    public function testObjectClass()
+    {
+        $class = $this->getService('forum.topic_repository')->getClassMetadata();
+        $this->assertEquals($this->topicClass, $class->name);
+    }
+
+    public function testCategoryClass()
+    {
+        $class = $this->getService('forum.topic_repository')->getClassMetadata();
+        $category = $class->getFieldMapping('category');
+        $this->assertNotNull($category);
+        $this->assertEquals($this->categoryClass, $category['targetDocument']);
+    }
+
+    public function testFirstPostClass()
+    {
+        $class = $this->getService('forum.topic_repository')->getClassMetadata();
+        $firstPost = $class->getFieldMapping('firstPost');
+        $this->assertNotNull($firstPost);
+        $this->assertEquals($this->postClass, $firstPost['targetDocument']);
+    }
+
+    public function testLastPostClass()
+    {
+        $class = $this->getService('forum.topic_repository')->getClassMetadata();
+        $lastPost = $class->getFieldMapping('lastPost');
+        $this->assertNotNull($lastPost);
+        $this->assertEquals($this->postClass, $lastPost['targetDocument']);
+    }
+
     public function testSubject()
     {
         $topic = new $this->topicClass($this->getMock($this->categoryClass));
