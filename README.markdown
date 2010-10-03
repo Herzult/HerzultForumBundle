@@ -20,6 +20,37 @@ It's currently under *intensive* development.
         );
     }
 
+### Create your own Category, Topic and Post classes
+
+You must create entity/document classes that extend the default ones.
+Then you will be able to add logic and mapping in them.
+
+#### MongoDB classes:
+
+Category:
+    // src/Application/ForumBundle/Document/Category.php
+
+    namespace Application\ForumBundle\Document;
+    use Bundle\ForumBundle\Document\Category as BaseCategory;
+
+    class Category extends BaseCategory {}
+
+Topic:
+    // src/Application/ForumBundle/Document/Topic.php
+
+    namespace Application\ForumBundle\Document;
+    use Bundle\ForumBundle\Document\Topic as BaseTopic;
+
+    class Topic extends BaseTopic {}
+
+Post:
+    // src/Application/ForumBundle/Document/Post.php
+
+    namespace Application\ForumBundle\Document;
+    use Bundle\ForumBundle\Document\Post as BasePost;
+
+    class Post extends BasePost {}
+
 ### Choose ORM or ODM database driver
 
     # app/config.yml
