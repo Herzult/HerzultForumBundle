@@ -15,6 +15,20 @@ class CategoryTest extends WebTestCase
         $om->getRepository('ForumBundle:Post')->cleanUp();
     }
 
+    public function testObjectClass()
+    {
+        $class = $this->getService('forum.category_repository')->getClassMetadata();
+        $this->assertEquals($this->categoryClass, $class->name);
+    }
+
+    public function testLastTopicClass()
+    {
+        $class = $this->getService('forum.category_repository')->getClassMetadata();
+        $lastTopic = $class->getFieldMapping('lastTopic');
+        $this->assertNotNull($lastTopic);
+        $this->assertEquals($this->topicClass, $lastTopic['targetDocument']);
+    }
+
     public function testName()
     {
         $category = new $this->categoryClass();
