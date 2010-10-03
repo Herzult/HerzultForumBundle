@@ -36,6 +36,17 @@ class ForumExtension extends Extension
         if (isset($config['template_renderer'])) {
             $container->setParameter('forum.template.renderer', $config['template_renderer']);
         }
+
+        foreach(array('category', 'topic', 'post', 'user') as $model) {
+            $configName = $model.'_class';
+            $parameterName = sprintf('forum.%s_object.class', $model);
+            if (isset($config[$configName])) {
+                $container->setParameter($parameterName, $config[$configName]);
+            }
+            else {
+                throw new \InvalidArgumentException(sprintf('ForumBundle: You must define your %s class', $model));
+            }
+        }
     }
 
     /**
