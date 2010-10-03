@@ -6,8 +6,6 @@
 
     <parameters>
         <parameter key="templating.helper.forum.class">Bundle\ForumBundle\Templating\Helper\ForumHelper</parameter>
-        <parameter key="forum.topics_per_page">20</parameter>
-        <parameter key="forum.posts_per_page">10</parameter>
     </parameters>
 
     <services>
