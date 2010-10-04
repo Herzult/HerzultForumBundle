@@ -44,12 +44,6 @@
             <join-column name="last_post_id" referenced-column-name="id" on-delete="SET NULL" />
         </one-to-one>
 
-        <one-to-many target-entity="Post" mapped-by="topic" field="posts">
-            <order-by>
-                <order-by-field name="createdAt" direction="ASC" />
-            </order-by>
-        </one-to-many>
-
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="validateBeforePersist" />
             <lifecycle-callback type="prePersist" method="setCreatedNow" />

@@ -42,7 +42,8 @@ class PostTest extends WebTestCase
     public function testMessage()
     {
         $class = $this->postClass;
-        $post = new $class($this->getMock($this->topicClass));
+        $post = new $class();
+        $post->setTopic($this->getMock($this->topicClass));
         $this->assertAttributeEmpty('message', $post, 'the message is empty during creation');
 
         $post->setMessage('Foo bar bla bla...');
@@ -53,7 +54,8 @@ class PostTest extends WebTestCase
     public function testCreatedAt()
     {
         $class = $this->postClass;
-        $post = new $class($this->getMock($this->topicClass));
+        $post = new $class();
+        $post->setTopic($this->getMock($this->topicClass));
         $this->assertAttributeEmpty('createdAt', $post, 'the creation timestamp is empty during creation');
 
         $date = new \DateTime('now');
@@ -66,7 +68,8 @@ class PostTest extends WebTestCase
     public function testUpdatedAt()
     {
         $class = $this->postClass;
-        $post = new $class($this->getMock($this->topicClass));
+        $post = new $class();
+        $post->setTopic($this->getMock($this->topicClass));
         $this->assertAttributeEmpty('updatedAt', $post, 'the update timestamp is empty during creation');
 
         $date = new \DateTime('now');
@@ -87,7 +90,8 @@ class PostTest extends WebTestCase
         $topic->setSubject('Testing timestampable functionality');
         $topic->setCategory($category);
 
-        $post = new $this->postClass($topic);
+        $post = new $this->postClass();
+        $post->setTopic($topic);
         $post->setMessage('Foo bar bla bla...');
 
         $om->persist($category);
@@ -116,7 +120,8 @@ class PostTest extends WebTestCase
         $topic->setSubject('Testing category getter');
         $topic->setCategory($category);
 
-        $post = new $this->postClass($topic);
+        $post = new $this->postClass();
+        $post->setTopic($topic);
         $post->setMessage('Foo bar bla bla...');
 
         $om->persist($category);

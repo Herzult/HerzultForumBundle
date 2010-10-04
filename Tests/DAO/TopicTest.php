@@ -103,14 +103,16 @@ class TopicTest extends WebTestCase
 
         $topic->setNumPosts(0);
 
-        $post = new $this->postClass($topic);
+        $post = new $this->postClass();
+        $post->setTopic($topic);
         $post->setMessage('Some content, foo bar, bla bla...');
 
         $om->persist($category, $topic, $post);
 
         $this->assertEquals(0, $topic->getNumPosts(), 'the first post is not considered as a post');
 
-        $firstReply = new $this->postClass($topic);
+        $firstReply = new $this->postClass();
+        $firstReply->setTopic($topic);
         $firstReply->setMessage('First post post message');
 
         $om->persist($firstReply);
@@ -226,7 +228,8 @@ class TopicTest extends WebTestCase
             
         }
 
-        $post = new $this->postClass($topic);
+        $post = new $this->postClass();
+        $post->setTopic($topic);
         $post->setMessage('Some content, foo bar, bla bla...');
 
         $om->persist($category, $topic, $post);

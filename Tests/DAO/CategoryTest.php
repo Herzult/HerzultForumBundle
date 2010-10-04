@@ -99,10 +99,12 @@ class CategoryTest extends WebTestCase
         $topic->setSubject('Test topic');
         $topic->setCategory($category);
 
-        $post1 = new $this->postClass($topic);
+        $post1 = new $this->postClass();
+        $post1->setTopic($topic);
         $post1->setMessage('Foo bar bla bla...');
 
-        $post2 = new $this->postClass($topic);
+        $post2 = new $this->postClass();
+        $post2->setTopic($topic);
         $post2->setMessage('Foo bar bla bla...');
 
         $om = $this->getService('forum.object_manager');
@@ -150,7 +152,8 @@ class CategoryTest extends WebTestCase
         $topic->setSubject('Test topic');
         $topic->setCategory($category);
 
-        $post = new $this->postClass($topic);
+        $post = new $this->postClass();
+        $post->setTopic($topic);
         $post->setMessage('Foo bar bla bla...');
 
         $om = $this->getService('forum.object_manager');

@@ -35,7 +35,8 @@ class TopicRepositoryTest extends WebTestCase
         $topic1->setSubject('Topic 1');
         $topic1->setCategory($category);
 
-        $post1 = new $this->postClass($topic1);
+        $post1 = new $this->postClass();
+        $post1->setTopic($topic1);
         $post1->setMessage('Foo bar...');
 
         $om->persist($topic1);
@@ -45,7 +46,8 @@ class TopicRepositoryTest extends WebTestCase
         $topic3->setSubject('Topic 3');
         $topic3->setCategory($category);
 
-        $post3 = new $this->postClass($topic3);
+        $post3 = new $this->postClass();
+        $post3->setTopic($topic3);
         $post3->setMessage('Foo bar...');
 
         $om->persist($topic3);
@@ -55,7 +57,8 @@ class TopicRepositoryTest extends WebTestCase
         $topic2->setSubject('Topic 2');
         $topic2->setCategory($category);
 
-        $post2 = new $this->postClass($topic2);
+        $post2 = new $this->postClass();
+        $post2->setTopic($topic2);
         $post2->setMessage('Foo bar...');
 
         $om->persist($topic2);
@@ -84,7 +87,8 @@ class TopicRepositoryTest extends WebTestCase
         $topic->setSubject('Testing the ::findOneById method');
         $topic->setCategory($category);
 
-        $post = new $this->postClass($topic);
+        $post = new $this->postClass();
+        $post->setTopic($topic);
         $post->setMessage('Foo bar...');
 
         $om->persist($category);

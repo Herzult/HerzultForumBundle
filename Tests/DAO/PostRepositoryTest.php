@@ -25,7 +25,8 @@ class PostRepositoryTest extends WebTestCase
         $topic->setSubject('We are testing the Post entity repository');
         $topic->setCategory($category);
 
-        $post = new $this->postClass($topic);
+        $post = new $this->postClass();
+        $post->setTopic($topic);
         $post->setMessage('Hello, I\'ll be deleted after the test...');
 
         $om = $this->getService('forum.object_manager');

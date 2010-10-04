@@ -17,12 +17,6 @@ abstract class Post
     protected $createdAt;
     protected $updatedAt;
 
-    public function __construct(Topic $topic)
-    {
-        $this->topic = $topic;
-        $this->topic->addPost($this);
-    }
-
     /**
      * Gets the id
      *
@@ -117,6 +111,17 @@ abstract class Post
     public function getTopic()
     {
         return $this->topic;
+    }
+
+    /**
+     * Sets the topic
+     *
+     * @return null
+     **/
+    public function setTopic($topic)
+    {
+        $this->topic = $topic;
+        $this->topic->addPost($this);
     }
 
     /**

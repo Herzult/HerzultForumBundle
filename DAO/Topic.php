@@ -19,13 +19,11 @@ abstract class Topic
     protected $author;
     protected $firstPost;
     protected $lastPost;
-    protected $posts;
 
     public function __construct()
     {
         $this->numViews = $this->numPosts = 0;
         $this->isClosed = $this->isPinned = $this->isBuried = false;
-        $this->posts = new ArrayCollection();
     }
 
     /**
@@ -283,23 +281,11 @@ abstract class Topic
      */
     public function addPost(Post $post)
     {
-        $this->posts[] = $post;
-
-        if (count($this->posts) === 1) {
+        if (!$this->firstPost) {
             $this->firstPost = $post;
         }
 
         $this->lastPost = $post;
-    }
-
-    /**
-     * Gets all posts
-     *
-     * @return ArrayCollection
-     */
-    public function getPosts()
-    {
-        return $this->posts;
     }
 
     /**
