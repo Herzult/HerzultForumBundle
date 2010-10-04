@@ -47,6 +47,14 @@ class ForumExtension extends Extension
                 throw new \InvalidArgumentException(sprintf('ForumBundle: You must define your %s class', $model));
             }
         }
+
+        if(isset($config['topics_per_page'])) {
+            $container->setParameter('forum.topic_list.max_per_page', $config['topics_per_page']);
+        }
+
+        if(isset($config['posts_per_page'])) {
+            $container->setParameter('forum.post_list.max_per_page', $config['posts_per_page']);
+        }
     }
 
     /**
