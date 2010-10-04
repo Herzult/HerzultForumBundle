@@ -5,8 +5,8 @@
            xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
     
     <parameters>
-        <parameter key="forum.topics_list.max_per_page">20</parameter>
-        <parameter key="forum.posts_list.max_per_page">10</parameter>
+        <parameter key="forum.topic_list.max_per_page">20</parameter>
+        <parameter key="forum.post_list.max_per_page">10</parameter>
     </parameters>
     
 </container>
