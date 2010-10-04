@@ -15,28 +15,45 @@ class PostController extends Controller
             throw new NotFoundHttpException('The topic does not exist.');
         }
 
+        $user = $this['doctrine_user.auth']->getUser();
+        if (!$user) {
+            throw new NotFoundHttpException('A user must be logged in.');
+        }
+
         $form = $this->createForm('forum_post_new', $topic);
 
-        return $this->render('ForumBundle:Post:new.'.$this->getRenderer(), array('form' => $form));
+        return $this->render('ForumBundle:Post:new.'.$this->getRenderer(), array(
+            'form' => $form,
+            'topic' => $topic,
+            'user' => $user
+        ));
     }
 
     public function createAction($topicId)
     {
         $topic = $this['forum.topic_repository']->findOneById($topicId);
-
         if (!$topic) {
             throw new NotFoundHttpException('The topic does not exist.');
         }
 
-        $form = $this->createForm('forum_post_new', $topic);
+        $user = $this['doctrine_user.auth']->getUser();
+        if (!$user) {
+            throw new NotFoundHttpException('A user must be logged in.');
+        }
 
+        $form = $this->createForm('forum_post_new', $topic);
         $form->bind($this['request']->request->get($form->getName()));
 
         if(!$form->isValid()) {
-            return $this->render('ForumBundle:Post:new.'.$this->getRenderer(), array('form' => $form));
+            return $this->render('ForumBundle:Post:new.'.$this->getRenderer(), array(
+                'form' => $form,
+                'topic' => $topic,
+                'user' => $user
+            ));
         }
 
         $post = $form->getData();
+        $post->setAuthor($user);
         $this->savePost($post);
 
         $this['session']->setFlash('forum_post_create/success', true);
