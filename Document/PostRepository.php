@@ -23,7 +23,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
     public function findAllByTopic($topic, $asPaginator = false)
     {
         $query = $this->createQuery()
-            ->sort('createdAt', 'DESC')
+            ->sort('createdAt', 'ASC')
             ->field('topic.$id')
             ->equals(new \MongoId($topic->getId()));
 
