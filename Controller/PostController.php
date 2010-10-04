@@ -2,9 +2,9 @@
 
 namespace Bundle\ForumBundle\Controller;
 
-use Bundle\ForumBundle\DAO\Topic;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Bundle\ForumBundle\Document\Post;
+use Bundle\ForumBundle\DAO\Topic;
+use Bundle\ForumBundle\DAO\Post;
 
 class PostController extends Controller
 {
