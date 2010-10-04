@@ -5,33 +5,63 @@ namespace Bundle\ForumBundle\Controller;
 use Bundle\ForumBundle\Form\TopicForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Bundle\ForumBundle\DAO\Topic;
+use Bundle\ForumBundle\DAO\Category;
 
 class TopicController extends Controller
 {
-    public function newAction()
+    public function newAction($categorySlug)
     {
-        $form = $this->createForm('forum_topic_new');
-
-        return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array('form' => $form));
-    }
-
-    public function createAction()
-    {
-        $form = $this->createForm('forum_topic_new');
-
-        $form->bind($this['request']->request->get($form->getName()));
-
-        if ($form->isValid()) {
-            $topic = $form->getData();
-            $this->saveTopic($topic);
-
-            $this['session']->setFlash('forum_topic_create/success', true);
-            $url = $this->generateUrl('forum_topic_show', array('id' => $topic->getId()));
-
-            return $this->redirect($url);
+        $category = $this['forum.category_repository']->findOneBySlug($categorySlug);
+        if (!$category) {
+            throw new NotFoundHttpException('The category does not exist.');
         }
 
-        return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array('form' => $form));
+        $user = $this['doctrine_user.auth']->getUser();
+        if (!$user) {
+            throw new NotFoundHttpException('A user must be logged in.');
+        }
+
+        $form = $this->createForm('forum_topic_new', $category);
+
+        return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array(
+            'form' => $form,
+            'category' => $category,
+            'user' => $user
+        ));
+    }
+
+    public function createAction($categorySlug)
+    {
+        $category = $this['forum.category_repository']->findOneBySlug($categorySlug);
+        if (!$category) {
+            throw new NotFoundHttpException('The category does not exist.');
+        }
+
+        $user = $this['doctrine_user.auth']->getUser();
+        if (!$user) {
+            throw new NotFoundHttpException('A user must be logged in.');
+        }
+
+        $form = $this->createForm('forum_topic_new', $category);
+        $form->bind($this['request']->request->get($form->getName()));
+
+        if(!$form->isValid()) {
+            return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array(
+                'form' => $form,
+                'category' => $category,
+                'user' => $user
+            ));
+        }
+
+        $topic = $form->getData();
+        $topic->setAuthor($user);
+        $this->saveTopic($topic);
+
+        $this['session']->setFlash('forum_topic_create/success', true);
+        $url = $this->generateUrl('forum_topic_show', array('id' => $topic->getId()));
+
+        return $this->redirect($url);
     }
 
     public function listAction($category = null)
@@ -68,13 +98,12 @@ class TopicController extends Controller
      * @param Topic $topic 
      * @return Bundle\ForumBundle\Form\TopicForm
      */
-    protected function createForm($name, $topic = null)
+    protected function createForm($name, Category $category)
     {
         $formClass = $this->container->getParameter('forum.topic_form.class');
-        if (null === $object) {
-            $topicClass = $this['forum.topic_repository']->getObjectClass();
-            $topic = new $topicClass();
-        }
+        $topicClass = $this['forum.topic_repository']->getObjectClass();
+        $topic = new $topicClass();
+        $topic->setCategory($category);
 
         return new $formClass($name, $topic, $this['validator']);
     }
