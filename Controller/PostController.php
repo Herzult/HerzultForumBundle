@@ -4,13 +4,13 @@ namespace Bundle\ForumBundle\Controller;
 
 use Bundle\ForumBundle\DAO\Topic;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Bundle\ForumBundle\Document\Post;
 
 class PostController extends Controller
 {
     public function newAction($topicId)
     {
         $topic = $this['forum.topic_repository']->findOneById($topicId);
-
         if (!$topic) {
             throw new NotFoundHttpException('The topic does not exist.');
         }
