@@ -108,12 +108,8 @@ class TopicController extends Controller
         $post->setTopic($topic);
         $topic->setFirstPost($post);
 
-        $categoryChoices = $this['forum.category_repository']->findAllIndexById();
-        $form = new $topicFormClass($name, $topic, $this['validator'], array('categoryChoices' => $categoryChoices));
-        $categoryValueTransformer = new \Bundle\ForumBundle\Form\ValueTransformer\DoctrineObjectTransformer($this['forum.category_repository']);
-        $form['category']->setValueTransformer($categoryValueTransformer);
-        $postForm = new $postFormClass('firstPost', $post, $this['validator']);
-        $form->add($postForm);
+        $form = new $topicFormClass($name, $topic, $this['validator'], array('categoryRepository' => $this['forum.category_repository']));
+        $form->add(new $postFormClass('firstPost', $post, $this['validator']));
 
         return $form;
     }
