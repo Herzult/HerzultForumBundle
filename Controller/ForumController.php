@@ -15,7 +15,6 @@ class ForumController extends Controller
     public function searchAction()
     {
         $form = new SearchForm('search', array(), $this['validator']);
-        return $this->render('ForumBundle:Forum:search.php', array('form' => $form));
         return $this->render('ForumBundle:Forum:search.'.$this->getRenderer(), array('form' => $form));
     }
 
