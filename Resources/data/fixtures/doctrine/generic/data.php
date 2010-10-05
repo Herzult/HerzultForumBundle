@@ -79,28 +79,27 @@ $categories = array();
 
 $general = new $categoryClass();
 $general->setName('General');
-$general->setDescription('Hierdie is ïn kort maar baie goeie deskripsie van die seksie. Dit kan nie langer us dit wees nie. Die borrel luik nie te sleg nie.');
+$general->setDescription('Built with performance in mind, Symfony2 is one of the fastest PHP frameworks. It is up to 3 times faster than symfony 1.4 or Zend Framework 1.10 and consumes half the memory.');
 $general->setPosition(0);
 $categories[] = $general;
 
 $documentation = new $categoryClass();
 $documentation->setName('Documentation');
-$documentation->setDescription('Hierdie is ïn kort maar baie goeie deskripsie van die seksie. Dit kan nie langer us dit wees nie. Die borrel luik nie te sleg nie.');
+$documentation->setDescription('Learning a framework shouldn\'t be hard. Take an hour to read the Quick Tour and start using Symfony2 today.');
 $documentation->setPosition(1);
 $categories[] = $documentation;
 
 $helpAndSupport = new $categoryClass();
 $helpAndSupport->setName('Help & Support');
-$helpAndSupport->setDescription('Hierdie is ïn kort maar baie goeie deskripsie van die seksie. Dit kan nie langer us dit wees nie. Die borrel luik nie te sleg nie.');
+$helpAndSupport->setDescription("Thanks to a simple and cohesive API, Symfony gets out of your way and lets you enjoy coding again. We put a strong emphasis on ease of use without sacrificing extensibility.");
 $helpAndSupport->setPosition(2);
 $categories[] = $helpAndSupport;
 
 $development = new $categoryClass();
 $development->setName('Development');
-$development->setDescription('Hierdie is ïn kort maar baie goeie deskripsie van die seksie. Dit kan nie langer us dit wees nie. Die borrel luik nie te sleg nie.');
+$development->setDescription("Thanks to an innovative micro-kernel based on a Dependency Injection Container and an Event Dispatcher, Symfony is configurable at will.");
 $development->setPosition(3);
 $categories[] = $development;
-
 
 
 /*
