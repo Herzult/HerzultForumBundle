@@ -213,4 +213,9 @@ abstract class Category
     {
         return $this->lastTopic;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
