@@ -31,19 +31,14 @@ class TopicController extends Controller
         ));
     }
 
-    public function createAction($categorySlug)
+    public function createAction()
     {
-        $category = $this['forum.category_repository']->findOneBySlug($categorySlug);
-        if (!$category) {
-            throw new NotFoundHttpException('The category does not exist.');
-        }
-
         $user = $this['doctrine_user.auth']->getUser();
         if (!$user) {
             throw new NotFoundHttpException('A user must be logged in.');
         }
 
-        $form = $this->createForm('forum_topic_new', $category);
+        $form = $this->createForm('forum_topic_new');
         $form->bind($this['request']->request->get($form->getName()));
 
         if(!$form->isValid()) {
@@ -56,6 +51,7 @@ class TopicController extends Controller
 
         $topic = $form->getData();
         $topic->setAuthor($user);
+        $topic->getFirstPost()->setAuthor($user);
         $this->saveTopic($topic);
 
         $this['session']->setFlash('forum_topic_create/success', true);
@@ -98,14 +94,28 @@ class TopicController extends Controller
      * @param Topic $topic 
      * @return Bundle\ForumBundle\Form\TopicForm
      */
-    protected function createForm($name, Category $category)
+    protected function createForm($name, Category $category = null)
     {
-        $formClass = $this->container->getParameter('forum.topic_form.class');
+        $topicFormClass = $this->container->getParameter('forum.topic_form.class');
         $topicClass = $this['forum.topic_repository']->getObjectClass();
+        $postFormClass = $this->container->getParameter('forum.post_form.class');
+        $postClass = $this['forum.post_repository']->getObjectClass();
         $topic = new $topicClass();
-        $topic->setCategory($category);
+        if($category) {
+            $topic->setCategory($category);
+        }
+        $post = new $postClass();
+        $post->setTopic($topic);
+        $topic->setFirstPost($post);
 
-        return new $formClass($name, $topic, $this['validator']);
+        $categoryChoices = $this['forum.category_repository']->findAllIndexById();
+        $form = new $topicFormClass($name, $topic, $this['validator'], array('categoryChoices' => $categoryChoices));
+        $categoryValueTransformer = new \Bundle\ForumBundle\Form\ValueTransformer\DoctrineObjectTransformer($this['forum.category_repository']);
+        $form['category']->setValueTransformer($categoryValueTransformer);
+        $postForm = new $postFormClass('firstPost', $post, $this['validator']);
+        $form->add($postForm);
+
+        return $form;
     }
 
     /**
@@ -118,6 +128,7 @@ class TopicController extends Controller
     {
         $objectManager = $this['forum.topic_repository']->getObjectManager();
         $objectManager->persist($topic);
+        $objectManager->persist($topic->getFirstPost());
         $objectManager->flush();
     }
 }
