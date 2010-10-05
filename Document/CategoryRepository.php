@@ -23,4 +23,12 @@ class CategoryRepository extends ObjectRepository implements CategoryRepositoryI
         return array_values($this->createQuery()->sort('position', 'ASC')->execute()->getResults());
     }
 
+    /**
+     * @see CategoryRepositoryInterface::findAllIndexById
+     */
+    public function findAllIndexById()
+    {
+        return $this->createQuery()->sort('position', 'ASC')->execute()->getResults();
+    }
+
 }

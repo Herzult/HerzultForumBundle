@@ -12,9 +12,16 @@ interface CategoryRepositoryInterface extends RepositoryInterface
     public function findOneBySlug($slug);
 
     /**
-     * Find all categories ordered by position
+     * Find all categories
      *
      * @return array An array of Category objects
      */
     public function findAll();
+
+    /**
+     * Find all categories indexed by id
+     *
+     * @return array An array of Category objects
+     */
+    public function findAllIndexById();
 }
