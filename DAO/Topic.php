@@ -265,6 +265,17 @@ abstract class Topic
     }
 
     /**
+     * Sets the first post
+     *
+     * @param Post
+     * @return null
+     */
+    public function setFirstPost(Post $post)
+    {
+        $this->firstPost = $post;
+    }
+
+    /**
      * Gets the last post
      *
      * @return Post
