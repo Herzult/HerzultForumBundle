@@ -4,7 +4,7 @@ namespace Bundle\ForumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Bundle\ForumBundle\Form\SearchForm;
-use Bundle\ForumBundle\Util\Search;
+use Bundle\ForumBundle\Search\Search;
 
 class ForumController extends Controller
 {
