@@ -79,7 +79,13 @@ class TopicController extends Controller
             throw new NotFoundHttpException('The topic does not exist.');
         }
 
-        return $this->render('ForumBundle:Topic:show.'.$this->getRenderer(), array('topic' => $topic));
+        $page = $this['request']->query->get('page', 1);
+        $posts = $this['forum.post_repository']->findAllByTopic($topic, true);
+        $posts->setCurrentPageNumber($page);
+        $posts->setItemCountPerPage($this->container->getParameter('forum.post_list.max_per_page'));
+        $posts->setPageRange(5);
+
+        return $this->render('ForumBundle:Topic:show.'.$this->getRenderer(), array('topic' => $topic, 'posts' => $posts));
     }
 
     protected function getRenderer()
