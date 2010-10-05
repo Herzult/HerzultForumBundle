@@ -6,7 +6,8 @@
     </ul>
     <form class="clearfix" action="<?php echo $view['router']->generate('forum_search') ?>" method="get">
         <label for="<?php echo $form['query']->getId() ?>">Query</label>
-        <input id="<?php echo $form['query']->getId() ?>" name="<?php echo $form['query']->getName() ?>" />
+        <?php echo $form['query']->render() ?>
+        <?php echo $form['query']->renderErrors() ?>
         <div>
             <button type="submit" value="Search">Search</button>
         </div>
