@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="forum.topic_form.class">Bundle\ForumBundle\Form\TopicForm</parameter>
+        <parameter key="forum.topic_form.class">Bundle\ForumBundle\Form\NewTopicForm</parameter>
         <parameter key="forum.post_form.class">Bundle\ForumBundle\Form\PostForm</parameter>
     </parameters>
 
