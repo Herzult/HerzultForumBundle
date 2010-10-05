@@ -55,6 +55,10 @@ class ForumExtension extends Extension
         if(isset($config['posts_per_page'])) {
             $container->setParameter('forum.post_list.max_per_page', $config['posts_per_page']);
         }
+
+        if(isset($config['search_results_per_page'])) {
+            $container->setParameter('forum.search_results.max_per_page', $config['search_results_per_page']);
+        }
     }
 
     /**

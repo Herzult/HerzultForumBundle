@@ -13,7 +13,7 @@ interface PostRepositoryInterface extends RepositoryInterface
     public function findOneById($id);
 
     /**
-     * Finds all posts matching to the specified Topic ordered by their
+     * Finds all posts matching the specified Topic ordered by their
      * last created date
      *
      * @param Topic $topic
@@ -21,4 +21,14 @@ interface PostRepositoryInterface extends RepositoryInterface
      * @return array|Paginator
      */
     public function findAllByTopic($topic, $asPaginator);
+
+    /**
+     * Finds all posts matching the specified query ordered by their
+     * last created date
+     *
+     * @param string $query
+     * @param boolean $asPaginator Will return a Paginator instance if true
+     * @return array|Paginator
+     */
+    public function search($query, $asPaginator);
 }
