@@ -4,6 +4,7 @@ namespace Bundle\ForumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Bundle\ForumBundle\Form\SearchForm;
+use Bundle\ForumBundle\Util\Search;
 
 class ForumController extends Controller
 {
@@ -14,7 +15,15 @@ class ForumController extends Controller
 
     public function searchAction()
     {
-        $form = new SearchForm('search', array(), $this['validator']);
+        $search = new Search();
+        $form = new SearchForm('search', $search, $this['validator']);
+
+        if($this['request']->query->has($form->getName())) {
+            $form->bind($this['request']->query->get($form->getName()));
+            if($form->isValid()) {
+            }
+        }
+
         return $this->render('ForumBundle:Forum:search.'.$this->getRenderer(), array('form' => $form));
     }
 
