@@ -5,9 +5,9 @@ namespace Bundle\ForumBundle\Search;
 class Search
 {
     /**
-     * @Validation({
-     *   @NotBlank(),
-     *   @MinLength(limit=3, message="Just a little too short.")
+     * @validation:Validation({
+     *   @validation:NotBlank(),
+     *   @validation:MinLength(limit=3, message="Just a little too short.")
      * })
      */
     public $query;

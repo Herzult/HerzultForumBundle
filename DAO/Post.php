@@ -8,9 +8,9 @@ abstract class Post
     protected $topic;
     protected $author;
     /**
-     * @Validation({
-     *   @NotBlank(),
-     *   @MinLength(limit=4, message="Just a little too short.")
+     * @validation:Validation({
+     *   @validation:NotBlank(),
+     *   @validation:MinLength(limit=4, message="Just a little too short.")
      * })
      */
     protected $message;
