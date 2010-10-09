@@ -44,7 +44,7 @@ class DoctrineObjectTransformer extends BaseValueTransformer
         return $value->getId();
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform($value, $originalValue)
     {
         return $this->repository->find($value);
     }
