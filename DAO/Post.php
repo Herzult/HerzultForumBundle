@@ -173,7 +173,9 @@ abstract class Post
      **/
     public function updateNumber()
     {
-        $this->setNumber($this->getTopic()->getNumPosts());
+        if(!$this->getNumber()) {
+            $this->setNumber($this->getTopic()->getNumPosts());
+        }
     }
 
     /**
