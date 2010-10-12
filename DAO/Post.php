@@ -5,13 +5,21 @@ namespace Bundle\ForumBundle\DAO;
 abstract class Post
 {
     protected $id;
+    /**
+     * Topic the post belongs to
+     *
+     * @var Topic
+     */
     protected $topic;
+    /**
+     * Author who wrote the post
+     *
+     * @var mixed
+     */
     protected $author;
     /**
-     * @validation:Validation({
-     *   @validation:NotBlank(),
-     *   @validation:MinLength(limit=4, message="Just a little too short.")
-     * })
+     * @validation:NotBlank()
+     * @validation:MinLength(limit=4, message="Just a little too short.")
      */
     protected $message;
     protected $createdAt;
