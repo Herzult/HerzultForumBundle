@@ -167,6 +167,16 @@ abstract class Post
     }
 
     /**
+     * Update post number according to number of posts in its topic
+     *
+     * @return null
+     **/
+    public function updateNumber()
+    {
+        $this->setNumber($this->getTopic()->getNumPosts());
+    }
+
+    /**
      * Increment the category number of posts on prePersist
      */
     public function incrementCategoryNumPosts()

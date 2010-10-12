@@ -9,7 +9,9 @@
         <field name="id" fieldName="id" id="true" />
 
         <field name="message" fieldName="message" type="string" />
-        
+
+        <field name="number" fieldName="number" type="int" />
+
         <field name="createdAt" fieldName="createdAt" type="date" />
 
         <field name="updatedAt" fieldName="updatedAt" type="date" />
@@ -21,6 +23,7 @@
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="setCreatedNow" />
             <lifecycle-callback type="prePersist" method="incrementTopicNumPosts" />
+            <lifecycle-callback type="prePersist" method="updateNumber" />
             <lifecycle-callback type="prePersist" method="incrementCategoryNumPosts" />
             <lifecycle-callback type="preUpdate" method="setUpdatedNow" />
             <lifecycle-callback type="preRemove" method="decrementTopicNumPosts" />
