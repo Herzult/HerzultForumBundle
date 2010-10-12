@@ -145,4 +145,37 @@ class PostTest extends WebTestCase
         $this->assertEquals(5, $post->getNumber());
     }
 
+    public function testNumberIsIncremented()
+    {
+        $om = $this->getService('forum.object_manager');
+
+        $category = new $this->categoryClass();
+        $category->setName('Test Category');
+
+        $topic = new $this->topicClass();
+        $topic->setSubject('Testing category getter');
+        $topic->setCategory($category);
+
+        $post = new $this->postClass();
+        $post->setTopic($topic);
+        $post->setMessage('Foo bar bla bla...');
+
+        $om->persist($category);
+        $om->persist($topic);
+        $om->persist($post);
+        $om->flush();
+
+        $this->assertEquals(1, $post->getNumber());
+
+        $post2 = new $this->postClass();
+        $post2->setTopic($topic);
+        $post2->setMessage('Foo bar bla bla...');
+
+        $om->persist($post2);
+        $om->flush();
+
+        $this->assertEquals(1, $post->getNumber());
+        $this->assertEquals(2, $post2->getNumber());
+    }
+
 }
