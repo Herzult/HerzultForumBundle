@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="templating.helper.forum.class">Bundle\ForumBundle\Templating\Helper\ForumHelper</parameter>
+        <parameter key="twig.extension.forum.class">Bundle\ForumBundle\Twig\Extension\ForumExtension</parameter>
     </parameters>
 
     <services>
@@ -31,6 +32,11 @@
         <service id="templating.helper.forum" class="%templating.helper.forum.class%">
             <tag name="templating.helper" alias="forum" />
             <argument type="service" id="router" />
+        </service>
+
+        <!-- Twig Helper Service -->
+        <service id="twig.extension.forum" class="%twig.extension.forum.class%">
+            <tag name="twig.extension" />
         </service>
     </services>
 
