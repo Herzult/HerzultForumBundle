@@ -136,4 +136,13 @@ class PostTest extends WebTestCase
         $this->assertEquals($topic->getId(), $postTopic->getId());
     }
 
+    public function getSetNumber()
+    {
+        $post = new $this->postClass();
+        $this->assertEmpty($post->getNumber());
+
+        $post->setNumber(5);
+        $this->assertEquals(5, $post->getNumber());
+    }
+
 }

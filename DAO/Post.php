@@ -22,6 +22,13 @@ abstract class Post
      * @validation:MinLength(limit=4, message="Just a little too short.")
      */
     protected $message;
+    /**
+     * Post number relative to its topic
+     *
+     * @var int
+     */
+    protected $number = null;
+
     protected $createdAt;
     protected $updatedAt;
 
@@ -53,6 +60,25 @@ abstract class Post
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * Get number
+     * @return int
+     */
+    public function getNumber()
+    {
+      return $this->number;
+    }
+
+    /**
+     * Set number
+     * @param  int
+     * @return null
+     */
+    public function setNumber($number)
+    {
+      $this->number = $number;
     }
 
     /**
