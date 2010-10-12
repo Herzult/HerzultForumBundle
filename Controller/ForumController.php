@@ -19,8 +19,8 @@ class ForumController extends Controller
         $form = new SearchForm('search', $search, $this['validator']);
 
         $results = null;
-        if($this['request']->query->has($form->getName())) {
-            $form->bind($this['request']->query->get($form->getName()));
+        if($this['request']->query->has('q')) {
+            $form->bind(array('query' => $this['request']->query->get('q')));
             if($form->isValid()) {
                 $page = $this['request']->query->get('page', 1);
                 $results = $this['forum.post_repository']->search($search->query, true);
@@ -32,7 +32,8 @@ class ForumController extends Controller
 
         return $this->render('ForumBundle:Forum:search.'.$this->getRenderer(), array(
             'form' => $form,
-            'results' => $results
+            'results' => $results,
+            'query' => $search->query
         ));
     }
 
