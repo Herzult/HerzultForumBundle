@@ -52,6 +52,11 @@ class ForumHelper extends Helper
         ));
     }
 
+    public function urlForPost(Post $post)
+    {
+        return $this->urlForTopic($post->getTopic()).'#'.$post->getNumber();
+    }
+
     public function urlForUser(User $user)
     {
         return $this->router->generate('doctrine_user_user_show', array(

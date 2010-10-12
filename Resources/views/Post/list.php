@@ -1,6 +1,6 @@
 <ul class="forum_posts_list">
     <?php foreach ($posts as $post): ?>
-    <li>
+    <li id="<?php echo $post->getNumber() ?>">
         <div class="metas">
             <div class="author">
                 <?php if ($author = $post->getRawValue()->getAuthor()): ?>
