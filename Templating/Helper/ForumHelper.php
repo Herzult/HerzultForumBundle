@@ -12,10 +12,12 @@ use Bundle\DoctrineUserBundle\DAO\User;
 class ForumHelper extends Helper
 {
     protected $router;
+    protected $nbPostsPerPage;
 
-    public function __construct(RouterInterface $router)
+    public function __construct(RouterInterface $router, $nbPostsPerPage)
     {
         $this->router = $router;
+        $this->nbPostsPerPage = $nbPostsPerPage;
     }
 
     public function urlFor($object = null)
@@ -54,7 +56,10 @@ class ForumHelper extends Helper
 
     public function urlForPost(Post $post)
     {
-        return $this->urlForTopic($post->getTopic()).'#'.$post->getNumber();
+        $topicUrl = $this->urlForTopic($post->getTopic());
+        $topicPage = 1 + floor($post->getNumber() / $this->nbPostsPerPage);
+
+        return sprintf('%s?page=%d#%d', $topicUrl, $topicPage, $post->getNumber());
     }
 
     public function urlForUser(User $user)

@@ -32,6 +32,7 @@
         <service id="templating.helper.forum" class="%templating.helper.forum.class%">
             <tag name="templating.helper" alias="forum" />
             <argument type="service" id="router" />
+            <argument>%forum.post_list.max_per_page%</argument>
         </service>
 
         <!-- Twig Helper Service -->
