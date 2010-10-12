@@ -57,7 +57,7 @@ class PostController extends Controller
         $this->savePost($post);
 
         $this['session']->setFlash('forum_post_create/success', true);
-        $url = $this->generateUrl('forum_topic_show', array('id' => $topic->getId()));
+        $url = $this['templating.helper.forum']->urlForPost($post);
 
         return $this->redirect($url);
     }
@@ -68,10 +68,10 @@ class PostController extends Controller
     }
 
     /**
-     * Create a PostForm instance and returns it 
-     * 
-     * @param string $name 
-     * @param Topic $topic 
+     * Create a PostForm instance and returns it
+     *
+     * @param string $name
+     * @param Topic $topic
      * @return Bundle\ForumBundle\Form\PostForm
      */
     protected function createForm($name, Topic $topic)
@@ -96,5 +96,5 @@ class PostController extends Controller
         $objectManager->persist($post);
         $objectManager->flush();
     }
-    
+
 }
