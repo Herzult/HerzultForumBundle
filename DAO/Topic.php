@@ -217,11 +217,11 @@ abstract class Topic
     }
 
     /**
-     * Sets the pull timestamp as now
+     * Updates the pull timestamp to the latest post creation date
      */
-    public function setPulledNow()
+    public function updatePulledAt()
     {
-        $this->pulledAt = new \DateTime('now');
+        $this->pulledAt = $this->getLastPost()->getCreatedAt();
     }
 
     /**

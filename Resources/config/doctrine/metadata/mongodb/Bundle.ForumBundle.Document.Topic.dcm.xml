@@ -33,9 +33,9 @@
         <reference-one target-document="Post" field="lastPost" />
 
         <lifecycle-callbacks>
-            <lifecycle-callback type="prePersist" method="ValidateBeforePersist" />
+            <lifecycle-callback type="prePersist" method="validateBeforePersist" />
             <lifecycle-callback type="prePersist" method="setCreatedNow" />
-            <lifecycle-callback type="prePersist" method="setPulledNow" />
+            <lifecycle-callback type="prePersist" method="updatePulledAt" />
             <lifecycle-callback type="prePersist" method="setAsCategoryLastTopic" />
             <lifecycle-callback type="prePersist" method="incrementCategoryNumTopics" />
             <lifecycle-callback type="preRemove" method="decrementCategoryNumTopics" />
