@@ -53,7 +53,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findLatestPosted($number)
     {
-        $query = $this->createQuery();
+        $query = $this->createQuery()->sort('lastTopic.$createdAt', 'DESC')->limit($number);
 
         return array_values($query->execute()->getResults());
     }

@@ -86,7 +86,9 @@ abstract class Post
      */
     public function setCreatedNow()
     {
-        $this->createdAt = new \DateTime('now');
+        if(!$this->createdAt) {
+            $this->createdAt = new \DateTime('now');
+        }
     }
 
     /**
