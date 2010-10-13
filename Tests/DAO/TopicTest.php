@@ -203,9 +203,14 @@ class TopicTest extends WebTestCase
         $topic = new $this->topicClass($this->getMock($this->categoryClass));
         $this->assertAttributeEmpty('pulledAt', $topic, 'the pull timestamp is not set during creation');
 
-        $date = new \DateTime('now');
-        $topic->setPulledNow();
-        $this->assertAttributeEquals($date, 'pulledAt', $topic, '::setPulledNow() sets the pull timestamp as now as a DateTime object');
+        $date = new \DateTime('-2 day');
+        $post = $this->getMock($this->postClass);
+        $post->expects($this->once())
+                    ->method('getCreatedAt')
+                    ->will($this->returnValue($date));
+        $topic->addPost($post);
+        $topic->updatePulledAt();
+        $this->assertAttributeEquals($date, 'pulledAt', $topic, '::updatePulledAt() sets the pull timestamp as the last post creation date');
 
         $this->assertEquals($date, $topic->getPulledAt(), '::getPulledDate() gets the pull timestamp as a DateTime object');
     }
