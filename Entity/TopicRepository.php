@@ -51,4 +51,12 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
         }
     }
 
+    /**
+     * @see TopicRepositoryInterface::findLatestPosted
+     */
+    public function findLatestPosted($number)
+    {
+        return \LogicException('Not implemented');
+    }
+
 }

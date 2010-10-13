@@ -48,4 +48,14 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
         return array_values($query->execute()->getResults());
     }
 
+    /**
+     * @see TopicRepositoryInterface::findLatestPosted
+     */
+    public function findLatestPosted($number)
+    {
+        $query = $this->createQuery();
+
+        return array_values($query->execute()->getResults());
+    }
+
 }

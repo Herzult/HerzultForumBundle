@@ -6,14 +6,83 @@ use Bundle\ForumBundle\Test\WebTestCase;
 
 class TopicRepositoryTest extends WebTestCase
 {
+    protected $om;
 
     public function setUp()
     {
-        $om = parent::setUp();
+        $this->om = $om = parent::setUp();
 
         $om->getRepository('ForumBundle:Category')->cleanUp();
         $om->getRepository('ForumBundle:Topic')->cleanUp();
         $om->getRepository('ForumBundle:Post')->cleanUp();
+    }
+
+    public function testFindLatestPosted()
+    {
+        $number = 3;
+
+        $before = array_keys(get_defined_vars());
+        $c1 = $this->createCategory('c1');
+        $c2 = $this->createCategory('c2');
+        $t1 = $this->createTopic('t1', $c1);
+        $t2 = $this->createTopic('t2', $c1);
+        $t3 = $this->createTopic('t3', $c1);
+        $t4 = $this->createTopic('t4', $c2);
+        $p1 = $this->createPost('p1', $t1, 8);
+        $p2 = $this->createPost('p2', $t1, 7);
+        $p3 = $this->createPost('p3', $t2, 6);
+        $p4 = $this->createPost('p4', $t2, 5);
+        $p5 = $this->createPost('p5', $t3, 4);
+        $p6 = $this->createPost('p6', $t3, 3);
+        $p7 = $this->createPost('p7', $t4, 2);
+        $p8 = $this->createPost('p8', $t4, 1);
+        $after = array_keys(get_defined_vars());
+        $vars = array_values(array_diff($after, $before));
+        foreach($vars as $var) {
+            $document = ${$var};
+            if(is_object($document)) $this->om->persist($document);
+        }
+        $this->om->flush();
+
+        $lastTopics = $this->om->getRepository('ForumBundle:Topic')->findLatestPosted($number);
+        $this->assertSame($this->objectsToStrings(array($t4, $t3, $t2)), $this->objectsToStrings($lastTopics));
+    }
+
+    protected function objectsToStrings(array $objects)
+    {
+        $strings = array();
+        foreach($objects as $object) {
+            $strings[] = (string) $object;
+        }
+
+        return $strings;
+    }
+    protected function createCategory($name)
+    {
+        $category = new $this->categoryClass();
+        $category->setName($name);
+
+        return $category;
+    }
+
+    protected function createTopic($name, $category)
+    {
+        $topic = new $this->topicClass();
+        $topic->setSubject($name);
+        $topic->setCategory($category);
+
+        return $topic;
+    }
+
+    protected function createPost($name, $topic, $days)
+    {
+        $post = new $this->postClass();
+        $post->setMessage($name);
+        $post->setTopic($topic);
+        $date = new \DateTime(sprintf('-%s day', $days));
+        $post->setCreatedAt($date);
+
+        return $post;
     }
 
     public function testFindAll()

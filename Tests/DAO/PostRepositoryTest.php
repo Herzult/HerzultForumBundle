@@ -6,10 +6,11 @@ use Bundle\ForumBundle\Test\WebTestCase;
 
 class PostRepositoryTest extends WebTestCase
 {
+    protected $om;
 
     public function setUp()
     {
-        $om = parent::setUp();
+        $this->om = $om = parent::setUp();
 
         $om->getRepository('ForumBundle:Category')->cleanUp();
         $om->getRepository('ForumBundle:Topic')->cleanUp();
@@ -20,7 +21,7 @@ class PostRepositoryTest extends WebTestCase
     {
         $category = new $this->categoryClass();
         $category->setName('Post repository test');
-        
+
         $topic = new $this->topicClass();
         $topic->setSubject('We are testing the Post entity repository');
         $topic->setCategory($category);

@@ -4,7 +4,6 @@ namespace Bundle\ForumBundle\DAO;
 
 interface TopicRepositoryInterface extends RepositoryInterface
 {
-
     /**
      * Finds one topic by its id
      *
@@ -30,4 +29,12 @@ interface TopicRepositoryInterface extends RepositoryInterface
      * @return array|Paginator
      */
     public function findAllByCategory($category, $asPaginator);
+
+    /**
+     * Get topics which have the more recent last post
+     *
+     * @param int $number
+     * @return array of Topics
+     */
+    public function findLatestPosted($number);
 }

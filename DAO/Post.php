@@ -100,6 +100,16 @@ abstract class Post
     }
 
     /**
+     * Sets the creation date
+     *
+     * @return null
+     **/
+    public function setCreatedAt(\DateTime $date)
+    {
+        $this->createdAt = $date;
+    }
+
+    /**
      * Sets the update timestamp as now
      */
     public function setUpdatedNow()

@@ -350,4 +350,9 @@ abstract class Topic
         $this->category->decrementNumPosts($this->getNumPosts());
     }
 
+    public function __toString()
+    {
+        return (string) $this->getSubject();
+    }
+
 }
