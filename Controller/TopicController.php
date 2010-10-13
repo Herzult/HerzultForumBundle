@@ -31,8 +31,13 @@ class TopicController extends Controller
         ));
     }
 
-    public function createAction()
+    public function createAction($categorySlug)
     {
+        $category = $this['forum.category_repository']->findOneBySlug($categorySlug);
+        if (!$category) {
+            throw new NotFoundHttpException('The category does not exist.');
+        }
+
         $user = $this['doctrine_user.auth']->getUser();
         if (!$user) {
             throw new NotFoundHttpException('A user must be logged in.');
@@ -44,7 +49,7 @@ class TopicController extends Controller
         if(!$form->isValid()) {
             return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array(
                 'form' => $form,
-                'category' => $form->getData()->getCategory(),
+                'category' => $category,
                 'user' => $user
             ));
         }
