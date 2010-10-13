@@ -44,7 +44,7 @@ class TopicController extends Controller
         if(!$form->isValid()) {
             return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array(
                 'form' => $form,
-                'category' => $category,
+                'category' => $form->getData()->getCategory(),
                 'user' => $user
             ));
         }
