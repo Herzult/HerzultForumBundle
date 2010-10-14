@@ -18,7 +18,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
     }
 
     /**
-     * @see TopicRepositoryInterface::findAllByTopic
+     * @see PostRepositoryInterface::findAllByTopic
      */
     public function findAllByTopic($topic, $asPaginator = false)
     {
@@ -35,7 +35,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
     }
 
     /**
-     * @see TopicRepositoryInterface::search
+     * @see PostRepositoryInterface::search
      */
     public function search($query, $asPaginator = false)
     {

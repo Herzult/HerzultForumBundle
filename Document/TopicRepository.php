@@ -58,4 +58,21 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
         return array_values($query->execute()->getResults());
     }
 
+    /**
+     * @see TopicRepositoryInterface::search
+     */
+    public function search($query, $asPaginator = false)
+    {
+        $regexp = new \MongoRegex('/' . $query . '/i');
+        $query = $this->createQuery()
+            ->sort('pulledAt', 'ASC')
+            ->field('subject')->equals($regexp)
+        ;
+
+        if ($asPaginator) {
+            return new Paginator(new PaginatorODMAdapter($query));
+        }
+
+        return array_values($query->execute()->getResults());
+    }
 }

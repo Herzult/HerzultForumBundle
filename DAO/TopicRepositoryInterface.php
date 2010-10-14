@@ -37,4 +37,14 @@ interface TopicRepositoryInterface extends RepositoryInterface
      * @return array of Topics
      */
     public function findLatestPosted($number);
+
+    /**
+     * Finds all topics matching the specified query ordered by their
+     * last pulled date
+     *
+     * @param string $query
+     * @param boolean $asPaginator Will return a Paginator instance if true
+     * @return array|Paginator
+     */
+    public function search($query, $asPaginator);
 }
