@@ -18,7 +18,7 @@ class CategoryController extends Controller
         $category = $this['forum.category_repository']->findOneBySlug($slug);
 
         if (!$category) {
-            throw new NotFoundHttpException('The topic does not exist.');
+            throw new NotFoundHttpException(sprintf('The category %s does not exist.', $slug));
         }
 
         $topics = $this['forum.topic_repository']->findAllByCategory($category, true);
