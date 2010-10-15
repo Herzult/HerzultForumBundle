@@ -99,10 +99,10 @@ class TopicController extends Controller
     }
 
     /**
-     * Create a TopicForm instance and returns it 
-     * 
-     * @param string $name 
-     * @param Topic $topic 
+     * Create a TopicForm instance and returns it
+     *
+     * @param string $name
+     * @param Topic $topic
      * @return Bundle\ForumBundle\Form\TopicForm
      */
     protected function createForm($name, Category $category = null)

@@ -7,6 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 abstract class Topic
 {
     protected $id;
+    /**
+     * @validation:NotBlank()
+     * @validation:MinLength(limit=4, message="Just a little too short.")
+     */
     protected $subject;
     protected $numViews;
     protected $numPosts;
@@ -15,6 +19,10 @@ abstract class Topic
     protected $isBuried;
     protected $createdAt;
     protected $pulledAt;
+    /**
+     * @validation:NotBlank
+     * @validation:Valid
+     */
     protected $category;
     protected $author;
     protected $firstPost;
@@ -304,7 +312,7 @@ abstract class Topic
      *
      * @param Category $category
      */
-    public function setCategory(Category $category)
+    public function setCategory(Category $category = null)
     {
         $this->category = $category;
     }
