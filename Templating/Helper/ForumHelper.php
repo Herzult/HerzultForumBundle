@@ -69,6 +69,11 @@ class ForumHelper extends Helper
         ));
     }
 
+    public function getTopicNumPages(Topic $topic)
+    {
+        return 1 + floor($topic->getNumPosts() / $this->nbPostsPerPage);
+    }
+
     public function getName()
     {
         return 'forum';
