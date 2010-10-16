@@ -74,6 +74,41 @@ class CategoryTest extends WebTestCase
         $this->assertAttributeInternalType('integer', 'position', $category, 'the position is mandatory an integer');
     }
 
+    public function testLastPostClass()
+    {
+        $class = $this->getService('forum.category_repository')->getClassMetadata();
+        $lastPost = $class->getFieldMapping('lastPost');
+        $this->assertNotNull($lastPost);
+        $this->assertEquals($this->postClass, $lastPost['targetDocument']);
+    }
+
+    public function testLastPost()
+    {
+        $om = $this->getService('forum.object_manager');
+
+        $category = new $this->categoryClass();
+        $category->setName('Tests Category');
+
+        $topic = new $this->topicClass();
+        $topic->setSubject('Testing the last post');
+        $topic->setCategory($category);
+
+        $post = new $this->postClass();
+        $post->setTopic($topic);
+        $post->setMessage('Some content, foo bar, bla bla...');
+
+        $om->persist($category, $topic, $post);
+
+        $this->assertEquals($post, $category->getLastPost(), 'the last post added to a topic is set as ::$lastPost');
+
+        try {
+            $om->remove($post);
+            $this->fail('The last post of a topic can not be removed');
+        } catch (\Exception $e) {
+            $this->assertNotNull($topic->getLastPost());
+        }
+    }
+
     public function testNumTopics()
     {
         $category = new $this->categoryClass();

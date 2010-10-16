@@ -21,6 +21,7 @@ class ClassMetadataListener
         switch($classMetadata->name) {
             case 'Bundle\\ForumBundle\\Document\\Category':
                 $this->replaceClassMetadatadaFieldMappingTargetDocument($classMetadata, 'lastTopic', $this->classes['topic']);
+                $this->replaceClassMetadatadaFieldMappingTargetDocument($classMetadata, 'lastPost', $this->classes['post']);
                 break;
             case 'Bundle\\ForumBundle\\Document\\Topic':
                 $this->replaceClassMetadatadaFieldMappingTargetDocument($classMetadata, 'category', $this->classes['category']);

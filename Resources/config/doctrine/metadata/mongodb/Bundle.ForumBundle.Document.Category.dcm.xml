@@ -9,7 +9,7 @@
         <field name="id" fieldName="id" id="true" />
 
         <field name="name" fieldName="name" type="string" unique="true" />
-        
+
         <field name="description" fieldName="description" type="string" />
 
         <field name="slug" fieldName="slug" type="string" unique="true" />
@@ -21,6 +21,8 @@
         <field name="numPosts" fieldName="numPosts" type="int" />;
 
         <reference-one target-document="Topic" field="lastTopic" />
+
+        <reference-one target-document="Post" field="lastPost" />
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="generateSlug" />

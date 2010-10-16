@@ -11,7 +11,7 @@
         </id>
 
         <field name="name" column="name" type="string" unique="true" />
-        
+
         <field name="description" column="description" type="string" nullable="true" />
 
         <field name="slug" column="slug" type="string" unique="true" />
@@ -24,6 +24,10 @@
 
         <one-to-one field="lastTopic" target-entity="Topic">
             <join-column name="last_topic_id" referenced-column-name="id" on-delete="SET NULL" />
+        </one-to-one>
+
+        <one-to-one field="lastPost" target-entity="Post">
+            <join-column name="last_post_id" referenced-column-name="id" on-delete="SET NULL" />
         </one-to-one>
 
         <lifecycle-callbacks>

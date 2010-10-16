@@ -305,6 +305,10 @@ abstract class Topic
         }
 
         $this->lastPost = $post;
+
+        if($category = $this->getCategory()) {
+            $category->setLastPost($post);
+        }
     }
 
     /**

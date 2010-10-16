@@ -14,6 +14,7 @@ abstract class Category
     protected $numTopics;
     protected $numPosts;
     protected $lastTopic;
+    protected $lastPost;
 
     public function __construct()
     {
@@ -212,6 +213,26 @@ abstract class Category
     public function getLastTopic()
     {
         return $this->lastTopic;
+    }
+
+    /**
+     * Gets the last post
+     *
+     * @return Post
+     */
+    public function getLastPost()
+    {
+        return $this->lastPost;
+    }
+
+    /**
+     * Sets the last post
+     *
+     * @param Post $post
+     */
+    public function setLastPost(Post $post)
+    {
+        $this->lastPost = $post;
     }
 
     public function __toString()
