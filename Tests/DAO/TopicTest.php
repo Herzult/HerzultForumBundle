@@ -214,6 +214,32 @@ class TopicTest extends WebTestCase
         $this->assertEquals($date, $topic->getPulledAt(), '::getPulledDate() gets the pull timestamp as a DateTime object');
     }
 
+    public function testFunctionalPulledAt()
+    {
+        $om = $this->getService('forum.object_manager');
+
+        $category = new $this->categoryClass();
+        $category->setName('Tests Category');
+
+        $topic = new $this->topicClass();
+        $topic->setSubject('Testing');
+        $topic->setCategory($category);
+
+        $post = new $this->postClass();
+        $post->setTopic($topic);
+        $post->setMessage('Some content, foo bar, bla bla...');
+
+        $om->persist($category);
+        $om->persist($topic);
+        $om->persist($post);
+        $om->flush();
+        $om->clear();
+
+        $this->assertNotNull($topic->getPulledAt());
+        $topic = $this->getService('forum.topic_repository')->find($topic->getId());
+        $this->assertNotNull($topic->getPulledAt());
+    }
+
     public function testFirstPost()
     {
         $om = $this->getService('forum.object_manager');
