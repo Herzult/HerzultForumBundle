@@ -127,7 +127,7 @@ class TopicTest extends WebTestCase
     public function testCategory()
     {
         $category = $this->getMock($this->categoryClass);
-        
+
         $topic = new $this->topicClass();
 
         $this->assertAttributeEmpty('category', $topic, 'the category is not set during creation');
@@ -228,9 +228,8 @@ class TopicTest extends WebTestCase
 
         try {
             $om->persist($topic);
-            $this->fail('A topic must have at least the firt post before being persisted');
+            $this->fail('A topic must have at least the first post before being persisted');
         } catch (\Exception $e) {
-            
         }
 
         $post = new $this->postClass();
@@ -245,8 +244,68 @@ class TopicTest extends WebTestCase
             $om->remove($post);
             $this->fail('The first post of a topic can not be removed');
         } catch (\Exception $e) {
-
         }
+    }
+
+    public function testLastPost()
+    {
+        $om = $this->getService('forum.object_manager');
+
+        $category = new $this->categoryClass();
+        $category->setName('Tests Category');
+
+        $topic = new $this->topicClass();
+        $topic->setSubject('Testing the last post');
+        $topic->setCategory($category);
+
+        try {
+            $om->persist($topic);
+            $this->fail('A topic must have at least the last post before being persisted');
+        } catch (\Exception $e) {
+            $this->assertNull($topic->getLastPost());
+        }
+
+        $post = new $this->postClass();
+        $post->setTopic($topic);
+        $post->setMessage('Some content, foo bar, bla bla...');
+
+        $om->persist($category, $topic, $post);
+
+        $this->assertEquals($post, $topic->getLastPost(), 'the last post added to a topic is set as ::$lastPost');
+
+        try {
+            $om->remove($post);
+            $this->fail('The last post of a topic can not be removed');
+        } catch (\Exception $e) {
+            $this->assertNotNull($topic->getLastPost());
+        }
+    }
+
+    public function testLastPostIssueWhenPostIsNotPersisted()
+    {
+        $this->markTestSkipped();
+        $om = $this->getService('forum.object_manager');
+        $category = new $this->categoryClass();
+        $category->setName('Tests Category');
+
+        $topic = new $this->topicClass();
+        $topic->setSubject('Testing the first post');
+        $topic->setCategory($category);
+
+        $post = new $this->postClass();
+        $post->setMessage('blabla');
+        $post->setTopic($topic);
+
+        $om->persist($category);
+        $om->persist($topic);
+
+        $om->flush();
+        $om->clear();
+
+        $topic = $om->getRepository('ForumBundle:Topic')->find($topic->getId());
+
+        $this->assertNotNull($topic->getLastPost());
+        $this->assertEquals($post, $topic->getLastPost());
     }
 
 }

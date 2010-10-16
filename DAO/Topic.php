@@ -332,6 +332,9 @@ abstract class Topic
         if (empty($this->firstPost)) {
             throw new \RuntimeException('You must add at least one post as first post to persist the topic.');
         }
+        if (empty($this->lastPost)) {
+            throw new \RuntimeException('You must add at least one post as last post to persist the topic.');
+        }
 
         if (empty($this->category)) {
             throw new \RuntimeException('You must set a category to persist the topic.');
