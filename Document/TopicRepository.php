@@ -4,7 +4,7 @@ namespace Bundle\ForumBundle\Document;
 
 use Bundle\ForumBundle\DAO\TopicRepositoryInterface;
 use Zend\Paginator\Paginator;
-use Bundle\DoctrinePaginatorBundle\PaginatorODMAdapter;
+use Zend\Paginator\Adapter\DoctrineMongoDBAdapter;
 
 class TopicRepository extends ObjectRepository implements TopicRepositoryInterface
 {
@@ -25,7 +25,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
         $query = $this->createQuery()->sort('pulledAt', 'ASC');
 
         if ($asPaginator) {
-            return new Paginator(new PaginatorODMAdapter($query));
+            return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
         return array_values($query->execute()->getResults());
@@ -42,7 +42,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
             ->equals(new \MongoId($category->getId()));
 
         if ($asPaginator) {
-            return new Paginator(new PaginatorODMAdapter($query));
+            return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
         return array_values($query->execute()->getResults());
@@ -70,7 +70,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
         ;
 
         if ($asPaginator) {
-            return new Paginator(new PaginatorODMAdapter($query));
+            return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
         return array_values($query->execute()->getResults());

@@ -2,6 +2,10 @@ The ForumBundle offers a simple Symfony2 forum.
 
 It's currently under *intensive* development.
 
+## Dependencies
+
+- [ZendPaginatorAdapter](http://github.com/ornicar/ZendPaginatorAdapter/)
+
 ## Installation
 
 ### Add ForumBundle to your src/Bundle dir

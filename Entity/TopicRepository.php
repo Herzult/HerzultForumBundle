@@ -4,7 +4,7 @@ namespace Bundle\ForumBundle\Entity;
 
 use Bundle\ForumBundle\DAO\TopicRepositoryInterface;
 use Zend\Paginator\Paginator;
-use Bundle\DoctrinePaginatorBundle\PaginatorORMAdapter;
+use Zend\Paginator\Adapter\DoctrineORMAdapter;
 
 class TopicRepository extends ObjectRepository implements TopicRepositoryInterface
 {
@@ -27,7 +27,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
                         ->getQuery();
 
         if ($asPaginator) {
-            return new Paginator(new PaginatorORMAdapter($query));
+            return new Paginator(new DoctrineORMAdapter($query));
         } else {
             return $query->execute();
         }
@@ -45,7 +45,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
                         ->getQuery();
 
         if ($asPaginator) {
-            return new Paginator(new PaginatorORMAdapter($query));
+            return new Paginator(new DoctrineORMAdapter($query));
         } else {
             return $query->execute();
         }

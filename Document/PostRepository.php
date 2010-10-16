@@ -4,7 +4,7 @@ namespace Bundle\ForumBundle\Document;
 
 use Bundle\ForumBundle\DAO\PostRepositoryInterface;
 use Zend\Paginator\Paginator;
-use Bundle\DoctrinePaginatorBundle\PaginatorODMAdapter;
+use Zend\Paginator\Adapter\DoctrineMongoDBAdapter;
 
 class PostRepository extends ObjectRepository implements PostRepositoryInterface
 {
@@ -28,7 +28,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
             ->equals(new \MongoId($topic->getId()));
 
         if ($asPaginator) {
-            return new Paginator(new PaginatorODMAdapter($query));
+            return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
         return array_values($query->execute()->getResults());
@@ -46,7 +46,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
         ;
 
         if ($asPaginator) {
-            return new Paginator(new PaginatorODMAdapter($query));
+            return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
         return array_values($query->execute()->getResults());
