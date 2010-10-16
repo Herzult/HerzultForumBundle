@@ -36,10 +36,10 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findAllByCategory($category, $asPaginator = false)
     {
-        $query = $this->createQuery()
+        $query = $this->createQuery('t')
+            ->field('category.$id')->equals(new \MongoId($category->getId()))
             ->sort('pulledAt', 'DESC')
-            ->field('category.$id')
-            ->equals(new \MongoId($category->getId()));
+        ;
 
         if ($asPaginator) {
             return new Paginator(new DoctrineMongoDBAdapter($query));
@@ -74,5 +74,16 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
         }
 
         return array_values($query->execute()->getResults());
+    }
+
+    /**
+     * @see TopicRepositoryInterface::incrementTopicNumViews
+     */
+    public function incrementTopicNumViews($topic)
+    {
+        $this->getDocumentManager()
+            ->getDocumentCollection($this->getDocumentName())
+            ->getMongoCollection()
+            ->update(array('_id' => new \MongoId($topic->getId())), array('$inc' => array('numViews' => 1)));
     }
 }

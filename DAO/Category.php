@@ -54,8 +54,8 @@ abstract class Category
 
     /**
      * Sets the description
-     * 
-     * @param string $description 
+     *
+     * @param string $description
      */
     public function setDescription($description)
     {

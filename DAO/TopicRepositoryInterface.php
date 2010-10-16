@@ -47,4 +47,12 @@ interface TopicRepositoryInterface extends RepositoryInterface
      * @return array|Paginator
      */
     public function search($query, $asPaginator);
+
+    /**
+     * Increment the number of views of a topic
+     *
+     * @param Topic $topic
+     * @return void
+     */
+    public function incrementTopicNumViews($topic);
 }

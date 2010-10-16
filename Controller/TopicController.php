@@ -78,11 +78,13 @@ class TopicController extends Controller
 
     public function showAction($id)
     {
-        $topic = $this['forum.topic_repository']->findOneById($id);
+        $topicRepository = $this['forum.topic_repository'];
+        $topic = $topicRepository->findOneById($id);
 
         if (!$topic) {
             throw new NotFoundHttpException('The topic does not exist.');
         }
+        $topicRepository->incrementTopicNumViews($topic);
 
         $page = $this['request']->query->get('page', 1);
         $posts = $this['forum.post_repository']->findAllByTopic($topic, true);
