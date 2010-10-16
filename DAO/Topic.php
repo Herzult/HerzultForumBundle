@@ -30,6 +30,7 @@ abstract class Topic
 
     public function __construct()
     {
+        $this->setCreatedNow();
         $this->numViews = $this->numPosts = 0;
         $this->isClosed = $this->isPinned = $this->isBuried = false;
     }

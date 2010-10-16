@@ -189,7 +189,6 @@ class TopicTest extends WebTestCase
     public function testCreatedAt()
     {
         $topic = new $this->topicClass($this->getMock($this->categoryClass));
-        $this->assertAttributeEmpty('createdAt', $topic, 'the creation timestamp is not set during creation');
 
         $date = new \DateTime('now');
         $topic->setCreatedNow();
