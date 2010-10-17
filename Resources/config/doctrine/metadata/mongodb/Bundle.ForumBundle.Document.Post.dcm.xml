@@ -21,7 +21,6 @@
         <reference-one target-document="Bundle\DoctrineUserBundle\Document\User" field="author" />
 
         <lifecycle-callbacks>
-            <lifecycle-callback type="prePersist" method="setCreatedNow" />
             <lifecycle-callback type="prePersist" method="incrementTopicNumPosts" />
             <lifecycle-callback type="prePersist" method="updateNumber" />
             <lifecycle-callback type="prePersist" method="incrementCategoryNumPosts" />
@@ -29,6 +28,21 @@
             <lifecycle-callback type="preRemove" method="decrementTopicNumPosts" />
             <lifecycle-callback type="preRemove" method="decrementCategoryNumPosts" />
         </lifecycle-callbacks>
+
+        <indexes>
+            <index name="created_asc">
+                <key name="createdAt" order="asc" />
+                <option name="safe" value="true" />
+                <option name="unique" value="false" />
+                <option name="dropDups" value="false" />
+            </index>
+            <index name="topic_asc">
+                <key name="topic" order="asc" />
+                <option name="safe" value="true" />
+                <option name="unique" value="false" />
+                <option name="dropDups" value="false" />
+            </index>
+        </indexes>
 
     </mapped-superclass>
 

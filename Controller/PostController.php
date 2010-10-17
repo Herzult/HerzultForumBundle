@@ -45,11 +45,10 @@ class PostController extends Controller
         $form->bind($this['request']->request->get($form->getName()));
 
         if(!$form->isValid()) {
-            return $this->render('ForumBundle:Post:new.'.$this->getRenderer(), array(
-                'form' => $form,
-                'topic' => $topic,
-                'user' => $user
-            ));
+            $lastPage = $this['templating.helper.forum']->getTopicNumPages($topic);
+            return $this->forward('ForumBundle:Topic:show', array(
+                'id' => $topicId
+            ), array('page' => $lastPage));
         }
 
         $post = $form->getData();

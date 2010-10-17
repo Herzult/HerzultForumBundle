@@ -20,9 +20,8 @@ class NewTopicForm extends Form
         $this->add(new TextField('subject'));
         $categoryField = new CategoryChoiceField('category', array(
             'repository' => $this->getOption('categoryRepository'),
-            'required' => false,
-            'empty_value' => 'Select a category'
+            'required' => true
         ));
         $this->add($categoryField);
-    } 
+    }
 }

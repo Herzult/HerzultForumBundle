@@ -60,7 +60,7 @@ class TopicController extends Controller
         $this->saveTopic($topic);
 
         $this['session']->setFlash('forum_topic_create/success', true);
-        $url = $this->generateUrl('forum_topic_show', array('id' => $topic->getId()));
+        $url = $this['templating.helper.forum']->urlForTopic($topic);
 
         return $this->redirect($url);
     }
@@ -76,7 +76,7 @@ class TopicController extends Controller
         return $this->render('ForumBundle:Topic:list.'.$this->getRenderer(), array('topics' => $topics));
     }
 
-    public function showAction($id)
+    public function showAction($categorySlug, $id)
     {
         $topicRepository = $this['forum.topic_repository'];
         $topic = $topicRepository->findOneById($id);

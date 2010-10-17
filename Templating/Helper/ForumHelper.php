@@ -50,6 +50,7 @@ class ForumHelper extends Helper
     public function urlForTopic(Topic $topic)
     {
         return $this->router->generate('forum_topic_show', array(
+            'categorySlug' => $topic->getCategory()->getSlug(),
             'id' => $topic->getId()
         ));
     }

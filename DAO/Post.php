@@ -18,8 +18,10 @@ abstract class Post
      */
     protected $author;
     /**
-     * @validation:NotBlank()
+     * @validation:NotBlank(message="Please write a message")
      * @validation:MinLength(limit=4, message="Just a little too short.")
+     *
+     * @var string
      */
     protected $message;
     /**
@@ -31,6 +33,11 @@ abstract class Post
 
     protected $createdAt;
     protected $updatedAt;
+
+    public function __construct()
+    {
+        $this->setCreatedNow();
+    }
 
     /**
      * Gets the id

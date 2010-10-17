@@ -56,7 +56,6 @@ class PostTest extends WebTestCase
         $class = $this->postClass;
         $post = new $class();
         $post->setTopic($this->getMock($this->topicClass));
-        $this->assertAttributeEmpty('createdAt', $post, 'the creation timestamp is empty during creation');
 
         $date = new \DateTime('now');
         $post->setCreatedNow();

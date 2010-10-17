@@ -3,7 +3,7 @@
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
-                  
+
     <mapped-superclass name="Bundle\ForumBundle\Document\Topic" collection="forum_topic" repository-class="Bundle\ForumBundle\Document\TopicRepository">
 
         <field name="id" fieldName="id" id="true" />
@@ -34,13 +34,28 @@
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="validateBeforePersist" />
-            <lifecycle-callback type="prePersist" method="setCreatedNow" />
             <lifecycle-callback type="prePersist" method="updatePulledAt" />
             <lifecycle-callback type="prePersist" method="setAsCategoryLastTopic" />
             <lifecycle-callback type="prePersist" method="incrementCategoryNumTopics" />
+            <lifecycle-callback type="preUpdate" method="updatePulledAt" />
             <lifecycle-callback type="preRemove" method="decrementCategoryNumTopics" />
             <lifecycle-callback type="preRemove" method="decrementCategoryNumPosts" />
         </lifecycle-callbacks>
+
+        <indexes>
+            <index name="pulled_desc">
+                <key name="pulledAt" order="desc" />
+                <option name="safe" value="true" />
+                <option name="unique" value="false" />
+                <option name="dropDups" value="false" />
+            </index>
+            <index name="category_asc">
+                <key name="category" order="asc" />
+                <option name="safe" value="true" />
+                <option name="unique" value="false" />
+                <option name="dropDups" value="false" />
+            </index>
+        </indexes>
 
     </mapped-superclass>
 

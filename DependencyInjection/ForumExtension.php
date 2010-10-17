@@ -48,6 +48,14 @@ class ForumExtension extends Extension
             }
         }
 
+        foreach(array('topic', 'post') as $model) {
+            $configName = $model.'_form';
+            $parameterName = sprintf('forum.%s_form.class', $model);
+            if (isset($config[$configName])) {
+                $container->setParameter($parameterName, $config[$configName]);
+            }
+        }
+
         if(isset($config['topics_per_page'])) {
             $container->setParameter('forum.topic_list.max_per_page', $config['topics_per_page']);
         }
