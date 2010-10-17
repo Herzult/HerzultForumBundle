@@ -31,9 +31,9 @@ class CategoryRepository extends ObjectRepository implements CategoryRepositoryI
      */
     public function findAllIndexById()
     {
-        return $this->createQueryBuilder()
-            ->select('c')
-            ->orderBY('c.position')
+        return $this->createQueryBuilder('category')
+            ->select('category')
+            ->orderBY('category.position')
             ->getQuery()
             ->execute();
     }
