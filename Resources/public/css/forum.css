@@ -68,7 +68,7 @@ h3 {
 
 .forum .crumbs,
 .forum .crumbs li { margin: 0; padding: 0; list-style: none; }
-.forum .crumbs { border: 1px solid #dedede; margin: 20px 0; }
+.forum .crumbs { border: 1px solid #dedede; margin: 20px 0; overflow: hidden; }
 .forum .crumbs li { 
     float: left;
     padding: 5px 10px;
