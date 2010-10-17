@@ -8,7 +8,7 @@
 
         <field name="id" fieldName="id" id="true" />
 
-        <field name="name" fieldName="name" type="string" unique="true" />
+        <field name="name" fieldName="name" type="string" />
 
         <field name="description" fieldName="description" type="string" />
 
