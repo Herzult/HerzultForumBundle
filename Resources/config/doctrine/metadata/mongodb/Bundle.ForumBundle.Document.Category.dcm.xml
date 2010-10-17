@@ -29,6 +29,21 @@
             <lifecycle-callback type="preUpdate" method="generateSlug" />
         </lifecycle-callbacks>
 
+        <indexes>
+            <index name="unique_slug">
+                <key name="slug" order="asc" />
+                <option name="safe" value="true" />
+                <option name="unique" value="true" />
+                <option name="dropDups" value="true" />
+            </index>
+            <index name="position_asc">
+                <key name="position" order="asc" />
+                <option name="safe" value="true" />
+                <option name="unique" value="false" />
+                <option name="dropDups" value="false" />
+            </index>
+        </indexes>
+
     </mapped-superclass>
 
 </doctrine-mongo-mapping>

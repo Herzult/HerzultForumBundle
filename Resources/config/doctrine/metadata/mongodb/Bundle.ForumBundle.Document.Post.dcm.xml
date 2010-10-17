@@ -29,6 +29,21 @@
             <lifecycle-callback type="preRemove" method="decrementCategoryNumPosts" />
         </lifecycle-callbacks>
 
+        <indexes>
+            <index name="created_asc">
+                <key name="createdAt" order="asc" />
+                <option name="safe" value="true" />
+                <option name="unique" value="false" />
+                <option name="dropDups" value="false" />
+            </index>
+            <index name="topic_asc">
+                <key name="topic" order="asc" />
+                <option name="safe" value="true" />
+                <option name="unique" value="false" />
+                <option name="dropDups" value="false" />
+            </index>
+        </indexes>
+
     </mapped-superclass>
 
 </doctrine-mongo-mapping>

@@ -42,6 +42,21 @@
             <lifecycle-callback type="preRemove" method="decrementCategoryNumPosts" />
         </lifecycle-callbacks>
 
+        <indexes>
+            <index name="pulled_desc">
+                <key name="pulledAt" order="desc" />
+                <option name="safe" value="true" />
+                <option name="unique" value="false" />
+                <option name="dropDups" value="false" />
+            </index>
+            <index name="category_asc">
+                <key name="category" order="asc" />
+                <option name="safe" value="true" />
+                <option name="unique" value="false" />
+                <option name="dropDups" value="false" />
+            </index>
+        </indexes>
+
     </mapped-superclass>
 
 </doctrine-mongo-mapping>
