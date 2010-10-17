@@ -56,7 +56,39 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findLatestPosted($number)
     {
-        return \LogicException('Not implemented');
+        return $this->createQueryBuilder('topic')
+            ->orderBy('topic.pulledAt', 'DESC')
+            ->setMaxResults($number)
+            ->getQuery()
+            ->execute();
     }
 
+    /**
+     * @see TopicRepositoryInterface::search
+     */
+    public function search($query, $asPaginator = false)
+    {
+        $qb = $this->createQueryBuilder('topic');
+        $qb->orderBy('topic.pulledAt DESC')->where($db->expr()->like('topic.subject', '%' . $query . '%'));
+
+        if ($asPaginator) {
+            return new Paginator(new DoctrineORMAdapter($qb->getQuery()));
+        }
+
+        return $qb->getQuery->execute();
+    }
+
+    /**
+     * @see TopicRepositoryInterface::incrementTopicNumViews
+     */
+    public function incrementTopicNumViews($topic)
+    {
+        $this->createQueryBuilder('topict')
+            ->update()
+            ->set('topic.numViews', 'topic.numViews + 1')
+            ->where('topic.id = :topic_id')
+            ->setParameter('topic_id', $topic->id)
+            ->getQuery()
+            ->execute();
+    }
 }
