@@ -1,4 +1,4 @@
-<?php $view->extend('ForumBundle::layout') ?>
+<?php $view->extend('ForumBundle::layout.php') ?>
 <?php $view['slots']->set('title', $topic->getSubject()) ?>
 <div class="forum forum_topic">
 
@@ -10,11 +10,11 @@
 
     <div class="main topic">
         <h2><?php echo $topic->getSubject() ?></h2>
-        <?php echo $view->render('ForumBundle:Post:list', array('posts' => $topic->getPosts())) ?>
+        <?php echo $view->render('ForumBundle:Post:list.php', array('posts' => $posts)) ?>
     </div>
 
     <div class="side menu">
-        <a href="#">Add a New Reply</a>
+        <a href="<?php echo $view['router']->generate('forum_post_new', array('topicId' => $topic->getId())) ?>">Add a New Reply</a>
     </div>
 
 </div>

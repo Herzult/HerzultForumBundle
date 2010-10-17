@@ -6,7 +6,6 @@ use Bundle\ForumBundle\DAO\CategoryRepositoryInterface;
 
 class CategoryRepository extends ObjectRepository implements CategoryRepositoryInterface
 {
-
     /**
      * @see CategoryRepositoryInterface::findOneBySlug
      */
@@ -21,10 +20,21 @@ class CategoryRepository extends ObjectRepository implements CategoryRepositoryI
     public function findAll()
     {
         return $this->createQueryBuilder('c')
-                ->select('c')
-                ->orderBy('c.position')
-                ->getQuery()
-                ->execute();
+            ->select('c')
+            ->orderBy('c.position')
+            ->getQuery()
+            ->execute();
     }
 
+    /**
+     * @see CategoryRepositoryInterface::findAllIndexById
+     */
+    public function findAllIndexById()
+    {
+        return $this->createQueryBuilder()
+            ->select('c')
+            ->orderBY('c.position')
+            ->getQuery()
+            ->execute();
+    }
 }
