@@ -3,6 +3,8 @@
 namespace Bundle\ForumBundle\Entity;
 
 use Bundle\ForumBundle\DAO\PostRepositoryInterface;
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\DoctrineORMAdapter;
 
 class PostRepository extends ObjectRepository implements PostRepositoryInterface
 {
@@ -21,11 +23,11 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
     {
         $qb = $this->createQueryBuilder('post')
             ->orderBy('post.createdAt')
-            ->where('post.topic_id = :topic_id')
-            ->setParameter('topic_id', $topic->getId());
+            ->where('post.topic = :topic')
+            ->setParameter('topic', $topic->getId());
 
         if ($asPaginator) {
-            return new Paginator(new DoctrineMongoDBAdapter($qb->getQuery()));
+            return new Paginator(new DoctrineORMAdapter($qb->getQuery()));
         }
 
         return $qb->getQuery()->execute();

@@ -8,7 +8,6 @@ use Zend\Paginator\Adapter\DoctrineORMAdapter;
 
 class TopicRepository extends ObjectRepository implements TopicRepositoryInterface
 {
-
     /**
      * @see TopicRepositoryInterface::findOneById
      */
@@ -38,16 +37,14 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findAllByCategory($category, $asPaginator = false)
     {
-        $query = $this->createQueryBuilder('topic')
-                        ->orderBy('topic.pulledAt', 'DESC')
-                        ->where('topic.category = :category')
-                        ->setParameter('category', $category)
-                        ->getQuery();
+        $qb = $this->createQueryBuilder('topic');
+        $qb->orderBy('topic.pulledAt', 'DESC')
+            ->where($qb->expr()->eq('topic.category', $category->getId()));
 
         if ($asPaginator) {
-            return new Paginator(new DoctrineORMAdapter($query));
+            return new Paginator(new DoctrineORMAdapter($qb->getQuery()));
         } else {
-            return $query->execute();
+            return $qb->getQuery()->execute();
         }
     }
 
@@ -83,7 +80,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function incrementTopicNumViews($topic)
     {
-        $this->createQueryBuilder('topict')
+        $this->createQueryBuilder('topic')
             ->update()
             ->set('topic.numViews', 'topic.numViews + 1')
             ->where('topic.id = :topic_id')
