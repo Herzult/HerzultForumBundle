@@ -9,12 +9,13 @@ use Symfony\Component\Console\Command\Command;
 
 class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
+    protected $kernel;
     protected $categoryClass;
     protected $topicClass;
     protected $postClass;
 
     /**
-     * Prepare entity/document classes for usage in tests 
+     * Prepare entity/document classes for usage in tests
      *
      * @return mixed om
      */
@@ -57,17 +58,15 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
         return $this->getBootedKernel()->getContainer()->has($name);
     }
 
-    protected function getBootedKernel($kernel = null)
+    protected function getBootedKernel()
     {
-        if (null === $kernel) {
-            $kernel = $this->createKernel();
+        $this->kernel = $this->createKernel();
+
+        if (!$this->kernel->isBooted()) {
+            $this->kernel->boot();
         }
 
-        if (!$kernel->isBooted()) {
-            $kernel->boot();
-        }
-
-        return $kernel;
+        return $this->kernel;
     }
 
 }

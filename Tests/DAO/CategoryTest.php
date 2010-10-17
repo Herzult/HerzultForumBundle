@@ -82,7 +82,7 @@ class CategoryTest extends WebTestCase
         $this->assertEquals($this->postClass, $lastPost['targetDocument']);
     }
 
-    public function testLastPost()
+    public function testLastPostIsSaved()
     {
         $om = $this->getService('forum.object_manager');
 
@@ -94,10 +94,14 @@ class CategoryTest extends WebTestCase
         $topic->setCategory($category);
 
         $post = new $this->postClass();
+        $postMessage = 'first topic post';
+        $post->setMessage($postMessage);
         $post->setTopic($topic);
-        $post->setMessage('Some content, foo bar, bla bla...');
 
-        $om->persist($category, $topic, $post);
+        $om->persist($category);
+        $om->persist($topic);
+        $om->persist($post);
+        $om->flush();
 
         $this->assertEquals($post, $category->getLastPost(), 'the last post added to a topic is set as ::$lastPost');
 
@@ -107,6 +111,33 @@ class CategoryTest extends WebTestCase
         } catch (\Exception $e) {
             $this->assertNotNull($topic->getLastPost());
         }
+
+        $om->clear();
+        $category = $om->getRepository('ForumBundle:Category')->findOneBySlug($category->getSlug());
+
+        $this->assertNotNull($category->getLastPost());
+        $this->assertEquals($postMessage, $category->getLastPost()->getMessage(), 'the last post added to a topic is set as ::$lastPost');
+
+        $topic = new $this->topicClass();
+        $topic->setSubject('Testing the last post again');
+        $topic->setCategory($category);
+
+        $post = new $this->postClass();
+        $postMessage = 'second topic post';
+        $post->setMessage($postMessage);
+        $post->setTopic($topic);
+
+        $om->persist($topic);
+        $om->persist($post);
+        $om->flush();
+
+        $this->assertEquals($postMessage, $category->getLastPost()->getMessage(), 'the last post added to a topic is set as ::$lastPost');
+
+        $om->clear();
+        $category = $om->getRepository('ForumBundle:Category')->findOneBySlug($category->getSlug());
+
+        $this->assertNotNull($category->getLastPost());
+        $this->assertEquals($postMessage, $category->getLastPost()->getMessage(), 'the last post added to a topic is set as ::$lastPost');
     }
 
     public function testNumTopics()

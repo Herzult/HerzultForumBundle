@@ -107,6 +107,7 @@ class TopicRepositoryTest extends WebTestCase
         $post1 = new $this->postClass();
         $post1->setTopic($topic1);
         $post1->setMessage('Foo bar...');
+        $post1->setCreatedAt(date_create('-1 day'));
 
         $om->persist($topic1);
         $om->persist($post1);
@@ -118,6 +119,7 @@ class TopicRepositoryTest extends WebTestCase
         $post3 = new $this->postClass();
         $post3->setTopic($topic3);
         $post3->setMessage('Foo bar...');
+        $post3->setCreatedAt(date_create('-2 day'));
 
         $om->persist($topic3);
         $om->persist($post3);
@@ -129,6 +131,7 @@ class TopicRepositoryTest extends WebTestCase
         $post2 = new $this->postClass();
         $post2->setTopic($topic2);
         $post2->setMessage('Foo bar...');
+        $post2->setCreatedAt(date_create('-3 day'));
 
         $om->persist($topic2);
         $om->persist($post2);

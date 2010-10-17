@@ -295,6 +295,7 @@ class TopicTest extends WebTestCase
         $post->setMessage('Some content, foo bar, bla bla...');
 
         $om->persist($category, $topic, $post);
+        $om->flush();
 
         $this->assertEquals($post, $topic->getLastPost(), 'the last post added to a topic is set as ::$lastPost');
 

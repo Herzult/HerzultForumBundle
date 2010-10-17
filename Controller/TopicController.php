@@ -135,6 +135,7 @@ class TopicController extends Controller
      **/
     public function saveTopic(Topic $topic)
     {
+        $topic->getCategory()->setLastPost($topic->getLastPost());
         $objectManager = $this['forum.topic_repository']->getObjectManager();
         $objectManager->persist($topic);
         $objectManager->persist($topic->getFirstPost());
