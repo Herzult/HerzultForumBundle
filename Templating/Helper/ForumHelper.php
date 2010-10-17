@@ -55,6 +55,14 @@ class ForumHelper extends Helper
         ));
     }
 
+    public function urlForTopicReply(Topic $topic)
+    {
+        $topicUrl = $this->urlForTopic($topic);
+        $topicPage = 1 + floor($topic->getNumPosts() / $this->nbPostsPerPage);
+
+        return sprintf('%s?page=%d#reply', $topicUrl, $topicPage);
+    }
+
     public function urlForPost(Post $post)
     {
         $topicUrl = $this->urlForTopic($post->getTopic());
