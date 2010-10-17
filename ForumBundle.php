@@ -3,9 +3,10 @@
 namespace Bundle\ForumBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\ODMEvents;
-use Bundle\ForumBundle\Doctrine\ODM\ClassMetadataListener;
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ORM\Events as ORMEvents;
+use Doctrine\ORM\EntityManager;
 
 class ForumBundle extends Bundle
 {
@@ -28,6 +29,9 @@ class ForumBundle extends Bundle
         $eventManager = $om->getEventManager();
         if($om instanceof DocumentManager) {
             $eventManager->addEventListener(array(ODMEvents::loadClassMetadata), $this->container->get('forum.class_metadata_listener'));
+        }
+        elseif($om instanceof EntityManager) {
+            $eventManager->addEventListener(array(ORMEvents::loadClassMetadata), $this->container->get('forum.class_metadata_listener'));
         }
     }
 

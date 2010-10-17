@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Bundle\ForumBundle\Entity\Category" table="forum_category" repository-class="Bundle\ForumBundle\Entity\CategoryRepository">
+    <mapped-superclass name="Bundle\ForumBundle\Entity\Category" table="forum_category" repository-class="Bundle\ForumBundle\Entity\CategoryRepository">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
@@ -35,6 +35,6 @@
             <lifecycle-callback type="preUpdate" method="generateSlug" />
         </lifecycle-callbacks>
 
-    </entity>
+    </mapped-superclass>
 
 </doctrine-mapping>

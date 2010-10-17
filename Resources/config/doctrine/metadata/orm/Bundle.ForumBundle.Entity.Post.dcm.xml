@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Bundle\ForumBundle\Entity\Post" table="forum_post" repository-class="Bundle\ForumBundle\Entity\PostRepository">
+    <mapped-superclass name="Bundle\ForumBundle\Entity\Post" table="forum_post" repository-class="Bundle\ForumBundle\Entity\PostRepository">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
@@ -38,6 +38,6 @@
             <lifecycle-callback type="preRemove" method="decrementCategoryNumPosts" />
         </lifecycle-callbacks>
 
-    </entity>
+    </mapped-superclass>
 
 </doctrine-mapping>

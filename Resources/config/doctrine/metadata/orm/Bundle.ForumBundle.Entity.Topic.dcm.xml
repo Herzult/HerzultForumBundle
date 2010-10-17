@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
                   
-    <entity name="Bundle\ForumBundle\Entity\Topic" table="forum_topic" repository-class="Bundle\ForumBundle\Entity\TopicRepository">
+    <mapped-superclass name="Bundle\ForumBundle\Entity\Topic" table="forum_topic" repository-class="Bundle\ForumBundle\Entity\TopicRepository">
 
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
@@ -53,6 +53,6 @@
             <lifecycle-callback type="preRemove" method="decrementCategoryNumTopics" />
         </lifecycle-callbacks>
 
-    </entity>
+    </mapped-superclass>
 
 </doctrine-mapping>
