@@ -87,7 +87,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
             ->update()
             ->set('topic.numViews', 'topic.numViews + 1')
             ->where('topic.id = :topic_id')
-            ->setParameter('topic_id', $topic->id)
+            ->setParameter('topic_id', $topic->getId())
             ->getQuery()
             ->execute();
     }
