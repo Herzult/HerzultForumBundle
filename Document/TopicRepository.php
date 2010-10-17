@@ -22,7 +22,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findAll($asPaginator = false)
     {
-        $query = $this->createQuery()->sort('pulledAt', 'ASC');
+        $query = $this->createQuery()->sort('pulledAt', 'DESC');
 
         if ($asPaginator) {
             return new Paginator(new DoctrineMongoDBAdapter($query));
@@ -65,7 +65,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
     {
         $regexp = new \MongoRegex('/' . $query . '/i');
         $query = $this->createQuery()
-            ->sort('pulledAt', 'ASC')
+            ->sort('pulledAt', 'DESC')
             ->field('subject')->equals($regexp)
         ;
 
