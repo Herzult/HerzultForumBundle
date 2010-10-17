@@ -1,5 +1,5 @@
 <?php $view->extend('ForumBundle::layout.php') ?>
-<?php $view['slots']->set('title', 'Lichess Forum') ?>
+<?php $view['slots']->set('title', 'ForumBundle, a simple Symfony2 forum') ?>
 <div class="forum forum_index">
     <ul class="crumbs">
         <li>Forum</li>
