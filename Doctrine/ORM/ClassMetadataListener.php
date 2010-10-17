@@ -5,7 +5,6 @@ namespace Bundle\ForumBundle\Doctrine\ORM;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class ClassMetadataListener
 {
@@ -39,8 +38,6 @@ class ClassMetadataListener
 
     protected function replaceClassMetadatadaAssociationMappingTargetEntity(ClassMetadata $classMetadata, $field, $targetEntity)
     {
-        $associationMapping = $classMetadata->getAssociationMapping($field);
-        $associationMapping['targetEntity'] = $targetEntity;
-        $classMetadata->addInheritedAssociationMapping($associationMapping);
+        $classMetadata->associationMappings[$field]['targetEntity'] = $targetEntity;
     }
 }
