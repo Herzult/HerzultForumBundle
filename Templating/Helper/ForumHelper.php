@@ -58,7 +58,7 @@ class ForumHelper extends Helper
     public function urlForTopicReply(Topic $topic)
     {
         $topicUrl = $this->urlForTopic($topic);
-        $topicPage = 1 + floor($topic->getNumPosts() / $this->nbPostsPerPage);
+        $topicPage = ceil($topic->getNumPosts() / $this->nbPostsPerPage);
 
         return sprintf('%s?page=%d#reply', $topicUrl, $topicPage);
     }
@@ -66,7 +66,7 @@ class ForumHelper extends Helper
     public function urlForPost(Post $post)
     {
         $topicUrl = $this->urlForTopic($post->getTopic());
-        $topicPage = 1 + floor($post->getNumber() / $this->nbPostsPerPage);
+        $topicPage = ceil($post->getNumber() / $this->nbPostsPerPage);
 
         return sprintf('%s?page=%d#%d', $topicUrl, $topicPage, $post->getNumber());
     }
@@ -80,7 +80,7 @@ class ForumHelper extends Helper
 
     public function getTopicNumPages(Topic $topic)
     {
-        return 1 + floor($topic->getNumPosts() / $this->nbPostsPerPage);
+        return ceil($topic->getNumPosts() / $this->nbPostsPerPage);
     }
 
     public function getName()
