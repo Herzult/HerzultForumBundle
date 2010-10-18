@@ -34,6 +34,11 @@ abstract class Post
     protected $createdAt;
     protected $updatedAt;
 
+    public function __toString()
+    {
+        return (string) $this->getId();
+    }
+
     public function __construct()
     {
         $this->setCreatedNow();

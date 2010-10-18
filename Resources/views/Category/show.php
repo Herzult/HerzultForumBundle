@@ -12,5 +12,7 @@
     <div class="side categories">
         <h2>Categories</h2>
         <?php echo $view['actions']->render('ForumBundle:Category:list') ?>
+        <h2>Participate</h2>
+        <p><a href="<?php echo $view['router']->generate('forum_topic_new') ?>">Create a new topic</a></p>
     </div>
 </div>
