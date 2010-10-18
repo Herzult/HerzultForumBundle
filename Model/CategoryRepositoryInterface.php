@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\DAO;
+namespace Bundle\ForumBundle\Model;
 
 interface CategoryRepositoryInterface extends RepositoryInterface
 {

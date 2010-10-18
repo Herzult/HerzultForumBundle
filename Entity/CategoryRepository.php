@@ -2,7 +2,7 @@
 
 namespace Bundle\ForumBundle\Entity;
 
-use Bundle\ForumBundle\DAO\CategoryRepositoryInterface;
+use Bundle\ForumBundle\Model\CategoryRepositoryInterface;
 
 class CategoryRepository extends ObjectRepository implements CategoryRepositoryInterface
 {

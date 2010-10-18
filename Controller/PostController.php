@@ -4,8 +4,8 @@ namespace Bundle\ForumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Bundle\ForumBundle\DAO\Topic;
-use Bundle\ForumBundle\DAO\Post;
+use Bundle\ForumBundle\Model\Topic;
+use Bundle\ForumBundle\Model\Post;
 
 class PostController extends Controller
 {

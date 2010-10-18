@@ -2,7 +2,7 @@
 
 namespace Bundle\ForumBundle\Entity;
 
-use Bundle\ForumBundle\DAO\PostRepositoryInterface;
+use Bundle\ForumBundle\Model\PostRepositoryInterface;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\DoctrineORMAdapter;
 

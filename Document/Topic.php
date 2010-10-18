@@ -2,7 +2,7 @@
 
 namespace Bundle\ForumBundle\Document;
 
-use Bundle\ForumBundle\DAO\Topic as BaseTopic;
+use Bundle\ForumBundle\Model\Topic as BaseTopic;
 
 abstract class Topic extends BaseTopic
 {

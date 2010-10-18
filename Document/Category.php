@@ -2,7 +2,7 @@
 
 namespace Bundle\ForumBundle\Document;
 
-use Bundle\ForumBundle\DAO\Category as BaseCategory;
+use Bundle\ForumBundle\Model\Category as BaseCategory;
 
 abstract class Category extends BaseCategory
 {

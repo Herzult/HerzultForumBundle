@@ -4,10 +4,10 @@ namespace Bundle\ForumBundle\Templating\Helper;
 
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\Helper\Helper;
-use Bundle\ForumBundle\DAO\Category;
-use Bundle\ForumBundle\DAO\Topic;
-use Bundle\ForumBundle\DAO\Post;
-use Bundle\DoctrineUserBundle\DAO\User;
+use Bundle\ForumBundle\Model\Category;
+use Bundle\ForumBundle\Model\Topic;
+use Bundle\ForumBundle\Model\Post;
+use Bundle\DoctrineUserBundle\Model\User;
 
 class ForumHelper extends Helper
 {

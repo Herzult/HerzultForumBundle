@@ -2,7 +2,7 @@
 
 namespace Bundle\ForumBundle\Entity;
 
-use Bundle\ForumBundle\DAO\Post as BasePost;
+use Bundle\ForumBundle\Model\Post as BasePost;
 
 abstract class Post extends BasePost
 {

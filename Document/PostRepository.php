@@ -2,7 +2,7 @@
 
 namespace Bundle\ForumBundle\Document;
 
-use Bundle\ForumBundle\DAO\PostRepositoryInterface;
+use Bundle\ForumBundle\Model\PostRepositoryInterface;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\DoctrineMongoDBAdapter;
 
