@@ -131,7 +131,7 @@ class PostTest extends WebTestCase
 
         $post = $om->getRepository('ForumBundle:Post')->findOneById($post->getId());
         $postTopic = $post->getTopic();
-        $this->assertInstanceOf('Bundle\ForumBundle\Document\Topic', $postTopic);
+        $this->assertInstanceOf('Bundle\ForumBundle\DAO\Topic', $postTopic);
         $this->assertEquals($topic->getId(), $postTopic->getId());
     }
 
