@@ -10,7 +10,9 @@ class ForumController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('ForumBundle:Forum:index.'.$this->getRenderer());
+        return $this->render('ForumBundle:Forum:index.'.$this->getRenderer(), array(
+            'page'  => $this['request']->query->get('page', 1)
+        ));
     }
 
     public function searchAction()

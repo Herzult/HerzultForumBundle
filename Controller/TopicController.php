@@ -70,10 +70,16 @@ class TopicController extends Controller
     public function listAction($category = null)
     {
         if (null !== $category) {
-            $topics = $this['forum.topic_repository']->findAllByCategory($category);
+            $topics = $this['forum.topic_repository']->findAllByCategory($category, true);
         } else {
-            $topics = $this['forum.topic_repository']->findAll();
+            $topics = $this['forum.topic_repository']->findAll(true);
         }
+        
+        $page = $this['request']->query->get('page', 1);
+
+        $topics->setCurrentPageNumber($page);
+        $topics->setItemCountPerPage($this->container->getParameter('forum.topic_list.max_per_page'));
+        $topics->setPageRange(5);
 
         return $this->render('ForumBundle:Topic:list.'.$this->getRenderer(), array('topics' => $topics));
     }

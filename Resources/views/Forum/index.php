@@ -4,7 +4,12 @@
     <ul class="crumbs">
         <li>Forum</li>
     </ul>
-    <div class="categories">
+    <div class="main topics">
+        <h2>All topics</h2>
+        <?php echo $view['actions']->render('ForumBundle:Topic:list', array(), array('query' => array('page' => $page))) ?>
+    </div>
+    <div class="side categories">
+        <h2>Categories</h2>
         <?php echo $view['actions']->render('ForumBundle:Category:list') ?>
     </div>
 </div>
