@@ -46,11 +46,12 @@
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="validateBeforePersist" />
-            <lifecycle-callback type="prePersist" method="setCreatedNow" />
             <lifecycle-callback type="prePersist" method="updatePulledAt" />
             <lifecycle-callback type="prePersist" method="setAsCategoryLastTopic" />
             <lifecycle-callback type="prePersist" method="incrementCategoryNumTopics" />
+            <lifecycle-callback type="preUpdate" method="updatePulledAt" />
             <lifecycle-callback type="preRemove" method="decrementCategoryNumTopics" />
+            <lifecycle-callback type="preRemove" method="decrementCategoryNumPosts" />
         </lifecycle-callbacks>
 
     </mapped-superclass>
