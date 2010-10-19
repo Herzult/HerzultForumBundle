@@ -75,6 +75,19 @@ h3 {
     background: url(../images/crumbs.gif) no-repeat right;
 }
 
+.forum .pagination {}
+.forum .pagination a,
+.forum .pagination span {
+    display: inline-block;
+    padding: 0 10px;
+    background: #fefefe;
+    text-decoration: none;
+    -webkit-border-radius: 12px;
+}
+.forum .pagination a:hover { color: #fff; background: #108ae7; }
+.forum .pagination .current { background: #ff005c; color: #fff; }
+.forum .pagination .inactive { color: #999; }
+
 /*
     Categories List
 */

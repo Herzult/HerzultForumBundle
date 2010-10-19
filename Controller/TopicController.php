@@ -81,7 +81,10 @@ class TopicController extends Controller
         $topics->setItemCountPerPage($this->container->getParameter('forum.topic_list.max_per_page'));
         $topics->setPageRange(5);
 
-        return $this->render('ForumBundle:Topic:list.'.$this->getRenderer(), array('topics' => $topics));
+        return $this->render('ForumBundle:Topic:list.'.$this->getRenderer(), array(
+            'topics'    => $topics,
+            'category'  => $category
+        ));
     }
 
     public function showAction($categorySlug, $id)

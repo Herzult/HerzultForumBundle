@@ -18,3 +18,8 @@
     </li>
 <?php endforeach ?>
 </ul>
+
+<?php echo $view->render('ForumBundle::pagination.php', array(
+    'pager' => $topics->getPages(),
+    'url'   => $view['forum']->urlFor($category)
+)) ?>
