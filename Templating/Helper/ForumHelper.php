@@ -20,42 +20,42 @@ class ForumHelper extends Helper
         $this->nbPostsPerPage = $nbPostsPerPage;
     }
 
-    public function urlFor($object = null)
+    public function urlFor($object = null, $absolute = false)
     {
         if (null === $object) {
             return $this->urlForIndex();
         } elseif ($object instanceof Category) {
-            return $this->urlForCategory($object);
+            return $this->urlForCategory($object, $absolute);
         } elseif ($object instanceof Topic) {
-            return $this->urlForTopic($object);
+            return $this->urlForTopic($object, $absolute);
         } elseif ($object instanceof User) {
-
+            return $this->urlForUser($object, $absolute);
         } else {
             throw new \Exception(sprintf('Could not generate url for object "%s".', \get_class($object)));
         }
     }
 
-    public function urlForIndex()
+    public function urlForIndex($absolute = false)
     {
-        return $this->router->generate('forum_index');
+        return $this->router->generate('forum_index', array(), $absolute);
     }
 
-    public function urlForCategory(Category $category)
+    public function urlForCategory(Category $category, $absolute = false)
     {
         return $this->router->generate('forum_category_show', array(
             'slug' => $category->getSlug()
-        ));
+        ), $absolute);
     }
 
-    public function urlForTopic(Topic $topic)
+    public function urlForTopic(Topic $topic, $absolute = false)
     {
         return $this->router->generate('forum_topic_show', array(
-            'categorySlug' => $topic->getCategory()->getSlug(),
-            'id' => $topic->getId()
-        ));
+            'categorySlug'  => $topic->getCategory()->getSlug(),
+            'id'            => $topic->getId()
+        ), $absolute);
     }
 
-    public function urlForTopicReply(Topic $topic)
+    public function urlForTopicReply(Topic $topic, $absolute = false)
     {
         $topicUrl = $this->urlForTopic($topic);
         $topicPage = ceil($topic->getNumPosts() / $this->nbPostsPerPage);
@@ -63,19 +63,19 @@ class ForumHelper extends Helper
         return sprintf('%s?page=%d#reply', $topicUrl, $topicPage);
     }
 
-    public function urlForPost(Post $post)
+    public function urlForPost(Post $post, $absolute = false)
     {
-        $topicUrl = $this->urlForTopic($post->getTopic());
+        $topicUrl = $this->urlForTopic($post->getTopic(), $absolute);
         $topicPage = ceil($post->getNumber() / $this->nbPostsPerPage);
 
         return sprintf('%s?page=%d#%d', $topicUrl, $topicPage, $post->getNumber());
     }
 
-    public function urlForUser(User $user)
+    public function urlForUser(User $user, $absolute = false)
     {
         return $this->router->generate('doctrine_user_user_show', array(
            'username' => $user->getUsername()
-        ));
+        ), $absolute);
     }
 
     public function getTopicNumPages(Topic $topic)
