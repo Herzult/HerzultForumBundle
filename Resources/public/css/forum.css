@@ -8,17 +8,19 @@
 
 body {
     margin: 0;
-    font-family: Georgia,'Times New Roman',times,serif;
-    font-size: 16px;
+    font: 16px Georgia,'Times New Roman',times,serif;
     line-height: 180%;
 }
 
 a { color: #108ae7; }
 a:hover { color: #ff005c; }
 
+h2, h3 {
+    font-weight: normal;
+}
+
 h2 {
     padding: 10px;
-    font-weight: normal;
     color: #333;
     border-bottom: 1px solid #999;
     text-transform: uppercase;
@@ -27,7 +29,6 @@ h2 {
 h3 {
     color: #666;
     font-size: 26px;
-    font-weight: normal;
     font-variant: small-caps;
 }
 
@@ -51,9 +52,9 @@ h3 {
 #site-identity .slogan {
     font-size: 18px;
     font-style: italic;
-    color: #cccccc;
-    float: right;
     font-weight: normal;
+    color: #ccc;
+    float: right;
 }
 
 /*
@@ -72,7 +73,7 @@ h3 {
 .forum .crumbs li { 
     float: left;
     padding: 5px 25px 5px 20px;
-    background: url(../images/crumbs.gif) no-repeat right;
+    background: url(../images/crumbs.png) no-repeat right;
 }
 
 .forum .pagination {}
@@ -82,10 +83,12 @@ h3 {
     padding: 0 10px;
     background: #fefefe;
     text-decoration: none;
+    border-radius: 12px;
+    -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
 }
 .forum .pagination a:hover { color: #fff; background: #108ae7; }
-.forum .pagination .current { background: #ff005c; color: #fff; }
+.forum .pagination .current { color: #fff; background: #ff005c; }
 .forum .pagination .inactive { color: #999; }
 
 /*
