@@ -1,5 +1,4 @@
 <?php foreach ($topics as $topic): ?>
-
     <entry>
         <title><?php echo $topic->getSubject() ?></title>
         <author><?php echo $topic->getAuthor() ? : 'Anonymous' ?></author>

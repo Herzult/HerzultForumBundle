@@ -1,5 +1,4 @@
 <?php foreach ($posts as $post): ?>
-
     <entry>
         <author><?php echo $post->getRawValue()->getAuthor() ? : 'Anonymous' ?></author>
         <published><?php echo $post->getCreatedAt()->format('c') ?></published>
