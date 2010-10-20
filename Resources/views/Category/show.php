@@ -2,11 +2,12 @@
 <?php $view['slots']->set('title', 'Topics List') ?>
 <div class="forum forum_index">
     <ul class="crumbs">
-        <li><a href="<?php echo $view['forum']->urlFor() ?>">Forum</a></li>
+        <li><a href="<?php echo $view['forum']->urlForIndex() ?>">Forum</a></li>
         <li><?php echo $category->getName() ?></li>
     </ul>
     <div class="main topics">
         <h2><?php echo $category->getName() ?></h2>
+        <a href="<?php echo $view['forum']->urlForCategoryAtomFeed($category->getRawValue()) ?>" title="Atom feed" class="feed atom">Atom feed</a>
         <?php echo $view['actions']->render('ForumBundle:Topic:list', array('category' => $category ), array('query' => array('page' => $page))) ?>
     </div>
     <div class="side categories">

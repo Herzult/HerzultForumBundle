@@ -10,6 +10,7 @@
 
     <div class="main topic">
         <h2><?php echo $topic->getSubject() ?></h2>
+        <a href="<?php echo $view['forum']->urlForTopicAtomFeed($topic->getRawValue()) ?>" title="Atom feed" class="feed atom">Atom feed</a>
         <?php echo $view->render('ForumBundle:Post:list.php', array('posts' => $posts)) ?>
     </div>
 

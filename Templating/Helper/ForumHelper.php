@@ -47,11 +47,28 @@ class ForumHelper extends Helper
         ), $absolute);
     }
 
+    public function urlForCategoryAtomFeed(Category $category, $absolute = false)
+    {
+        return $this->router->generate('forum_category_show', array(
+            'slug'      => $category->getSlug(),
+            '_format'   =>  'xml'
+        ), $absolute);
+    }
+
     public function urlForTopic(Topic $topic, $absolute = false)
     {
         return $this->router->generate('forum_topic_show', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
             'id'            => $topic->getId()
+        ), $absolute);
+    }
+
+    public function urlForTopicAtomFeed(Topic $topic, $absolute = false)
+    {
+        return $this->router->generate('forum_topic_show', array(
+            'categorySlug'  => $topic->getCategory()->getSlug(),
+            'id'            => $topic->getId(),
+            '_format'       => 'xml'
         ), $absolute);
     }
 
