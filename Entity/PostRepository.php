@@ -34,6 +34,20 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
     }
 
     /**
+     * @see PostRepositoryInterface::findRecentByTopic
+     */
+    public function findRecentByTopic($topic, $number)
+    {
+        return $this->createQueryBuilder('post')
+            ->orderBy('post.createdAt', 'DESC')
+            ->where('post.topic = :topic')
+            ->setMaxResults($number)
+            ->setParameter('topic', $topic->getId())
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
      * @see PostRepositoryInterface::search
      */
     public function search($query, $asPaginator = false)

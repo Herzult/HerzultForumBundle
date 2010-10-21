@@ -91,6 +91,16 @@ h3 {
 .forum .pagination .current { color: #fff; background: #ff005c; }
 .forum .pagination .inactive { color: #999; }
 
+.forum .main .feed { float: right; }
+.forum .main .feed.atom {
+    display: block;
+    margin-top: -56px;
+    width: 24px;
+    height: 24px;
+    text-indent: -9999px;
+    background: url(../images/feed.png) no-repeat;
+}
+
 /*
     Categories List
 */

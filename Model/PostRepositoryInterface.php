@@ -23,6 +23,15 @@ interface PostRepositoryInterface extends RepositoryInterface
     public function findAllByTopic($topic, $asPaginator);
 
     /**
+     * Finds more recent posts matching the specified Topic
+     *
+     * @param Topic $topic
+     * @param int $number max number of posts to fetch
+     * @return array of Post
+     */
+    public function findRecentByTopic($topic, $number);
+
+    /**
      * Finds all posts matching the specified query ordered by their
      * last created date
      *

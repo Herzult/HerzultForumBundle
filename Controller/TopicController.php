@@ -74,7 +74,7 @@ class TopicController extends Controller
         } else {
             $topics = $this['forum.topic_repository']->findAll(true);
         }
-        
+
         $page = $this['request']->query->get('page', 1);
 
         $topics->setCurrentPageNumber($page);
@@ -97,11 +97,16 @@ class TopicController extends Controller
         }
         $topicRepository->incrementTopicNumViews($topic);
 
-        $page = $this['request']->query->get('page', 1);
-        $posts = $this['forum.post_repository']->findAllByTopic($topic, true);
-        $posts->setCurrentPageNumber($page);
-        $posts->setItemCountPerPage($this->container->getParameter('forum.post_list.max_per_page'));
-        $posts->setPageRange(5);
+        if('html' === $this['request']->getRequestFormat()) {
+            $page = $this['request']->query->get('page', 1);
+            $posts = $this['forum.post_repository']->findAllByTopic($topic, true);
+            $posts->setCurrentPageNumber($page);
+            $posts->setItemCountPerPage($this->container->getParameter('forum.post_list.max_per_page'));
+            $posts->setPageRange(5);
+        }
+        else {
+            $posts = $this['forum.post_repository']->findRecentByTopic($topic, 30);
+        }
 
         return $this->render('ForumBundle:Topic:show.'.$this->getRenderer(), array('topic' => $topic, 'posts' => $posts));
     }
