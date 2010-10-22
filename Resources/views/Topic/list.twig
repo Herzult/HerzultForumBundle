@@ -1,0 +1,17 @@
+<ul class="forum_topics_list">
+{% for topic in topics %}
+    <li class="topic">
+        <div class="content">
+            <a class="subject" href="{{ _view.forum.urlForTopic(topic) }}">{{ topic.getSubject() }}</a>
+        </div>
+        <div class="metas">
+            <span class="creation">Created <span class="createdAt">{{ _view.time.ago(topic.getCreatedAt()) }}</span> by
+            <span class="author">{{ topic.getAuhtor() }}</span>
+            | <span class="numPosts">{{ topic.getNumPosts() }} {{ topic.getNumPosts() > 1 ? 'posts' : 'post' }}</span>
+            | <a class="category" href="{{ _view.forum.urlForCategory(topic.getCategory()) }}">{{ topic.getCategory().getName() }}</a>
+        </div>
+    </li>
+{% endfor %}
+</ul>
+
+{% include 'ForumBundle::pagination.twig' with ['pager': topics.getPages(), 'url': _view.forum.urlFor(category)] %}

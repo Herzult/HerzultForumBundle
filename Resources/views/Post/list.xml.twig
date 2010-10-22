@@ -1,0 +1,7 @@
+{% for post in posts %}
+    <entry>
+        <author>{{ post.author ? : 'Anonymous' }}</author>
+        <published>{{ post.getCreatedAt().format('c') }}</published>
+        <link rel="alternate">{{ _view.forum.urlForPost(post, true) }}</link>
+    </entry>
+{% endfor %}

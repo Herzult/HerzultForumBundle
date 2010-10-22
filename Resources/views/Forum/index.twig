@@ -1,0 +1,19 @@
+{% extends 'ForumBundle::layout.twig' %}
+
+{% block title %}ForumBundle, a simple Symfony2 forum{% endblock %}
+
+{% block content %}
+<div class="forum forum_index">
+    <ul class="crumbs">
+        <li>Forum</li>
+    </ul>
+    <div class="main topics">
+        <h2>All topics</h2>
+        {% render 'ForumBundle:Topic:list' with ['query': ['page': page]] %}
+    </div>
+    <div class="side categories">
+        <h2>Categories</h2>
+        {% render 'ForumBundle:Category:list' %}
+    </div>
+</div>
+{% endblock %}

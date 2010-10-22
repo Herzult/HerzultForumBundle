@@ -1,0 +1,23 @@
+{% extends 'ForumBundle::layout.twig' %}
+{% block title %}{{ topic.getSubject() }}{% endblock %}
+{% block content %}
+<div class="forum forum_topic">
+
+    <ul class="crumbs">
+        <li><a href="{{ _view.forum.urlForIndex() }}">Forum</a></li>
+        <li><a href="{{ _view.forum.urlForCategory(topic.getCategory) }}">{{ topic.getCategory().getName() }}</a></li>
+        <li>{{ topic.getSubject() }}</li>
+    </ul>
+
+    <div class="main topic">
+        <h2>{{ topic.getSubject() }}</h2>
+        <a href="{{ _view.forum.urlForTopicAtomFeed(topic) }}" title="Atom feed" class="feed atom">Atom feed</a>
+        {% include 'ForumBundle:Post:list.twig' with ['posts': posts] %}
+    </div>
+
+    <div class="side menu">
+        <a href="{% route 'forum_post_new' with ['topicId': topic.getId()] %}">Add a New Reply</a>
+    </div>
+
+</div>
+{% endblock %}

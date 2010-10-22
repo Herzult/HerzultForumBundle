@@ -1,0 +1,20 @@
+{% extend 'ForumBundle::layout.twig' %}
+{% block title %}New Topic{% endblock %}
+{% block content %}
+<div class="forum topic_new">
+    <ul class="crumbs">
+        <li><a href="{{ _view.forum.urlForIndex() }}">Forum</a></li>
+        <li>New Topic</li>
+    </ul>
+    <div class="main">
+        <h2>New Topic</h2>
+        <form action="{% route 'forum_topic_create' %}" method="post">
+            {{ form|render }}
+            <button type="submit" name="create">Create topic</button>
+        </form>
+    </div>
+    <div class="side">
+        <p><a href="{{ _view.forum.urlForIndex() }}">Cancel</a></p>
+    </div>
+</div>
+{% endblock %}

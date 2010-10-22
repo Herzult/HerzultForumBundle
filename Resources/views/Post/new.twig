@@ -1,0 +1,24 @@
+{% extends 'ForumBundle::layout.twig' %}
+{% block title %}New Reply{% endblock %}
+{% block content %}
+<div class="forum  post_new">
+    <ul class="crumbs">
+        <li><a href="{{ _view.forum.urlForIndex() }} ">Forum</a></li>
+        <li><a href="{{ _view.forum.urlForCategory(topic.getCategory()) }}">{{ topic.getCategory().getName() }}</a></li>
+        <li><a href="{{ _view.forum.urlForTopic(topic) }}">{{ topic.getSubject() }}</a></li>
+        <li>New Reply</li>
+    </ul>
+    <div class="main">
+        <h2>New Reply</h2>
+        <form action="{% route 'forum_post_create' with ['topicId': topic.getId()] %}" method="post">
+            {{ form|render }}
+            <div>
+                <button type="submit" name="reply">Add post</button>
+            </div>
+        </form>
+    </div>
+    <div class="side">
+        <p><a href="{{ _view.forum.urlForTopic(topic) }}">Back to the topic</a></p>
+    </div>
+</div>
+{% endblock %}

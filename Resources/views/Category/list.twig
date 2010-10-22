@@ -1,0 +1,12 @@
+<ul class="forum_categories_list">
+    {% for category in categories %}
+    <li>
+        <div class="content">
+            <a class="name" href="{{ _view.forum.urlForCategory(category) }}">{{ category.getName() }}</a>
+        </div>
+        <div class="metas">
+            <span class="numTopics">{{ category.getNumTopics() }} {{ category.getNumTopics() > 1 ? 'topics' : 'topic' }}</span>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
