@@ -24,7 +24,7 @@ class PostController extends Controller
         $form = $this->createForm('forum_post_new', $topic);
 
         return $this->render('ForumBundle:Post:new.'.$this->getRenderer(), array(
-            'form'  => $this['templating.form']->get($form),
+            'form'  => $form,
             'topic' => $topic,
             'user'  => $user
         ));

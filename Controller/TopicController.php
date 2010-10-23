@@ -26,7 +26,7 @@ class TopicController extends Controller
         $form = $this->createForm('forum_topic_new', $category);
 
         return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array(
-            'form'      => $this['templating.form']->get($form),
+            'form'      => $form,
             'user'      => $user,
             'category'  => $category
         ));
@@ -50,7 +50,7 @@ class TopicController extends Controller
 
         if(!$form->isValid()) {
             return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array(
-                'form'      => $this['templating.form']->get($form),
+                'form'      => $form,
                 'user'      => $user,
                 'category'  => $category
             ));
