@@ -24,7 +24,7 @@ class DoctrineObjectTransformer extends BaseValueTransformer
         }
         $this->repository = $repository;
     }
-    
+
     /**
      * Transforms an object into an id
      *
@@ -33,6 +33,10 @@ class DoctrineObjectTransformer extends BaseValueTransformer
      */
     public function transform($value)
     {
+        if(null === $value) {
+            return null;
+        }
+
         if (!is_object($value)) {
             throw new \InvalidArgumentException(sprintf('Expected argument of type object but got %s.', gettype($value)));
         }
@@ -48,7 +52,7 @@ class DoctrineObjectTransformer extends BaseValueTransformer
     {
         return $this->repository->find($value);
     }
-    
+
     /**
      * Get repository
      * @return mixed
@@ -57,7 +61,7 @@ class DoctrineObjectTransformer extends BaseValueTransformer
     {
       return $this->repository;
     }
-    
+
     /**
      * Set repository
      * @param  mixed
