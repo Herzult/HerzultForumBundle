@@ -8,6 +8,8 @@
 
         <field name="id" fieldName="id" id="true" />
 
+        <field name="author" fieldName="author" type="string" />
+
         <field name="message" fieldName="message" type="string" />
 
         <field name="number" fieldName="number" type="int" />
@@ -17,8 +19,6 @@
         <field name="updatedAt" fieldName="updatedAt" type="date" />
 
         <reference-one target-document="Topic" field="topic" />
-
-        <reference-one target-document="Bundle\DoctrineUserBundle\Document\User" field="author" />
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="incrementTopicNumPosts" />

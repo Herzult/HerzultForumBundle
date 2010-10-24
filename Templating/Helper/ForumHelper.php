@@ -28,8 +28,6 @@ class ForumHelper extends Helper
             return $this->urlForCategory($object, $absolute);
         } elseif ($object instanceof Topic) {
             return $this->urlForTopic($object, $absolute);
-        } elseif ($object instanceof User) {
-            return $this->urlForUser($object, $absolute);
         } else {
             throw new \Exception(sprintf('Could not generate url for object "%s".', \get_class($object)));
         }
@@ -89,13 +87,6 @@ class ForumHelper extends Helper
         $topicPage = ceil($post->getNumber() / $this->nbPostsPerPage);
 
         return sprintf('%s?page=%d#%d', $topicUrl, $topicPage, $post->getNumber());
-    }
-
-    public function urlForUser(User $user, $absolute = false)
-    {
-        return $this->router->generate('doctrine_user_user_show', array(
-           'username' => $user->getUsername()
-        ), $absolute);
     }
 
     public function getTopicNumPages(Topic $topic)

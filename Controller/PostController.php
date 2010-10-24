@@ -4,6 +4,7 @@ namespace Bundle\ForumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Exception\InsufficientAuthenticationException;
 use Bundle\ForumBundle\Model\Topic;
 use Bundle\ForumBundle\Model\Post;
 
@@ -11,9 +12,8 @@ class PostController extends Controller
 {
     public function newAction($topic)
     {
-        $user = $this['doctrine_user.auth']->getUser();
-        if (!$user) {
-            throw new NotFoundHttpException('A user must be logged in.');
+        if (!$this['security.context']->isAuthenticated()) {
+            throw new InsufficientAuthenticationException('User must be authenticated to create a topic.');
         }
 
         $form = $this->createForm('forum_post_new', $topic);
@@ -21,7 +21,7 @@ class PostController extends Controller
         return $this->render('ForumBundle:Post:new.'.$this->getRenderer(), array(
             'form'  => $form,
             'topic' => $topic,
-            'user'  => $user
+            'user'  => $this['security.context']->getUser()
         ));
     }
 
@@ -32,9 +32,8 @@ class PostController extends Controller
             throw new NotFoundHttpException('The topic does not exist.');
         }
 
-        $user = $this['doctrine_user.auth']->getUser();
-        if (!$user) {
-            throw new NotFoundHttpException('A user must be logged in.');
+        if (!$this['security.context']->isAuthenticated()) {
+            throw new InsufficientAuthenticationException('User must be authenticated to create a topic.');
         }
 
         $form = $this->createForm('forum_post_new', $topic);
@@ -48,7 +47,7 @@ class PostController extends Controller
         }
 
         $post = $form->getData();
-        $post->setAuthor($user);
+        $post->setAuthor($this['security.context']->getUser());
         $this->savePost($post);
 
         $this['session']->setFlash('forum_post_create/success', true);

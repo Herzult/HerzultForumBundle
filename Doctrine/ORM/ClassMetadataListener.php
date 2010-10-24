@@ -25,13 +25,11 @@ class ClassMetadataListener
                 break;
             case 'Bundle\\ForumBundle\\Entity\\Topic':
                 $this->replaceClassMetadatadaAssociationMappingTargetEntity($classMetadata, 'category', $this->classes['category']);
-                $this->replaceClassMetadatadaAssociationMappingTargetEntity($classMetadata, 'author', $this->classes['user']);
                 $this->replaceClassMetadatadaAssociationMappingTargetEntity($classMetadata, 'firstPost', $this->classes['post']);
                 $this->replaceClassMetadatadaAssociationMappingTargetEntity($classMetadata, 'lastPost', $this->classes['post']);
                 break;
             case 'Bundle\\ForumBundle\\Entity\\Post':
                 $this->replaceClassMetadatadaAssociationMappingTargetEntity($classMetadata, 'topic', $this->classes['topic']);
-                $this->replaceClassMetadatadaAssociationMappingTargetEntity($classMetadata, 'author', $this->classes['user']);
                 break;
         }
     }

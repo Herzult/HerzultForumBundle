@@ -3,13 +3,7 @@
     <li id="<?php echo $post->getNumber() ?>">
         <div class="metas">
             <div class="author">
-                {% if post.getAuthor() %}
-                <img src="{{ _view.gravatar.getUrl(post.getAuthor().getEmail(), 60) }}" alt="" class="avatar" />
-                <a href="{{ _view.forum.urlForUser(post.getAuthor()) }}" class="username">{{ post.getAuthor().getUsername() }}</a>
-                {% else %}
-                <img src="{{ _view.gravatar.getUrl(null, 60) }}" alt="" class="avatar" />
-                <span class="username">Anonymous</span>
-                {% endif %}
+                <span class="username">{{ post.getAuthor() }}</span>
             </div>
             <div class="date">
                 <span class="createdAt">{{ _view.time.ago(post.getCreatedAt()) }}</span>
