@@ -14,6 +14,8 @@
     <div class="side categories">
         <h2>Categories</h2>
         {% render 'ForumBundle:Category:list' %}
+        <h2>Participate</h2>
+        <p><a href="{% route 'forum_topic_new' %}">Create a new topic</a></p>
     </div>
 </div>
 {% endblock %}

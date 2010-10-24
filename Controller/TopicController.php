@@ -10,17 +10,11 @@ use Bundle\ForumBundle\Model\Category;
 
 class TopicController extends Controller
 {
-    public function newAction($categorySlug = null)
+    public function newAction($category = null)
     {
         $user = $this['doctrine_user.auth']->getUser();
         if (!$user) {
             throw new NotFoundHttpException('A user must be logged in.');
-        }
-
-        if($categorySlug) {
-            $category = $this['forum.category_repository']->findOneBySlug($categorySlug);
-        } else {
-            $category = null;
         }
 
         $form = $this->createForm('forum_topic_new', $category);
@@ -32,17 +26,11 @@ class TopicController extends Controller
         ));
     }
 
-    public function createAction($categorySlug = null)
+    public function createAction($category = null)
     {
         $user = $this['doctrine_user.auth']->getUser();
         if (!$user) {
             throw new NotFoundHttpException('A user must be logged in.');
-        }
-
-        if($categorySlug) {
-            $category = $this['forum.category_repository']->findOneBySlug($categorySlug);
-        } else {
-            $category = null;
         }
 
         $form = $this->createForm('forum_topic_new', $category);

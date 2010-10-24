@@ -11,5 +11,11 @@
         <requirement key="_format">(html|xml)</requirement>
         <requirement key="slug">[-\w]+</requirement>
     </route>
-    
+
+    <route id="forum_category_topic_new" pattern="/:slug/topic/new">
+        <default key="_controller">ForumBundle:Category:topicNew</default>
+        <requirement key="_method">GET</requirement>
+        <requirement key="slug">[-\w]+</requirement>
+    </route>
+
 </routes>

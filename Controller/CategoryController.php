@@ -28,6 +28,17 @@ class CategoryController extends Controller
         ));
     }
 
+    public function topicNewAction($slug)
+    {
+        $category = $this['forum.category_repository']->findOneBySlug($slug);
+
+        if (!$category) {
+            throw new NotFoundHttpException(sprintf('The category %s does not exist.', $slug));
+        }
+
+        return $this->forward('ForumBundle:Topic:new', array('category' => $category));
+    }
+
     protected function getRenderer()
     {
         return $this->container->getParameter('forum.template.renderer');
