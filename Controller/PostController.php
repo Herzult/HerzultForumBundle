@@ -9,13 +9,8 @@ use Bundle\ForumBundle\Model\Post;
 
 class PostController extends Controller
 {
-    public function newAction($topicId)
+    public function newAction($topic)
     {
-        $topic = $this['forum.topic_repository']->findOneById($topicId);
-        if (!$topic) {
-            throw new NotFoundHttpException('The topic does not exist.');
-        }
-
         $user = $this['doctrine_user.auth']->getUser();
         if (!$user) {
             throw new NotFoundHttpException('A user must be logged in.');

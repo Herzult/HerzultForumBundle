@@ -3,6 +3,7 @@
 namespace Bundle\ForumBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Bundle\ForumBundle\Util\Inflector;
 
 abstract class Topic
 {
@@ -63,6 +64,16 @@ abstract class Topic
     public function getSubject()
     {
         return $this->subject;
+    }
+
+    /**
+     * Gets the slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return Inflector::slugify($this->getSubject());
     }
 
     /**

@@ -16,7 +16,7 @@
     </div>
 
     <div class="side menu">
-        <a href="{% route 'forum_post_new' with ['topicId': topic.getId()] %}">Add a New Reply</a>
+        <a href="{{ _view.forum.urlForTopicReply(topic) }}">Add a New Reply</a>
     </div>
 
 </div>

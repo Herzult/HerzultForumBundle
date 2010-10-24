@@ -59,6 +59,7 @@ class ForumHelper extends Helper
     {
         return $this->router->generate('forum_topic_show', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
+            'slug'          => $topic->getSlug(),
             'id'            => $topic->getId()
         ), $absolute);
     }
@@ -67,6 +68,7 @@ class ForumHelper extends Helper
     {
         return $this->router->generate('forum_topic_show', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
+            'slug'          => $topic->getSlug(),
             'id'            => $topic->getId(),
             '_format'       => 'xml'
         ), $absolute);
@@ -74,10 +76,11 @@ class ForumHelper extends Helper
 
     public function urlForTopicReply(Topic $topic, $absolute = false)
     {
-        $topicUrl = $this->urlForTopic($topic);
-        $topicPage = ceil($topic->getNumPosts() / $this->nbPostsPerPage);
-
-        return sprintf('%s?page=%d#reply', $topicUrl, $topicPage);
+        return $this->router->generate('forum_topic_post_new', array(
+            'categorySlug'  => $topic->getCategory()->getSlug(),
+            'slug'          => $topic->getSlug(),
+            'id'            => $topic->getId()
+        ));
     }
 
     public function urlForPost(Post $post, $absolute = false)

@@ -75,7 +75,7 @@ class TopicController extends Controller
         ));
     }
 
-    public function showAction($categorySlug, $id)
+    public function showAction($id)
     {
         $topicRepository = $this['forum.topic_repository'];
         $topic = $topicRepository->findOneById($id);
@@ -97,6 +97,17 @@ class TopicController extends Controller
         }
 
         return $this->render('ForumBundle:Topic:show.'.$this->getRenderer(), array('topic' => $topic, 'posts' => $posts));
+    }
+
+    public function postNewAction($id)
+    {
+        $topic = $this['forum.topic_repository']->findOneById($id);
+
+        if (!$topic) {
+            throw new NotFoundHttpException('The topic does not exist.');
+        }
+
+        return $this->forward('ForumBundle:Post:new', array('topic' => $topic));
     }
 
     protected function getRenderer()
