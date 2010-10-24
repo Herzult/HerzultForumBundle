@@ -1,6 +1,6 @@
 <ul class="forum_posts_list">
     {% for post in posts %}
-    <li id="<?php echo $post->getNumber() ?>">
+    <li id="{{ post.getNumber() }}">
         <div class="metas">
             <div class="author">
                 <span class="username">{{ post.getAuthor() }}</span>
