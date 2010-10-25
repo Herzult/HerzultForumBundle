@@ -137,6 +137,7 @@ class TopicController extends Controller
 
         $form = new $topicFormClass($name, $topic, $this['validator'], array('categoryRepository' => $this['forum.category_repository']));
         $form->add(new $postFormClass('firstPost', $post, $this['validator']));
+        $form['firstPost']->disableCSRFProtection();
 
         return $form;
     }
