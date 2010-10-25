@@ -44,8 +44,8 @@ class TopicController extends Controller
         }
 
         $topic = $form->getData();
-        $topic->setAuthor($user);
-        $topic->getFirstPost()->setAuthor($user);
+        $topic->setAuthor($this['security.context']->getUser());
+        $topic->getFirstPost()->setAuthor($this['security.context']->getUser());
         $this->saveTopic($topic);
 
         $this['session']->setFlash('forum_topic_create/success', true);
