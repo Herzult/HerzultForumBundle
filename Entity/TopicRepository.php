@@ -4,7 +4,7 @@ namespace Bundle\ForumBundle\Entity;
 
 use Bundle\ForumBundle\Model\TopicRepositoryInterface;
 use Zend\Paginator\Paginator;
-use Zend\Paginator\Adapter\DoctrineORMAdapter;
+use ZendPaginatorAdapter\DoctrineORMAdapter;
 
 class TopicRepository extends ObjectRepository implements TopicRepositoryInterface
 {
