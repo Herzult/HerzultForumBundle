@@ -10,7 +10,7 @@ use Bundle\ForumBundle\Model\Post;
 
 class PostController extends Controller
 {
-    public function newAction($topic)
+    public function newAction(Topic $topic)
     {
         if (!$this['security.context']->isAuthenticated()) {
             throw new InsufficientAuthenticationException('User must be authenticated to create a topic.');
@@ -25,13 +25,8 @@ class PostController extends Controller
         ));
     }
 
-    public function createAction($topicId)
+    public function createAction(Topic $topic)
     {
-        $topic = $this['forum.topic_repository']->findOneById($topicId);
-        if (!$topic) {
-            throw new NotFoundHttpException('The topic does not exist.');
-        }
-
         if (!$this['security.context']->isAuthenticated()) {
             throw new InsufficientAuthenticationException('User must be authenticated to create a topic.');
         }
@@ -40,10 +35,11 @@ class PostController extends Controller
         $form->bind($this['request']->request->get($form->getName()));
 
         if(!$form->isValid()) {
-            $lastPage = $this['templating.helper.forum']->getTopicNumPages($topic);
-            return $this->forward('ForumBundle:Topic:show', array(
-                'id' => $topicId
-            ), array('page' => $lastPage));
+            return $this->render('ForumBundle:Post:new.'.$this->getRenderer(), array(
+                'form'  => $form,
+                'topic' => $topic,
+                'user'  => $this['security.context']->getUser()
+            ));
         }
 
         $post = $form->getData();

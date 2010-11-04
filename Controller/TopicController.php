@@ -11,7 +11,7 @@ use Bundle\ForumBundle\Model\Category;
 
 class TopicController extends Controller
 {
-    public function newAction($category = null)
+    public function newAction(Category $category = null)
     {
         if (!$this['security.context']->isAuthenticated()) {
             throw new InsufficientAuthenticationException('User must be authenticated to create a topic.');
@@ -26,7 +26,7 @@ class TopicController extends Controller
         ));
     }
 
-    public function createAction($category = null)
+    public function createAction(Category $category = null)
     {
         if (!$this['security.context']->isAuthenticated()) {
             throw new InsufficientAuthenticationException('User must be authenticated to create a topic.');
@@ -54,7 +54,7 @@ class TopicController extends Controller
         return $this->redirect($url);
     }
 
-    public function listAction($category = null)
+    public function listAction(Category $category = null)
     {
         if (null !== $category) {
             $topics = $this['forum.topic_repository']->findAllByCategory($category, true);
@@ -98,7 +98,7 @@ class TopicController extends Controller
         return $this->render('ForumBundle:Topic:show.'.$this->getRenderer(), array('topic' => $topic, 'posts' => $posts));
     }
 
-    public function postNewAction($id)
+    public function postNewAction($categorySlug, $slug, $id)
     {
         $topic = $this['forum.topic_repository']->findOneById($id);
 
@@ -107,6 +107,17 @@ class TopicController extends Controller
         }
 
         return $this->forward('ForumBundle:Post:new', array('topic' => $topic));
+    }
+
+    public function postCreateAction($categorySlug, $slug, $id)
+    {
+        $topic = $this['forum.topic_repository']->findOneById($id);
+
+        if (!$topic) {
+            throw new NotFoundHttpException('The topic does not exist.');
+        }
+
+        return $this->forward('ForumBundle:Post:create', array('topic' => $topic));
     }
 
     protected function getRenderer()

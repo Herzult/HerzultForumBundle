@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.symfony-project.org/schema/routing http://www.symfony-project.org/schema/routing/routing-1.0.xsd">
 
-    <route id="forum_topic_show" pattern="/:categorySlug/:id/:slug.:_format">
+    <route id="forum_topic_show" pattern="/:categorySlug/:slug/:id.:_format">
         <default key="_controller">ForumBundle:Topic:show</default>
         <default key="_format">html</default>
         <requirement key="_method">GET</requirement>
@@ -13,21 +13,18 @@
         <requirement key="slug">[-\w]+</requirement>
     </route>
 
-    <route id="forum_topic_post_new" pattern="/:categorySlug/:id/:slug/reply">
+    <route id="forum_topic_post_new" pattern="/:categorySlug/:slug/:id/reply">
         <default key="_controller">ForumBundle:Topic:postNew</default>
         <requirement key="_method">GET</requirement>
         <requirement key="id">[a-h\d]+</requirement>
         <requirement key="slug">[-\w]+</requirement>
     </route>
 
-    <route id="forum_topic_new" pattern="/topic/new">
-        <default key="_controller">ForumBundle:Topic:new</default>
-        <requirement key="_method">GET</requirement>
-    </route>
-
-    <route id="forum_topic_create" pattern="/topic/new">
-        <default key="_controller">ForumBundle:Topic:create</default>
+    <route id="forum_topic_post_create" pattern="/:categorySlug/:slug/:id/reply">
+        <default key="_controller">ForumBundle:Topic:postCreate</default>
         <requirement key="_method">POST</requirement>
+        <requirement key="id">[a-h\d]+</requirement>
+        <requirement key="slug">[-\w]+</requirement>
     </route>
 
 </routes>

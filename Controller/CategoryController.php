@@ -33,10 +33,21 @@ class CategoryController extends Controller
         $category = $this['forum.category_repository']->findOneBySlug($slug);
 
         if (!$category) {
-            throw new NotFoundHttpException(sprintf('The category %s does not exist.', $slug));
+            throw new NotFoundHttpException(sprintf('The category "%s" does not exist.', $slug));
         }
 
         return $this->forward('ForumBundle:Topic:new', array('category' => $category));
+    }
+
+    public function topicCreateAction($slug)
+    {
+        $category = $this['forum.category_repository']->findOneBySlug($slug);
+
+        if (!$category) {
+            throw new NotFoundHttpException(sprintf('The category "%s" does not exist.', $slug));
+        }
+
+        return $this->forward('ForumBundle:Topic:create', array('category' => $category));
     }
 
     protected function getRenderer()
