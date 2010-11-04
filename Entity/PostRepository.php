@@ -4,7 +4,7 @@ namespace Bundle\ForumBundle\Entity;
 
 use Bundle\ForumBundle\Model\PostRepositoryInterface;
 use Zend\Paginator\Paginator;
-use Zend\Paginator\Adapter\DoctrineORMAdapter;
+use ZendPaginatorAdapter\DoctrineORMAdapter;
 
 class PostRepository extends ObjectRepository implements PostRepositoryInterface
 {
@@ -15,7 +15,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
     {
         return $this->findOneBy(array('id' => $id));
     }
-    
+
     /**
      * @see PostRepositoryInterface::findAllByTopic
      */
@@ -51,7 +51,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
      * @see PostRepositoryInterface::search
      */
     public function search($query, $asPaginator = false)
-    {   
+    {
         $qb = $this->createQueryBuilder('post');
         $qb->orderBy('post.createdAt')->where($qb->expr()->like('post.message', '%' . $query . '%'));
 

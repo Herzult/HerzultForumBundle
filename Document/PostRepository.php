@@ -4,7 +4,7 @@ namespace Bundle\ForumBundle\Document;
 
 use Bundle\ForumBundle\Model\PostRepositoryInterface;
 use Zend\Paginator\Paginator;
-use Zend\Paginator\Adapter\DoctrineMongoDBAdapter;
+use ZendPaginatorAdapter\DoctrineMongoDBAdapter;
 
 class PostRepository extends ObjectRepository implements PostRepositoryInterface
 {
