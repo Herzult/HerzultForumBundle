@@ -12,60 +12,72 @@ class ForumExtension extends Extension
     public function configLoad($config, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, __DIR__ . '/../Resources/config');
-
-        if (empty($config['db_driver'])) {
-            throw new \Exception('You must choose the database driver to use (ORM or ODM).');
-        }
-
-        switch (strtolower($config['db_driver'])) {
-            case 'orm':
-                $loader->load('orm.xml');
-                break;
-            case 'odm':
-                $loader->load('odm.xml');
-                break;
-            default:
-                throw new \Exception('The "%s" database driver is not supported.', $config['db_driver']);
-        }
-
-        $loader->load('services.xml');
-        $loader->load('forum.xml');
+        $loader->load('model.xml');
         $loader->load('controller.xml');
         $loader->load('form.xml');
+        $loader->load('templating.xml');
+        $loader->load('paginator.xml');
 
-        if (isset($config['template_renderer'])) {
-            $container->setParameter('forum.template.renderer', $config['template_renderer']);
+        if (!isset($config['db_driver'])) {
+            throw new \InvalidArgumentException('You must provide the forum.db_driver configuration');
         }
 
-        foreach(array('category', 'topic', 'post', 'user') as $model) {
-            $configName = $model.'_class';
-            $parameterName = sprintf('forum.%s_object.class', $model);
-            if (isset($config[$configName])) {
-                $container->setParameter($parameterName, $config[$configName]);
-            }
-            else {
-                throw new \InvalidArgumentException(sprintf('ForumBundle: You must define your %s class', $model));
-            }
+        try {
+            $loader->load(sprintf('%s.xml', $config['db_driver']));
+        } catch (\InvalidArgumentException $e) {
+            throw new \InvalidArgumentException(sprintf('The db_driver "%s" is not supported by forum', $config['db_driver']));
         }
 
-        foreach(array('topic', 'post') as $model) {
-            $configName = $model.'_form';
-            $parameterName = sprintf('forum.%s_form.class', $model);
-            if (isset($config[$configName])) {
-                $container->setParameter($parameterName, $config[$configName]);
+        foreach(array('category', 'topic', 'post') as $model) {
+            if (!isset($config['class']['model'][$model])) {
+                throw new \InvalidArgumentException(sprintf('You must define your %s model class', $model));
             }
         }
 
-        if(isset($config['topics_per_page'])) {
-            $container->setParameter('forum.topic_list.max_per_page', $config['topics_per_page']);
-        }
+        $namespaces = array(
+            'form_name' => 'forum.form.%s.name',
+            'template' => 'forum.template.%s',
+            'paginator' => 'forum.paginator.%s'
+        );
+        $this->remapParametersNamespaces($config, $container, $namespaces);
 
-        if(isset($config['posts_per_page'])) {
-            $container->setParameter('forum.post_list.max_per_page', $config['posts_per_page']);
-        }
+        $namespaces = array(
+            'model' => 'forum.model.%s.class',
+            'form' => 'forum.form.%s.class',
+            'controller' => 'forum.controller.%s.class'
+        );
+        $this->remapParametersNamespaces($config['class'], $container, $namespaces);
+    }
 
-        if(isset($config['search_results_per_page'])) {
-            $container->setParameter('forum.search_results.max_per_page', $config['search_results_per_page']);
+    protected function remapParameters(array $config, ContainerBuilder $container, array $map)
+    {
+        foreach ($map as $name => $paramName) {
+            if (isset($config[$name])) {
+                $container->setParameter($paramName, $config[$name]);
+            }
+        }
+    }
+
+    protected function remapParametersNamespaces(array $config, ContainerBuilder $container, array $namespaces)
+    {
+        foreach ($namespaces as $ns => $map) {
+            if ($ns) {
+                if (!isset($config[$ns])) {
+                    continue;
+                }
+                $namespaceConfig = $config[$ns];
+            } else {
+                $namespaceConfig = $config;
+            }
+            if (is_array($map)) {
+                $this->remapParameters($namespaceConfig, $container, $map);
+            } else {
+                foreach ($namespaceConfig as $name => $value) {
+                    if(null !== $value) {
+                        $container->setParameter(sprintf($map, $name), $value);
+                    }
+                }
+            }
         }
     }
 

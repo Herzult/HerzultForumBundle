@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="forum.template.renderer">twig</parameter>
+        <parameter key="forum.template.theme">TwigBundle::form.twig</parameter>
+
+        <parameter key="forum.templating.helper.forum.class">Bundle\ForumBundle\Templating\Helper\ForumHelper</parameter>
+        <parameter key="forum.twig.extension.forum.class">Bundle\ForumBundle\Twig\Extension\ForumExtension</parameter>
+    </parameters>
+
+    <services>
+
+        <!-- Templating Helper Service -->
+        <service id="forum.templating.helper.forum" class="%templating.helper.forum.class%">
+            <tag name="templating.helper" alias="forum" />
+            <argument type="service" id="router" />
+            <argument>%forum.post_list.max_per_page%</argument>
+        </service>
+
+        <!-- Twig Helper Service -->
+        <service id="forum.twig.extension.forum" class="%forum.twig.extension.forum.class%">
+            <tag name="twig.extension" />
+        </service>
+    </services>
+</container>

@@ -6,6 +6,32 @@
 
     <parameters>
         <parameter key="forum.template.renderer">twig</parameter>
+
+        <parameter key="forum.controller.category.class">Bundle\ForumBundle\Controller\CategoryController</parameter>
+
+        <parameter key="forum.controller.topic.class">Bundle\ForumBundle\Controller\TopicController</parameter>
+
+        <parameter key="forum.controller.post.class">Bundle\ForumBundle\Controller\PostController</parameter>
     </parameters>
+
+    <services>
+        <service id="forum.controller.category" class="%forum.controller.category.class%">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <service id="forum.controller.topic" class="%forum.controller.topic.class%">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <service id="forum.controller.post" class="%forum.controller.post.class%">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+    </services>
 
 </container>

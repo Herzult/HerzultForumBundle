@@ -3,7 +3,7 @@
 <container xmlns="http://www.symfony-project.org/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
-       
+
     <parameters>
         <parameter key="forum.class_metadata_listener.class">Bundle\ForumBundle\Doctrine\ORM\ClassMetadataListener</parameter>
     </parameters>
@@ -11,14 +11,6 @@
     <services>
         <!-- Object Manager Service -->
         <service id="forum.object_manager" alias="doctrine.orm.entity_manager" />
-        <service id="forum.class_metadata_listener" class="%forum.class_metadata_listener.class%">
-            <argument type="collection">
-                <argument key="category">%forum.category_object.class%</argument>
-                <argument key="topic">%forum.topic_object.class%</argument>
-                <argument key="post">%forum.post_object.class%</argument>
-                <argument key="user">%forum.user_object.class%</argument>
-            </argument>
-        </service>
     </services>
-    
+
 </container>

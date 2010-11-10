@@ -11,14 +11,6 @@
     <services>
         <!-- Object Manager Service -->
         <service id="forum.object_manager" alias="doctrine.odm.mongodb.document_manager" />
-        <service id="forum.class_metadata_listener" class="%forum.class_metadata_listener.class%">
-            <argument type="collection">
-                <argument key="category">%forum.category_object.class%</argument>
-                <argument key="topic">%forum.topic_object.class%</argument>
-                <argument key="post">%forum.post_object.class%</argument>
-                <argument key="user">%forum.user_object.class%</argument>
-            </argument>
-        </service>
     </services>
-    
+
 </container>
