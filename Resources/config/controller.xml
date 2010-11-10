@@ -7,6 +7,8 @@
     <parameters>
         <parameter key="forum.template.renderer">twig</parameter>
 
+        <parameter key="forum.controller.forum.class">Bundle\ForumBundle\Controller\ForumController</parameter>
+
         <parameter key="forum.controller.category.class">Bundle\ForumBundle\Controller\CategoryController</parameter>
 
         <parameter key="forum.controller.topic.class">Bundle\ForumBundle\Controller\TopicController</parameter>
@@ -15,6 +17,12 @@
     </parameters>
 
     <services>
+        <service id="forum.controller.forum" class="%forum.controller.forum.class%">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
         <service id="forum.controller.category" class="%forum.controller.category.class%">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
