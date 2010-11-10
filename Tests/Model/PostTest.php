@@ -18,13 +18,13 @@ class PostTest extends WebTestCase
 
     public function testObjectClass()
     {
-        $class = $this->getService('forum.post_repository')->getClassMetadata();
+        $class = $this->getService('forum.repository.post')->getClassMetadata();
         $this->assertEquals($this->postClass, $class->name);
     }
 
     public function testTopicClass()
     {
-        $class = $this->getService('forum.post_repository')->getClassMetadata();
+        $class = $this->getService('forum.repository.post')->getClassMetadata();
         $topic = $class->getFieldMapping('topic');
         $this->assertNotNull($topic);
         $this->assertEquals($this->topicClass, $topic['targetDocument']);
@@ -33,7 +33,7 @@ class PostTest extends WebTestCase
     public function testAuthorClass()
     {
         $userClass = $this->getService('doctrine_user.user_repository')->getObjectClass();
-        $class = $this->getService('forum.post_repository')->getClassMetadata();
+        $class = $this->getService('forum.repository.post')->getClassMetadata();
         $author = $class->getFieldMapping('author');
         $this->assertNotNull($author);
         $this->assertEquals($userClass, $author['targetDocument']);

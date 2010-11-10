@@ -18,13 +18,13 @@ class TopicTest extends WebTestCase
 
     public function testObjectClass()
     {
-        $class = $this->getService('forum.topic_repository')->getClassMetadata();
+        $class = $this->getService('forum.repository.topic')->getClassMetadata();
         $this->assertEquals($this->topicClass, $class->name);
     }
 
     public function testCategoryClass()
     {
-        $class = $this->getService('forum.topic_repository')->getClassMetadata();
+        $class = $this->getService('forum.repository.topic')->getClassMetadata();
         $category = $class->getFieldMapping('category');
         $this->assertNotNull($category);
         $this->assertEquals($this->categoryClass, $category['targetDocument']);
@@ -32,7 +32,7 @@ class TopicTest extends WebTestCase
 
     public function testFirstPostClass()
     {
-        $class = $this->getService('forum.topic_repository')->getClassMetadata();
+        $class = $this->getService('forum.repository.topic')->getClassMetadata();
         $firstPost = $class->getFieldMapping('firstPost');
         $this->assertNotNull($firstPost);
         $this->assertEquals($this->postClass, $firstPost['targetDocument']);
@@ -40,7 +40,7 @@ class TopicTest extends WebTestCase
 
     public function testLastPostClass()
     {
-        $class = $this->getService('forum.topic_repository')->getClassMetadata();
+        $class = $this->getService('forum.repository.topic')->getClassMetadata();
         $lastPost = $class->getFieldMapping('lastPost');
         $this->assertNotNull($lastPost);
         $this->assertEquals($this->postClass, $lastPost['targetDocument']);
@@ -236,7 +236,7 @@ class TopicTest extends WebTestCase
         $om->clear();
 
         $this->assertNotNull($topic->getPulledAt());
-        $topic = $this->getService('forum.topic_repository')->find($topic->getId());
+        $topic = $this->getService('forum.repository.topic')->find($topic->getId());
         $this->assertNotNull($topic->getPulledAt());
     }
 

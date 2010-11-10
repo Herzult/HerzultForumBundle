@@ -57,9 +57,9 @@ class TopicController extends Controller
     public function listAction(Category $category = null)
     {
         if (null !== $category) {
-            $topics = $this['forum.topic_repository']->findAllByCategory($category, true);
+            $topics = $this['forum.repository.topic']->findAllByCategory($category, true);
         } else {
-            $topics = $this['forum.topic_repository']->findAll(true);
+            $topics = $this['forum.repository.topic']->findAll(true);
         }
 
         $page = $this['request']->query->get('page', 1);
@@ -76,7 +76,7 @@ class TopicController extends Controller
 
     public function showAction($id)
     {
-        $topicRepository = $this['forum.topic_repository'];
+        $topicRepository = $this['forum.repository.topic'];
         $topic = $topicRepository->findOneById($id);
 
         if (!$topic) {
@@ -86,13 +86,13 @@ class TopicController extends Controller
 
         if('html' === $this['request']->getRequestFormat()) {
             $page = $this['request']->query->get('page', 1);
-            $posts = $this['forum.post_repository']->findAllByTopic($topic, true);
+            $posts = $this['forum.repository.post']->findAllByTopic($topic, true);
             $posts->setCurrentPageNumber($page);
             $posts->setItemCountPerPage($this->container->getParameter('forum.post_list.max_per_page'));
             $posts->setPageRange(5);
         }
         else {
-            $posts = $this['forum.post_repository']->findRecentByTopic($topic, 30);
+            $posts = $this['forum.repository.post']->findRecentByTopic($topic, 30);
         }
 
         return $this->render('ForumBundle:Topic:show.'.$this->getRenderer(), array('topic' => $topic, 'posts' => $posts));
@@ -100,7 +100,7 @@ class TopicController extends Controller
 
     public function postNewAction($categorySlug, $slug, $id)
     {
-        $topic = $this['forum.topic_repository']->findOneById($id);
+        $topic = $this['forum.repository.topic']->findOneById($id);
 
         if (!$topic) {
             throw new NotFoundHttpException('The topic does not exist.');
@@ -111,7 +111,7 @@ class TopicController extends Controller
 
     public function postCreateAction($categorySlug, $slug, $id)
     {
-        $topic = $this['forum.topic_repository']->findOneById($id);
+        $topic = $this['forum.repository.topic']->findOneById($id);
 
         if (!$topic) {
             throw new NotFoundHttpException('The topic does not exist.');
@@ -135,9 +135,9 @@ class TopicController extends Controller
     protected function createForm($name, Category $category = null)
     {
         $topicFormClass = $this->container->getParameter('forum.topic_form.class');
-        $topicClass = $this['forum.topic_repository']->getObjectClass();
+        $topicClass = $this['forum.repository.topic']->getObjectClass();
         $postFormClass = $this->container->getParameter('forum.post_form.class');
-        $postClass = $this['forum.post_repository']->getObjectClass();
+        $postClass = $this['forum.repository.post']->getObjectClass();
         $topic = new $topicClass();
         if($category) {
             $topic->setCategory($category);
@@ -146,7 +146,7 @@ class TopicController extends Controller
         $post->setTopic($topic);
         $topic->setFirstPost($post);
 
-        $form = new $topicFormClass($name, $topic, $this['validator'], array('categoryRepository' => $this['forum.category_repository']));
+        $form = new $topicFormClass($name, $topic, $this['validator'], array('categoryRepository' => $this['forum.repository.category']));
         $form->add(new $postFormClass('firstPost', $post, $this['validator']));
         $form['firstPost']->disableCSRFProtection();
 
@@ -162,7 +162,7 @@ class TopicController extends Controller
     public function saveTopic(Topic $topic)
     {
         $topic->getCategory()->setLastPost($topic->getLastPost());
-        $objectManager = $this['forum.topic_repository']->getObjectManager();
+        $objectManager = $this['forum.repository.topic']->getObjectManager();
         $objectManager->persist($topic);
         $objectManager->persist($topic->getFirstPost());
         $objectManager->flush();

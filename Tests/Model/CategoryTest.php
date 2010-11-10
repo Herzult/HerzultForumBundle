@@ -17,13 +17,13 @@ class CategoryTest extends WebTestCase
 
     public function testObjectClass()
     {
-        $class = $this->getService('forum.category_repository')->getClassMetadata();
+        $class = $this->getService('forum.repository.category')->getClassMetadata();
         $this->assertEquals($this->categoryClass, $class->name);
     }
 
     public function testLastTopicClass()
     {
-        $class = $this->getService('forum.category_repository')->getClassMetadata();
+        $class = $this->getService('forum.repository.category')->getClassMetadata();
         $lastTopic = $class->getFieldMapping('lastTopic');
         $this->assertNotNull($lastTopic);
         $this->assertEquals($this->topicClass, $lastTopic['targetDocument']);
@@ -76,7 +76,7 @@ class CategoryTest extends WebTestCase
 
     public function testLastPostClass()
     {
-        $class = $this->getService('forum.category_repository')->getClassMetadata();
+        $class = $this->getService('forum.repository.category')->getClassMetadata();
         $lastPost = $class->getFieldMapping('lastPost');
         $this->assertNotNull($lastPost);
         $this->assertEquals($this->postClass, $lastPost['targetDocument']);

@@ -67,7 +67,7 @@ class PostController extends Controller
     protected function createForm($name, Topic $topic)
     {
         $formClass = $this->container->getParameter('forum.post_form.class');
-        $postClass = $this['forum.post_repository']->getObjectClass();
+        $postClass = $this['forum.repository.post']->getObjectClass();
         $post = new $postClass();
         $post->setTopic($topic);
 
@@ -82,7 +82,7 @@ class PostController extends Controller
      **/
     public function savePost(Post $post)
     {
-        $objectManager = $this['forum.post_repository']->getObjectManager();
+        $objectManager = $this['forum.repository.post']->getObjectManager();
         $objectManager->persist($post);
         $objectManager->flush();
     }

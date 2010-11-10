@@ -25,7 +25,7 @@ class ForumController extends Controller
             $form->bind(array('query' => $this['request']->query->get('q')));
             if($form->isValid()) {
                 $page = $this['request']->query->get('page', 1);
-                $results = $this['forum.post_repository']->search($search->query, true);
+                $results = $this['forum.repository.post']->search($search->query, true);
                 $results->setCurrentPageNumber($page);
                 $results->setItemCountPerPage($this->container->getParameter('forum.search_results.max_per_page'));
                 $results->setPageRange(5);
