@@ -124,6 +124,30 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('forum.controller.post');
     }
 
+    public function testForumLoadBlamerClassWithDefaults()
+    {
+        $this->createEmptyConfiguration();
+
+        $this->assertParameter('Bundle\ForumBundle\Blamer\TopicBlamer', 'forum.blamer.topic.class');
+        $this->assertParameter('Bundle\ForumBundle\Blamer\PostBlamer', 'forum.blamer.post.class');
+    }
+
+    public function testForumLoadBlamerClass()
+    {
+        $this->createFullConfiguration();
+
+        $this->assertParameter('topic', 'forum.blamer.topic.class');
+        $this->assertParameter('post', 'forum.blamer.post.class');
+    }
+
+    public function testForumLoadBlamerServiceWithDefaults()
+    {
+        $this->createEmptyConfiguration();
+
+        $this->assertHasDefinition('forum.blamer.topic');
+        $this->assertHasDefinition('forum.blamer.post');
+    }
+
     public function testForumLoadControllerService()
     {
         $this->createFullConfiguration();
@@ -214,6 +238,9 @@ class:
         category: ~
         topic: ~
         post: ~
+    blamer:
+        post: ~
+        topic: ~
 form_name:
     new_topic: ~
     post: ~
