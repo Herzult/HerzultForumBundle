@@ -98,6 +98,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
+        $this->assertParameter('Bundle\ForumBundle\Controller\ForumController', 'forum.controller.forum.class');
         $this->assertParameter('Bundle\ForumBundle\Controller\CategoryController', 'forum.controller.category.class');
         $this->assertParameter('Bundle\ForumBundle\Controller\TopicController', 'forum.controller.topic.class');
         $this->assertParameter('Bundle\ForumBundle\Controller\PostController', 'forum.controller.post.class');
@@ -107,6 +108,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFullConfiguration();
 
+        $this->assertParameter('forum', 'forum.controller.forum.class');
         $this->assertParameter('category', 'forum.controller.category.class');
         $this->assertParameter('topic', 'forum.controller.topic.class');
         $this->assertParameter('post', 'forum.controller.post.class');
@@ -116,6 +118,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
+        $this->assertHasDefinition('forum.controller.forum');
         $this->assertHasDefinition('forum.controller.category');
         $this->assertHasDefinition('forum.controller.topic');
         $this->assertHasDefinition('forum.controller.post');
@@ -125,6 +128,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFullConfiguration();
 
+        $this->assertHasDefinition('forum.controller.forum');
         $this->assertHasDefinition('forum.controller.category');
         $this->assertHasDefinition('forum.controller.topic');
         $this->assertHasDefinition('forum.controller.post');
@@ -206,6 +210,7 @@ class:
         new_topic: ~
         post: ~
     controller:
+        forum: ~
         category: ~
         topic: ~
         post: ~
