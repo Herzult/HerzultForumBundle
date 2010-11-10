@@ -84,3 +84,31 @@ in xml
 
     # app/config/routing.xml
     <import resource="ForumBundle/Resources/config/routing.xml"/>
+
+## Configuration example
+
+This configuration sample contains all available options:
+
+    db_driver: odm
+    class:
+        model:
+            category: MyCategory
+            topic: MyTopic
+            post: MyPost
+        form:
+            new_topic: ~
+            post: ~
+        controller:
+            category: ~
+            topic: ~
+            post: ~
+    form_name:
+        new_topic: ~
+        post: ~
+    template:
+        renderer: ~
+        theme: ~
+    paginator:
+        topics_per_page: ~
+        posts_per_page: ~
+        search_results_per_page: ~
