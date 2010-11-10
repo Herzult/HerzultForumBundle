@@ -43,7 +43,7 @@ class PostController extends Controller
         }
 
         $post = $form->getData();
-        $post->setAuthor($this['security.context']->getUser());
+        $this['forum.blamer.post']->blame($post);
         $this->savePost($post);
 
         $this['session']->setFlash('forum_post_create/success', true);
