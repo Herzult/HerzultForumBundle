@@ -102,6 +102,9 @@ This configuration sample contains all available options:
             category: ~
             topic: ~
             post: ~
+        blamer:
+            topic: ~
+            post: ~
     form_name:
         new_topic: ~
         post: ~
