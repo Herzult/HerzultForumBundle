@@ -27,7 +27,7 @@ class ForumController extends Controller
                 $page = $this['request']->query->get('page', 1);
                 $results = $this['forum.repository.post']->search($search->query, true);
                 $results->setCurrentPageNumber($page);
-                $results->setItemCountPerPage($this->container->getParameter('forum.search_results.max_per_page'));
+                $results->setItemCountPerPage($this->container->getParameter('forum.paginator.search_results_per_page'));
                 $results->setPageRange(5);
             }
         }
