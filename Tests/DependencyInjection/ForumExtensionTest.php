@@ -14,9 +14,9 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ForumBundle\Document\Category', 'forum.model.category.class');
-        $this->assertParameter('Bundle\ForumBundle\Document\Topic', 'forum.model.topic.class');
-        $this->assertParameter('Bundle\ForumBundle\Document\Post', 'forum.model.post.class');
+        $this->assertParameter('MyCategory', 'forum.model.category.class');
+        $this->assertParameter('MyTopic', 'forum.model.topic.class');
+        $this->assertParameter('MyPost', 'forum.model.post.class');
     }
 
     public function testForumLoadModelClass()
@@ -50,7 +50,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ForumBundle\Form\TopicForm', 'forum.form.topic.class');
+        $this->assertParameter('Bundle\ForumBundle\Form\NewTopicForm', 'forum.form.new_topic.class');
         $this->assertParameter('Bundle\ForumBundle\Form\PostForm', 'forum.form.post.class');
     }
 
@@ -58,7 +58,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('topic', 'forum.form.topic.class');
+        $this->assertParameter('new_topic', 'forum.form.new_topic.class');
         $this->assertParameter('post', 'forum.form.post.class');
     }
 
@@ -66,7 +66,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('forum_topic_form', 'forum.form.topic.name');
+        $this->assertParameter('forum_new_topic_form', 'forum.form.new_topic.name');
         $this->assertParameter('forum_post_form', 'forum.form.post.name');
     }
 
@@ -74,7 +74,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('topic', 'forum.form.topic.name');
+        $this->assertParameter('new_topic', 'forum.form.new_topic.name');
         $this->assertParameter('post', 'forum.form.post.name');
     }
 
@@ -82,7 +82,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertHasDefinition('forum.form.topic');
+        $this->assertHasDefinition('forum.form.new_topic');
         $this->assertHasDefinition('forum.form.post');
     }
 
@@ -90,7 +90,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFullConfiguration();
 
-        $this->assertHasDefinition('forum.form.topic');
+        $this->assertHasDefinition('forum.form.new_topic');
         $this->assertHasDefinition('forum.form.post');
     }
 
@@ -130,6 +130,40 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('forum.controller.post');
     }
 
+    public function testDoctrineUserLoadTemplateConfigWithDefaults()
+    {
+        $this->createEmptyConfiguration();
+
+        $this->assertParameter('twig', 'forum.template.renderer');
+        $this->assertParameter('TwigBundle::form.twig', 'forum.template.theme');
+    }
+
+    public function testDoctrineUserLoadTemplateConfig()
+    {
+        $this->createFullConfiguration();
+
+        $this->assertParameter('renderer', 'forum.template.renderer');
+        $this->assertParameter('theme', 'forum.template.theme');
+    }
+
+    public function testForumLoadPaginatorConfigWithDefaults()
+    {
+        $this->createEmptyConfiguration();
+
+        $this->assertParameter(10, 'forum.paginator.posts_per_page');
+        $this->assertParameter(10, 'forum.paginator.topics_per_page');
+        $this->assertParameter(10, 'forum.paginator.search_results_per_page');
+    }
+
+    public function testForumLoadPaginatorConfig()
+    {
+        $this->createFullConfiguration();
+
+        $this->assertParameter('posts_per_page', 'forum.paginator.posts_per_page');
+        $this->assertParameter('topics_per_page', 'forum.paginator.topics_per_page');
+        $this->assertParameter('search_results_per_page', 'forum.paginator.search_results_per_page');
+    }
+
     /**
      * @return ContainerBuilder
      */
@@ -165,16 +199,26 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
 db_driver: odm
 class:
     model:
-        category: ~
-        topic: ~
-        post: ~
+        category: MyCategory
+        topic: MyTopic
+        post: MyPost
     form:
-        topic: ~
+        new_topic: ~
         post: ~
     controller:
         category: ~
         topic: ~
         post: ~
+form_name:
+    new_topic: ~
+    post: ~
+template:
+    renderer: ~
+    theme: ~
+paginator:
+    topics_per_page: ~
+    posts_per_page: ~
+    search_results_per_page: ~
 EOF;
         $parser = new Parser();
         return $parser->parse($yaml);
