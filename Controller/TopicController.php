@@ -5,7 +5,6 @@ namespace Bundle\ForumBundle\Controller;
 use Bundle\ForumBundle\Form\TopicForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Exception\InsufficientAuthenticationException;
 use Bundle\ForumBundle\Model\Topic;
 use Bundle\ForumBundle\Model\Category;
 
@@ -13,32 +12,22 @@ class TopicController extends Controller
 {
     public function newAction(Category $category = null)
     {
-        if (!$this['security.context']->isAuthenticated()) {
-            throw new InsufficientAuthenticationException('User must be authenticated to create a topic.');
-        }
-
         $form = $this->createForm('forum_topic_new', $category);
 
         return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array(
             'form'      => $form,
-            'user'      => $this['security.context']->getUser(),
             'category'  => $category
         ));
     }
 
     public function createAction(Category $category = null)
     {
-        if (!$this['security.context']->isAuthenticated()) {
-            throw new InsufficientAuthenticationException('User must be authenticated to create a topic.');
-        }
-
         $form = $this->createForm('forum_topic_new', $category);
         $form->bind($this['request']->request->get($form->getName()));
 
         if(!$form->isValid()) {
             return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array(
                 'form'      => $form,
-                'user'      => $this['security.context']->getUser(),
                 'category'  => $category
             ));
         }

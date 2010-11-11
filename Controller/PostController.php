@@ -4,7 +4,6 @@ namespace Bundle\ForumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Exception\InsufficientAuthenticationException;
 use Bundle\ForumBundle\Model\Topic;
 use Bundle\ForumBundle\Model\Post;
 
@@ -12,25 +11,16 @@ class PostController extends Controller
 {
     public function newAction(Topic $topic)
     {
-        if (!$this['security.context']->isAuthenticated()) {
-            throw new InsufficientAuthenticationException('User must be authenticated to create a topic.');
-        }
-
         $form = $this->createForm('forum_post_new', $topic);
 
         return $this->render('ForumBundle:Post:new.'.$this->getRenderer(), array(
             'form'  => $form,
             'topic' => $topic,
-            'user'  => $this['security.context']->getUser()
         ));
     }
 
     public function createAction(Topic $topic)
     {
-        if (!$this['security.context']->isAuthenticated()) {
-            throw new InsufficientAuthenticationException('User must be authenticated to create a topic.');
-        }
-
         $form = $this->createForm('forum_post_new', $topic);
         $form->bind($this['request']->request->get($form->getName()));
 
@@ -38,7 +28,6 @@ class PostController extends Controller
             return $this->render('ForumBundle:Post:new.'.$this->getRenderer(), array(
                 'form'  => $form,
                 'topic' => $topic,
-                'user'  => $this['security.context']->getUser()
             ));
         }
 
