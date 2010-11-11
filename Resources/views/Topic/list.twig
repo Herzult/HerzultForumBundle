@@ -6,8 +6,8 @@
         </div>
         <div class="metas">
             <span class="creation">Created <span class="createdAt">{{ _view.time.ago(topic.getCreatedAt()) }}</span> by
-            <span class="author">{{ topic.getAuthor }}</span>
-            | <span class="numPosts">{{ topic.getNumPosts() }} {{ topic.getNumPosts() > 1 ? 'posts' : 'post' }}</span>
+            <span class="author">{{ topic.autorName }}</span>
+            | <span class="numPosts">{{ topic.numPosts }} {{ topic.numPosts > 1 ? 'posts' : 'post' }}</span>
             | <a class="category" href="{{ _view.forum.urlForCategory(topic.getCategory()) }}">{{ topic.getCategory().getName() }}</a>
         </div>
     </li>
