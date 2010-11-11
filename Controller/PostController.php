@@ -36,7 +36,7 @@ class PostController extends Controller
         $this->savePost($post);
 
         $this['session']->setFlash('forum_post_create/success', true);
-        $url = $this['templating.helper.forum']->urlForPost($post);
+        $url = $this['forum.templating.helper.forum']->urlForPost($post);
 
         return $this->redirect($url);
     }

@@ -38,7 +38,7 @@ class TopicController extends Controller
         $this->saveTopic($topic);
 
         $this['session']->setFlash('forum_topic_create/success', true);
-        $url = $this['templating.helper.forum']->urlForTopic($topic);
+        $url = $this['forum.templating.helper.forum']->urlForTopic($topic);
 
         return $this->redirect($url);
     }
