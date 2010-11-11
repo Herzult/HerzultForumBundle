@@ -25,13 +25,11 @@ class ClassMetadataListener
                 break;
             case 'Bundle\\ForumBundle\\Document\\Topic':
                 $this->replaceClassMetadatadaFieldMappingTargetDocument($classMetadata, 'category', $this->classes['category']);
-                $this->replaceClassMetadatadaFieldMappingTargetDocument($classMetadata, 'author', $this->classes['user']);
                 $this->replaceClassMetadatadaFieldMappingTargetDocument($classMetadata, 'firstPost', $this->classes['post']);
                 $this->replaceClassMetadatadaFieldMappingTargetDocument($classMetadata, 'lastPost', $this->classes['post']);
                 break;
             case 'Bundle\\ForumBundle\\Document\\Post':
                 $this->replaceClassMetadatadaFieldMappingTargetDocument($classMetadata, 'topic', $this->classes['topic']);
-                $this->replaceClassMetadatadaFieldMappingTargetDocument($classMetadata, 'author', $this->classes['user']);
                 break;
         }
     }
