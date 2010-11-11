@@ -52,6 +52,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertParameter('Bundle\ForumBundle\Form\NewTopicForm', 'forum.form.new_topic.class');
         $this->assertParameter('Bundle\ForumBundle\Form\PostForm', 'forum.form.post.class');
+        $this->assertParameter('Bundle\ForumBundle\Form\PostForm', 'forum.form.first_post.class');
     }
 
     public function testForumLoadFormClass()
@@ -60,6 +61,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertParameter('new_topic', 'forum.form.new_topic.class');
         $this->assertParameter('post', 'forum.form.post.class');
+        $this->assertParameter('first_post', 'forum.form.first_post.class');
     }
 
     public function testForumLoadFormNameWithDefaults()
@@ -68,6 +70,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertParameter('forum_new_topic_form', 'forum.form.new_topic.name');
         $this->assertParameter('forum_post_form', 'forum.form.post.name');
+        $this->assertParameter('firstPost', 'forum.form.first_post.name');
     }
 
     public function testForumLoadFormName()
@@ -76,6 +79,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertParameter('new_topic', 'forum.form.new_topic.name');
         $this->assertParameter('post', 'forum.form.post.name');
+        $this->assertParameter('first_post', 'forum.form.first_post.name');
     }
 
     public function testForumLoadFormServiceWithDefaults()
@@ -84,6 +88,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertHasDefinition('forum.form.new_topic');
         $this->assertHasDefinition('forum.form.post');
+        $this->assertHasDefinition('forum.form.first_post');
     }
 
     public function testForumLoadFormService()
@@ -233,6 +238,7 @@ class:
     form:
         new_topic: ~
         post: ~
+        first_post: ~
     controller:
         forum: ~
         category: ~
@@ -244,6 +250,7 @@ class:
 form_name:
     new_topic: ~
     post: ~
+    first_post: ~
 template:
     renderer: ~
     theme: ~
