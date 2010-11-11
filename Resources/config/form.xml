@@ -7,13 +7,15 @@
     <parameters>
         <parameter key="forum.form.new_topic.class">Bundle\ForumBundle\Form\NewTopicForm</parameter>
         <parameter key="forum.form.new_topic.name">forum_new_topic_form</parameter>
+        <parameter key="forum.form.first_post.class">Bundle\ForumBundle\Form\PostForm</parameter>
+        <parameter key="forum.form.first_post.name">firstPost</parameter>
         <parameter key="forum.form.post.class">Bundle\ForumBundle\Form\PostForm</parameter>
         <parameter key="forum.form.post.name">forum_post_form</parameter>
     </parameters>
 
     <services>
 
-        <service id="forum.form.new_topic" class="%forum.form.topic.class%">
+        <service id="forum.form.new_topic" class="%forum.form.new_topic.class%">
             <argument>%forum.form.new_topic.name%</argument>
             <argument></argument>
             <argument type="service" id="validator" />
@@ -21,10 +23,24 @@
                 <argument key="theme">%forum.template.theme%</argument>
             </argument>
             <argument type="service" id="forum.repository.category" />
+            <argument type="service" id="forum.form.first_post" />
+            <argument type="collection">
+                <argument key="topic">%forum.model.topic.class%</argument>
+                <argument key="post">%forum.model.post.class%</argument>
+            </argument>
         </service>
 
         <service id="forum.form.post" class="%forum.form.post.class%">
             <argument>%forum.form.post.name%</argument>
+            <argument></argument>
+            <argument type="service" id="validator" />
+            <argument type="collection">
+                <argument key="theme">%forum.template.theme%</argument>
+            </argument>
+        </service>
+
+        <service id="forum.form.first_post" class="%forum.form.first_post.class%">
+            <argument>%forum.form.first_post.name%</argument>
             <argument></argument>
             <argument type="service" id="validator" />
             <argument type="collection">

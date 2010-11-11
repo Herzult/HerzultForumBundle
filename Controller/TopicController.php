@@ -132,21 +132,8 @@ class TopicController extends Controller
      */
     protected function createForm($name, Category $category = null)
     {
-        $topicFormClass = $this->container->getParameter('forum.topic_form.class');
-        $topicClass = $this['forum.repository.topic']->getObjectClass();
-        $postFormClass = $this->container->getParameter('forum.post_form.class');
-        $postClass = $this['forum.repository.post']->getObjectClass();
-        $topic = new $topicClass();
-        if($category) {
-            $topic->setCategory($category);
-        }
-        $post = new $postClass();
-        $post->setTopic($topic);
-        $topic->setFirstPost($post);
-
-        $form = new $topicFormClass($name, $topic, $this['validator'], array('categoryRepository' => $this['forum.repository.category']));
-        $form->add(new $postFormClass('firstPost', $post, $this['validator']));
-        $form['firstPost']->disableCSRFProtection();
+        $form = $this['forum.form.new_topic'];
+        $form->getData()->setCategory($category);
 
         return $form;
     }

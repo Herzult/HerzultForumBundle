@@ -10,12 +10,23 @@ use Bundle\ForumBundle\Model\CategoryRepositoryInterface;
 class NewTopicForm extends Form
 {
     protected $categoryRepository;
+    protected $postForm;
 
-    public function __construct($name, $object, $validator, array $options = array(), CategoryRepositoryInterface $categoryRepository)
+    public function __construct($name, $object, $validator, array $options = array(), CategoryRepositoryInterface $categoryRepository, PostForm $postForm, array $classes)
     {
+        $this->addOption('theme');
         $this->categoryRepository = $categoryRepository;
 
-        parent::__construct($name, $object, $validator, $options);
+        $topic = new $classes['topic']();
+        $post = new $classes['post']();
+        $post->setTopic($topic);
+        $topic->setFirstPost($post);
+
+        $postForm->setData($post);
+        $postForm->disableCSRFProtection();
+        $this->postForm = $postForm;
+
+        parent::__construct($name, $topic, $validator, $options);
     }
 
     public function configure()
@@ -26,5 +37,6 @@ class NewTopicForm extends Form
             'required' => true
         ));
         $this->add($categoryField);
+        $this->add($this->postForm);
     }
 }
