@@ -20,6 +20,7 @@
             <argument type="collection">
                 <argument key="theme">%forum.template.theme%</argument>
             </argument>
+            <argument type="service" id="forum.repository.category" />
         </service>
 
         <service id="forum.form.post" class="%forum.form.post.class%">
