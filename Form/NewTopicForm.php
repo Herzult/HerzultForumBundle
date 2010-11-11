@@ -12,18 +12,16 @@ class NewTopicForm extends Form
     protected $categoryRepository;
     protected $postForm;
 
-    public function __construct($name, $object, $validator, array $options = array(), CategoryRepositoryInterface $categoryRepository, PostForm $postForm, array $classes)
+    public function __construct($name, $object, $validator, array $options = array(), CategoryRepositoryInterface $categoryRepository, PostForm $postForm)
     {
         $this->addOption('theme');
+        $this->addOption('topic_class');
         $this->categoryRepository = $categoryRepository;
 
-        $topic = new $classes['topic']();
-        $post = new $classes['post']();
-        $post->setTopic($topic);
-        $topic->setFirstPost($post);
+        $topic = new $options['topic_class']();
+        $postForm->getData()->setTopic($topic);
+        $topic->setFirstPost($postForm->getData());
 
-        $postForm->setData($post);
-        $postForm->disableCSRFProtection();
         $this->postForm = $postForm;
 
         parent::__construct($name, $topic, $validator, $options);

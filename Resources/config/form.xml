@@ -21,13 +21,10 @@
             <argument type="service" id="validator" />
             <argument type="collection">
                 <argument key="theme">%forum.template.theme%</argument>
+                <argument key="topic_class">%forum.model.topic.class%</argument>
             </argument>
             <argument type="service" id="forum.repository.category" />
             <argument type="service" id="forum.form.first_post" />
-            <argument type="collection">
-                <argument key="topic">%forum.model.topic.class%</argument>
-                <argument key="post">%forum.model.post.class%</argument>
-            </argument>
         </service>
 
         <service id="forum.form.post" class="%forum.form.post.class%">
@@ -36,6 +33,7 @@
             <argument type="service" id="validator" />
             <argument type="collection">
                 <argument key="theme">%forum.template.theme%</argument>
+                <argument key="post_class">%forum.model.post.class%</argument>
             </argument>
         </service>
 
@@ -45,6 +43,7 @@
             <argument type="service" id="validator" />
             <argument type="collection">
                 <argument key="theme">%forum.template.theme%</argument>
+                <argument key="post_class">%forum.model.post.class%</argument>
             </argument>
         </service>
 

@@ -55,12 +55,10 @@ class PostController extends Controller
      */
     protected function createForm($name, Topic $topic)
     {
-        $formClass = $this->container->getParameter('forum.post_form.class');
-        $postClass = $this['forum.repository.post']->getObjectClass();
-        $post = new $postClass();
-        $post->setTopic($topic);
+        $form = $this['forum.form.post'];
+        $form->getData()->setTopic($topic);
 
-        return new $formClass($name, $post, $this['validator']);
+        return $form;
     }
 
     /**
