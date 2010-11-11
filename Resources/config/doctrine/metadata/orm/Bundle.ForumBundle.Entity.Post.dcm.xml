@@ -10,8 +10,6 @@
             <generator strategy="AUTO" />
         </id>
 
-        <field name="author" column="author" type="text" />
-
         <field name="message" column="message" type="text" />
 
         <field name="number" column="number" type="integer" />

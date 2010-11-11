@@ -10,8 +10,6 @@
             <generator strategy="AUTO" />
         </id>
 
-        <field name="author" column="author" type="string" />
-
         <field name="subject" column="subject" type="string" />
 
         <field name="numViews" column="num_views" type="integer" />

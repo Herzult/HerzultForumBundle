@@ -8,8 +8,6 @@
 
         <field name="id" fieldName="id" id="true" />
 
-        <field name="author" fieldName="author" type="string" />
-
         <field name="subject" fieldName="subject" type="string" />
 
         <field name="numViews" fieldName="numViews" type="int" />
