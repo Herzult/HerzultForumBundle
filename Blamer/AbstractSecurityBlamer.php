@@ -8,7 +8,7 @@ abstract class AbstractSecurityBlamer
 {
     protected $security;
 
-    public function __construct(SecurityContext $security)
+    public function __construct(SecurityContext $security = null)
     {
         $this->security;
     }
