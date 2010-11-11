@@ -9,7 +9,7 @@
     <div class="main topics">
         <h2>{{ category.getName() }}</h2>
         <a href="{{ _view.forum.urlForCategoryAtomFeed(category) }}" title="Atom feed" class="feed atom">Atom feed</a>
-        {% render 'ForumBundle:Topic:list' with ['category': category] ['query': ['page': page]] %}
+        {% render 'ForumBundle:Topic:list' with ['category': category, "page": page] %}
     </div>
     <div class="side categories">
         <h2>Categories</h2>

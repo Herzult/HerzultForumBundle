@@ -54,15 +54,13 @@ class TopicController extends Controller
         return $this->redirect($url);
     }
 
-    public function listAction(Category $category = null)
+    public function listAction(Category $category = null, $page = 1)
     {
         if (null !== $category) {
             $topics = $this['forum.repository.topic']->findAllByCategory($category, true);
         } else {
             $topics = $this['forum.repository.topic']->findAll(true);
         }
-
-        $page = $this['request']->query->get('page', 1);
 
         $topics->setCurrentPageNumber($page);
         $topics->setItemCountPerPage($this->container->getParameter('forum.paginator.topics_per_page'));
