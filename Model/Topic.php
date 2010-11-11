@@ -25,7 +25,6 @@ abstract class Topic
      * @validation:Valid
      */
     protected $category;
-    protected $author;
     protected $firstPost;
     protected $lastPost;
 
@@ -35,6 +34,13 @@ abstract class Topic
         $this->numViews = $this->numPosts = 0;
         $this->isClosed = $this->isPinned = $this->isBuried = false;
     }
+
+    /**
+     * Return the name of this topic author
+     *
+     * @return string
+     **/
+    abstract public function getAuthorName();
 
     /**
      * Gets the id
@@ -252,26 +258,6 @@ abstract class Topic
     public function getPulledAt()
     {
         return $this->pulledAt;
-    }
-
-    /**
-     * Sets the author
-     *
-     * @param mixed $author
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-    }
-
-    /**
-     * Gets the author
-     *
-     * @return mixed
-     */
-    public function getAuthor()
-    {
-        return $this->author;
     }
 
     /**

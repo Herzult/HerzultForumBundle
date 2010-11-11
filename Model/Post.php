@@ -12,12 +12,6 @@ abstract class Post
      */
     protected $topic;
     /**
-     * Author who wrote the post
-     *
-     * @var mixed
-     */
-    protected $author;
-    /**
      * @validation:NotBlank(message="Please write a message")
      * @validation:MinLength(limit=4, message="Just a little too short.")
      *
@@ -34,15 +28,17 @@ abstract class Post
     protected $createdAt;
     protected $updatedAt;
 
-    public function __toString()
-    {
-        return (string) $this->getId();
-    }
-
     public function __construct()
     {
         $this->setCreatedNow();
     }
+
+    /**
+     * Return the name of this post author
+     *
+     * @return string
+     **/
+    abstract public function getAuthorName();
 
     /**
      * Gets the id
@@ -142,26 +138,6 @@ abstract class Post
     }
 
     /**
-     * Sets the author
-     *
-     * @param mixed $author
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-    }
-
-    /**
-     * Gets the author
-     *
-     * @return mixed
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
      * Gets the topic
      *
      * @return Topic
@@ -224,6 +200,11 @@ abstract class Post
     public function decrementCategoryNumPosts()
     {
         $this->getTopic()->getCategory()->decrementNumPosts();
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getId();
     }
 
 }
