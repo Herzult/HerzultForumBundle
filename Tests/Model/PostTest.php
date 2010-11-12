@@ -30,15 +30,6 @@ class PostTest extends WebTestCase
         $this->assertEquals($this->topicClass, $topic['targetDocument']);
     }
 
-    public function testAuthorClass()
-    {
-        $userClass = $this->getService('doctrine_user.user_repository')->getObjectClass();
-        $class = $this->getService('forum.repository.post')->getClassMetadata();
-        $author = $class->getFieldMapping('author');
-        $this->assertNotNull($author);
-        $this->assertEquals($userClass, $author['targetDocument']);
-    }
-
     public function testMessage()
     {
         $class = $this->postClass;
