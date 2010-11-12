@@ -61,13 +61,13 @@ class TopicController extends Controller
         ));
     }
 
-    public function showAction($id)
+    public function showAction($categorySlug, $slug, $id)
     {
         $topicRepository = $this['forum.repository.topic'];
         $topic = $topicRepository->findOneById($id);
 
         if (!$topic) {
-            throw new NotFoundHttpException('The topic does not exist.');
+            throw new NotFoundHttpException(sprintf('The topic "%s" does not exist.', $id));
         }
         $topicRepository->incrementTopicNumViews($topic);
 
