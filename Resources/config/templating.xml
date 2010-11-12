@@ -15,7 +15,7 @@
     <services>
 
         <!-- Templating Helper Service -->
-        <service id="forum.templating.helper.forum" class="%templating.helper.forum.class%">
+        <service id="forum.templating.helper.forum" class="%forum.templating.helper.forum.class%">
             <tag name="templating.helper" alias="forum" />
             <argument type="service" id="router" />
             <argument>%forum.paginator.posts_per_page%</argument>

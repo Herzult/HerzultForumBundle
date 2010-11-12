@@ -14,7 +14,7 @@ class ForumExtension extends \Twig_Extension
     {
         return array(
             // {% forum_post_route post %}
-            new HelperTokenParser('forum_post_route', '<post>', 'templating.helper.forum', 'urlForPost')
+            new HelperTokenParser('forum_post_route', '<post>', 'forum.templating.helper.forum', 'urlForPost')
         );
     }
 
