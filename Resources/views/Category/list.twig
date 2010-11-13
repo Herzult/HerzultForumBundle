@@ -2,10 +2,10 @@
     {% for category in categories %}
     <li>
         <div class="content">
-            <a class="name" href="{{ _view.forum.urlForCategory(category) }}">{{ category.getName() }}</a>
+            <a class="name" href="{{ _view.forum.urlForCategory(category) }}">{{ category.name }}</a>
         </div>
         <div class="metas">
-            <span class="numTopics">{{ category.getNumTopics() }} {{ category.getNumTopics() > 1 ? 'topics' : 'topic' }}</span>
+            <span class="numTopics">{{ category.numTopics }} {{ category.numTopics > 1 ? 'topics' : 'topic' }}</span>
         </div>
     </li>
     {% endfor %}

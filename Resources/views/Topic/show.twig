@@ -1,19 +1,19 @@
 {% extends 'ForumBundle::layout.twig' %}
-{% block title %}{{ topic.getSubject() }}{% endblock %}
+{% block title %}{{ topic.subject}}{% endblock %}
 {% block content %}
 <div class="forum forum_topic">
 
     <ul class="crumbs">
         <li><a href="{{ _view.forum.urlForIndex() }}">Forum</a></li>
-        <li><a href="{{ _view.forum.urlForCategory(topic.getCategory) }}">{{ topic.getCategory().getName() }}</a></li>
-        <li>{{ topic.getSubject() }}</li>
+        <li><a href="{{ _view.forum.urlForCategory(topic.category) }}">{{ topic.category.name }}</a></li>
+        <li>{{ topic.subject }}</li>
     </ul>
 
     <div class="main topic">
-        <h2>{{ topic.getSubject() }}</h2>
+        <h2>{{ topic.subject }}</h2>
         <a href="{{ _view.forum.urlForTopicAtomFeed(topic) }}" title="Atom feed" class="feed atom">Atom feed</a>
         {% include 'ForumBundle:Post:list.twig' with ['posts': posts] %}
-        {% include 'ForumBundle::pagination.twig' with ['pager': posts.getPages(), 'url': _view.forum.urlForTopic(topic)] %}
+        {% include 'ForumBundle::pagination.twig' with ['pager': posts.pages, 'url': _view.forum.urlForTopic(topic)] %}
     </div>
 
     <div class="side menu">

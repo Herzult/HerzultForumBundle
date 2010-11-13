@@ -2,7 +2,7 @@
     <entry>
         <title>{{ topic.subject }}</title>
         <author>{{ topic.authorName }}</author>
-        <updated>{{ topic.getPulledAt().format('c') }}</updated>
+        <updated>{{ topic.pulledAt|date('c') }}</updated>
         <id>{{ _view.forum.urlForTopic(topic, true) }}</id>
         <link rel="alternate">{{ _view.forum.urlForTopic(topic, true) }}</link>
     </entry>

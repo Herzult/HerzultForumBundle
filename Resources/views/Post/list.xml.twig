@@ -1,7 +1,7 @@
 {% for post in posts %}
     <entry>
         <author>{{ post.authorName }}</author>
-        <published>{{ post.getCreatedAt().format('c') }}</published>
+        <published>{{ post.createdAt|date('c') }}</published>
         <link rel="alternate">{{ _view.forum.urlForPost(post, true) }}</link>
     </entry>
 {% endfor %}

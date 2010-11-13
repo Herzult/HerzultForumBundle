@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <title>{{ topic.getSubject() }}</title>
-    <id>{{ _view.forum.urlForTopic(topic) }}</id>
-    <updated>{{ topic.getPulledAt().format('c') }}</updated>
+    <title>{{ topic.subject }}</title>
+    <id>{{ _view.forum.urlForTopic(topic, true) }}</id>
+    <updated>{{ topic.pulledAt|date('c') }}</updated>
     {% include 'ForumBundle:Post:list.twig' with ['posts': posts] %}
 </feed>
