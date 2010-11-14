@@ -46,7 +46,8 @@ class ForumExtension extends Extension
             'model' => 'forum.model.%s.class',
             'form' => 'forum.form.%s.class',
             'controller' => 'forum.controller.%s.class',
-            'blamer' => 'forum.blamer.%s.class'
+            'blamer' => 'forum.blamer.%s.class',
+            'helper' => 'forum.templating.helper.%s.class'
         );
         $this->remapParametersNamespaces($config['class'], $container, $namespaces);
     }

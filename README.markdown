@@ -105,6 +105,8 @@ This configuration sample contains all available options:
         blamer:
             topic: ~
             post: ~
+        helper:
+            forum: ~
     form_name:
         new_topic: ~
         post: ~
