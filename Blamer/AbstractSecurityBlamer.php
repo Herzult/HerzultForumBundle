@@ -10,6 +10,6 @@ abstract class AbstractSecurityBlamer
 
     public function __construct(SecurityContext $security = null)
     {
-        $this->security;
+        $this->security = $security;
     }
 }

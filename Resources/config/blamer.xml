@@ -12,11 +12,11 @@
     <services>
 
         <service id="forum.blamer.topic" class="%forum.blamer.topic.class%">
-            <argument type="service" id="security-context" on-invalid="ignore" />
+            <argument type="service" id="security.context" on-invalid="ignore" />
         </service>
 
         <service id="forum.blamer.post" class="%forum.blamer.post.class%">
-            <argument type="service" id="security-context" on-invalid="ignore" />
+            <argument type="service" id="security.context" on-invalid="ignore" />
         </service>
 
     </services>
