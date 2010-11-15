@@ -9,14 +9,14 @@ class CategoryController extends Controller
 {
     public function listAction()
     {
-        $categories = $this['forum.repository.category']->findAll();
+        $categories = $this->get('forum.repository.category')->findAll();
 
         return $this->render('ForumBundle:Category:list.'.$this->getRenderer(), array('categories' => $categories));
     }
 
     public function showAction($slug)
     {
-        $category = $this['forum.repository.category']->findOneBySlug($slug);
+        $category = $this->get('forum.repository.category')->findOneBySlug($slug);
 
         if (!$category) {
             throw new NotFoundHttpException(sprintf('The category %s does not exist.', $slug));
@@ -24,13 +24,13 @@ class CategoryController extends Controller
 
         return $this->render('ForumBundle:Category:show.'.$this->getRenderer(), array(
             'category'  => $category,
-            'page'      => $this['request']->query->get('page', 1)
+            'page'      => $this->get('request')->query->get('page', 1)
         ));
     }
 
     public function topicNewAction($slug)
     {
-        $category = $this['forum.repository.category']->findOneBySlug($slug);
+        $category = $this->get('forum.repository.category')->findOneBySlug($slug);
 
         if (!$category) {
             throw new NotFoundHttpException(sprintf('The category "%s" does not exist.', $slug));
@@ -41,7 +41,7 @@ class CategoryController extends Controller
 
     public function topicCreateAction($slug)
     {
-        $category = $this['forum.repository.category']->findOneBySlug($slug);
+        $category = $this->get('forum.repository.category')->findOneBySlug($slug);
 
         if (!$category) {
             throw new NotFoundHttpException(sprintf('The category "%s" does not exist.', $slug));

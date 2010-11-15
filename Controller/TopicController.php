@@ -23,7 +23,7 @@ class TopicController extends Controller
     public function createAction(Category $category = null)
     {
         $form = $this->createForm('forum_topic_new', $category);
-        $form->bind($this['request']->request->get($form->getName()));
+        $form->bind($this->get('request')->request->get($form->getName()));
 
         if(!$form->isValid()) {
             return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array(
@@ -33,12 +33,12 @@ class TopicController extends Controller
         }
 
         $topic = $form->getData();
-        $this['forum.blamer.topic']->blame($topic);
-        $this['forum.blamer.post']->blame($topic->getFirstPost());
+        $this->get('forum.blamer.topic')->blame($topic);
+        $this->get('forum.blamer.post')->blame($topic->getFirstPost());
         $this->saveTopic($topic);
 
-        $this['session']->setFlash('forum_topic_create/success', true);
-        $url = $this['forum.templating.helper.forum']->urlForTopic($topic);
+        $this->get('session')->setFlash('forum_topic_create/success', true);
+        $url = $this->get('forum.templating.helper.forum')->urlForTopic($topic);
 
         return $this->redirect($url);
     }
@@ -46,9 +46,9 @@ class TopicController extends Controller
     public function listAction(Category $category = null, $page = 1)
     {
         if (null !== $category) {
-            $topics = $this['forum.repository.topic']->findAllByCategory($category, true);
+            $topics = $this->get('forum.repository.topic')->findAllByCategory($category, true);
         } else {
-            $topics = $this['forum.repository.topic']->findAll(true);
+            $topics = $this->get('forum.repository.topic')->findAll(true);
         }
 
         $topics->setCurrentPageNumber($page);
@@ -63,7 +63,7 @@ class TopicController extends Controller
 
     public function showAction($categorySlug, $slug, $id)
     {
-        $topicRepository = $this['forum.repository.topic'];
+        $topicRepository = $this->get('forum.repository.topic');
         $topic = $topicRepository->findOneById($id);
 
         if (!$topic) {
@@ -71,15 +71,15 @@ class TopicController extends Controller
         }
         $topicRepository->incrementTopicNumViews($topic);
 
-        if('html' === $this['request']->getRequestFormat()) {
-            $page = $this['request']->query->get('page', 1);
-            $posts = $this['forum.repository.post']->findAllByTopic($topic, true);
+        if('html' === $this->get('request')->getRequestFormat()) {
+            $page = $this->get('request')->query->get('page', 1);
+            $posts = $this->get('forum.repository.post')->findAllByTopic($topic, true);
             $posts->setCurrentPageNumber($page);
             $posts->setItemCountPerPage($this->container->getParameter('forum.paginator.posts_per_page'));
             $posts->setPageRange(5);
         }
         else {
-            $posts = $this['forum.repository.post']->findRecentByTopic($topic, 30);
+            $posts = $this->get('forum.repository.post')->findRecentByTopic($topic, 30);
         }
 
         return $this->render('ForumBundle:Topic:show.'.$this->getRenderer(), array('topic' => $topic, 'posts' => $posts));
@@ -87,7 +87,7 @@ class TopicController extends Controller
 
     public function postNewAction($categorySlug, $slug, $id)
     {
-        $topic = $this['forum.repository.topic']->findOneById($id);
+        $topic = $this->get('forum.repository.topic')->findOneById($id);
 
         if (!$topic) {
             throw new NotFoundHttpException('The topic does not exist.');
@@ -98,7 +98,7 @@ class TopicController extends Controller
 
     public function postCreateAction($categorySlug, $slug, $id)
     {
-        $topic = $this['forum.repository.topic']->findOneById($id);
+        $topic = $this->get('forum.repository.topic')->findOneById($id);
 
         if (!$topic) {
             throw new NotFoundHttpException('The topic does not exist.');
@@ -121,7 +121,7 @@ class TopicController extends Controller
      */
     protected function createForm($name, Category $category = null)
     {
-        $form = $this['forum.form.new_topic'];
+        $form = $this->get('forum.form.new_topic');
         $form->getData()->setCategory($category);
 
         return $form;
@@ -136,7 +136,7 @@ class TopicController extends Controller
     public function saveTopic(Topic $topic)
     {
         $topic->getCategory()->setLastPost($topic->getLastPost());
-        $objectManager = $this['forum.repository.topic']->getObjectManager();
+        $objectManager = $this->get('forum.repository.topic')->getObjectManager();
         $objectManager->persist($topic);
         $objectManager->persist($topic->getFirstPost());
         $objectManager->flush();

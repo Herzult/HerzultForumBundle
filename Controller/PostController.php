@@ -22,7 +22,7 @@ class PostController extends Controller
     public function createAction(Topic $topic)
     {
         $form = $this->createForm('forum_post_new', $topic);
-        $form->bind($this['request']->request->get($form->getName()));
+        $form->bind($this->get('request')->request->get($form->getName()));
 
         if(!$form->isValid()) {
             return $this->render('ForumBundle:Post:new.'.$this->getRenderer(), array(
@@ -32,11 +32,11 @@ class PostController extends Controller
         }
 
         $post = $form->getData();
-        $this['forum.blamer.post']->blame($post);
+        $this->get('forum.blamer.post')->blame($post);
         $this->savePost($post);
 
-        $this['session']->setFlash('forum_post_create/success', true);
-        $url = $this['forum.templating.helper.forum']->urlForPost($post);
+        $this->get('session')->setFlash('forum_post_create/success', true);
+        $url = $this->get('forum.templating.helper.forum')->urlForPost($post);
 
         return $this->redirect($url);
     }
@@ -55,7 +55,7 @@ class PostController extends Controller
      */
     protected function createForm($name, Topic $topic)
     {
-        $form = $this['forum.form.post'];
+        $form = $this->get('forum.form.post');
         $form->getData()->setTopic($topic);
 
         return $form;
@@ -69,7 +69,7 @@ class PostController extends Controller
      **/
     public function savePost(Post $post)
     {
-        $objectManager = $this['forum.repository.post']->getObjectManager();
+        $objectManager = $this->get('forum.repository.post')->getObjectManager();
         $objectManager->persist($post);
         $objectManager->flush();
     }
