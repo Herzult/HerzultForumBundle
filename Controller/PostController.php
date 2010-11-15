@@ -32,6 +32,7 @@ class PostController extends Controller
         }
 
         $post = $form->getData();
+        $post->setTopic($topic);
         $this->get('forum.blamer.post')->blame($post);
         $this->savePost($post);
 
@@ -56,7 +57,6 @@ class PostController extends Controller
     protected function createForm($name, Topic $topic)
     {
         $form = $this->get('forum.form.post');
-        $form->getData()->setTopic($topic);
 
         return $form;
     }
