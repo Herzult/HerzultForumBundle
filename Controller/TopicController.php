@@ -122,7 +122,7 @@ class TopicController extends Controller
     protected function createForm($name, Category $category = null)
     {
         $form = $this->get('forum.form.new_topic');
-        $form->getData()->setCategory($category);
+        $form['category']->setData($category);
 
         return $form;
     }
