@@ -22,7 +22,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
      */
     public function findAllByTopic($topic, $asPaginator = false)
     {
-        $query = $this->createQuery()
+        $query = $this->createQueryBuilder()
             ->sort('createdAt', 'ASC')
             ->field('topic.$id')
             ->equals(new \MongoId($topic->getId()));
@@ -31,7 +31,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
             return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
-        return array_values($query->execute()->getResults());
+        return array_values($query->getQuery()->execute()->getResults());
     }
 
     /**
@@ -39,13 +39,13 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
      */
     public function findRecentByTopic($topic, $number)
     {
-        $query = $this->createQuery()
+        $query = $this->createQueryBuilder()
             ->field('topic.$id')
             ->equals(new \MongoId($topic->getId()))
             ->sort('createdAt', 'DESC')
             ->limit((int) $number);
 
-        return array_values($query->execute()->getResults());
+        return array_values($query->getQuery()->execute()->getResults());
     }
 
     /**
@@ -54,7 +54,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
     public function search($query, $asPaginator = false)
     {
         $regexp = new \MongoRegex('/' . $query . '/i');
-        $query = $this->createQuery()
+        $query = $this->createQueryBuilder()
             ->sort('createdAt', 'ASC')
             ->field('message')->equals($regexp)
         ;
@@ -63,6 +63,6 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
             return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
-        return array_values($query->execute()->getResults());
+        return array_values($query->getQuery()->execute()->getResults());
     }
 }

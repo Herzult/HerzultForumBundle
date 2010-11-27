@@ -22,13 +22,13 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findAll($asPaginator = false)
     {
-        $query = $this->createQuery()->sort('pulledAt', 'DESC');
+        $query = $this->createQueryBuilder()->sort('pulledAt', 'DESC');
 
         if ($asPaginator) {
             return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
-        return array_values($query->execute()->getResults());
+        return array_values($query->getQuery()->execute()->getResults());
     }
 
     /**
@@ -36,7 +36,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findAllByCategory($category, $asPaginator = false)
     {
-        $query = $this->createQuery('t')
+        $query = $this->createQueryBuilder('t')
             ->field('category.$id')->equals(new \MongoId($category->getId()))
             ->sort('pulledAt', 'DESC')
         ;
@@ -45,7 +45,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
             return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
-        return array_values($query->execute()->getResults());
+        return array_values($query->getQuery()->execute()->getResults());
     }
 
     /**
@@ -53,9 +53,9 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
      */
     public function findLatestPosted($number)
     {
-        $query = $this->createQuery()->sort('pulledAt', 'DESC')->limit($number);
+        $query = $this->createQueryBuilder()->sort('pulledAt', 'DESC')->limit($number);
 
-        return array_values($query->execute()->getResults());
+        return array_values($query->getQuery()->execute()->getResults());
     }
 
     /**
@@ -64,7 +64,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
     public function search($query, $asPaginator = false)
     {
         $regexp = new \MongoRegex('/' . $query . '/i');
-        $query = $this->createQuery()
+        $query = $this->createQueryBuilder()
             ->sort('pulledAt', 'DESC')
             ->field('subject')->equals($regexp)
         ;
@@ -73,7 +73,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
             return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
-        return array_values($query->execute()->getResults());
+        return array_values($query->getQuery()->execute()->getResults());
     }
 
     /**

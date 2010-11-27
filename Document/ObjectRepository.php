@@ -37,6 +37,6 @@ abstract class ObjectRepository extends DocumentRepository implements Repository
      */
     public function cleanUp()
     {
-        $this->createQuery()->remove()->execute();
+        $this->createQueryBuilder()->remove()->getQuery()->execute();
     }
 }
