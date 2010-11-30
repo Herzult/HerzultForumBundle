@@ -31,7 +31,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
             return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
-        return array_values($query->getQuery()->execute()->getResults());
+        return array_values($query->getQuery()->execute()->toArray());
     }
 
     /**
@@ -45,7 +45,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
             ->sort('createdAt', 'DESC')
             ->limit((int) $number);
 
-        return array_values($query->getQuery()->execute()->getResults());
+        return array_values($query->getQuery()->execute()->toArray());
     }
 
     /**
@@ -63,6 +63,6 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
             return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
-        return array_values($query->getQuery()->execute()->getResults());
+        return array_values($query->getQuery()->execute()->toArray());
     }
 }

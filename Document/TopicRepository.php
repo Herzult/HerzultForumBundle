@@ -28,7 +28,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
             return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
-        return array_values($query->getQuery()->execute()->getResults());
+        return array_values($query->getQuery()->execute()->toArray());
     }
 
     /**
@@ -45,7 +45,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
             return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
-        return array_values($query->getQuery()->execute()->getResults());
+        return array_values($query->getQuery()->execute()->toArray());
     }
 
     /**
@@ -55,7 +55,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
     {
         $query = $this->createQueryBuilder()->sort('pulledAt', 'DESC')->limit($number);
 
-        return array_values($query->getQuery()->execute()->getResults());
+        return array_values($query->getQuery()->execute()->toArray());
     }
 
     /**
@@ -73,7 +73,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
             return new Paginator(new DoctrineMongoDBAdapter($query));
         }
 
-        return array_values($query->getQuery()->execute()->getResults());
+        return array_values($query->getQuery()->execute()->toArray());
     }
 
     /**
