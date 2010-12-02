@@ -5,7 +5,8 @@ namespace Bundle\ForumBundle\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Bundle\ForumBundle\Util\Inflector;
 
-abstract class Topic
+
+abstract class Topic implements Sluggable
 {
     protected $id;
     /**
@@ -13,6 +14,7 @@ abstract class Topic
      * @validation:MinLength(limit=4, message="Just a little too short.")
      */
     protected $subject;
+    protected $slug;
     protected $numViews;
     protected $numPosts;
     protected $isClosed;
@@ -73,13 +75,33 @@ abstract class Topic
     }
 
     /**
-     * Gets the slug
+     * Retrieves the slug field name
      *
      * @return string
      */
-    public function getSlug()
+    function getSlugFieldName()
     {
-        return Inflector::slugify($this->getSubject());
+        return 'slug';
+    }
+
+    /**
+     * Retrieves the slug
+     *
+     * @return string
+     */
+    function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Retrieves the Entity fields used to generate the slug value
+     *
+     * @return array
+     */
+    function getSlugGeneratorFields()
+    {
+        return array($this->subject);
     }
 
     /**
