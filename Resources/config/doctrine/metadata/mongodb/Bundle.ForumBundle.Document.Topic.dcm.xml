@@ -24,11 +24,11 @@
 
         <field name="pulledAt" fieldName="pulledAt" type="date" />
 
-        <reference-one target-document="Category" field="category" />
+        <!--<reference-one target-document="Category" field="category" />-->
 
-        <reference-one target-document="Post" field="firstPost" />
+        <!--<reference-one target-document="Post" field="firstPost" />-->
 
-        <reference-one target-document="Post" field="lastPost" />
+        <!--<reference-one target-document="Post" field="lastPost" />-->
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="validateBeforePersist" />

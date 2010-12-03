@@ -22,13 +22,13 @@
 
         <field name="numPosts" column="num_posts" type="integer" />
 
-        <one-to-one field="lastTopic" target-entity="Topic">
-            <join-column name="last_topic_id" referenced-column-name="id" on-delete="SET NULL" />
-        </one-to-one>
+        <!--<one-to-one field="lastTopic" target-entity="Topic">-->
+            <!--<join-column name="last_topic_id" referenced-column-name="id" on-delete="SET NULL" />-->
+        <!--</one-to-one>-->
 
-        <one-to-one field="lastPost" target-entity="Post">
-            <join-column name="last_post_id" referenced-column-name="id" on-delete="SET NULL" />
-        </one-to-one>
+        <!--<one-to-one field="lastPost" target-entity="Post">-->
+            <!--<join-column name="last_post_id" referenced-column-name="id" on-delete="SET NULL" />-->
+        <!--</one-to-one>-->
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="generateSlug" />

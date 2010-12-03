@@ -20,9 +20,9 @@
 
         <field name="numPosts" fieldName="numPosts" type="int" />;
 
-        <reference-one target-document="Topic" field="lastTopic" />
+        <!--<reference-one target-document="Topic" field="lastTopic" />-->
 
-        <reference-one target-document="Post" field="lastPost" />
+        <!--<reference-one target-document="Post" field="lastPost" />-->
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="generateSlug" />
