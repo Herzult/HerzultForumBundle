@@ -69,7 +69,7 @@ class PostController extends Controller
      **/
     public function savePost(Post $post)
     {
-        $objectManager = $this->get('forum.repository.post')->getObjectManager();
+        $objectManager = $this->get('forum.object_manager');
         $objectManager->persist($post);
         $objectManager->flush();
     }
