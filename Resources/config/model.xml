@@ -22,15 +22,6 @@
             <argument type="service" id="forum.object_manager" />
             <argument type="string">%forum.model.post.class%</argument>
         </service>
-
-        <!-- Metadata Listener -->
-        <service id="forum.class_metadata_listener" class="%forum.class_metadata_listener.class%">
-            <argument type="collection">
-                <argument key="category">%forum.model.category.class%</argument>
-                <argument key="topic">%forum.model.topic.class%</argument>
-                <argument key="post">%forum.model.post.class%</argument>
-            </argument>
-        </service>
     </services>
 
 </container>

@@ -4,10 +4,6 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="forum.class_metadata_listener.class">Bundle\ForumBundle\Doctrine\ODM\ClassMetadataListener</parameter>
-    </parameters>
-
     <services>
         <!-- Object Manager Service -->
         <service id="forum.object_manager" alias="doctrine.odm.mongodb.document_manager" />
