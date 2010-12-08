@@ -3,6 +3,7 @@
 namespace Bundle\ForumBundle\Document;
 
 use Bundle\ForumBundle\Model\TopicRepositoryInterface;
+use Bundle\ForumBundle\Model\Category;
 use Zend\Paginator\Paginator;
 use ZendPaginatorAdapter\DoctrineMongoDBAdapter;
 
