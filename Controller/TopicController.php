@@ -87,7 +87,7 @@ class TopicController extends Controller
         return $this->forward('ForumBundle:Post:new', array('topic' => $topic));
     }
 
-    public function postCreateAction($categorySlug, $slug, $id)
+    public function postCreateAction($categorySlug, $slug)
     {
         $topic = $this->findTopic($categorySlug, $slug);
 
