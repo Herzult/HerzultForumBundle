@@ -10,6 +10,8 @@
 
         <field name="subject" fieldName="subject" type="string" />
 
+        <field name="slug" fieldName="slug" type="string" />
+
         <field name="numViews" fieldName="numViews" type="int" />
 
         <field name="numPosts" fieldName="numPosts" type="int" />

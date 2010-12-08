@@ -4,7 +4,7 @@ namespace Bundle\ForumBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Bundle\ForumBundle\Util\Inflector;
-
+use DoctrineExtensions\Sluggable\Sluggable;
 
 abstract class Topic implements Sluggable
 {
@@ -79,7 +79,7 @@ abstract class Topic implements Sluggable
      *
      * @return string
      */
-    function getSlugFieldName()
+    public function getSlugFieldName()
     {
         return 'slug';
     }
@@ -89,9 +89,14 @@ abstract class Topic implements Sluggable
      *
      * @return string
      */
-    function getSlug()
+    public function getSlug()
     {
         return $this->slug;
+    }
+
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 
     /**
@@ -99,9 +104,9 @@ abstract class Topic implements Sluggable
      *
      * @return array
      */
-    function getSlugGeneratorFields()
+    public function getSlugGeneratorFields()
     {
-        return array($this->subject);
+        return array('subject');
     }
 
     /**
@@ -359,7 +364,6 @@ abstract class Topic implements Sluggable
         if (empty($this->lastPost)) {
             throw new \RuntimeException('You must add at least one post as last post to persist the topic.');
         }
-
         if (empty($this->category)) {
             throw new \RuntimeException('You must set a category to persist the topic.');
         }
