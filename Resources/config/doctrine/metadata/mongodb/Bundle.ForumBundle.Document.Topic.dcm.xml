@@ -55,6 +55,12 @@
                 <option name="unique" value="false" />
                 <option name="dropDups" value="false" />
             </index>
+            <index name="slug">
+                <key name="slug" order="asc" />
+                <option name="safe" value="true" />
+                <option name="unique" value="false" />
+                <option name="dropDups" value="false" />
+            </index>
         </indexes>
 
     </mapped-superclass>
