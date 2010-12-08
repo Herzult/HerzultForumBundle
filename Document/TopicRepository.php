@@ -3,7 +3,6 @@
 namespace Bundle\ForumBundle\Document;
 
 use Bundle\ForumBundle\Model\TopicRepositoryInterface;
-use Bundle\ForumBundle\Model\Category;
 use Zend\Paginator\Paginator;
 use ZendPaginatorAdapter\DoctrineMongoDBAdapter;
 
@@ -12,7 +11,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
     /**
      * @see TopicRepositoryInterface::findOneByCategoryAndSlug
      */
-    public function findOneByCategoryAndSlug(Category $category, $slug)
+    public function findOneByCategoryAndSlug($category, $slug)
     {
         return $this->findOneBy(array(
             'slug' => $slug,

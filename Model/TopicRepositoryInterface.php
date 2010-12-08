@@ -11,7 +11,7 @@ interface TopicRepositoryInterface extends RepositoryInterface
      * @paral string $slug
      * @return Topic or NULL
      **/
-    public function findOneByCategoryAndSlug(Category $category, $slug);
+    public function findOneByCategoryAndSlug($category, $slug);
 
     /**
      * Finds one topic by its id
