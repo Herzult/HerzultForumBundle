@@ -3,10 +3,6 @@
 namespace Bundle\ForumBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Doctrine\ODM\MongoDB\ODMEvents;
-use Doctrine\ODM\MongoDB\DocumentManager;
-use Doctrine\ORM\Events as ORMEvents;
-use Doctrine\ORM\EntityManager;
 use DoctrineExtensions\Sluggable\SluggableListener;
 
 class ForumBundle extends Bundle
@@ -26,16 +22,9 @@ class ForumBundle extends Bundle
 
     public function boot()
     {
-        $om = $this->container->get('forum.object_manager');
-        $eventManager = $om->getEventManager();
-        if($om instanceof DocumentManager) {
-            $eventManager->addEventListener(array(ODMEvents::loadClassMetadata), $this->container->get('forum.class_metadata_listener'));
-        }
-        elseif($om instanceof EntityManager) {
-            $eventManager->addEventListener(array(ORMEvents::loadClassMetadata), $this->container->get('forum.class_metadata_listener'));
-        }
+        $eventManager = $this->container->get('forum.object_manager')->getEventManager();
 
-        $sluggableListener = new SluggableListener($om->getEventManager());
+        $sluggableListener = new SluggableListener($eventManager);
     }
 
 }
