@@ -57,8 +57,7 @@ class ForumHelper extends Helper
     {
         return $this->router->generate('forum_topic_show', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
-            'slug'          => $topic->getSlug(),
-            'id'            => $topic->getId()
+            'slug'          => $topic->getSlug()
         ), $absolute);
     }
 
@@ -67,7 +66,6 @@ class ForumHelper extends Helper
         return $this->router->generate('forum_topic_show', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
             'slug'          => $topic->getSlug(),
-            'id'            => $topic->getId(),
             '_format'       => 'xml'
         ), $absolute);
     }
@@ -76,8 +74,7 @@ class ForumHelper extends Helper
     {
         return $this->router->generate('forum_topic_post_new', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
-            'slug'          => $topic->getSlug(),
-            'id'            => $topic->getId()
+            'slug'          => $topic->getSlug()
         ));
     }
 

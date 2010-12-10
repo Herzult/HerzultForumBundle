@@ -7,6 +7,7 @@ use Doctrine\ODM\MongoDB\ODMEvents;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\Events as ORMEvents;
 use Doctrine\ORM\EntityManager;
+use DoctrineExtensions\Sluggable\SluggableListener;
 
 class ForumBundle extends Bundle
 {
@@ -21,6 +22,20 @@ class ForumBundle extends Bundle
     public static function getRepository($objectManager, $objectClass)
     {
         return $objectManager->getRepository($objectClass);
+    }
+
+    public function boot()
+    {
+        $om = $this->container->get('forum.object_manager');
+        $eventManager = $om->getEventManager();
+        if($om instanceof DocumentManager) {
+            $eventManager->addEventListener(array(ODMEvents::loadClassMetadata), $this->container->get('forum.class_metadata_listener'));
+        }
+        elseif($om instanceof EntityManager) {
+            $eventManager->addEventListener(array(ORMEvents::loadClassMetadata), $this->container->get('forum.class_metadata_listener'));
+        }
+
+        $sluggableListener = new SluggableListener($om->getEventManager());
     }
 
 }

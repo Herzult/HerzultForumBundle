@@ -4,8 +4,9 @@ namespace Bundle\ForumBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Bundle\ForumBundle\Util\Inflector;
+use DoctrineExtensions\Sluggable\Sluggable;
 
-abstract class Topic
+abstract class Topic implements Sluggable
 {
     protected $id;
     /**
@@ -13,6 +14,7 @@ abstract class Topic
      * @validation:MinLength(limit=4, message="Just a little too short.")
      */
     protected $subject;
+    protected $slug;
     protected $numViews;
     protected $numPosts;
     protected $isClosed;
@@ -73,13 +75,38 @@ abstract class Topic
     }
 
     /**
-     * Gets the slug
+     * Retrieves the slug field name
+     *
+     * @return string
+     */
+    public function getSlugFieldName()
+    {
+        return 'slug';
+    }
+
+    /**
+     * Retrieves the slug
      *
      * @return string
      */
     public function getSlug()
     {
-        return Inflector::slugify($this->getSubject());
+        return $this->slug;
+    }
+
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * Retrieves the Entity fields used to generate the slug value
+     *
+     * @return array
+     */
+    public function getSlugGeneratorFields()
+    {
+        return array('subject');
     }
 
     /**
@@ -337,7 +364,6 @@ abstract class Topic
         if (empty($this->lastPost)) {
             throw new \RuntimeException('You must add at least one post as last post to persist the topic.');
         }
-
         if (empty($this->category)) {
             throw new \RuntimeException('You must set a category to persist the topic.');
         }

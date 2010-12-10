@@ -61,15 +61,10 @@ class TopicController extends Controller
         ));
     }
 
-    public function showAction($categorySlug, $slug, $id)
+    public function showAction($categorySlug, $slug)
     {
-        $topicRepository = $this->get('forum.repository.topic');
-        $topic = $topicRepository->findOneById($id);
-
-        if (!$topic) {
-            throw new NotFoundHttpException(sprintf('The topic "%s" does not exist.', $id));
-        }
-        $topicRepository->incrementTopicNumViews($topic);
+        $topic = $this->findTopic($categorySlug, $slug);
+        $this->get('forum.repository.topic')->incrementTopicNumViews($topic);
 
         if('html' === $this->get('request')->getRequestFormat()) {
             $page = $this->get('request')->query->get('page', 1);
@@ -85,24 +80,16 @@ class TopicController extends Controller
         return $this->render('ForumBundle:Topic:show.'.$this->getRenderer(), array('topic' => $topic, 'posts' => $posts));
     }
 
-    public function postNewAction($categorySlug, $slug, $id)
+    public function postNewAction($categorySlug, $slug)
     {
-        $topic = $this->get('forum.repository.topic')->findOneById($id);
-
-        if (!$topic) {
-            throw new NotFoundHttpException('The topic does not exist.');
-        }
+        $topic = $this->findTopic($categorySlug, $slug);
 
         return $this->forward('ForumBundle:Post:new', array('topic' => $topic));
     }
 
-    public function postCreateAction($categorySlug, $slug, $id)
+    public function postCreateAction($categorySlug, $slug)
     {
-        $topic = $this->get('forum.repository.topic')->findOneById($id);
-
-        if (!$topic) {
-            throw new NotFoundHttpException('The topic does not exist.');
-        }
+        $topic = $this->findTopic($categorySlug, $slug);
 
         return $this->forward('ForumBundle:Post:create', array('topic' => $topic));
     }
@@ -125,6 +112,25 @@ class TopicController extends Controller
         $form['category']->setData($category);
 
         return $form;
+    }
+
+    /**
+     * Find a topic by its category slug and topic slug
+     *
+     * @return Topic
+     **/
+    public function findTopic($categorySlug, $topicSlug)
+    {
+        $category = $this->get('forum.repository.category')->findOneBySlug($categorySlug);
+        if(!$category) {
+            throw new NotFoundHttpException(sprintf('The category with slug "%s" does not exist', $categorySlug));
+        }
+        $topic = $this->get('forum.repository.topic')->findOneByCategoryAndSlug($category, $topicSlug);
+        if(!$topic) {
+            throw new NotFoundHttpException(sprintf('The topic with slug "%s" does not exist', $topicSlug));
+        }
+
+        return $topic;
     }
 
     /**

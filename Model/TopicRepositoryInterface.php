@@ -5,6 +5,15 @@ namespace Bundle\ForumBundle\Model;
 interface TopicRepositoryInterface extends RepositoryInterface
 {
     /**
+     * Finds one topic by its category and its slug
+     *
+     * @param Category $category
+     * @paral string $slug
+     * @return Topic or NULL
+     **/
+    public function findOneByCategoryAndSlug($category, $slug);
+
+    /**
      * Finds one topic by its id
      *
      * @param integer $id

@@ -10,6 +10,8 @@
 
         <field name="subject" fieldName="subject" type="string" />
 
+        <field name="slug" fieldName="slug" type="string" />
+
         <field name="numViews" fieldName="numViews" type="int" />
 
         <field name="numPosts" fieldName="numPosts" type="int" />
@@ -49,6 +51,12 @@
             </index>
             <index name="category_asc">
                 <key name="category" order="asc" />
+                <option name="safe" value="true" />
+                <option name="unique" value="false" />
+                <option name="dropDups" value="false" />
+            </index>
+            <index name="slug">
+                <key name="slug" order="asc" />
                 <option name="safe" value="true" />
                 <option name="unique" value="false" />
                 <option name="dropDups" value="false" />
