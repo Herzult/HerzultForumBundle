@@ -3,5 +3,5 @@
     <title>{{ topic.subject }}</title>
     <id>{{ _view.forum.urlForTopic(topic, true) }}</id>
     <updated>{{ topic.pulledAt|date('c') }}</updated>
-    {% include 'ForumBundle:Post:list.twig' with ['posts': posts] %}
+    {% include 'ForumBundle:Post:list.twig' with {'posts': posts} %}
 </feed>
