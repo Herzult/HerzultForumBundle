@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Form\ValueTransformer;
+namespace Bundle\SosForum\CoreBundle\Form\ValueTransformer;
 use Symfony\Component\Form\ValueTransformer\BaseValueTransformer;
 
 /**

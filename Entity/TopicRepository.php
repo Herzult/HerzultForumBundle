@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Entity;
+namespace Bundle\SosForum\CoreBundle\Entity;
 
-use Bundle\ForumBundle\Model\TopicRepositoryInterface;
+use Bundle\SosForum\CoreBundle\Model\TopicRepositoryInterface;
 use Zend\Paginator\Paginator;
 use ZendPaginatorAdapter\DoctrineORMAdapter;
 

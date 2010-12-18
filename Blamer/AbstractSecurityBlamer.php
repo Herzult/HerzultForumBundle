@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Blamer;
+namespace Bundle\SosForum\CoreBundle\Blamer;
 
 use Symfony\Component\Security\SecurityContext;
 

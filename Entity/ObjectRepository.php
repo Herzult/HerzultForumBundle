@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\ForumBundle\Entity;
+namespace Bundle\SosForum\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Bundle\ForumBundle\Model\RepositoryInterface;
+use Bundle\SosForum\CoreBundle\Model\RepositoryInterface;
 
 abstract class ObjectRepository extends EntityRepository implements RepositoryInterface
 {

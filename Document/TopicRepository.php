@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Document;
+namespace Bundle\SosForum\CoreBundle\Document;
 
-use Bundle\ForumBundle\Model\TopicRepositoryInterface;
+use Bundle\SosForum\CoreBundle\Model\TopicRepositoryInterface;
 use Zend\Paginator\Paginator;
 use ZendPaginatorAdapter\DoctrineMongoDBAdapter;
 

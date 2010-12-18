@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\ForumBundle\Document;
+namespace Bundle\SosForum\CoreBundle\Document;
 
-use Bundle\ForumBundle\Model\Category as BaseCategory;
+use Bundle\SosForum\CoreBundle\Model\Category as BaseCategory;
 
 abstract class Category extends BaseCategory
 {
-    
+
 }

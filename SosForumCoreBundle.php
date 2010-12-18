@@ -1,11 +1,11 @@
 <?php
 
-namespace Bundle\ForumBundle;
+namespace Bundle\SosForum\CoreBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use DoctrineExtensions\Sluggable\SluggableListener;
 
-class ForumBundle extends Bundle
+class SosForumCoreBundle extends Bundle
 {
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Model;
+namespace Bundle\SosForum\CoreBundle\Model;
 
 abstract class Post
 {

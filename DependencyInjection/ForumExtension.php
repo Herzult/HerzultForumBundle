@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\DependencyInjection;
+namespace Bundle\SosForum\CoreBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

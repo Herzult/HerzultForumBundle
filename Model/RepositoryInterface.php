@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Model;
+namespace Bundle\SosForum\CoreBundle\Model;
 
 interface RepositoryInterface
 {
@@ -27,8 +27,8 @@ interface RepositoryInterface
     public function getObjectIdentifier();
 
     /**
-     * Remove all entities/documents from a table/collection 
-     * 
+     * Remove all entities/documents from a table/collection
+     *
      * @return null
      */
     public function cleanUp();

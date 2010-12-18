@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Model;
+namespace Bundle\SosForum\CoreBundle\Model;
 
-use Bundle\ForumBundle\Util\Inflector;
+use Bundle\SosForum\CoreBundle\Util\Inflector;
 
 abstract class Category
 {

@@ -1,6 +1,7 @@
 <?php
 
-namespace Bundle\ForumBundle\Twig\Extension;
+namespace Bundle\SosForum\CoreBundle\Twig\Extension;
+
 use Symfony\Bundle\TwigBundle\TokenParser\HelperTokenParser;
 
 class ForumExtension extends \Twig_Extension

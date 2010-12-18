@@ -1,11 +1,11 @@
 <?php
 
-namespace Bundle\ForumBundle\Form;
+namespace Bundle\SosForum\CoreBundle\Form;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\TextField;
 use Symfony\Component\Form\TextareaField;
-use Bundle\ForumBundle\Model\CategoryRepositoryInterface;
+use Bundle\SosForum\CoreBundle\Model\CategoryRepositoryInterface;
 
 class NewTopicForm extends Form
 {

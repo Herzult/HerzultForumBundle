@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\DependencyInjection;
+namespace Bundle\SosForum\CoreBundle\Tests\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Bundle\ForumBundle\DependencyInjection\ForumExtension;
+use Bundle\SosForum\CoreBundle\DependencyInjection\ForumExtension;
 use Symfony\Component\Yaml\Parser;
 
 class ForumExtensionTest extends \PHPUnit_Framework_TestCase
@@ -50,9 +50,9 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ForumBundle\Form\NewTopicForm', 'forum.form.new_topic.class');
-        $this->assertParameter('Bundle\ForumBundle\Form\PostForm', 'forum.form.post.class');
-        $this->assertParameter('Bundle\ForumBundle\Form\PostForm', 'forum.form.first_post.class');
+        $this->assertParameter('Bundle\SosForum\CoreBundle\Form\NewTopicForm', 'forum.form.new_topic.class');
+        $this->assertParameter('Bundle\SosForum\CoreBundle\Form\PostForm', 'forum.form.post.class');
+        $this->assertParameter('Bundle\SosForum\CoreBundle\Form\PostForm', 'forum.form.first_post.class');
     }
 
     public function testForumLoadFormClass()
@@ -103,10 +103,10 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ForumBundle\Controller\ForumController', 'forum.controller.forum.class');
-        $this->assertParameter('Bundle\ForumBundle\Controller\CategoryController', 'forum.controller.category.class');
-        $this->assertParameter('Bundle\ForumBundle\Controller\TopicController', 'forum.controller.topic.class');
-        $this->assertParameter('Bundle\ForumBundle\Controller\PostController', 'forum.controller.post.class');
+        $this->assertParameter('Bundle\SosForum\CoreBundle\Controller\ForumController', 'forum.controller.forum.class');
+        $this->assertParameter('Bundle\SosForum\CoreBundle\Controller\CategoryController', 'forum.controller.category.class');
+        $this->assertParameter('Bundle\SosForum\CoreBundle\Controller\TopicController', 'forum.controller.topic.class');
+        $this->assertParameter('Bundle\SosForum\CoreBundle\Controller\PostController', 'forum.controller.post.class');
     }
 
     public function testForumLoadControllerClass()
@@ -133,8 +133,8 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ForumBundle\Blamer\TopicBlamer', 'forum.blamer.topic.class');
-        $this->assertParameter('Bundle\ForumBundle\Blamer\PostBlamer', 'forum.blamer.post.class');
+        $this->assertParameter('Bundle\SosForum\CoreBundle\Blamer\TopicBlamer', 'forum.blamer.topic.class');
+        $this->assertParameter('Bundle\SosForum\CoreBundle\Blamer\PostBlamer', 'forum.blamer.post.class');
     }
 
     public function testForumLoadBlamerClass()
@@ -157,7 +157,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ForumBundle\Templating\Helper\ForumHelper', 'forum.templating.helper.forum.class');
+        $this->assertParameter('Bundle\SosForum\CoreBundle\Templating\Helper\ForumHelper', 'forum.templating.helper.forum.class');
     }
 
     public function testForumLoadTemplatingHelperClass()

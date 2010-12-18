@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\ForumBundle\Model;
+namespace Bundle\SosForum\CoreBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Bundle\ForumBundle\Util\Inflector;
+use Bundle\SosForum\CoreBundle\Util\Inflector;
 use DoctrineExtensions\Sluggable\Sluggable;
 
 abstract class Topic implements Sluggable

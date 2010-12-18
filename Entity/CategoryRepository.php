@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Entity;
+namespace Bundle\SosForum\CoreBundle\Entity;
 
-use Bundle\ForumBundle\Model\CategoryRepositoryInterface;
+use Bundle\SosForum\CoreBundle\Model\CategoryRepositoryInterface;
 
 class CategoryRepository extends ObjectRepository implements CategoryRepositoryInterface
 {

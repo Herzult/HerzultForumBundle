@@ -1,12 +1,12 @@
 <?php
 
-namespace Bundle\ForumBundle\Controller;
+namespace Bundle\SosForum\CoreBundle\Controller;
 
-use Bundle\ForumBundle\Form\TopicForm;
+use Bundle\SosForum\CoreBundle\Form\TopicForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Bundle\ForumBundle\Model\Topic;
-use Bundle\ForumBundle\Model\Category;
+use Bundle\SosForum\CoreBundle\Model\Topic;
+use Bundle\SosForum\CoreBundle\Model\Category;
 
 class TopicController extends Controller
 {
@@ -14,7 +14,7 @@ class TopicController extends Controller
     {
         $form = $this->createForm('forum_topic_new', $category);
 
-        return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array(
+        return $this->render('SosForumCoreBundle:Topic:new.'.$this->getRenderer(), array(
             'form'      => $form,
             'category'  => $category
         ));
@@ -26,7 +26,7 @@ class TopicController extends Controller
         $form->bind($this->get('request')->request->get($form->getName()));
 
         if(!$form->isValid()) {
-            return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array(
+            return $this->render('SosForumCoreBundle:Topic:new.'.$this->getRenderer(), array(
                 'form'      => $form,
                 'category'  => $category
             ));
@@ -55,7 +55,7 @@ class TopicController extends Controller
         $topics->setItemCountPerPage($this->container->getParameter('forum.paginator.topics_per_page'));
         $topics->setPageRange(5);
 
-        return $this->render('ForumBundle:Topic:list.'.$this->getRenderer(), array(
+        return $this->render('SosForumCoreBundle:Topic:list.'.$this->getRenderer(), array(
             'topics'    => $topics,
             'category'  => $category
         ));
@@ -77,21 +77,21 @@ class TopicController extends Controller
             $posts = $this->get('forum.repository.post')->findRecentByTopic($topic, 30);
         }
 
-        return $this->render('ForumBundle:Topic:show.'.$this->getRenderer(), array('topic' => $topic, 'posts' => $posts));
+        return $this->render('SosForumCoreBundle:Topic:show.'.$this->getRenderer(), array('topic' => $topic, 'posts' => $posts));
     }
 
     public function postNewAction($categorySlug, $slug)
     {
         $topic = $this->findTopic($categorySlug, $slug);
 
-        return $this->forward('ForumBundle:Post:new', array('topic' => $topic));
+        return $this->forward('SosForumCoreBundle:Post:new', array('topic' => $topic));
     }
 
     public function postCreateAction($categorySlug, $slug)
     {
         $topic = $this->findTopic($categorySlug, $slug);
 
-        return $this->forward('ForumBundle:Post:create', array('topic' => $topic));
+        return $this->forward('SosForumCoreBundle:Post:create', array('topic' => $topic));
     }
 
     protected function getRenderer()
@@ -104,7 +104,7 @@ class TopicController extends Controller
      *
      * @param string $name
      * @param Topic $topic
-     * @return Bundle\ForumBundle\Form\TopicForm
+     * @return Bundle\SosForum\CoreBundle\Form\TopicForm
      */
     protected function createForm($name, Category $category = null)
     {

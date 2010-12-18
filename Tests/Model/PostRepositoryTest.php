@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\Model;
+namespace Bundle\SosForum\CoreBundle\Tests\Model;
 
-use Bundle\ForumBundle\Test\WebTestCase;
+use Bundle\SosForum\CoreBundle\Test\WebTestCase;
 
 class PostRepositoryTest extends WebTestCase
 {
@@ -12,9 +12,9 @@ class PostRepositoryTest extends WebTestCase
     {
         $this->om = $om = parent::setUp();
 
-        $om->getRepository('ForumBundle:Category')->cleanUp();
-        $om->getRepository('ForumBundle:Topic')->cleanUp();
-        $om->getRepository('ForumBundle:Post')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Category')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Topic')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Post')->cleanUp();
     }
 
     public function testFindOneById()
@@ -36,7 +36,7 @@ class PostRepositoryTest extends WebTestCase
         $om->persist($post);
         $om->flush();
 
-        $repository = $om->getRepository('ForumBundle:Post');
+        $repository = $om->getRepository('SosForumCoreBundle:Post');
         $foundPost = $repository->findOneById($post->getId());
 
         $this->assertNotEmpty($foundPost, '::findOneById find a post for the specified id');

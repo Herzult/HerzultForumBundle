@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Entity;
+namespace Bundle\SosForum\CoreBundle\Entity;
 
-use Bundle\ForumBundle\Model\Post as BasePost;
+use Bundle\SosForum\CoreBundle\Model\Post as BasePost;
 
 abstract class Post extends BasePost
 {

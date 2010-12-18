@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Entity;
+namespace Bundle\SosForum\CoreBundle\Entity;
 
-use Bundle\ForumBundle\Model\Topic as BaseTopic;
+use Bundle\SosForum\CoreBundle\Model\Topic as BaseTopic;
 
 abstract class Topic extends BaseTopic
 {

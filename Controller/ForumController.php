@@ -1,16 +1,16 @@
 <?php
 
-namespace Bundle\ForumBundle\Controller;
+namespace Bundle\SosForum\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Bundle\ForumBundle\Form\SearchForm;
-use Bundle\ForumBundle\Search\Search;
+use Bundle\SosForum\CoreBundle\Form\SearchForm;
+use Bundle\SosForum\CoreBundle\Search\Search;
 
 class ForumController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('ForumBundle:Forum:index.'.$this->getRenderer(), array(
+        return $this->render('SosForumCoreBundle:Forum:index.'.$this->getRenderer(), array(
             'page'  => $this->get('request')->query->get('page', 1)
         ));
     }
@@ -32,7 +32,7 @@ class ForumController extends Controller
             }
         }
 
-        return $this->render('ForumBundle:Forum:search.'.$this->getRenderer(), array(
+        return $this->render('SosForumCoreBundle:Forum:search.'.$this->getRenderer(), array(
             'form' => $form,
             'results' => $results,
             'query' => $search->query

@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\Model;
+namespace Bundle\SosForum\CoreBundle\Tests\Model;
 
-use Bundle\ForumBundle\Test\WebTestCase;
+use Bundle\SosForum\CoreBundle\Test\WebTestCase;
 
 class CategoryRepositoryTest extends WebTestCase
 {
@@ -11,15 +11,15 @@ class CategoryRepositoryTest extends WebTestCase
     {
         $om = parent::setUp();
 
-        $om->getRepository('ForumBundle:Category')->cleanUp();
-        $om->getRepository('ForumBundle:Topic')->cleanUp();
-        $om->getRepository('ForumBundle:Post')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Category')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Topic')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Post')->cleanUp();
     }
 
     public function testFindAll()
     {
         $om = $this->getService('forum.object_manager');
-        $repository = $om->getRepository('ForumBundle:Category');
+        $repository = $om->getRepository('SosForumCoreBundle:Category');
 
         // there is no category
         $categories = $repository->findAll();
@@ -57,7 +57,7 @@ class CategoryRepositoryTest extends WebTestCase
     public function testFindOneBySlug()
     {
         $om = $this->getService('forum.object_manager');
-        $repository = $om->getRepository('ForumBundle:Category');
+        $repository = $om->getRepository('SosForumCoreBundle:Category');
 
         $this->assertEquals(null, $repository->findOneBySlug('there-is-no-category-matching-to-this-slug'), '::findOneBySlug returns NULL if the specified slug does not match any category');
 

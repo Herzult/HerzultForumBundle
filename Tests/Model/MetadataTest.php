@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\Model;
+namespace Bundle\SosForum\CoreBundle\Tests\Model;
 
-use Bundle\ForumBundle\Test\WebTestCase;
+use Bundle\SosForum\CoreBundle\Test\WebTestCase;
 
 class MetadataTest extends WebTestCase
 {

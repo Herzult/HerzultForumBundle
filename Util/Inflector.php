@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Util;
+namespace Bundle\SosForum\CoreBundle\Util;
 
 class Inflector
 {

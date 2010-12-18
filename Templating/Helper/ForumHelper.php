@@ -1,12 +1,12 @@
 <?php
 
-namespace Bundle\ForumBundle\Templating\Helper;
+namespace Bundle\SosForum\CoreBundle\Templating\Helper;
 
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Templating\Helper\Helper;
-use Bundle\ForumBundle\Model\Category;
-use Bundle\ForumBundle\Model\Topic;
-use Bundle\ForumBundle\Model\Post;
+use Bundle\SosForum\CoreBundle\Model\Category;
+use Bundle\SosForum\CoreBundle\Model\Topic;
+use Bundle\SosForum\CoreBundle\Model\Post;
 use Bundle\DoctrineUserBundle\Model\User;
 
 class ForumHelper extends Helper

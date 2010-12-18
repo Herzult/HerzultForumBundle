@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\Model;
+namespace Bundle\SosForum\CoreBundle\Tests\Model;
 
-use Bundle\ForumBundle\Test\WebTestCase;
-use Bundle\ForumBundle\Document\Post;
+use Bundle\SosForum\CoreBundle\Test\WebTestCase;
+use Bundle\SosForum\CoreBundle\Document\Post;
 
 class TopicTest extends WebTestCase
 {
@@ -11,9 +11,9 @@ class TopicTest extends WebTestCase
     {
         $om = parent::setUp();
 
-        $om->getRepository('ForumBundle:Category')->cleanUp();
-        $om->getRepository('ForumBundle:Topic')->cleanUp();
-        $om->getRepository('ForumBundle:Post')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Category')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Topic')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Post')->cleanUp();
     }
 
     public function testObjectClass()
@@ -328,7 +328,7 @@ class TopicTest extends WebTestCase
         $om->flush();
         $om->clear();
 
-        $topic = $om->getRepository('ForumBundle:Topic')->find($topic->getId());
+        $topic = $om->getRepository('SosForumCoreBundle:Topic')->find($topic->getId());
 
         $this->assertNotNull($topic->getLastPost());
         $this->assertEquals($post, $topic->getLastPost());

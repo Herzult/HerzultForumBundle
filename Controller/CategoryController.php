@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Controller;
+namespace Bundle\SosForum\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -11,7 +11,7 @@ class CategoryController extends Controller
     {
         $categories = $this->get('forum.repository.category')->findAll();
 
-        return $this->render('ForumBundle:Category:list.'.$this->getRenderer(), array('categories' => $categories));
+        return $this->render('SosForumCoreBundle:Category:list.'.$this->getRenderer(), array('categories' => $categories));
     }
 
     public function showAction($slug)
@@ -22,7 +22,7 @@ class CategoryController extends Controller
             throw new NotFoundHttpException(sprintf('The category %s does not exist.', $slug));
         }
 
-        return $this->render('ForumBundle:Category:show.'.$this->getRenderer(), array(
+        return $this->render('SosForumCoreBundle:Category:show.'.$this->getRenderer(), array(
             'category'  => $category,
             'page'      => $this->get('request')->query->get('page', 1)
         ));
@@ -36,7 +36,7 @@ class CategoryController extends Controller
             throw new NotFoundHttpException(sprintf('The category "%s" does not exist.', $slug));
         }
 
-        return $this->forward('ForumBundle:Topic:new', array('category' => $category));
+        return $this->forward('SosForumCoreBundle:Topic:new', array('category' => $category));
     }
 
     public function topicCreateAction($slug)
@@ -47,7 +47,7 @@ class CategoryController extends Controller
             throw new NotFoundHttpException(sprintf('The category "%s" does not exist.', $slug));
         }
 
-        return $this->forward('ForumBundle:Topic:create', array('category' => $category));
+        return $this->forward('SosForumCoreBundle:Topic:create', array('category' => $category));
     }
 
     protected function getRenderer()

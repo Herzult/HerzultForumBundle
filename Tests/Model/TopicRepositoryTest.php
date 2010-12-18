@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Test\Model;
+namespace Bundle\SosForum\CoreBundle\Test\Model;
 
-use Bundle\ForumBundle\Test\WebTestCase;
+use Bundle\SosForum\CoreBundle\Test\WebTestCase;
 
 class TopicRepositoryTest extends WebTestCase
 {
@@ -12,9 +12,9 @@ class TopicRepositoryTest extends WebTestCase
     {
         $this->om = $om = parent::setUp();
 
-        $om->getRepository('ForumBundle:Category')->cleanUp();
-        $om->getRepository('ForumBundle:Topic')->cleanUp();
-        $om->getRepository('ForumBundle:Post')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Category')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Topic')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Post')->cleanUp();
     }
 
     public function testFindLatestPosted()
@@ -44,7 +44,7 @@ class TopicRepositoryTest extends WebTestCase
         }
         $this->om->flush();
 
-        $lastTopics = $this->om->getRepository('ForumBundle:Topic')->findLatestPosted($number);
+        $lastTopics = $this->om->getRepository('SosForumCoreBundle:Topic')->findLatestPosted($number);
         $this->assertSame($this->objectsToStrings(array($t4, $t3, $t2)), $this->objectsToStrings($lastTopics));
     }
 
@@ -88,7 +88,7 @@ class TopicRepositoryTest extends WebTestCase
     public function testFindAll()
     {
         $om = $this->getService('forum.object_manager');
-        $repository = $om->getRepository('ForumBundle:Topic');
+        $repository = $om->getRepository('SosForumCoreBundle:Topic');
 
         // there is no topic
         $topics = $repository->findAll();
@@ -150,7 +150,7 @@ class TopicRepositoryTest extends WebTestCase
     public function testFindOneById()
     {
         $om = $this->getService('forum.object_manager');
-        $repository = $om->getRepository('ForumBundle:Topic');
+        $repository = $om->getRepository('SosForumCoreBundle:Topic');
 
         $category = new $this->categoryClass();
         $category->setName('Topic repository test');

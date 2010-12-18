@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\Model;
+namespace Bundle\SosForum\CoreBundle\Tests\Model;
 
-use Bundle\ForumBundle\Test\WebTestCase;
+use Bundle\SosForum\CoreBundle\Test\WebTestCase;
 
 class CategoryTest extends WebTestCase
 {
@@ -10,9 +10,9 @@ class CategoryTest extends WebTestCase
     {
         $om = parent::setUp();
 
-        $om->getRepository('ForumBundle:Category')->cleanUp();
-        $om->getRepository('ForumBundle:Topic')->cleanUp();
-        $om->getRepository('ForumBundle:Post')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Category')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Topic')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Post')->cleanUp();
     }
 
     public function testObjectClass()
@@ -113,7 +113,7 @@ class CategoryTest extends WebTestCase
         }
 
         $om->clear();
-        $category = $om->getRepository('ForumBundle:Category')->findOneBySlug($category->getSlug());
+        $category = $om->getRepository('SosForumCoreBundle:Category')->findOneBySlug($category->getSlug());
 
         $this->assertNotNull($category->getLastPost());
         $this->assertEquals($postMessage, $category->getLastPost()->getMessage(), 'the last post added to a topic is set as ::$lastPost');
@@ -134,7 +134,7 @@ class CategoryTest extends WebTestCase
         $this->assertEquals($postMessage, $category->getLastPost()->getMessage(), 'the last post added to a topic is set as ::$lastPost');
 
         $om->clear();
-        $category = $om->getRepository('ForumBundle:Category')->findOneBySlug($category->getSlug());
+        $category = $om->getRepository('SosForumCoreBundle:Category')->findOneBySlug($category->getSlug());
 
         $this->assertNotNull($category->getLastPost());
         $this->assertEquals($postMessage, $category->getLastPost()->getMessage(), 'the last post added to a topic is set as ::$lastPost');

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Model;
+namespace Bundle\SosForum\CoreBundle\Model;
 
 interface TopicRepositoryInterface extends RepositoryInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Search;
+namespace Bundle\SosForum\CoreBundle\Search;
 
 class Search
 {

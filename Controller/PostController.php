@@ -1,11 +1,11 @@
 <?php
 
-namespace Bundle\ForumBundle\Controller;
+namespace Bundle\SosForum\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Bundle\ForumBundle\Model\Topic;
-use Bundle\ForumBundle\Model\Post;
+use Bundle\SosForum\CoreBundle\Model\Topic;
+use Bundle\SosForum\CoreBundle\Model\Post;
 
 class PostController extends Controller
 {
@@ -13,7 +13,7 @@ class PostController extends Controller
     {
         $form = $this->createForm('forum_post_new', $topic);
 
-        return $this->render('ForumBundle:Post:new.'.$this->getRenderer(), array(
+        return $this->render('SosForumCoreBundle:Post:new.'.$this->getRenderer(), array(
             'form'  => $form,
             'topic' => $topic,
         ));
@@ -25,7 +25,7 @@ class PostController extends Controller
         $form->bind($this->get('request')->request->get($form->getName()));
 
         if(!$form->isValid()) {
-            return $this->render('ForumBundle:Post:new.'.$this->getRenderer(), array(
+            return $this->render('SosForumCoreBundle:Post:new.'.$this->getRenderer(), array(
                 'form'  => $form,
                 'topic' => $topic,
             ));
@@ -52,7 +52,7 @@ class PostController extends Controller
      *
      * @param string $name
      * @param Topic $topic
-     * @return Bundle\ForumBundle\Form\PostForm
+     * @return Bundle\SosForum\CoreBundle\Form\PostForm
      */
     protected function createForm($name, Topic $topic)
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\Util;
+namespace Bundle\SosForum\CoreBundle\Tests\Util;
 
-use Bundle\ForumBundle\Util\Inflector;
+use Bundle\SosForum\CoreBundle\Util\Inflector;
 
 class InflectorTest extends \PHPUnit_Framework_TestCase
 {

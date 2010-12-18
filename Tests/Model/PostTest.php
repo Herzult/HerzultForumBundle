@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\Model;
+namespace Bundle\SosForum\CoreBundle\Tests\Model;
 
-use Bundle\ForumBundle\Test\WebTestCase;
+use Bundle\SosForum\CoreBundle\Test\WebTestCase;
 
 class PostTest extends WebTestCase
 {
@@ -11,9 +11,9 @@ class PostTest extends WebTestCase
     {
         $om = parent::setUp();
 
-        $om->getRepository('ForumBundle:Category')->cleanUp();
-        $om->getRepository('ForumBundle:Topic')->cleanUp();
-        $om->getRepository('ForumBundle:Post')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Category')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Topic')->cleanUp();
+        $om->getRepository('SosForumCoreBundle:Post')->cleanUp();
     }
 
     public function testObjectClass()
@@ -120,9 +120,9 @@ class PostTest extends WebTestCase
         $om->flush();
         $om->clear();
 
-        $post = $om->getRepository('ForumBundle:Post')->findOneById($post->getId());
+        $post = $om->getRepository('SosForumCoreBundle:Post')->findOneById($post->getId());
         $postTopic = $post->getTopic();
-        $this->assertInstanceOf('Bundle\ForumBundle\Model\Topic', $postTopic);
+        $this->assertInstanceOf('Bundle\SosForum\CoreBundle\Model\Topic', $postTopic);
         $this->assertEquals($topic->getId(), $postTopic->getId());
     }
 

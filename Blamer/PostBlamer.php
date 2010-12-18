@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Blamer;
+namespace Bundle\SosForum\CoreBundle\Blamer;
 
 class PostBlamer extends AbstractSecurityBlamer implements BlamerInterface
 {

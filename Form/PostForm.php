@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Form;
+namespace Bundle\SosForum\CoreBundle\Form;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\TextareaField;

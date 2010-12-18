@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Test;
+namespace Bundle\SosForum\CoreBundle\Test;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -22,9 +22,9 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
     public function setUp()
     {
         $om = $this->getService('forum.object_manager');
-        $this->categoryClass = $om->getRepository('ForumBundle:Category')->getObjectClass();
-        $this->topicClass = $om->getRepository('ForumBundle:Topic')->getObjectClass();
-        $this->postClass = $om->getRepository('ForumBundle:Post')->getObjectClass();
+        $this->categoryClass = $om->getRepository('SosForumCoreBundle:Category')->getObjectClass();
+        $this->topicClass = $om->getRepository('SosForumCoreBundle:Topic')->getObjectClass();
+        $this->postClass = $om->getRepository('SosForumCoreBundle:Post')->getObjectClass();
 
         return $om;
     }
