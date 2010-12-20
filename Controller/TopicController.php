@@ -12,7 +12,7 @@ class TopicController extends Controller
 {
     public function newAction(Category $category = null)
     {
-        $form = $this->createForm('forum_topic_new', $category);
+        $form = $this->createForm($category);
 
         return $this->render('ForumBundle:Topic:new.'.$this->getRenderer(), array(
             'form'      => $form,
@@ -22,7 +22,7 @@ class TopicController extends Controller
 
     public function createAction(Category $category = null)
     {
-        $form = $this->createForm('forum_topic_new', $category);
+        $form = $this->createForm($category);
         $form->bind($this->get('request')->request->get($form->getName()));
 
         if(!$form->isValid()) {
@@ -106,7 +106,7 @@ class TopicController extends Controller
      * @param Topic $topic
      * @return Bundle\ForumBundle\Form\TopicForm
      */
-    protected function createForm($name, Category $category = null)
+    protected function createForm(Category $category = null)
     {
         $form = $this->get('forum.form.new_topic');
         $form['category']->setData($category);
