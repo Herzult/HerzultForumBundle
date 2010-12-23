@@ -13,7 +13,7 @@
         <h2>Categories</h2>
         {% render 'ForumBundle:Category:list' %}
         <h2>Participate</h2>
-        <p><a href="{% path 'forum_topic_new' %}">Create a new topic</a></p>
+        <p><a href="{{ path('forum_topic_new') }}">Create a new topic</a></p>
     </div>
 </div>
 {% endblock %}

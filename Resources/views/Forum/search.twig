@@ -5,7 +5,7 @@
     <ul class="crumbs">
         <li>Forum</li>
     </ul>
-    <form class="clearfix" action="{% path forum_search %}" method="get">
+    <form class="clearfix" action="{{ path(forum_search) }}" method="get">
         {{ form|render }}
         <div>
             <button type="submit" value="Search">Search</button>
