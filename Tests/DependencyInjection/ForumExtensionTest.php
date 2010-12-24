@@ -184,7 +184,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('forum.controller.post');
     }
 
-    public function testDoctrineUserLoadTemplateConfigWithDefaults()
+    public function testForumLoadTemplateConfigWithDefaults()
     {
         $this->createEmptyConfiguration();
 
@@ -192,7 +192,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('TwigBundle::form.twig', 'forum.template.theme');
     }
 
-    public function testDoctrineUserLoadTemplateConfig()
+    public function testForumLoadTemplateConfig()
     {
         $this->createFullConfiguration();
 

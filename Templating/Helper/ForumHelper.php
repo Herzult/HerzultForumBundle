@@ -7,7 +7,6 @@ use Symfony\Component\Templating\Helper\Helper;
 use Bundle\ForumBundle\Model\Category;
 use Bundle\ForumBundle\Model\Topic;
 use Bundle\ForumBundle\Model\Post;
-use Bundle\DoctrineUserBundle\Model\User;
 
 class ForumHelper extends Helper
 {
