@@ -26,6 +26,10 @@ class TopicUpdater
         $topic->setFirstPost(reset($posts));
         $topic->setLastPost(end($posts));
 
+        foreach($posts as $index => $post) {
+            $post->setNumber($index + 1);
+        }
+
         // Must flush because the category updater will fetch topics from DB
         $this->objectManager->flush();
 

@@ -7,8 +7,17 @@ class TopicUpdaterTest extends \PHPUnit_Framework_TestCase
     public function testUpdate()
     {
         $post1 = $this->createPost();
+        $post1->expects($this->once())
+            ->method('setNumber')
+            ->with(1);
         $post2 = $this->createPost();
+        $post2->expects($this->once())
+            ->method('setNumber')
+            ->with(2);
         $post3 = $this->createPost();
+        $post3->expects($this->once())
+            ->method('setNumber')
+            ->with(3);
         $posts = array($post1, $post2, $post3);
 
         $category = $this->getMockBuilder('Bundle\ForumBundle\Model\Category')
