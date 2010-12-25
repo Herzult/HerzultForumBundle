@@ -20,11 +20,13 @@ class PostRemoverTest extends \PHPUnit_Framework_TestCase
 
         $objectManager = $this->getMockBuilder('stdClass')
             ->disableOriginalConstructor()
-            ->setMethods(array('remove'))
+            ->setMethods(array('remove', 'flush'))
             ->getMock();
         $objectManager->expects($this->once())
             ->method('remove')
             ->with($post);
+        $objectManager->expects($this->once())
+            ->method('flush');
 
         $topicUpdater = $this->getMockBuilder('Bundle\ForumBundle\Updater\TopicUpdater')
             ->disableOriginalConstructor()
