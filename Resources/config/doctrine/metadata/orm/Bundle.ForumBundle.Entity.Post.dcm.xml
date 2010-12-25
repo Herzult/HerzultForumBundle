@@ -22,15 +22,6 @@
             <!--<join-column name="topic_id" referenced-column-name="id" on-delete="cascade" />-->
         <!--</many-to-one>-->
 
-        <lifecycle-callbacks>
-            <lifecycle-callback type="prePersist" method="incrementTopicNumPosts" />
-            <lifecycle-callback type="prePersist" method="updateNumber" />
-            <lifecycle-callback type="prePersist" method="incrementCategoryNumPosts" />
-            <lifecycle-callback type="preUpdate" method="setUpdatedNow" />
-            <lifecycle-callback type="preRemove" method="decrementTopicNumPosts" />
-            <lifecycle-callback type="preRemove" method="decrementCategoryNumPosts" />
-        </lifecycle-callbacks>
-
     </mapped-superclass>
 
 </doctrine-mapping>

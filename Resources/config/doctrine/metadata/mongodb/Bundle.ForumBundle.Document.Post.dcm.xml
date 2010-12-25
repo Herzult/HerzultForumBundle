@@ -18,15 +18,6 @@
 
         <!--<reference-one target-document="Topic" field="topic" />-->
 
-        <lifecycle-callbacks>
-            <lifecycle-callback type="prePersist" method="incrementTopicNumPosts" />
-            <lifecycle-callback type="prePersist" method="updateNumber" />
-            <lifecycle-callback type="prePersist" method="incrementCategoryNumPosts" />
-            <lifecycle-callback type="preUpdate" method="setUpdatedNow" />
-            <lifecycle-callback type="preRemove" method="decrementTopicNumPosts" />
-            <lifecycle-callback type="preRemove" method="decrementCategoryNumPosts" />
-        </lifecycle-callbacks>
-
         <indexes>
             <index name="created_asc">
                 <key name="createdAt" order="asc" />

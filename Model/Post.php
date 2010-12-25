@@ -2,6 +2,8 @@
 
 namespace Bundle\ForumBundle\Model;
 
+use DateTime;
+
 abstract class Post
 {
     protected $id;
@@ -30,7 +32,7 @@ abstract class Post
 
     public function __construct()
     {
-        $this->setCreatedNow();
+        $this->setCreatedAt(new DateTime());
     }
 
     /**
@@ -76,7 +78,7 @@ abstract class Post
      */
     public function getNumber()
     {
-      return $this->number;
+        return $this->number;
     }
 
     /**
@@ -86,23 +88,13 @@ abstract class Post
      */
     public function setNumber($number)
     {
-      $this->number = $number;
-    }
-
-    /**
-     * Sets the creation timestamp as now
-     */
-    public function setCreatedNow()
-    {
-        if(!$this->createdAt) {
-            $this->createdAt = new \DateTime('now');
-        }
+        $this->number = $number;
     }
 
     /**
      * Gets the creation timestamp
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCreatedAt()
     {
@@ -114,7 +106,7 @@ abstract class Post
      *
      * @return null
      **/
-    public function setCreatedAt(\DateTime $date)
+    public function setCreatedAt(DateTime $date)
     {
         $this->createdAt = $date;
     }
@@ -129,17 +121,9 @@ abstract class Post
     }
 
     /**
-     * Sets the update timestamp as now
-     */
-    public function setUpdatedNow()
-    {
-        $this->updatedAt = new \DateTime('now');
-    }
-
-    /**
      * Gets the update timestamp
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getUpdatedAt()
     {
@@ -164,51 +148,6 @@ abstract class Post
     public function setTopic($topic)
     {
         $this->topic = $topic;
-        $this->topic->addPost($this);
-    }
-
-    /**
-     * Increment the topic number of posts on prePersist
-     */
-    public function incrementTopicNumPosts()
-    {
-        $this->getTopic()->incrementNumPosts();
-    }
-
-    /**
-     * Update post number according to number of posts in its topic
-     *
-     * @return null
-     **/
-    public function updateNumber()
-    {
-        if(!$this->getNumber()) {
-            $this->setNumber($this->getTopic()->getNumPosts());
-        }
-    }
-
-    /**
-     * Increment the category number of posts on prePersist
-     */
-    public function incrementCategoryNumPosts()
-    {
-        $this->getTopic()->getCategory()->incrementNumPosts();
-    }
-
-    /**
-     * Decrement the topic number of posts on preRemove
-     */
-    public function decrementTopicNumPosts()
-    {
-        $this->getTopic()->decrementNumPosts();
-    }
-
-    /**
-     * Decrement the category number of posts on preRemove
-     */
-    public function decrementCategoryNumPosts()
-    {
-        $this->getTopic()->getCategory()->decrementNumPosts();
     }
 
     public function __toString()
