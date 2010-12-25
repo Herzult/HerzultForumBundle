@@ -16,6 +16,7 @@ class ForumExtension extends Extension
         $loader->load('controller.xml');
         $loader->load('form.xml');
         $loader->load('blamer.xml');
+        $loader->load('creator.xml');
         $loader->load('updater.xml');
         $loader->load('remover.xml');
         $loader->load('templating.xml');
@@ -49,6 +50,7 @@ class ForumExtension extends Extension
             'form' => 'forum.form.%s.class',
             'controller' => 'forum.controller.%s.class',
             'blamer' => 'forum.blamer.%s.class',
+            'creator' => 'forum.creator.%s.class',
             'updater' => 'forum.updater.%s.class',
             'remover' => 'forum.remover.%s.class',
             'helper' => 'forum.templating.helper.%s.class'
