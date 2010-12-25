@@ -2,7 +2,7 @@
 
 namespace Bundle\ForumBundle\Creator;
 
-class TopicUpdaterTest extends \PHPUnit_Framework_TestCase
+class PostCreatorTest extends \PHPUnit_Framework_TestCase
 {
     public function testUpdate()
     {
