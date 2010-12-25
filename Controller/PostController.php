@@ -33,13 +33,32 @@ class PostController extends Controller
 
         $post = $form->getData();
         $post->setTopic($topic);
+
+        $this->get('forum.creator.post')->create($post);
         $this->get('forum.blamer.post')->blame($post);
-        $this->savePost($post);
+
+        $objectManager = $this->get('forum.object_manager');
+        $objectManager->persist($post);
+        $objectManager->flush();
 
         $this->get('session')->setFlash('forum_post_create/success', true);
         $url = $this->get('forum.templating.helper.forum')->urlForPost($post);
 
         return $this->redirect($url);
+    }
+
+    public function deleteAction($id)
+    {
+        $post = $this->get('forum.repository.post')->find($id);
+        if(!$post) {
+            throw new NotFoundHttpException(sprintf('No post found with id "%s"', $id));
+        }
+        $this->get('forum.remover.post')->remove($post);
+
+        return $this->redirect($this->generateUrl('forum_topic_show', array(
+            'categorySlug' => $post->getTopic()->getCategory()->getSlug(),
+            'slug' => $post->getTopic()->getSlug()
+        )));
     }
 
     protected function getRenderer()
@@ -60,18 +79,4 @@ class PostController extends Controller
 
         return $form;
     }
-
-    /**
-     * Save a post in database
-     *
-     * @param Post $post
-     * @return null
-     **/
-    public function savePost(Post $post)
-    {
-        $objectManager = $this->get('forum.object_manager');
-        $objectManager->persist($post);
-        $objectManager->flush();
-    }
-
 }
