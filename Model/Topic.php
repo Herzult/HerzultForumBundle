@@ -327,7 +327,7 @@ abstract class Topic implements Sluggable
     public function setLastPost(Post $post)
     {
         $this->lastPost = $post;
-        $this->updatePullAt();
+        $this->updatePulledAt();
     }
 
     /**
