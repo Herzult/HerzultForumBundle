@@ -11,6 +11,10 @@ class TopicUpdaterTest extends \PHPUnit_Framework_TestCase
         $post3 = $this->createPost();
         $posts = array($post1, $post2, $post3);
 
+        $category = $this->getMockBuilder('Bundle\ForumBundle\Model\Category')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $topic = $this->getMockBuilder('Bundle\ForumBundle\Model\Topic')
             ->disableOriginalConstructor()
             ->getMock();
@@ -23,6 +27,16 @@ class TopicUpdaterTest extends \PHPUnit_Framework_TestCase
         $topic->expects($this->once())
             ->method('setLastPost')
             ->with($post3);
+        $topic->expects($this->once())
+            ->method('getCategory')
+            ->will($this->returnValue($category));
+
+        $objectManager = $this->getMockBuilder('stdClass')
+            ->disableOriginalConstructor()
+            ->setMethods(array('flush'))
+            ->getMock();
+        $objectManager->expects($this->once())
+            ->method('flush');
 
         $postRepository = $this->getMockBuilder('Bundle\ForumBundle\Model\PostRepositoryInterface')
             ->disableOriginalConstructor()
@@ -32,7 +46,14 @@ class TopicUpdaterTest extends \PHPUnit_Framework_TestCase
             ->with($topic)
             ->will($this->returnValue($posts));
 
-        $updater = new TopicUpdater($postRepository);
+        $categoryUpdater = $this->getMockBuilder('Bundle\ForumBundle\Updater\CategoryUpdater')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $categoryUpdater->expects($this->once())
+            ->method('update')
+            ->with($category);
+
+        $updater = new TopicUpdater($objectManager, $postRepository, $categoryUpdater);
         $updater->update($topic);
     }
 
