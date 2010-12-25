@@ -33,9 +33,17 @@ class TopicController extends Controller
         }
 
         $topic = $form->getData();
+
+        $this->get('forum.creator.topic')->create($topic);
         $this->get('forum.blamer.topic')->blame($topic);
+
+        $this->get('forum.creator.post')->create($topic->getFirstPost());
         $this->get('forum.blamer.post')->blame($topic->getFirstPost());
-        $this->saveTopic($topic);
+
+        $objectManager = $this->get('forum.object_manager');
+        $objectManager->persist($topic);
+        $objectManager->persist($topic->getFirstPost());
+        $objectManager->flush();
 
         $this->get('session')->setFlash('forum_topic_create/success', true);
         $url = $this->get('forum.templating.helper.forum')->urlForTopic($topic);
@@ -131,20 +139,5 @@ class TopicController extends Controller
         }
 
         return $topic;
-    }
-
-    /**
-     * Save a topic in database
-     *
-     * @param Topic $topic
-     * @return null
-     **/
-    public function saveTopic(Topic $topic)
-    {
-        $topic->getCategory()->setLastPost($topic->getLastPost());
-        $objectManager = $this->get('forum.repository.topic')->getObjectManager();
-        $objectManager->persist($topic);
-        $objectManager->persist($topic->getFirstPost());
-        $objectManager->flush();
     }
 }
