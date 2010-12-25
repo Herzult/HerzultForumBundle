@@ -319,6 +319,18 @@ abstract class Topic implements Sluggable
     }
 
     /**
+     * Sets the last post
+     *
+     * @param Post
+     * @return null
+     */
+    public function setLastPost(Post $post)
+    {
+        $this->lastPost = $post;
+        $this->updatePullAt();
+    }
+
+    /**
      * Adds a post
      *
      * @param Post $post

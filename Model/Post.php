@@ -119,6 +119,15 @@ abstract class Post
         $this->createdAt = $date;
     }
 
+    public function isPosteriorTo(Post $post = null)
+    {
+        if(!$post) {
+            return true;
+        }
+
+        return $this->getCreatedAt()->getTimestamp() > $post->getCreatedAt()->getTimestamp();
+    }
+
     /**
      * Sets the update timestamp as now
      */
