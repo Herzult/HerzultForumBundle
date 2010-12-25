@@ -53,7 +53,9 @@ class PostController extends Controller
         if(!$post) {
             throw new NotFoundHttpException(sprintf('No post found with id "%s"', $id));
         }
+
         $this->get('forum.remover.post')->remove($post);
+        $this->get('forum.object_manager')->flush();
 
         return $this->redirect($this->generateUrl('forum_topic_show', array(
             'categorySlug' => $post->getTopic()->getCategory()->getSlug(),

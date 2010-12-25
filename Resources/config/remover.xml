@@ -13,6 +13,7 @@
         <service id="forum.remover.post" class="%forum.remover.post.class%">
             <argument type="service" id="forum.object_manager" />
             <argument type="service" id="forum.updater.topic" />
+            <argument type="service" id="forum.updater.category" />
         </service>
 
     </services>

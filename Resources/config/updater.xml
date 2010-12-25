@@ -12,13 +12,10 @@
     <services>
 
         <service id="forum.updater.topic" class="%forum.updater.topic.class%">
-            <argument type="service" id="forum.object_manager" />
             <argument type="service" id="forum.repository.post" />
-            <argument type="service" id="forum.updater.category" />
         </service>
 
         <service id="forum.updater.category" class="%forum.updater.category.class%">
-            <argument type="service" id="forum.object_manager" />
             <argument type="service" id="forum.repository.topic" />
         </service>
 
