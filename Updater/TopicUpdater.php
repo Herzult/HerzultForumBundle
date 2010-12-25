@@ -20,7 +20,9 @@ class TopicUpdater
 
         $topic->setNumPosts(count($posts));
         $topic->setFirstPost(reset($posts));
-        $topic->setLastPost(end($posts));
+        $lastPost = end($posts);
+        $topic->setLastPost($lastPost);
+        $topic->setPulledAt($lastPost->getCreatedAt());
 
         foreach($posts as $index => $post) {
             $post->setNumber($index + 1);
