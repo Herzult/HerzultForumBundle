@@ -182,17 +182,17 @@ abstract class Category
     /**
      * Increments the number of posts
      */
-    public function incrementNumPosts($quantity = 1)
+    public function incrementNumPosts()
     {
-        $this->numPosts += $quantity;
+        $this->numPosts++;
     }
 
     /**
      * Decrements the number of posts
      */
-    public function decrementNumPosts($quantity = 1)
+    public function decrementNumPosts()
     {
-        $this->numPosts -= $quantity;
+        $this->numPosts--;
     }
 
     /**
