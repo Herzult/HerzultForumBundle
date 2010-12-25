@@ -7,12 +7,10 @@ use Bundle\ForumBundle\Model\TopicRepositoryInterface;
 
 class CategoryUpdater
 {
-    protected $objectManager;
     protected $topicRepository;
 
-    public function __construct($objectManager, TopicRepositoryInterface $topicRepository)
+    public function __construct(TopicRepositoryInterface $topicRepository)
     {
-        $this->objectManager = $objectManager;
         $this->topicRepository = $topicRepository;
     }
 
@@ -33,8 +31,5 @@ class CategoryUpdater
         $category->setNumPosts($numPosts);
         $category->setLastPost($lastPost);
         $category->setLastTopic($lastTopic);
-
-        // Must flush to be consistent with topic updater
-        $this->objectManager->flush();
     }
 }

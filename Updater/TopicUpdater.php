@@ -7,15 +7,11 @@ use Bundle\ForumBundle\Model\PostRepositoryInterface;
 
 class TopicUpdater
 {
-    protected $objectManager;
     protected $postRepository;
-    protected $categoryUpdater;
 
-    public function __construct($objectManager, PostRepositoryInterface $postRepository, CategoryUpdater $categoryUpdater)
+    public function __construct(PostRepositoryInterface $postRepository)
     {
-        $this->objectManager = $objectManager;
         $this->postRepository = $postRepository;
-        $this->categoryUpdater = $categoryUpdater;
     }
 
     public function update(Topic $topic)
@@ -29,10 +25,5 @@ class TopicUpdater
         foreach($posts as $index => $post) {
             $post->setNumber($index + 1);
         }
-
-        // Must flush because the category updater will fetch topics from DB
-        $this->objectManager->flush();
-
-        $this->categoryUpdater->update($topic->getCategory());
     }
 }
