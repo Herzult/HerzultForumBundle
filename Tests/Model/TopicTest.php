@@ -77,8 +77,6 @@ class TopicTest extends WebTestCase
 
     public function testNumPosts()
     {
-        $om = $this->getService('forum.object_manager');
-
         $category = new $this->categoryClass();
         $category->setName('Test Category');
 
@@ -106,22 +104,6 @@ class TopicTest extends WebTestCase
         $post = new $this->postClass();
         $post->setTopic($topic);
         $post->setMessage('Some content, foo bar, bla bla...');
-
-        $om->persist($category, $topic, $post);
-
-        $this->assertEquals(0, $topic->getNumPosts(), 'the first post is not considered as a post');
-
-        $firstReply = new $this->postClass();
-        $firstReply->setTopic($topic);
-        $firstReply->setMessage('First post post message');
-
-        $om->persist($firstReply);
-
-        $this->assertEquals(1, $topic->getNumPosts(), 'the number of posts is automatically increased on post insertion');
-
-        $om->remove($firstReply);
-
-        $this->assertEquals(0, $topic->getNumPosts(), 'the number of  posts is automatically decreased on post deletion');
     }
 
     public function testCategory()
@@ -184,154 +166,6 @@ class TopicTest extends WebTestCase
         $topic->setIsBuried('AnyString');
 
         $this->assertAttributeInternalType('boolean', 'isBuried', $topic, 'the buring status is mandatory a boolean');
-    }
-
-    public function testCreatedAt()
-    {
-        $topic = new $this->topicClass($this->getMock($this->categoryClass));
-
-        $date = new \DateTime('now');
-        $topic->setCreatedNow();
-        $this->assertAttributeEquals($date, 'createdAt', $topic, '::setCreatedNow() sets the creation timestamp as now as a DateTime object');
-
-        $this->assertEquals($date, $topic->getCreatedAt(), '::getCreatedAt() gets the creation timestamp as a DateTime object');
-    }
-
-    public function testPulledAt()
-    {
-        $topic = new $this->topicClass($this->getMock($this->categoryClass));
-        $this->assertAttributeEmpty('pulledAt', $topic, 'the pull timestamp is not set during creation');
-
-        $date = new \DateTime('-2 day');
-        $post = $this->getMock($this->postClass);
-        $post->expects($this->once())
-                    ->method('getCreatedAt')
-                    ->will($this->returnValue($date));
-        $topic->addPost($post);
-        $topic->updatePulledAt();
-        $this->assertAttributeEquals($date, 'pulledAt', $topic, '::updatePulledAt() sets the pull timestamp as the last post creation date');
-
-        $this->assertEquals($date, $topic->getPulledAt(), '::getPulledDate() gets the pull timestamp as a DateTime object');
-    }
-
-    public function testFunctionalPulledAt()
-    {
-        $om = $this->getService('forum.object_manager');
-
-        $category = new $this->categoryClass();
-        $category->setName('Tests Category');
-
-        $topic = new $this->topicClass();
-        $topic->setSubject('Testing');
-        $topic->setCategory($category);
-
-        $post = new $this->postClass();
-        $post->setTopic($topic);
-        $post->setMessage('Some content, foo bar, bla bla...');
-
-        $om->persist($category);
-        $om->persist($topic);
-        $om->persist($post);
-        $om->flush();
-        $om->clear();
-
-        $this->assertNotNull($topic->getPulledAt());
-        $topic = $this->getService('forum.repository.topic')->find($topic->getId());
-        $this->assertNotNull($topic->getPulledAt());
-    }
-
-    public function testFirstPost()
-    {
-        $om = $this->getService('forum.object_manager');
-
-        $category = new $this->categoryClass();
-        $category->setName('Tests Category');
-
-        $topic = new $this->topicClass();
-        $topic->setSubject('Testing the first post');
-        $topic->setCategory($category);
-
-        try {
-            $om->persist($topic);
-            $this->fail('A topic must have at least the first post before being persisted');
-        } catch (\Exception $e) {
-        }
-
-        $post = new $this->postClass();
-        $post->setTopic($topic);
-        $post->setMessage('Some content, foo bar, bla bla...');
-
-        $om->persist($category, $topic, $post);
-
-        $this->assertEquals($post, $topic->getFirstPost(), 'the first post added to a topic is set as ::$firstPost');
-
-        try {
-            $om->remove($post);
-            $this->fail('The first post of a topic can not be removed');
-        } catch (\Exception $e) {
-        }
-    }
-
-    public function testLastPost()
-    {
-        $om = $this->getService('forum.object_manager');
-
-        $category = new $this->categoryClass();
-        $category->setName('Tests Category');
-
-        $topic = new $this->topicClass();
-        $topic->setSubject('Testing the last post');
-        $topic->setCategory($category);
-
-        try {
-            $om->persist($topic);
-            $this->fail('A topic must have at least the last post before being persisted');
-        } catch (\Exception $e) {
-            $this->assertNull($topic->getLastPost());
-        }
-
-        $post = new $this->postClass();
-        $post->setTopic($topic);
-        $post->setMessage('Some content, foo bar, bla bla...');
-
-        $om->persist($category, $topic, $post);
-        $om->flush();
-
-        $this->assertEquals($post, $topic->getLastPost(), 'the last post added to a topic is set as ::$lastPost');
-
-        try {
-            $om->remove($post);
-            $this->fail('The last post of a topic can not be removed');
-        } catch (\Exception $e) {
-            $this->assertNotNull($topic->getLastPost());
-        }
-    }
-
-    public function testLastPostIssueWhenPostIsNotPersisted()
-    {
-        $this->markTestSkipped();
-        $om = $this->getService('forum.object_manager');
-        $category = new $this->categoryClass();
-        $category->setName('Tests Category');
-
-        $topic = new $this->topicClass();
-        $topic->setSubject('Testing the first post');
-        $topic->setCategory($category);
-
-        $post = new $this->postClass();
-        $post->setMessage('blabla');
-        $post->setTopic($topic);
-
-        $om->persist($category);
-        $om->persist($topic);
-
-        $om->flush();
-        $om->clear();
-
-        $topic = $om->getRepository('ForumBundle:Topic')->find($topic->getId());
-
-        $this->assertNotNull($topic->getLastPost());
-        $this->assertEquals($post, $topic->getLastPost());
     }
 
 }
