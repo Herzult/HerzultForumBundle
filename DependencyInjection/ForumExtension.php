@@ -16,6 +16,8 @@ class ForumExtension extends Extension
         $loader->load('controller.xml');
         $loader->load('form.xml');
         $loader->load('blamer.xml');
+        $loader->load('updater.xml');
+        $loader->load('remover.xml');
         $loader->load('templating.xml');
         $loader->load('paginator.xml');
 
@@ -47,6 +49,8 @@ class ForumExtension extends Extension
             'form' => 'forum.form.%s.class',
             'controller' => 'forum.controller.%s.class',
             'blamer' => 'forum.blamer.%s.class',
+            'updater' => 'forum.updater.%s.class',
+            'remover' => 'forum.remover.%s.class',
             'helper' => 'forum.templating.helper.%s.class'
         );
         $this->remapParametersNamespaces($config['class'], $container, $namespaces);

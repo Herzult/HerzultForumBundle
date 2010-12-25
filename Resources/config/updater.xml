@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="forum.updater.topic.class">Bundle\ForumBundle\Updater\TopicUpdater</parameter>
+        <parameter key="forum.updater.category.class">Bundle\ForumBundle\Updater\CategoryUpdater</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="forum.updater.topic" class="%forum.updater.topic.class%">
+            <argument type="service" id="forum.object_manager" />
+            <argument type="service" id="forum.repository.post" />
+            <argument type="service" id="forum.updater.category" />
+        </service>
+
+        <service id="forum.updater.category" class="%forum.updater.category.class%">
+            <argument type="service" id="forum.object_manager" />
+            <argument type="service" id="forum.repository.topic" />
+        </service>
+
+    </services>
+
+</container>
