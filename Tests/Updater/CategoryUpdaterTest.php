@@ -46,7 +46,14 @@ class CategoryUpdaterTest extends \PHPUnit_Framework_TestCase
             ->with($category)
             ->will($this->returnValue($topics));
 
-        $updater = new CategoryUpdater($topicRepository);
+        $objectManager = $this->getMockBuilder('stdClass')
+            ->disableOriginalConstructor()
+            ->setMethods(array('flush'))
+            ->getMock();
+        $objectManager->expects($this->exactly(1))
+            ->method('flush');
+
+        $updater = new CategoryUpdater($objectManager, $topicRepository);
         $updater->update($category);
     }
 

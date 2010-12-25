@@ -44,7 +44,7 @@ class TopicUpdaterTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(array('flush'))
             ->getMock();
-        $objectManager->expects($this->exactly(2))
+        $objectManager->expects($this->exactly(1))
             ->method('flush');
 
         $postRepository = $this->getMockBuilder('Bundle\ForumBundle\Model\PostRepositoryInterface')

@@ -34,7 +34,5 @@ class TopicUpdater
         $this->objectManager->flush();
 
         $this->categoryUpdater->update($topic->getCategory());
-
-        $this->objectManager->flush();
     }
 }
