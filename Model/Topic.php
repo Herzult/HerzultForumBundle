@@ -5,6 +5,7 @@ namespace Bundle\ForumBundle\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Bundle\ForumBundle\Util\Inflector;
 use DoctrineExtensions\Sluggable\Sluggable;
+use DateTime;
 
 abstract class Topic implements Sluggable
 {
@@ -32,7 +33,7 @@ abstract class Topic implements Sluggable
 
     public function __construct()
     {
-        $this->setCreatedNow();
+        $this->createdAt = new DateTime();
         $this->numViews = $this->numPosts = 0;
         $this->isClosed = $this->isPinned = $this->isBuried = false;
     }
@@ -252,17 +253,9 @@ abstract class Topic implements Sluggable
     }
 
     /**
-     * Sets the creation timestamp as now
-     */
-    public function setCreatedNow()
-    {
-        $this->createdAt = new \DateTime('now');
-    }
-
-    /**
      * Gets the creation timestamp
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCreatedAt()
     {
@@ -272,15 +265,15 @@ abstract class Topic implements Sluggable
     /**
      * Updates the pull timestamp to the latest post creation date
      */
-    public function updatePulledAt()
+    public function setPulledAt(DateTime $datetime)
     {
-        $this->pulledAt = $this->getLastPost()->getCreatedAt();
+        $this->pulledAt = $datetime;
     }
 
     /**
      * Gets the pull timestamp
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getPulledAt()
     {
@@ -327,25 +320,6 @@ abstract class Topic implements Sluggable
     public function setLastPost(Post $post)
     {
         $this->lastPost = $post;
-        $this->updatePulledAt();
-    }
-
-    /**
-     * Adds a post
-     *
-     * @param Post $post
-     */
-    public function addPost(Post $post)
-    {
-        if (!$this->firstPost) {
-            $this->firstPost = $post;
-        }
-
-        $this->lastPost = $post;
-
-        if($category = $this->getCategory()) {
-            $category->setLastPost($post);
-        }
     }
 
     /**
@@ -366,39 +340,6 @@ abstract class Topic implements Sluggable
     public function getCategory()
     {
         return $this->category;
-    }
-
-    public function validateBeforePersist()
-    {
-        if (empty($this->firstPost)) {
-            throw new \RuntimeException('You must add at least one post as first post to persist the topic.');
-        }
-        if (empty($this->lastPost)) {
-            throw new \RuntimeException('You must add at least one post as last post to persist the topic.');
-        }
-        if (empty($this->category)) {
-            throw new \RuntimeException('You must set a category to persist the topic.');
-        }
-    }
-
-    public function setAsCategoryLastTopic()
-    {
-        $this->getCategory()->setLastTopic($this);
-    }
-
-    public function incrementCategoryNumTopics()
-    {
-        $this->getCategory()->incrementNumTopics();
-    }
-
-    public function decrementCategoryNumTopics()
-    {
-        $this->category->decrementNumTopics();
-    }
-
-    public function decrementCategoryNumPosts()
-    {
-        $this->category->decrementNumPosts($this->getNumPosts());
     }
 
     public function __toString()
