@@ -10,9 +10,9 @@ class CategoryTest extends WebTestCase
     {
         $om = parent::setUp();
 
-        $om->getRepository('ForumBundle:Category')->cleanUp();
-        $om->getRepository('ForumBundle:Topic')->cleanUp();
-        $om->getRepository('ForumBundle:Post')->cleanUp();
+        $this->getService('forum.repository.category')->cleanUp();
+        $this->getService('forum.repository.topic')->cleanUp();
+        $this->getService('forum.repository.post')->cleanUp();
     }
 
     public function testObjectClass()

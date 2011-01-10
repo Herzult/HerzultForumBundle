@@ -22,9 +22,9 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
     public function setUp()
     {
         $om = $this->getService('forum.object_manager');
-        $this->categoryClass = $om->getRepository('ForumBundle:Category')->getObjectClass();
-        $this->topicClass = $om->getRepository('ForumBundle:Topic')->getObjectClass();
-        $this->postClass = $om->getRepository('ForumBundle:Post')->getObjectClass();
+        $this->categoryClass = $this->getService('forum.repository.category')->getObjectClass();
+        $this->topicClass = $this->getService('forum.repository.topic')->getObjectClass();
+        $this->postClass = $this->getService('forum.repository.post')->getObjectClass();
 
         return $om;
     }

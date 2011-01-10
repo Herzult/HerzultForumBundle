@@ -12,9 +12,9 @@ class PostRepositoryTest extends WebTestCase
     {
         $this->om = $om = parent::setUp();
 
-        $om->getRepository('ForumBundle:Category')->cleanUp();
-        $om->getRepository('ForumBundle:Topic')->cleanUp();
-        $om->getRepository('ForumBundle:Post')->cleanUp();
+        $this->getService('forum.repository.category')->cleanUp();
+        $this->getService('forum.repository.topic')->cleanUp();
+        $this->getService('forum.repository.post')->cleanUp();
     }
 
     public function testFindOneById()
@@ -36,7 +36,7 @@ class PostRepositoryTest extends WebTestCase
         $om->persist($post);
         $om->flush();
 
-        $repository = $om->getRepository('ForumBundle:Post');
+        $repository = $this->getService('forum.repository.post');
         $foundPost = $repository->findOneById($post->getId());
 
         $this->assertNotEmpty($foundPost, '::findOneById find a post for the specified id');
