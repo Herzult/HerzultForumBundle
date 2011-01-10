@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome{% endblock %}</title>
-        {{ stylesheet('bundles/forum/css/forum.css') }}
+        {% stylesheet 'bundles/forum/css/forum.css' %}
         {% stylesheets %}
         {% javascripts %}
     </head>
