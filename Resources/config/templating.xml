@@ -23,6 +23,7 @@
 
         <!-- Twig Helper Service -->
         <service id="forum.twig.extension.forum" class="%forum.twig.extension.forum.class%">
+            <argument type="service" id="forum.templating.helper.forum" />
             <tag name="twig.extension" />
         </service>
     </services>
