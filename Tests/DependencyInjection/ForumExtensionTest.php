@@ -153,25 +153,25 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('forum.blamer.post');
     }
 
-    public function testForumLoadTemplatingHelperClassWithDefaults()
+    public function testForumLoadTwigExtensionClassWithDefaults()
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ForumBundle\Templating\Helper\ForumHelper', 'forum.templating.helper.forum.class');
+        $this->assertParameter('Bundle\ForumBundle\Twig\ForumExtension', 'forum.twig.extension.class');
     }
 
-    public function testForumLoadTemplatingHelperClass()
+    public function testForumLoadTwigExtensionClass()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('forum', 'forum.templating.helper.forum.class');
+        $this->assertParameter('extension', 'forum.twig.extension.class');
     }
 
-    public function testForumLoadTemplatingHelperServiceWithDefaults()
+    public function testForumLoadTwigExtensionServiceWithDefaults()
     {
         $this->createEmptyConfiguration();
 
-        $this->assertHasDefinition('forum.templating.helper.forum');
+        $this->assertHasDefinition('forum.twig.extension');
     }
 
     public function testForumLoadControllerService()
@@ -268,8 +268,8 @@ class:
     blamer:
         post: ~
         topic: ~
-    helper:
-        forum: ~
+    twig:
+        extension: ~
 form_name:
     new_topic: ~
     post: ~
