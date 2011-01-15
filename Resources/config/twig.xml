@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="forum.twig.extension.class">Bundle\ForumBundle\Twig\ForumExtension</parameter>
+    </parameters>
+
+    <services>
+        <service id="forum.twig.extension" class="%forum.twig.extension.class%">
+            <argument type="service" id="forum.router.url_generator" />
+            <tag name="twig.extension" />
+        </service>
+    </services>
+</container>

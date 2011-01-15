@@ -29,6 +29,7 @@ class ForumExtension extends Extension
             $loader->load('remover.xml');
             $loader->load('templating.xml');
             $loader->load('paginator.xml');
+            $loader->load('router.xml');
         }
 
         if (!isset($config['db_driver'])) {
@@ -55,14 +56,14 @@ class ForumExtension extends Extension
         $this->remapParametersNamespaces($config, $container, $namespaces);
 
         $namespaces = array(
-            'model' => 'forum.model.%s.class',
-            'form' => 'forum.form.%s.class',
+            'model'      => 'forum.model.%s.class',
+            'form'       => 'forum.form.%s.class',
             'controller' => 'forum.controller.%s.class',
-            'blamer' => 'forum.blamer.%s.class',
-            'creator' => 'forum.creator.%s.class',
-            'updater' => 'forum.updater.%s.class',
-            'remover' => 'forum.remover.%s.class',
-            'helper' => 'forum.templating.helper.%s.class'
+            'blamer'     => 'forum.blamer.%s.class',
+            'creator'    => 'forum.creator.%s.class',
+            'updater'    => 'forum.updater.%s.class',
+            'remover'    => 'forum.remover.%s.class',
+            'twig'       => 'forum.twig.%s.class'
         );
         $this->remapParametersNamespaces($config['class'], $container, $namespaces);
     }
