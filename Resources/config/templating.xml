@@ -6,25 +6,7 @@
 
     <parameters>
         <parameter key="forum.template.renderer">twig</parameter>
-        <parameter key="forum.template.theme">TwigBundle::form.twig.html</parameter>
-
-        <parameter key="forum.templating.helper.forum.class">Bundle\ForumBundle\Templating\Helper\ForumHelper</parameter>
-        <parameter key="forum.twig.extension.forum.class">Bundle\ForumBundle\Twig\Extension\ForumExtension</parameter>
+        <parameter key="forum.template.theme">TwigBundle::form.html.twig</parameter>
     </parameters>
 
-    <services>
-
-        <!-- Templating Helper Service -->
-        <service id="forum.templating.helper.forum" class="%forum.templating.helper.forum.class%">
-            <tag name="templating.helper" alias="forum" />
-            <argument type="service" id="router" />
-            <argument>%forum.paginator.posts_per_page%</argument>
-        </service>
-
-        <!-- Twig Helper Service -->
-        <service id="forum.twig.extension.forum" class="%forum.twig.extension.forum.class%">
-            <argument type="service" id="forum.templating.helper.forum" />
-            <tag name="twig.extension" />
-        </service>
-    </services>
 </container>
