@@ -9,7 +9,7 @@
     <div class="main">
         <h2>New Topic</h2>
         <form action="{% route 'forum_topic_create' %}" method="post">
-            {{ form|render }}
+            {{ form_field(form) }}
             <button type="submit" name="create">Create topic</button>
         </form>
     </div>

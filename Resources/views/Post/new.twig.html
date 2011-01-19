@@ -11,7 +11,7 @@
     <div class="main">
         <h2>New Reply</h2>
         <form action="{% route 'forum_post_create' with {'topicId': topic.getId()} %}" method="post">
-            {{ form|render }}
+            {{ form_field(form) }}
             <div>
                 <button type="submit" name="reply">Add post</button>
             </div>

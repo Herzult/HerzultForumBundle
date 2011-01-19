@@ -6,7 +6,7 @@
         <li>Forum</li>
     </ul>
     <form class="clearfix" action="{{ path(forum_search) }}" method="get">
-        {{ form|render }}
+        {{ form_field(form) }}
         <div>
             <button type="submit" value="Search">Search</button>
         </div>
