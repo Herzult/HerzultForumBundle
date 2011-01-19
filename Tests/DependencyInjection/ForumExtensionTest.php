@@ -189,7 +189,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('twig', 'forum.template.renderer');
-        $this->assertParameter('TwigBundle::form.twig', 'forum.template.theme');
+        $this->assertParameter('TwigBundle::form.twig.html', 'forum.template.theme');
     }
 
     public function testForumLoadTemplateConfig()
