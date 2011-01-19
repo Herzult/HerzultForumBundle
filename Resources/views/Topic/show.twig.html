@@ -1,4 +1,4 @@
-{% extends 'ForumBundle::layout.twig' %}
+{% extends 'ForumBundle::layout.twig.html' %}
 {% block title %}{{ topic.subject}}{% endblock %}
 {% block content %}
 <div class="forum forum_topic">
@@ -12,8 +12,8 @@
     <div class="main topic">
         <h2>{{ topic.subject }}</h2>
         <a href="{{ _view.forum.urlForTopicAtomFeed(topic) }}" title="Atom feed" class="feed atom">Atom feed</a>
-        {% include 'ForumBundle:Post:list.twig' with {'posts': posts} %}
-        {% include 'ForumBundle::pagination.twig' with {'pager': posts.pages, 'url': _view.forum.urlForTopic(topic)} %}
+        {% include 'ForumBundle:Post:list.twig.html' with {'posts': posts} %}
+        {% include 'ForumBundle::pagination.twig.html' with {'pager': posts.pages, 'url': _view.forum.urlForTopic(topic)} %}
     </div>
 
     <div class="side menu">
