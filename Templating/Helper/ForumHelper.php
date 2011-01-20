@@ -19,24 +19,6 @@ class ForumHelper extends Helper
         $this->nbPostsPerPage = $nbPostsPerPage;
     }
 
-    public function urlFor($object = null, $absolute = false)
-    {
-        if (null === $object) {
-            return $this->urlForIndex();
-        } elseif ($object instanceof Category) {
-            return $this->urlForCategory($object, $absolute);
-        } elseif ($object instanceof Topic) {
-            return $this->urlForTopic($object, $absolute);
-        } else {
-            throw new \Exception(sprintf('Could not generate url for object "%s".', \get_class($object)));
-        }
-    }
-
-    public function urlForIndex($absolute = false)
-    {
-        return $this->router->generate('forum_index', array(), $absolute);
-    }
-
     public function urlForCategory(Category $category, $absolute = false)
     {
         return $this->router->generate('forum_category_show', array(
