@@ -4,20 +4,20 @@
 <div class="forum forum_topic">
 
     <ul class="crumbs">
-        <li><a href="{{ _view.forum.urlForIndex() }}">Forum</a></li>
-        <li><a href="{{ _view.forum.urlForCategory(topic.category) }}">{{ topic.category.name }}</a></li>
+        <li><a href="{{ path('forum_index') }}">Forum</a></li>
+        <li><a href="{{ forum_urlForCategory(topic.category) }}">{{ topic.category.name }}</a></li>
         <li>{{ topic.subject }}</li>
     </ul>
 
     <div class="main topic">
         <h2>{{ topic.subject }}</h2>
-        <a href="{{ _view.forum.urlForTopicAtomFeed(topic) }}" title="Atom feed" class="feed atom">Atom feed</a>
+        <a href="{{ forum_urlForTopicAtomFeed(topic) }}" title="Atom feed" class="feed atom">Atom feed</a>
         {% include 'ForumBundle:Post:list.twig.html' with {'posts': posts} %}
-        {% include 'ForumBundle::pagination.twig.html' with {'pager': posts.pages, 'url': _view.forum.urlForTopic(topic)} %}
+        {% include 'ForumBundle::pagination.twig.html' with {'pager': posts.pages, 'url': forum_urlForTopic(topic)} %}
     </div>
 
     <div class="side menu">
-        <a href="{{ _view.forum.urlForTopicReply(topic) }}">Add a New Reply</a>
+        <a href="{{ forum_urlForTopicReply(topic) }}">Add a New Reply</a>
     </div>
 
 </div>

@@ -3,9 +3,9 @@
 {% block content %}
 <div class="forum  post_new">
     <ul class="crumbs">
-        <li><a href="{{ _view.forum.urlForIndex() }} ">Forum</a></li>
-        <li><a href="{{ _view.forum.urlForCategory(topic.getCategory()) }}">{{ topic.getCategory().getName() }}</a></li>
-        <li><a href="{{ _view.forum.urlForTopic(topic) }}">{{ topic.getSubject() }}</a></li>
+        <li><a href="{{ path('forum_index') }} ">Forum</a></li>
+        <li><a href="{{ forum_urlForCategory(topic.getCategory()) }}">{{ topic.getCategory().getName() }}</a></li>
+        <li><a href="{{ forum_urlForTopic(topic) }}">{{ topic.getSubject() }}</a></li>
         <li>New Reply</li>
     </ul>
     <div class="main">
@@ -18,7 +18,7 @@
         </form>
     </div>
     <div class="side">
-        <p><a href="{{ _view.forum.urlForTopic(topic) }}">Back to the topic</a></p>
+        <p><a href="{{ forum_urlForTopic(topic) }}">Back to the topic</a></p>
     </div>
 </div>
 {% endblock %}

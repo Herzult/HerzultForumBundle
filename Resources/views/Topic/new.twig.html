@@ -3,7 +3,7 @@
 {% block content %}
 <div class="forum topic_new">
     <ul class="crumbs">
-        <li><a href="{{ _view.forum.urlForIndex() }}">Forum</a></li>
+        <li><a href="{{ path('forum_index') }}">Forum</a></li>
         <li>New Topic</li>
     </ul>
     <div class="main">
@@ -14,7 +14,7 @@
         </form>
     </div>
     <div class="side">
-        <p><a href="{{ _view.forum.urlForIndex() }}">Cancel</a></p>
+        <p><a href="{{ path('forum_index') }}">Cancel</a></p>
     </div>
 </div>
 {% endblock %}

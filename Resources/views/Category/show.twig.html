@@ -3,12 +3,12 @@
 {% block content %}
 <div class="forum category_show">
     <ul class="crumbs">
-        <li><a href="{{ _view.forum.urlForIndex() }}">Forum</a></li>
+        <li><a href="{{ path('forum_index') }}">Forum</a></li>
         <li>{{ category.name }}</li>
     </ul>
     <div class="main topics">
         <h2>{{ category.name }}</h2>
-        <a href="{{ _view.forum.urlForCategoryAtomFeed(category) }}" title="Atom feed" class="feed atom">Atom feed</a>
+        <a href="{{ forum_urlForCategoryAtomFeed(category) }}" title="Atom feed" class="feed atom">Atom feed</a>
         {% render 'ForumBundle:Topic:list' with {'category': category, "page": page} %}
     </div>
     <div class="side categories">
