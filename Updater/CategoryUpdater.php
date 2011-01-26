@@ -2,10 +2,10 @@
 
 namespace Bundle\ForumBundle\Updater;
 
-use Bundle\ForumBundle\Model\Category;
+use Bundle\ForumBundle\Updater\UpdaterInterface;
 use Bundle\ForumBundle\Model\TopicRepositoryInterface;
 
-class CategoryUpdater
+class CategoryUpdater implements UpdaterInterface
 {
     protected $topicRepository;
 
@@ -14,7 +14,7 @@ class CategoryUpdater
         $this->topicRepository = $topicRepository;
     }
 
-    public function update(Category $category)
+    public function update($category)
     {
         $topics = $this->topicRepository->findAllByCategory($category, false);
         $category->setNumTopics(count($topics));

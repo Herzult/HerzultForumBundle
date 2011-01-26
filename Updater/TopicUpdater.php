@@ -2,10 +2,10 @@
 
 namespace Bundle\ForumBundle\Updater;
 
-use Bundle\ForumBundle\Model\Topic;
+use Bundle\ForumBundle\Updater\UpdaterInterface;
 use Bundle\ForumBundle\Model\PostRepositoryInterface;
 
-class TopicUpdater
+class TopicUpdater implements UpdaterInterface
 {
     protected $postRepository;
 
@@ -14,7 +14,7 @@ class TopicUpdater
         $this->postRepository = $postRepository;
     }
 
-    public function update(Topic $topic)
+    public function update($topic)
     {
         $posts = $this->postRepository->findAllByTopic($topic, false);
 
