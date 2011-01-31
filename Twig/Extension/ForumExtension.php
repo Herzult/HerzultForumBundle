@@ -23,13 +23,27 @@ class ForumExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'forum_urlForPost' => new \Twig_Function_Method($this, 'urlForPost'),
-            'forum_urlForCategory' => new \Twig_Function_Method($this, 'urlForCategory'),
-            'forum_urlForCategoryAtomFeed' => new \Twig_Function_Method($this, 'urlForCategoryAtomFeed'),
-            'forum_urlForTopic' => new \Twig_Function_Method($this, 'urlForTopic'),
-            'forum_urlForTopicAtomFeed' => new \Twig_Function_Method($this, 'urlForTopicAtomFeed'),
-            'forum_urlForTopicReply' => new \Twig_Function_Method($this, 'urlForTopicReply'),
-            'forum_autoLink' => new \Twig_Function_Method($this, 'autoLink')
+            'forum_urlForPost' => new \Twig_Function_Method($this, 'urlForPost', array(
+                'is_safe' => array('html')
+            )),
+            'forum_urlForCategory' => new \Twig_Function_Method($this, 'urlForCategory', array(
+                'is_safe' => array('html')
+            )),
+            'forum_urlForCategoryAtomFeed' => new \Twig_Function_Method($this, 'urlForCategoryAtomFeed', array(
+                'is_safe' => array('html')
+            )),
+            'forum_urlForTopic' => new \Twig_Function_Method($this, 'urlForTopic', array(
+                'is_safe' => array('html')
+            )),
+            'forum_urlForTopicAtomFeed' => new \Twig_Function_Method($this, 'urlForTopicAtomFeed', array(
+                'is_safe' => array('html')
+            )),
+            'forum_urlForTopicReply' => new \Twig_Function_Method($this, 'urlForTopicReply', array(
+                'is_safe' => array('html')
+            )),
+            'forum_autoLink' => new \Twig_Function_Method($this, 'autoLink', array(
+                'is_safe' => array('html')
+            ))
         );
     }
 
