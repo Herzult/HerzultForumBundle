@@ -32,7 +32,7 @@ class ForumController extends Controller
             }
         }
 
-        return $this->render('ForumBundle:Forum:search.',$this->getRenderer().'.html', array(
+        return $this->render('ForumBundle:Forum:search.'.$this->getRenderer().'.html', array(
             'form' => $form,
             'results' => $results,
             'query' => $search->query
