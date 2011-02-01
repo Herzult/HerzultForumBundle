@@ -27,4 +27,19 @@ class ForumBundle extends Bundle
         $sluggableListener = new SluggableListener($eventManager);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getNamespace()
+    {
+        return __NAMESPACE__;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPath()
+    {
+        return strtr(__DIR__, '\\', '/');
+    }
 }
