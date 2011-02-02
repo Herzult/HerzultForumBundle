@@ -9,7 +9,14 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 class ForumExtension extends Extension
 {
 
-    public function configLoad($config, ContainerBuilder $container)
+    public function configLoad($configs, ContainerBuilder $container)
+    {
+        foreach ($configs as $config) {
+            $this->doConfigLoad($config, $container);
+        }
+    }
+
+    public function doConfigLoad(array $config, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, __DIR__ . '/../Resources/config');
         $loader->load('model.xml');
