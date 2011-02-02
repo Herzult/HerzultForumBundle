@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 class ForumExtension extends Extension
 {
 
-    public function configLoad($configs, ContainerBuilder $container)
+    public function configLoad(array $configs, ContainerBuilder $container)
     {
         foreach ($configs as $config) {
             $this->doConfigLoad($config, $container);
@@ -18,16 +18,18 @@ class ForumExtension extends Extension
 
     public function doConfigLoad(array $config, ContainerBuilder $container)
     {
-        $loader = new XmlFileLoader($container, __DIR__ . '/../Resources/config');
-        $loader->load('model.xml');
-        $loader->load('controller.xml');
-        $loader->load('form.xml');
-        $loader->load('blamer.xml');
-        $loader->load('creator.xml');
-        $loader->load('updater.xml');
-        $loader->load('remover.xml');
-        $loader->load('templating.xml');
-        $loader->load('paginator.xml');
+        if(!$container->hasDefinition('forum.post.repository')) {
+            $loader = new XmlFileLoader($container, __DIR__ . '/../Resources/config');
+            $loader->load('model.xml');
+            $loader->load('controller.xml');
+            $loader->load('form.xml');
+            $loader->load('blamer.xml');
+            $loader->load('creator.xml');
+            $loader->load('updater.xml');
+            $loader->load('remover.xml');
+            $loader->load('templating.xml');
+            $loader->load('paginator.xml');
+        }
 
         if (!isset($config['db_driver'])) {
             throw new \InvalidArgumentException('You must provide the forum.db_driver configuration');
