@@ -2,7 +2,7 @@
 
 namespace Bundle\ForumBundle\Blamer;
 
-use Symfony\Component\Security\SecurityContext;
+use Symfony\Component\Security\Core\SecurityContext;
 
 abstract class AbstractSecurityBlamer
 {
