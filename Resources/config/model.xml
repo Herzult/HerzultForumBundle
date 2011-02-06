@@ -6,20 +6,17 @@
 
     <services>
         <!-- Category Repository Service -->
-        <service id="forum.repository.category" class="Bundle\ForumBundle\ForumBundle" factory-method="getRepository">
-            <argument type="service" id="forum.object_manager" />
+        <service id="forum.repository.category" class="Bundle\ForumBundle\Model\CategoryRepositoryInterface" factory-service="forum.object_manager" factory-method="getRepository">
             <argument type="string">%forum.model.category.class%</argument>
         </service>
 
         <!-- Topic Repository Service -->
-        <service id="forum.repository.topic" class="Bundle\ForumBundle\ForumBundle" factory-method="getRepository">
-            <argument type="service" id="forum.object_manager" />
+        <service id="forum.repository.topic" class="Bundle\ForumBundle\Model\TopicRepositoryInterface" factory-service="forum.object_manager" factory-method="getRepository">
             <argument type="string">%forum.model.topic.class%</argument>
         </service>
 
         <!-- Post Repository Service -->
-        <service id="forum.repository.post" class="Bundle\ForumBundle\ForumBundle" factory-method="getRepository">
-            <argument type="service" id="forum.object_manager" />
+        <service id="forum.repository.post" class="Bundle\ForumBundle\Model\PostRepositoryInterface" factory-service="forum.object_manager" factory-method="getRepository">
             <argument type="string">%forum.model.post.class%</argument>
         </service>
     </services>
