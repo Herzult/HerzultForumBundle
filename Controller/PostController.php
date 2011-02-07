@@ -13,7 +13,7 @@ class PostController extends Controller
     {
         $form = $this->createForm('forum_post_new', $topic);
 
-        return $this->render('ForumBundle:Post:new.'.$this->getRenderer().'.html', array(
+        return $this->render('ForumBundle:Post:new.html.'.$this->getRenderer(), array(
             'form'  => $form,
             'topic' => $topic,
         ));
@@ -25,7 +25,7 @@ class PostController extends Controller
         $form->bind($this->get('request')->request->get($form->getName()));
 
         if(!$form->isValid()) {
-            return $this->render('ForumBundle:Post:new.'.$this->getRenderer().'.html', array(
+            return $this->render('ForumBundle:Post:new.html.'.$this->getRenderer(), array(
                 'form'  => $form,
                 'topic' => $topic,
             ));
