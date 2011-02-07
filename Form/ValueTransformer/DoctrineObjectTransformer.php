@@ -1,14 +1,15 @@
 <?php
 
 namespace Bundle\ForumBundle\Form\ValueTransformer;
-use Symfony\Component\Form\ValueTransformer\BaseValueTransformer;
+use Symfony\Component\Form\ValueTransformer\ValueTransformerInterface;
+use Symfony\Component\Form\Configurable;
 
 /**
  * Transforms between a doctrine object and an id
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
-class DoctrineObjectTransformer extends BaseValueTransformer
+class DoctrineObjectTransformer extends Configurable implements ValueTransformerInterface
 {
     /**
      * Object repository
@@ -48,27 +49,8 @@ class DoctrineObjectTransformer extends BaseValueTransformer
         return $value->getId();
     }
 
-    public function reverseTransform($value, $originalValue)
+    public function reverseTransform($value)
     {
         return $this->repository->find($value);
-    }
-
-    /**
-     * Get repository
-     * @return mixed
-     */
-    public function getRepository()
-    {
-      return $this->repository;
-    }
-
-    /**
-     * Set repository
-     * @param  mixed
-     * @return null
-     */
-    public function setRepository($repository)
-    {
-      $this->repository = $repository;
     }
 }
