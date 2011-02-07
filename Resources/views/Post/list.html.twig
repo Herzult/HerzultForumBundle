@@ -6,7 +6,7 @@
                 <span class="username">{{ post.authorName }}</span>
             </div>
             <div class="date">
-                <span class="createdAt">{{ ago(post.createdAt) }}</span>
+                <span class="createdAt">{{ time_diff(post.createdAt) }}</span>
             </div>
         </div>
         <div class="content">

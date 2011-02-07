@@ -5,7 +5,7 @@
             <a class="subject" href="{{ forum_urlForTopic(topic) }}">{{ topic.subject }}</a>
         </div>
         <div class="metas">
-            <span class="creation">Created <span class="createdAt">{{ ago(topic.createdAt) }}</span> by
+            <span class="creation">Created <span class="createdAt">{{ time_diff(topic.createdAt) }}</span> by
             <span class="author">{{ topic.autorName }}</span>
             | <span class="numPosts">{{ topic.numPosts }} {{ topic.numPosts > 1 ? 'posts' : 'post' }}</span>
             | <a class="category" href="{{ forum_urlForCategory(topic.category) }}">{{ topic.category.name }}</a>
