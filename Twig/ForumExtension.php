@@ -26,14 +26,27 @@ class ForumExtension extends Twig_Extension
     public function getFunctions()
     {
         return array(
-            'forum_route_category'      => new Twig_Function_Method($this, 'urlForCategory'),
-            'forum_route_category_feed' => new Twig_Function_Method($this, 'urlForCategoryAtomFeed'),
-            'forum_route_topic'         => new Twig_Function_Method($this, 'urlForTopic'),
-            'forum_route_topic_feed'    => new Twig_Function_Method($this, 'urlForTopicAtomFeed'),
-            'forum_route_topic_reply'   => new Twig_Function_Method($this, 'urlForTopicReply'),
-            'forum_route_post'          => new Twig_Function_Method($this, 'urlForPost'),
-            'forum_topic_num_pages'     => new Twig_Function_Method($this, 'getTopicNumPages'),
-            'forum_auto_link'           => new Twig_Function_Method($this, 'autoLink')
+            'forum_urlForPost' => new \Twig_Function_Method($this, 'urlForPost', array(
+                'is_safe' => array('html')
+            )),
+            'forum_urlForCategory' => new \Twig_Function_Method($this, 'urlForCategory', array(
+                'is_safe' => array('html')
+            )),
+            'forum_urlForCategoryAtomFeed' => new \Twig_Function_Method($this, 'urlForCategoryAtomFeed', array(
+                'is_safe' => array('html')
+            )),
+            'forum_urlForTopic' => new \Twig_Function_Method($this, 'urlForTopic', array(
+                'is_safe' => array('html')
+            )),
+            'forum_urlForTopicAtomFeed' => new \Twig_Function_Method($this, 'urlForTopicAtomFeed', array(
+                'is_safe' => array('html')
+            )),
+            'forum_urlForTopicReply' => new \Twig_Function_Method($this, 'urlForTopicReply', array(
+                'is_safe' => array('html')
+            )),
+            'forum_autoLink' => new \Twig_Function_Method($this, 'autoLink', array(
+                'is_safe' => array('html')
+            ))
         );
     }
 
@@ -65,11 +78,6 @@ class ForumExtension extends Twig_Extension
     public function urlForPost(Post $post, $absolute = false)
     {
         return $this->urlGenerator->urlForPost($post, $absolute);
-    }
-
-    public function getTopicNumPages(Topic $topic)
-    {
-        return $this->urlGenerator->getTopicNumPages($topic);
     }
 
     public function autoLink($text)
