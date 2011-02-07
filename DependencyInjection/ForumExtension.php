@@ -28,6 +28,7 @@ class ForumExtension extends Extension
             $loader->load('updater.xml');
             $loader->load('remover.xml');
             $loader->load('templating.xml');
+            $loader->load('twig.xml');
             $loader->load('paginator.xml');
             $loader->load('router.xml');
         }

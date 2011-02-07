@@ -189,7 +189,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('twig', 'forum.template.renderer');
-        $this->assertParameter('TwigBundle::form.twig.html', 'forum.template.theme');
+        $this->assertParameter('TwigBundle::form.html.twig', 'forum.template.theme');
     }
 
     public function testForumLoadTemplateConfig()
@@ -283,7 +283,7 @@ paginator:
     search_results_per_page: ~
 EOF;
         $parser = new Parser();
-        return $parser->parse($yaml);
+        return array($parser->parse($yaml));
     }
 
     protected function getFullConfig()
@@ -294,7 +294,7 @@ EOF;
                 $item = $key;
             }
         });
-        $config['db_driver'] = 'orm';
+        $config[0]['db_driver'] = 'orm';
 
         return $config;
     }

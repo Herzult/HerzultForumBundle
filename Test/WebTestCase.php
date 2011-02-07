@@ -49,20 +49,18 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 
     protected function getService($name, $kernel = null)
     {
-        return $this->getBootedKernel()->getContainer()->get($name);
+        return $this->getKernel()->getContainer()->get($name);
     }
 
     protected function hasService($name, $kernel = null)
     {
-
-        return $this->getBootedKernel()->getContainer()->has($name);
+        return $this->getKernel()->getContainer()->has($name);
     }
 
-    protected function getBootedKernel()
+    protected function getKernel()
     {
-        $this->kernel = $this->createKernel();
-
-        if (!$this->kernel->isBooted()) {
+        if(!$this->kernel) {
+            $this->kernel = $this->createKernel();
             $this->kernel->boot();
         }
 
