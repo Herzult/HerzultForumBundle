@@ -40,4 +40,11 @@ interface PostRepositoryInterface extends RepositoryInterface
      * @return array|Paginator
      */
     public function search($query, $asPaginator);
+
+    /**
+     * Creates a new post instance
+     *
+     * @return Post
+     */
+    public function createNewPost();
 }

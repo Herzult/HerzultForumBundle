@@ -65,4 +65,14 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
 
         return array_values($query->getQuery()->execute()->toArray());
     }
+
+    /**
+     * @see PostRepositoryInterface::createNewPost
+     */
+    public function createNewPost()
+    {
+        $class = $this->getObjectClass();
+
+        return new $class();
+    }
 }

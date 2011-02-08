@@ -4,7 +4,6 @@ namespace Bundle\ForumBundle\Model;
 
 interface RepositoryInterface
 {
-
     /**
      * Get the Entity manager or the Document manager, depending on the db driver
      *
@@ -27,8 +26,8 @@ interface RepositoryInterface
     public function getObjectIdentifier();
 
     /**
-     * Remove all entities/documents from a table/collection 
-     * 
+     * Remove all entities/documents from a table/collection
+     *
      * @return null
      */
     public function cleanUp();
