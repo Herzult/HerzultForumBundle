@@ -37,6 +37,14 @@
             </argument>
         </service>
 
+        <service id="forum.form.post" factory-method="create" factory-class="%forum.form.post.class%" class="%forum.form.post.class%">
+            <argument type="service" id="form.context" />
+            <argument>%forum.form.post.name%</argument>
+            <argument type="collection">
+                <argument key="theme">%forum.template.theme%</argument>
+            </argument>
+        </service>
+
         <service id="forum.form.first_post" class="%forum.form.first_post.class%">
             <argument>%forum.form.first_post.name%</argument>
             <argument></argument>
