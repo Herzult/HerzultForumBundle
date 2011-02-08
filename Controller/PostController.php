@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     public function newAction(Topic $topic)
     {
-        $form = $this->createForm('forum_post_new', $topic);
+        $form = $this->get('forum.form.post');
 
         return $this->render('ForumBundle:Post:new.html.'.$this->getRenderer(), array(
             'form'  => $form,
@@ -21,8 +21,10 @@ class PostController extends Controller
 
     public function createAction(Topic $topic)
     {
-        $form = $this->createForm('forum_post_new', $topic);
-        $form->bind($this->get('request')->request->get($form->getName()));
+        $form = $this->get('forum.form.post');
+        $post = new Post();
+        $post->setTopic($topic);
+        $form->bind($this->get('request'), $post);
 
         if(!$form->isValid()) {
             return $this->render('ForumBundle:Post:new.html.'.$this->getRenderer(), array(
@@ -31,7 +33,6 @@ class PostController extends Controller
             ));
         }
 
-        $post = $form->getData();
         $post->setTopic($topic);
 
         $this->get('forum.creator.post')->create($post);
@@ -66,19 +67,5 @@ class PostController extends Controller
     protected function getRenderer()
     {
         return $this->container->getParameter('forum.template.renderer');
-    }
-
-    /**
-     * Create a PostForm instance and returns it
-     *
-     * @param string $name
-     * @param Topic $topic
-     * @return Bundle\ForumBundle\Form\PostForm
-     */
-    protected function createForm($name, Topic $topic)
-    {
-        $form = $this->get('forum.form.post');
-
-        return $form;
     }
 }
