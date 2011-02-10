@@ -5,13 +5,15 @@ namespace Bundle\ForumBundle\DependencyInjection;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\FileLoader;
+use Symfony\Component\DependencyInjection\Loader\FileLocator;
 
 class ForumExtension extends Extension
 {
 
     public function configLoad(array $configs, ContainerBuilder $container)
     {
-        $loader = new XmlFileLoader($container, __DIR__ . '/../Resources/config');
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('model.xml');
         $loader->load('controller.xml');
         $loader->load('form.xml');
@@ -25,11 +27,11 @@ class ForumExtension extends Extension
         $loader->load('router.xml');
 
         foreach ($configs as $config) {
-            $this->doConfigLoad($config, $container);
+            $this->doConfigLoad($config, $container, $loader);
         }
     }
 
-    public function doConfigLoad(array $config, ContainerBuilder $container)
+    public function doConfigLoad(array $config, ContainerBuilder $container, FileLoader $loader)
     {
         if (!isset($config['db_driver'])) {
             throw new \InvalidArgumentException('You must provide the forum.db_driver configuration');
