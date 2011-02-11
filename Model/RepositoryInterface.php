@@ -9,26 +9,26 @@ interface RepositoryInterface
      *
      * @return mixed
      * */
-    public function getObjectManager();
+    function getObjectManager();
 
     /**
      * Get the class of the User Entity or Document, depending on the db driver
      *
      * @return string a model fully qualified class name
      * */
-    public function getObjectClass();
+    function getObjectClass();
 
     /**
      * Get the identifier property of the Permission
      *
      * @return string
      */
-    public function getObjectIdentifier();
+    function getObjectIdentifier();
 
     /**
      * Remove all entities/documents from a table/collection
      *
      * @return null
      */
-    public function cleanUp();
+    function cleanUp();
 }

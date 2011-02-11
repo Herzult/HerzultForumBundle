@@ -9,19 +9,19 @@ interface CategoryRepositoryInterface extends RepositoryInterface
      *
      * @return Category or NULL whether the specified slug does not match any category
      */
-    public function findOneBySlug($slug);
+    function findOneBySlug($slug);
 
     /**
      * Find all categories
      *
      * @return array An array of Category objects
      */
-    public function findAll();
+    function findAll();
 
     /**
      * Find all categories indexed by id
      *
      * @return array An array of Category objects
      */
-    public function findAllIndexById();
+    function findAllIndexById();
 }
