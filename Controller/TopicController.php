@@ -12,7 +12,7 @@ class TopicController extends Controller
 {
     public function newAction(Category $category = null)
     {
-        $form = $this->createForm($category);
+        $form = $this->get('forum.form.new_topic');
 
         return $this->render('ForumBundle:Topic:new.html.'.$this->getRenderer(), array(
             'form'      => $form,
@@ -22,8 +22,9 @@ class TopicController extends Controller
 
     public function createAction(Category $category = null)
     {
-        $form = $this->createForm($category);
-        $form->bind($this->get('request')->request->get($form->getName()));
+        $form = $this->get('forum.form.new_topic');
+        $topic = $this->get('forum.repository.topic')->createNewTopic();
+        $form->bind($this->get('request'), $topic);
 
         if(!$form->isValid()) {
             return $this->render('ForumBundle:Topic:new.html.'.$this->getRenderer(), array(
@@ -31,8 +32,6 @@ class TopicController extends Controller
                 'category'  => $category
             ));
         }
-
-        $topic = $form->getData();
 
         $this->get('forum.creator.topic')->create($topic);
         $this->get('forum.blamer.topic')->blame($topic);
@@ -105,21 +104,6 @@ class TopicController extends Controller
     protected function getRenderer()
     {
         return $this->container->getParameter('forum.template.renderer');
-    }
-
-    /**
-     * Create a TopicForm instance and returns it
-     *
-     * @param string $name
-     * @param Topic $topic
-     * @return Bundle\ForumBundle\Form\TopicForm
-     */
-    protected function createForm(Category $category = null)
-    {
-        $form = $this->get('forum.form.new_topic');
-        $form['category']->setData($category);
-
-        return $form;
     }
 
     /**

@@ -9,32 +9,26 @@ use Bundle\ForumBundle\Model\CategoryRepositoryInterface;
 
 class NewTopicForm extends Form
 {
-    protected $categoryRepository;
-    protected $postForm;
-
-    public function __construct($name, $object, $validator, array $options = array(), CategoryRepositoryInterface $categoryRepository, PostForm $postForm)
+    public function __construct($title, array $options)
     {
         $this->addOption('theme');
         $this->addOption('topic_class');
-        $this->categoryRepository = $categoryRepository;
+        $this->addOption('category_repository');
+        $this->addOption('post_form');
 
-        $topic = new $options['topic_class']();
-        $postForm->getData()->setTopic($topic);
-        $topic->setFirstPost($postForm->getData());
-
-        $this->postForm = $postForm;
-
-        parent::__construct($name, $topic, $validator, $options);
+        parent::__construct($title, $options);
     }
 
     public function configure()
     {
+        $this->setDataClass($this->getOption('topic_class'));
+
         $this->add(new TextField('subject'));
         $categoryField = new CategoryChoiceField('category', array(
-            'repository' => $this->categoryRepository,
+            'repository' => $this->getOption('category_repository'),
             'required' => true
         ));
         $this->add($categoryField);
-        $this->add($this->postForm);
+        $this->add($this->getOption('post_form'));
     }
 }

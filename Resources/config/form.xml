@@ -15,40 +15,38 @@
 
     <services>
 
-        <service id="forum.form.new_topic" class="%forum.form.new_topic.class%">
+        <service id="forum.form.new_topic"
+            class="%forum.form.new_topic.class%"
+            factory-class="%forum.form.new_topic.class%"
+            factory-method="create">
+            <argument type="service" id="form.context" />
             <argument>%forum.form.new_topic.name%</argument>
-            <argument></argument>
-            <argument type="service" id="validator" />
             <argument type="collection">
                 <argument key="theme">%forum.template.theme%</argument>
                 <argument key="topic_class">%forum.model.topic.class%</argument>
+                <argument key="category_repository" type="service" id="forum.repository.category" />
+                <argument key="post_form" type="service" id="forum.form.first_post" />
             </argument>
-            <argument type="service" id="forum.repository.category" />
-            <argument type="service" id="forum.form.first_post" />
         </service>
 
-        <service id="forum.form.post" class="%forum.form.post.class%">
+        <service id="forum.form.post"
+            class="%forum.form.post.class%"
+            factory-class="%forum.form.post.class%"
+            factory-method="create">
+            <argument type="service" id="form.context" />
             <argument>%forum.form.post.name%</argument>
-            <argument></argument>
-            <argument type="service" id="validator" />
             <argument type="collection">
                 <argument key="theme">%forum.template.theme%</argument>
                 <argument key="post_class">%forum.model.post.class%</argument>
             </argument>
         </service>
 
-        <service id="forum.form.post" factory-method="create" factory-class="%forum.form.post.class%" class="%forum.form.post.class%">
+        <service id="forum.form.first_post"
+            class="%forum.form.first_post.class%"
+            factory-class="%forum.form.first_post.class%"
+            factory-method="create">
             <argument type="service" id="form.context" />
-            <argument>%forum.form.post.name%</argument>
-            <argument type="collection">
-                <argument key="theme">%forum.template.theme%</argument>
-            </argument>
-        </service>
-
-        <service id="forum.form.first_post" class="%forum.form.first_post.class%">
             <argument>%forum.form.first_post.name%</argument>
-            <argument></argument>
-            <argument type="service" id="validator" />
             <argument type="collection">
                 <argument key="theme">%forum.template.theme%</argument>
                 <argument key="post_class">%forum.model.post.class%</argument>
