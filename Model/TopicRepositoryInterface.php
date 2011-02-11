@@ -11,7 +11,7 @@ interface TopicRepositoryInterface extends RepositoryInterface
      * @paral string $slug
      * @return Topic or NULL
      **/
-    public function findOneByCategoryAndSlug($category, $slug);
+    function findOneByCategoryAndSlug($category, $slug);
 
     /**
      * Finds one topic by its id
@@ -19,7 +19,7 @@ interface TopicRepositoryInterface extends RepositoryInterface
      * @param integer $id
      * @return Topic or NULL whether the specified id does not match any topic
      */
-    public function findOneById($id);
+    function findOneById($id);
 
     /**
      * Finds all topics ordered by their last pull date
@@ -27,7 +27,7 @@ interface TopicRepositoryInterface extends RepositoryInterface
      * @param boolean $asPaginator Will return a Paginator instance if true
      * @return array|Paginator
      */
-    public function findAll($asPaginator);
+    function findAll($asPaginator);
 
     /**
      * Finds all topics matching to the specified Category ordered by their
@@ -37,7 +37,7 @@ interface TopicRepositoryInterface extends RepositoryInterface
      * @param boolean $asPaginator Will return a Paginator instance if true
      * @return array|Paginator
      */
-    public function findAllByCategory($category, $asPaginator);
+    function findAllByCategory($category, $asPaginator);
 
     /**
      * Get topics which have the more recent last post
@@ -45,7 +45,7 @@ interface TopicRepositoryInterface extends RepositoryInterface
      * @param int $number
      * @return array of Topics
      */
-    public function findLatestPosted($number);
+    function findLatestPosted($number);
 
     /**
      * Finds all topics matching the specified query ordered by their
@@ -55,7 +55,7 @@ interface TopicRepositoryInterface extends RepositoryInterface
      * @param boolean $asPaginator Will return a Paginator instance if true
      * @return array|Paginator
      */
-    public function search($query, $asPaginator);
+    function search($query, $asPaginator);
 
     /**
      * Increment the number of views of a topic
@@ -63,5 +63,12 @@ interface TopicRepositoryInterface extends RepositoryInterface
      * @param Topic $topic
      * @return void
      */
-    public function incrementTopicNumViews($topic);
+    function incrementTopicNumViews($topic);
+
+    /**
+     * Creates a new post instance
+     *
+     * @return Topic
+     */
+    function createNewTopic();
 }

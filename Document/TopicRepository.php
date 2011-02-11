@@ -96,4 +96,14 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
             ->getMongoCollection()
             ->update(array('_id' => new \MongoId($topic->getId())), array('$inc' => array('numViews' => 1)));
     }
+
+    /**
+     * @see TopicRepositoryInterface::createNewTopic
+     */
+    public function createNewTopic()
+    {
+        $class = $this->getObjectClass();
+
+        return new $class();
+    }
 }

@@ -88,4 +88,14 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
             ->getQuery()
             ->execute();
     }
+
+    /**
+     * @see TopicRepositoryInterface::createNewTopic
+     */
+    public function createNewTopic()
+    {
+        $class = $this->getObjectClass();
+
+        return new $class();
+    }
 }
