@@ -44,6 +44,9 @@ class ForumExtension extends Twig_Extension
             'forum_urlForTopicReply' => new \Twig_Function_Method($this, 'urlForTopicReply', array(
                 'is_safe' => array('html')
             )),
+            'forum_topicNumPages' => new \Twig_Function_Method($this, 'topicNumPages', array(
+                'is_safe' => array('html')
+            )),
             'forum_autoLink' => new \Twig_Function_Method($this, 'autoLink', array(
                 'is_safe' => array('html')
             ))
@@ -78,6 +81,11 @@ class ForumExtension extends Twig_Extension
     public function urlForPost(Post $post, $absolute = false)
     {
         return $this->urlGenerator->urlForPost($post, $absolute);
+    }
+
+    public function topicNumPages(Topic $topic)
+    {
+        return $this->urlGenerator->getTopicNumPages($topic);
     }
 
     public function autoLink($text)
