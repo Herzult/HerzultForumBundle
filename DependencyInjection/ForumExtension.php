@@ -10,9 +10,13 @@ use Symfony\Component\Config\FileLocator;
 
 class ForumExtension extends Extension
 {
-
-    public function configLoad(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container)
     {
+        $config = array();
+        foreach ($configs as $c) {
+            $config = array_merge($config, $c);
+        }
+
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('model.xml');
         $loader->load('controller.xml');
@@ -26,13 +30,6 @@ class ForumExtension extends Extension
         $loader->load('paginator.xml');
         $loader->load('router.xml');
 
-        foreach ($configs as $config) {
-            $this->doConfigLoad($config, $container, $loader);
-        }
-    }
-
-    public function doConfigLoad(array $config, ContainerBuilder $container, FileLoader $loader)
-    {
         if (!isset($config['db_driver'])) {
             throw new \InvalidArgumentException('You must provide the forum.db_driver configuration');
         }
