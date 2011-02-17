@@ -226,7 +226,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
         $this->configuration = new ContainerBuilder();
         $loader = new ForumExtension('testkernel');
         $config = $this->getEmptyConfig();
-        $loader->configLoad($config, $this->configuration);
+        $loader->load($config, $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
     }
 
@@ -238,7 +238,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
         $this->configuration = new ContainerBuilder();
         $loader = new ForumExtension('testkernel');
         $config = $this->getFullConfig();
-        $loader->configLoad($config, $this->configuration);
+        $loader->load($config, $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
     }
 
