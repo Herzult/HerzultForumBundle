@@ -298,6 +298,7 @@ abstract class Topic implements Sluggable
      */
     public function setFirstPost(Post $post)
     {
+        $post->setTopic($this);
         $this->firstPost = $post;
     }
 
