@@ -14,7 +14,7 @@ class PostController extends Controller
     {
         $form = $this->get('forum.form.post');
 
-        return $this->render('ForumBundle:Post:new.html.'.$this->getRenderer(), array(
+        return $this->get('templating')->renderResponse('ForumBundle:Post:new.html.'.$this->getRenderer(), array(
             'form'  => $form,
             'topic' => $topic,
         ));
@@ -28,7 +28,7 @@ class PostController extends Controller
         $form->bind($this->get('request'), $post);
 
         if(!$form->isValid()) {
-            return $this->render('ForumBundle:Post:new.html.'.$this->getRenderer(), array(
+            return $this->get('templating')->renderResponse('ForumBundle:Post:new.html.'.$this->getRenderer(), array(
                 'form'  => $form,
                 'topic' => $topic,
             ));
@@ -57,7 +57,7 @@ class PostController extends Controller
         $this->get('forum.remover.post')->remove($post);
         $this->get('forum.object_manager')->flush();
 
-        return $this->redirect($this->generateUrl('forum_topic_show', array(
+        return new RedirectResponse($this->generateUrl('forum_topic_show', array(
             'categorySlug' => $post->getTopic()->getCategory()->getSlug(),
             'slug' => $post->getTopic()->getSlug()
         )));

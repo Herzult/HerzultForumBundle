@@ -15,7 +15,7 @@ class TopicController extends Controller
     {
         $form = $this->get('forum.form.new_topic');
 
-        return $this->render('ForumBundle:Topic:new.html.'.$this->getRenderer(), array(
+        return $this->get('templating')->renderResponse('ForumBundle:Topic:new.html.'.$this->getRenderer(), array(
             'form'      => $form,
             'category'  => $category
         ));
@@ -28,7 +28,7 @@ class TopicController extends Controller
         $form->bind($this->get('request'), $topic);
 
         if(!$form->isValid()) {
-            return $this->render('ForumBundle:Topic:new.html.'.$this->getRenderer(), array(
+            return $this->get('templating')->renderResponse('ForumBundle:Topic:new.html.'.$this->getRenderer(), array(
                 'form'      => $form,
                 'category'  => $category
             ));
@@ -63,7 +63,7 @@ class TopicController extends Controller
         $topics->setItemCountPerPage($this->container->getParameter('forum.paginator.topics_per_page'));
         $topics->setPageRange(5);
 
-        return $this->render('ForumBundle:Topic:list.html.'.$this->getRenderer(), array(
+        return $this->get('templating')->renderResponse('ForumBundle:Topic:list.html.'.$this->getRenderer(), array(
             'topics'    => $topics,
             'category'  => $category
         ));
@@ -85,7 +85,7 @@ class TopicController extends Controller
             $posts = $this->get('forum.repository.post')->findRecentByTopic($topic, 30);
         }
 
-        return $this->render('ForumBundle:Topic:show.html.'.$this->getRenderer(), array('topic' => $topic, 'posts' => $posts));
+        return $this->get('templating')->renderResponse('ForumBundle:Topic:show.html.'.$this->getRenderer(), array('topic' => $topic, 'posts' => $posts));
     }
 
     public function postNewAction($categorySlug, $slug)

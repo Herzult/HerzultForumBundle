@@ -11,7 +11,7 @@ class CategoryController extends Controller
     {
         $categories = $this->get('forum.repository.category')->findAll();
 
-        return $this->render('ForumBundle:Category:list.html.'.$this->getRenderer(), array('categories' => $categories));
+        return $this->get('templating')->renderResponse('ForumBundle:Category:list.html.'.$this->getRenderer(), array('categories' => $categories));
     }
 
     public function showAction($slug)
@@ -22,7 +22,7 @@ class CategoryController extends Controller
             throw new NotFoundHttpException(sprintf('The category %s does not exist.', $slug));
         }
 
-        return $this->render('ForumBundle:Category:show.html.'.$this->getRenderer(), array(
+        return $this->get('templating')->renderResponse('ForumBundle:Category:show.html.'.$this->getRenderer(), array(
             'category'  => $category,
             'page'      => $this->get('request')->query->get('page', 1)
         ));
