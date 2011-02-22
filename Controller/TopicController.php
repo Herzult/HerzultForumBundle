@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Bundle\ForumBundle\Model\Topic;
 use Bundle\ForumBundle\Model\Category;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class TopicController extends Controller
 {
@@ -47,7 +48,7 @@ class TopicController extends Controller
         $this->get('session')->setFlash('forum_topic_create/success', true);
         $url = $this->get('forum.router.url_generator')->urlForTopic($topic);
 
-        return $this->redirect($url);
+        return new RedirectResponse($url);
     }
 
     public function listAction(Category $category = null, $page = 1)

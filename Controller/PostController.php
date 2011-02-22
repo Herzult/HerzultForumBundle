@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Bundle\ForumBundle\Model\Topic;
 use Bundle\ForumBundle\Model\Post;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PostController extends Controller
 {
@@ -45,7 +46,7 @@ class PostController extends Controller
         $this->get('session')->setFlash('forum_post_create/success', true);
         $url = $this->get('forum.router.url_generator')->urlForPost($post);
 
-        return $this->redirect($url);
+        return new RedirectResponse($url);
     }
 
     public function deleteAction($id)
