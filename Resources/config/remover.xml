@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="forum.remover.post.class">Bundle\ForumBundle\Remover\PostRemover</parameter>
+        <parameter key="forum.remover.topic.class">Bundle\ForumBundle\Remover\TopicRemover</parameter>
     </parameters>
 
     <services>
@@ -13,6 +14,12 @@
         <service id="forum.remover.post" class="%forum.remover.post.class%">
             <argument type="service" id="forum.object_manager" />
             <argument type="service" id="forum.updater.topic" />
+            <argument type="service" id="forum.updater.category" />
+        </service>
+
+        <service id="forum.remover.topic" class="%forum.remover.topic.class%">
+            <argument type="service" id="forum.object_manager" />
+            <argument type="service" id="forum.repository.post" />
             <argument type="service" id="forum.updater.category" />
         </service>
 
