@@ -23,7 +23,7 @@ class PostController extends Controller
     public function createAction(Topic $topic)
     {
         $form = $this->get('forum.form.post');
-        $post = new Post();
+        $post = $this->get('forum.repository.post')->createNewPost();
         $post->setTopic($topic);
         $form->bind($this->get('request'), $post);
 
@@ -33,8 +33,6 @@ class PostController extends Controller
                 'topic' => $topic,
             ));
         }
-
-        $post->setTopic($topic);
 
         $this->get('forum.creator.post')->create($post);
         $this->get('forum.blamer.post')->blame($post);
