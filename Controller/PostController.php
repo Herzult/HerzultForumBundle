@@ -54,13 +54,11 @@ class PostController extends Controller
             throw new NotFoundHttpException(sprintf('No post found with id "%s"', $id));
         }
 
+        $precedentPost = $this->get('forum.repository.post')->getPostBefore($post);
         $this->get('forum.remover.post')->remove($post);
         $this->get('forum.object_manager')->flush();
 
-        return new RedirectResponse($this->generateUrl('forum_topic_show', array(
-            'categorySlug' => $post->getTopic()->getCategory()->getSlug(),
-            'slug' => $post->getTopic()->getSlug()
-        )));
+        return new RedirectResponse($this->get('forum.router.url_generator')->urlForPost($precedentPost));
     }
 
     protected function getRenderer()
