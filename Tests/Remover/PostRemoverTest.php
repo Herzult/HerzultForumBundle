@@ -16,17 +16,17 @@ class PostRemoverTest extends \PHPUnit_Framework_TestCase
         $topic->expects($this->once())
             ->method('getCategory')
             ->will($this->returnValue($category));
-        $topic->expects($this->once())
-            ->method('getNumPosts')
-            ->will($this->returnValue(5));
 
         $post = $this->getMockBuilder('Bundle\ForumBundle\Model\Post')
             ->disableOriginalConstructor()
-            ->setMethods(array('getTopic', 'getAuthorName'))
+            ->setMethods(array('getTopic', 'getAuthorName', 'getNumber'))
             ->getMock();
         $post->expects($this->once())
             ->method('getTopic')
             ->will($this->returnValue($topic));
+        $post->expects($this->once())
+            ->method('getNumber')
+            ->will($this->returnValue(5));
 
         $objectManager = $this->getMockBuilder('stdClass')
             ->disableOriginalConstructor()
