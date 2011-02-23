@@ -75,11 +75,15 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
     {
         $candidate = null;
         foreach ($this->findAllByTopic($post->getTopic()) as $p) {
-            if ($p->getNumber() > $post->getNumber()) {
-                return $candidate;
+            if($p !== $post) {
+                if ($p->getNumber() > $post->getNumber()) {
+                    break;
+                }
+                $candidate = $p;
             }
-            $candidate = $p;
         }
+
+        return $candidate;
     }
 
     /**
