@@ -42,6 +42,13 @@ interface PostRepositoryInterface extends RepositoryInterface
     function search($query, $asPaginator);
 
     /**
+     * Gets the post that preceds this one
+     *
+     * @return Post or null
+     **/
+    public function getPostBefore($post);
+
+    /**
      * Creates a new post instance
      *
      * @return Post

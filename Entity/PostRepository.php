@@ -63,6 +63,22 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
     }
 
     /**
+     * Gets the post that preceds this one
+     *
+     * @return Post or null
+     **/
+    public function getPostBefore($post)
+    {
+        $candidate = null;
+        foreach ($this->findAllByTopic($post->getTopic()) as $p) {
+            if ($p->getNumber() > $post->getNumber()) {
+                return $candidate;
+            }
+            $candidate = $p;
+        }
+    }
+
+    /**
      * @see PostRepositoryInterface::createNewPost
      */
     public function createNewPost()
