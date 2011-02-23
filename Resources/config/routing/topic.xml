@@ -24,4 +24,9 @@
         <requirement key="slug">[-\w]+</requirement>
     </route>
 
+    <route id="forum_topic_delete" pattern="/topic/delete/{id}">
+        <default key="_controller">forum.controller.topic:deleteAction</default>
+        <requirement key="id">\w+</requirement>
+    </route>
+
 </routes>

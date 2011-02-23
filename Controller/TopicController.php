@@ -107,6 +107,19 @@ class TopicController extends Controller
         return $this->forward('ForumBundle:Post:create', array('topic' => $topic));
     }
 
+    public function deleteAction($id)
+    {
+        $topic = $this->get('forum.repository.topic')->find($id);
+        if(!$topic) {
+            throw new NotFoundHttpException(sprintf('No topic found with id "%s"', $id));
+        }
+
+        $this->get('forum.remover.topic')->remove($topic);
+        $this->get('forum.object_manager')->flush();
+
+        return new RedirectResponse($this->get('forum.router.url_generator')->urlForCategory($topic->getCategory()));
+    }
+
     protected function getRenderer()
     {
         return $this->container->getParameter('forum.template.renderer');
