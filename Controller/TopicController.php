@@ -14,6 +14,11 @@ class TopicController extends Controller
     public function newAction(Category $category = null)
     {
         $form = $this->get('forum.form.new_topic');
+        $topic = $this->get('forum.repository.topic')->createNewTopic();
+        if ($category) {
+            $topic->setCategory($category);
+        }
+        $form->setData($topic);
 
         return $this->get('templating')->renderResponse('ForumBundle:Topic:new.html.'.$this->getRenderer(), array(
             'form'      => $form,
