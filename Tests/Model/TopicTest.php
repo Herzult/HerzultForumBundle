@@ -1,54 +1,14 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\Model;
+namespace Bundle\ForumBundle\Model;
 
-use Bundle\ForumBundle\Test\WebTestCase;
-use Bundle\ForumBundle\Document\Post;
-
-class TopicTest extends WebTestCase
+class TopicTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        $om = parent::setUp();
-
-        $this->getService('forum.repository.category')->cleanUp();
-        $this->getService('forum.repository.topic')->cleanUp();
-        $this->getService('forum.repository.post')->cleanUp();
-    }
-
-    public function testObjectClass()
-    {
-        $class = $this->getService('forum.repository.topic')->getClassMetadata();
-        $this->assertEquals($this->topicClass, $class->name);
-    }
-
-    public function testCategoryClass()
-    {
-        $class = $this->getService('forum.repository.topic')->getClassMetadata();
-        $category = $class->getFieldMapping('category');
-        $this->assertNotNull($category);
-        $this->assertEquals($this->categoryClass, $category['targetDocument']);
-    }
-
-    public function testFirstPostClass()
-    {
-        $class = $this->getService('forum.repository.topic')->getClassMetadata();
-        $firstPost = $class->getFieldMapping('firstPost');
-        $this->assertNotNull($firstPost);
-        $this->assertEquals($this->postClass, $firstPost['targetDocument']);
-    }
-
-    public function testLastPostClass()
-    {
-        $class = $this->getService('forum.repository.topic')->getClassMetadata();
-        $lastPost = $class->getFieldMapping('lastPost');
-        $this->assertNotNull($lastPost);
-        $this->assertEquals($this->postClass, $lastPost['targetDocument']);
-    }
+    protected $categoryClass = 'Bundle\ForumBundle\Model\Category';
 
     public function testSubject()
     {
-        $topic = new $this->topicClass($this->getMock($this->categoryClass));
+        $topic = new TestTopic($this->getMock($this->categoryClass));
         $this->assertAttributeEmpty('subject', $topic, 'the subject is empty during creation');
 
         $topic->setSubject('A topic sample');
@@ -58,7 +18,7 @@ class TopicTest extends WebTestCase
 
     public function testNumViews()
     {
-        $topic = new $this->topicClass($this->getMock($this->categoryClass));
+        $topic = new TestTopic($this->getMock($this->categoryClass));
         $this->assertAttributeEquals(0, 'numViews', $topic, 'the number of views is set to 0 during creation');
 
         $topic->setNumViews(4);
@@ -77,10 +37,9 @@ class TopicTest extends WebTestCase
 
     public function testNumPosts()
     {
-        $category = new $this->categoryClass();
-        $category->setName('Test Category');
+        $category = $this->getMock($this->categoryClass);
 
-        $topic = new $this->topicClass();
+        $topic = new TestTopic();
         $this->assertAttributeEquals(0, 'numPosts', $topic, 'the number of posts is set to 0 during creation');
 
         $topic->setSubject('Testing the number of posts');
@@ -98,19 +57,13 @@ class TopicTest extends WebTestCase
 
         $topic->setNumPosts('SomeString');
         $this->assertAttributeInternalType('integer', 'numPosts', $topic, 'the number of posts is mandatory an integer');
-
-        $topic->setNumPosts(0);
-
-        $post = new $this->postClass();
-        $post->setTopic($topic);
-        $post->setMessage('Some content, foo bar, bla bla...');
     }
 
     public function testCategory()
     {
         $category = $this->getMock($this->categoryClass);
 
-        $topic = new $this->topicClass();
+        $topic = new TestTopic();
 
         $this->assertAttributeEmpty('category', $topic, 'the category is not set during creation');
 
@@ -122,7 +75,7 @@ class TopicTest extends WebTestCase
 
     public function testIsClosed()
     {
-        $topic = new $this->topicClass($this->getMock($this->categoryClass));
+        $topic = new TestTopic($this->getMock($this->categoryClass));
 
         $this->assertAttributeEquals(false, 'isClosed', $topic, 'the topic is not closed during creation');
         $this->assertAttributeEquals($topic->getIsClosed(), 'isClosed', $topic, '::getIsClosed() gets the closure status');
@@ -138,7 +91,7 @@ class TopicTest extends WebTestCase
 
     public function testIsPinned()
     {
-        $topic = new $this->topicClass($this->getMock($this->categoryClass));
+        $topic = new TestTopic($this->getMock($this->categoryClass));
 
         $this->assertAttributeEquals(false, 'isPinned', $topic, 'the topic is not pinned during creation');
         $this->assertAttributeEquals($topic->getIsPinned(), 'isPinned', $topic, '::getIsPinned() gets the pinning status');
@@ -154,7 +107,7 @@ class TopicTest extends WebTestCase
 
     public function testIsBuried()
     {
-        $topic = new $this->topicClass($this->getMock($this->categoryClass));
+        $topic = new TestTopic($this->getMock($this->categoryClass));
 
         $this->assertAttributeEquals(false, 'isBuried', $topic, 'the topic is not buried during creation');
         $this->assertAttributeEquals($topic->getIsBuried(), 'isBuried', $topic, '::getBuried() gets the buring status');
@@ -167,5 +120,11 @@ class TopicTest extends WebTestCase
 
         $this->assertAttributeInternalType('boolean', 'isBuried', $topic, 'the buring status is mandatory a boolean');
     }
+}
 
+class TestTopic extends Topic
+{
+    public function getAuthorName()
+    {
+    }
 }
