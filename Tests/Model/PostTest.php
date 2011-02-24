@@ -1,39 +1,14 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\Model;
+namespace Bundle\ForumBundle\Model;
 
-use Bundle\ForumBundle\Test\WebTestCase;
-
-class PostTest extends WebTestCase
+class PostTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function setUp()
-    {
-        $om = parent::setUp();
-
-        $this->getService('forum.repository.category')->cleanUp();
-        $this->getService('forum.repository.topic')->cleanUp();
-        $this->getService('forum.repository.post')->cleanUp();
-    }
-
-    public function testObjectClass()
-    {
-        $class = $this->getService('forum.repository.post')->getClassMetadata();
-        $this->assertEquals($this->postClass, $class->name);
-    }
-
-    public function testTopicClass()
-    {
-        $class = $this->getService('forum.repository.post')->getClassMetadata();
-        $topic = $class->getFieldMapping('topic');
-        $this->assertNotNull($topic);
-        $this->assertEquals($this->topicClass, $topic['targetDocument']);
-    }
+    protected $topicClass = 'Bundle\ForumBundle\Model\Topic';
 
     public function testMessage()
     {
-        $class = $this->postClass;
-        $post = new $class();
+        $post = new TestPost();
         $post->setTopic($this->getMock($this->topicClass));
         $this->assertAttributeEmpty('message', $post, 'the message is empty during creation');
 
@@ -44,11 +19,18 @@ class PostTest extends WebTestCase
 
     public function getSetNumber()
     {
-        $post = new $this->postClass();
+        $post = new TestPost();
         $this->assertEmpty($post->getNumber());
 
         $post->setNumber(5);
         $this->assertEquals(5, $post->getNumber());
     }
 
+}
+
+class TestPost extends Post
+{
+    public function getAuthorName()
+    {
+    }
 }
