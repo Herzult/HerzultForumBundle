@@ -1,37 +1,12 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\Model;
+namespace Bundle\ForumBundle\Model;
 
-use Bundle\ForumBundle\Test\WebTestCase;
-
-class CategoryTest extends WebTestCase
+class CategoryTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        $om = parent::setUp();
-
-        $this->getService('forum.repository.category')->cleanUp();
-        $this->getService('forum.repository.topic')->cleanUp();
-        $this->getService('forum.repository.post')->cleanUp();
-    }
-
-    public function testObjectClass()
-    {
-        $class = $this->getService('forum.repository.category')->getClassMetadata();
-        $this->assertEquals($this->categoryClass, $class->name);
-    }
-
-    public function testLastTopicClass()
-    {
-        $class = $this->getService('forum.repository.category')->getClassMetadata();
-        $lastTopic = $class->getFieldMapping('lastTopic');
-        $this->assertNotNull($lastTopic);
-        $this->assertEquals($this->topicClass, $lastTopic['targetDocument']);
-    }
-
     public function testName()
     {
-        $category = new $this->categoryClass();
+        $category = new TestCategory();
         $this->assertAttributeEmpty('name', $category, 'the name is empty during creation');
 
         $category->setName('Test category');
@@ -41,7 +16,7 @@ class CategoryTest extends WebTestCase
 
     public function testSlugGeneration()
     {
-        $category = new $this->categoryClass();
+        $category = new TestCategory();
         $category->setName('Test category');
         $this->assertAttributeEmpty('slug', $category, 'the slug is empty during creation');
 
@@ -63,7 +38,7 @@ class CategoryTest extends WebTestCase
 
     public function testPosition()
     {
-        $category = new $this->categoryClass();
+        $category = new TestCategory();
         $this->assertAttributeEquals(0, 'position', $category, 'the position is set to 0 during creation');
 
         $category->setPosition(4);
@@ -73,12 +48,8 @@ class CategoryTest extends WebTestCase
         $category->setPosition('SomeString');
         $this->assertAttributeInternalType('integer', 'position', $category, 'the position is mandatory an integer');
     }
+}
 
-    public function testLastPostClass()
-    {
-        $class = $this->getService('forum.repository.category')->getClassMetadata();
-        $lastPost = $class->getFieldMapping('lastPost');
-        $this->assertNotNull($lastPost);
-        $this->assertEquals($this->postClass, $lastPost['targetDocument']);
-    }
+class TestCategory extends Category
+{
 }
