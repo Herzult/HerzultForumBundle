@@ -10,7 +10,7 @@
 
     <services>
         <service id="forum.router.url_generator" class="%forum.router.url_generator.class%">
-            <argument type="service" id="router" />
+            <argument type="service" id="service_container" />
             <argument>%forum.paginator.posts_per_page%</argument>
         </service>
     </services>
