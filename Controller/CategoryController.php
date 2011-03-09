@@ -22,7 +22,8 @@ class CategoryController extends Controller
             throw new NotFoundHttpException(sprintf('The category %s does not exist.', $slug));
         }
 
-        return $this->get('templating')->renderResponse('ForumBundle:Category:show.html.'.$this->getRenderer(), array(
+        $template = sprintf('ForumBundle:Category:show.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
+        return $this->get('templating')->renderResponse($template, array(
             'category'  => $category,
             'page'      => $this->get('request')->query->get('page', 1)
         ));

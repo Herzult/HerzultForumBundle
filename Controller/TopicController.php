@@ -68,7 +68,8 @@ class TopicController extends Controller
         $topics->setItemCountPerPage($this->container->getParameter('forum.paginator.topics_per_page'));
         $topics->setPageRange(5);
 
-        return $this->get('templating')->renderResponse('ForumBundle:Topic:list.html.'.$this->getRenderer(), array(
+        $template = sprintf('ForumBundle:Topic:list.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
+        return $this->get('templating')->renderResponse($template, array(
             'topics'    => $topics,
             'category'  => $category
         ));
@@ -90,7 +91,11 @@ class TopicController extends Controller
             $posts = $this->get('forum.repository.post')->findRecentByTopic($topic, 30);
         }
 
-        return $this->get('templating')->renderResponse('ForumBundle:Topic:show.html.'.$this->getRenderer(), array('topic' => $topic, 'posts' => $posts));
+        $template = sprintf('ForumBundle:Topic:show.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
+        return $this->get('templating')->renderResponse($template, array(
+            'topic' => $topic,
+            'posts' => $posts
+        ));
     }
 
     public function postNewAction($categorySlug, $slug)
