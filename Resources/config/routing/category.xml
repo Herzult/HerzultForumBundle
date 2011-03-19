@@ -7,14 +7,13 @@
     <route id="forum_category_show" pattern="/{slug}.{_format}">
         <default key="_controller">forum.controller.category:showAction</default>
         <default key="_format">html</default>
-        <requirement key="_method">get|head</requirement>
         <requirement key="_format">(html|xml)</requirement>
         <requirement key="slug">[-\w]+</requirement>
     </route>
 
     <route id="forum_category_topic_new" pattern="/{slug}/topic/new">
         <default key="_controller">forum.controller.category:topicNewAction</default>
-        <requirement key="_method">get|head</requirement>
+        <requirement key="_method">get</requirement>
         <requirement key="slug">[-\w]+</requirement>
     </route>
 
