@@ -1,4 +1,4 @@
-{% extends 'ForumBundle::layout.html.twig' %}
+{% extends 'Forum::layout.html.twig' %}
 {% block title %}Topics List {% endblock %}
 {% block content %}
 <div class="forum category_show">
@@ -9,11 +9,11 @@
     <div class="main topics">
         <h2>{{ category.name }}</h2>
         <a href="{{ forum_urlForCategoryAtomFeed(category) }}" title="Atom feed" class="feed atom">Atom feed</a>
-        {% render 'ForumBundle:Topic:list' with {'category': category, "page": page} %}
+        {% render 'Forum:Topic:list' with {'category': category, "page": page} %}
     </div>
     <div class="side categories">
         <h2>Categories</h2>
-        {% render 'ForumBundle:Category:list' %}
+        {% render 'Forum:Category:list' %}
         <h2>Participate</h2>
         <p><a href="{{ path('forum_category_topic_new', {'slug': category.slug} ) }}">Create a new topic</a></p>
     </div>
