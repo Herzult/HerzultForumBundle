@@ -24,7 +24,7 @@ class Inflector
         // remove unwanted characters
         $text = preg_replace('~[^-\w]+~', '', $text);
 
-        return $text;
+        return $text ?: "-";
     }
 
 }
