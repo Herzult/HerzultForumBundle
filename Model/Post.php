@@ -14,8 +14,8 @@ abstract class Post
      */
     protected $topic;
     /**
-     * @validation:NotBlank(message="Please write a message")
-     * @validation:MinLength(limit=4, message="Just a little too short.")
+     * @assert:NotBlank(message="Please write a message")
+     * @assert:MinLength(limit=4, message="Just a little too short.")
      *
      * @var string
      */

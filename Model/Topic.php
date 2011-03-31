@@ -11,8 +11,8 @@ abstract class Topic implements Sluggable
 {
     protected $id;
     /**
-     * @validation:NotBlank()
-     * @validation:MinLength(limit=4, message="Just a little too short.")
+     * @assert:NotBlank()
+     * @assert:MinLength(limit=4, message="Just a little too short.")
      */
     protected $subject;
     protected $slug;
@@ -24,8 +24,8 @@ abstract class Topic implements Sluggable
     protected $createdAt;
     protected $pulledAt;
     /**
-     * @validation:NotBlank
-     * @validation:Valid
+     * @assert:NotBlank
+     * @assert:Valid
      */
     protected $category;
     protected $firstPost;
