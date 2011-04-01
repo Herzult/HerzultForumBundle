@@ -9,7 +9,7 @@
     </parameters>
 
     <services>
-        <service id="forum.twig.extension" class="%forum.twig.extension.class%">
+        <service id="forum.twig.extension" class="%forum.twig.extension.class%" public="false">
             <argument type="service" id="forum.router.url_generator" />
             <tag name="twig.extension" />
         </service>
