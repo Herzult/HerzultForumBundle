@@ -10,7 +10,7 @@ class ForumController extends Controller
 {
     public function indexAction()
     {
-        return $this->get('templating')->renderResponse('Forum:Forum:index.html.'.$this->getRenderer(), array(
+        return $this->get('templating')->renderResponse('ForumBundle:Forum:index.html.'.$this->getRenderer(), array(
             'page'  => $this->get('request')->query->get('page', 1)
         ));
     }
@@ -32,7 +32,7 @@ class ForumController extends Controller
             }
         }
 
-        return $this->get('templating')->renderResponse('Forum:Forum:search.html.'.$this->getRenderer(), array(
+        return $this->get('templating')->renderResponse('ForumBundle:Forum:search.html.'.$this->getRenderer(), array(
             'form' => $form,
             'results' => $results,
             'query' => $search->query

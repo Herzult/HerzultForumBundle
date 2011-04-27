@@ -14,7 +14,7 @@ class PostController extends Controller
     {
         $form = $this->get('forum.form.post');
 
-        return $this->get('templating')->renderResponse('Forum:Post:new.html.'.$this->getRenderer(), array(
+        return $this->get('templating')->renderResponse('ForumBundle:Post:new.html.'.$this->getRenderer(), array(
             'form'  => $form,
             'topic' => $topic,
         ));
@@ -28,7 +28,7 @@ class PostController extends Controller
         $form->bind($this->get('request'), $post);
 
         if(!$form->isValid()) {
-            return $this->get('templating')->renderResponse('Forum:Post:new.html.'.$this->getRenderer(), array(
+            return $this->get('templating')->renderResponse('ForumBundle:Post:new.html.'.$this->getRenderer(), array(
                 'form'  => $form,
                 'topic' => $topic,
             ));
