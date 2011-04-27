@@ -20,7 +20,7 @@ class TopicController extends Controller
         }
         $form->setData($topic);
 
-        return $this->get('templating')->renderResponse('Forum:Topic:new.html.'.$this->getRenderer(), array(
+        return $this->get('templating')->renderResponse('ForumBundle:Topic:new.html.'.$this->getRenderer(), array(
             'form'      => $form,
             'category'  => $category
         ));
@@ -33,7 +33,7 @@ class TopicController extends Controller
         $form->bind($this->get('request'), $topic);
 
         if(!$form->isValid()) {
-            return $this->get('templating')->renderResponse('Forum:Topic:new.html.'.$this->getRenderer(), array(
+            return $this->get('templating')->renderResponse('ForumBundle:Topic:new.html.'.$this->getRenderer(), array(
                 'form'      => $form,
                 'category'  => $category
             ));
@@ -68,7 +68,7 @@ class TopicController extends Controller
         $topics->setItemCountPerPage($this->container->getParameter('forum.paginator.topics_per_page'));
         $topics->setPageRange(5);
 
-        $template = sprintf('Forum:Topic:list.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
+        $template = sprintf('ForumBundle:Topic:list.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array(
             'topics'    => $topics,
             'category'  => $category
@@ -91,7 +91,7 @@ class TopicController extends Controller
             $posts = $this->get('forum.repository.post')->findRecentByTopic($topic, 30);
         }
 
-        $template = sprintf('Forum:Topic:show.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
+        $template = sprintf('ForumBundle:Topic:show.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array(
             'topic' => $topic,
             'posts' => $posts
@@ -102,14 +102,14 @@ class TopicController extends Controller
     {
         $topic = $this->findTopic($categorySlug, $slug);
 
-        return $this->forward('Forum:Post:new', array('topic' => $topic));
+        return $this->forward('ForumBundle:Post:new', array('topic' => $topic));
     }
 
     public function postCreateAction($categorySlug, $slug)
     {
         $topic = $this->findTopic($categorySlug, $slug);
 
-        return $this->forward('Forum:Post:create', array('topic' => $topic));
+        return $this->forward('ForumBundle:Post:create', array('topic' => $topic));
     }
 
     public function deleteAction($id)

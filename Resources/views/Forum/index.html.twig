@@ -1,4 +1,4 @@
-{% extends 'Forum::layout.twig.html' %}
+{% extends 'ForumBundle::layout.twig.html' %}
 {% block title %}Forum, a simple Symfony2 forum{% endblock %}
 {% block content %}
 <div class="forum forum_index">
@@ -7,11 +7,11 @@
     </ul>
     <div class="main topics">
         <h2>All topics</h2>
-        {% render 'Forum:Topic:list' with {"page": page} %}
+        {% render 'ForumBundle:Topic:list' with {"page": page} %}
     </div>
     <div class="side categories">
         <h2>Categories</h2>
-        {% render 'Forum:Category:list' %}
+        {% render 'ForumBundle:Category:list' %}
         <h2>Participate</h2>
         <p><a href="{{ path('forum_topic_new') }}">Create a new topic</a></p>
     </div>
