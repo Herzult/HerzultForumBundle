@@ -5,7 +5,7 @@ namespace Bundle\ForumBundle\Model;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Bundle\ForumBundle\Util\Inflector;
-use Gedmo\Sluggable\Sluggable;
+use DoctrineExtensions\Sluggable\Sluggable;
 use DateTime;
 
 abstract class Topic implements Sluggable
