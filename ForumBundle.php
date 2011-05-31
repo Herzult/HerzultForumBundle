@@ -3,7 +3,7 @@
 namespace Bundle\ForumBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use DoctrineExtensions\Sluggable\SluggableListener;
+use Gedmo\Sluggable\SluggableListener;
 
 class ForumBundle extends Bundle
 {
