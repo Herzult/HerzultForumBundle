@@ -5,11 +5,18 @@
     <ul class="crumbs">
         <li>Forum</li>
     </ul>
-    <form class="clearfix" action="{{ path(forum_search) }}" method="get">
-        {{ form_field(form) }}
+    <form class="clearfix" action="{{ url('forum_search') }}" method="get">
+        <div>
+            <label for="q">{{ form_label(form.query) }}</label>
+            <input type="text" name="q" value="{{ query }}" />
+        </div>
         <div>
             <button type="submit" value="Search">Search</button>
         </div>
     </form>
+
+    <div class="main topic">
+        {% include 'ForumBundle:Post:list.html.twig' with {'posts': results } %}
+    </div>
 </div>
 {% endblock %}

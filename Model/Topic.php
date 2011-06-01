@@ -2,6 +2,7 @@
 
 namespace Bundle\ForumBundle\Model;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Bundle\ForumBundle\Util\Inflector;
 use DoctrineExtensions\Sluggable\Sluggable;
@@ -11,8 +12,8 @@ abstract class Topic implements Sluggable
 {
     protected $id;
     /**
-     * @assert:NotBlank()
-     * @assert:MinLength(limit=4, message="Just a little too short.")
+     * @Assert\NotBlank()
+     * @Assert\MinLength(limit=4, message="Just a little too short.")
      */
     protected $subject;
     protected $slug;
@@ -24,8 +25,8 @@ abstract class Topic implements Sluggable
     protected $createdAt;
     protected $pulledAt;
     /**
-     * @assert:NotBlank
-     * @assert:Valid
+     * @Assert\NotBlank
+     * @Assert\Valid
      */
     protected $category;
     protected $firstPost;

@@ -3,6 +3,7 @@
 namespace Bundle\ForumBundle\Model;
 
 use DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class Post
 {
@@ -14,8 +15,8 @@ abstract class Post
      */
     protected $topic;
     /**
-     * @assert:NotBlank(message="Please write a message")
-     * @assert:MinLength(limit=4, message="Just a little too short.")
+     * @Assert\NotBlank(message="Please write a message")
+     * @Assert\MinLength(limit=4, message="Just a little too short.")
      *
      * @var string
      */

@@ -13,9 +13,8 @@ class PostController extends Controller
     public function newAction(Topic $topic)
     {
         $form = $this->get('forum.form.post');
-
         return $this->get('templating')->renderResponse('ForumBundle:Post:new.html.'.$this->getRenderer(), array(
-            'form'  => $form,
+            'form'  => $form->createView(),
             'topic' => $topic,
         ));
     }
@@ -25,15 +24,17 @@ class PostController extends Controller
         $form = $this->get('forum.form.post');
         $post = $this->get('forum.repository.post')->createNewPost();
         $post->setTopic($topic);
-        $form->bind($this->get('request'), $post);
+        $form->bindRequest($this->get('request'));
 
         if(!$form->isValid()) {
             return $this->get('templating')->renderResponse('ForumBundle:Post:new.html.'.$this->getRenderer(), array(
-                'form'  => $form,
+                'form'  => $form->createView(),
                 'topic' => $topic,
             ));
         }
 
+		$post = $form->getData();
+        $post->setTopic($topic);
         $this->get('forum.creator.post')->create($post);
         $this->get('forum.blamer.post')->blame($post);
 
