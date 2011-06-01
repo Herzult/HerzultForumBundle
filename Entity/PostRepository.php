@@ -53,7 +53,10 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
     public function search($query, $asPaginator = false)
     {
         $qb = $this->createQueryBuilder('post');
-        $qb->orderBy('post.createdAt')->where($qb->expr()->like('post.message', '%' . $query . '%'));
+        $qb
+			->where($qb->expr()->like('post.message', $qb->expr()->literal('%' . $query . '%')))
+			->orderBy('post.createdAt')
+		;
 
         if ($asPaginator) {
             return new Paginator(new DoctrineORMAdapter($qb->getQuery()));

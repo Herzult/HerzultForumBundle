@@ -21,7 +21,7 @@ class TopicController extends Controller
         $form->setData($topic);
 
         return $this->get('templating')->renderResponse('ForumBundle:Topic:new.html.'.$this->getRenderer(), array(
-            'form'      => $form,
+            'form'      => $form->createView(),
             'category'  => $category
         ));
     }
@@ -29,12 +29,12 @@ class TopicController extends Controller
     public function createAction(Category $category = null)
     {
         $form = $this->get('forum.form.new_topic');
-        $topic = $this->get('forum.repository.topic')->createNewTopic();
-        $form->bind($this->get('request'), $topic);
+        $form->bindRequest($this->get('request'));
+		$topic = $form->getData();
 
         if(!$form->isValid()) {
             return $this->get('templating')->renderResponse('ForumBundle:Topic:new.html.'.$this->getRenderer(), array(
-                'form'      => $form,
+                'form'      => $form->createView(),
                 'category'  => $category
             ));
         }

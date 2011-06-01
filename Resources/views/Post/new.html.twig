@@ -10,8 +10,8 @@
     </ul>
     <div class="main">
         <h2>New Reply</h2>
-        <form action="{% route 'forum_post_create' with {'topicId': topic.getId()} %}" method="post">
-            {{ form_field(form) }}
+        <form action="{{ url('forum_topic_post_create', { 'slug': topic.slug, 'categorySlug' : topic.category.slug }) }}" method="post">
+            {{ form_widget(form) }}
             <div>
                 <button type="submit" name="reply">Add post</button>
             </div>

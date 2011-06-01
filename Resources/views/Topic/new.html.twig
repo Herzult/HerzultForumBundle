@@ -8,8 +8,8 @@
     </ul>
     <div class="main">
         <h2>New Topic</h2>
-        <form action="{% route 'forum_topic_create' %}" method="post">
-            {{ form_field(form) }}
+        <form action="{{ path("forum_category_topic_create", {"slug": category.slug}) }}" method="post">
+            {{ form_widget(form) }}
             <button type="submit" name="create">Create topic</button>
         </form>
     </div>
