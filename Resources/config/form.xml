@@ -21,16 +21,14 @@
             <argument />
             <argument type="collection">
                 <argument key="data_class">%forum.model.topic.class%</argument>
+                <argument key="post_class">%forum.model.post.class%</argument>
+                <argument key="post_form" type="service" id="forum.form.type.post" />
             </argument>
         </service>
 
         <service id="forum.form.type.new_topic" class="%forum.form.new_topic.class%">
             <argument>%forum.form.new_topic.name%</argument>
             <argument type="collection">
-                <argument key="theme">%forum.template.theme%</argument>
-                <argument key="topic_class">%forum.model.topic.class%</argument>
-                <argument key="category_repository" type="service" id="forum.repository.category" />
-                <argument key="post_form" type="service" id="forum.form.first_post" />
             </argument>
         </service>
 
@@ -45,9 +43,7 @@
 
         <service id="forum.form.type.post" class="%forum.form.post.class%">
             <argument>%forum.form.post.name%</argument>
-            <argument type="collection">
-                <argument key="theme">%forum.template.theme%</argument>
-                <argument key="post_class">%forum.model.post.class%</argument>
+            <argument type="collection" >
             </argument>
         </service>
 
@@ -63,8 +59,6 @@
         <service id="forum.form.type.first_post" class="%forum.form.first_post.class%">
             <argument>%forum.form.first_post.name%</argument>
             <argument type="collection">
-                <argument key="theme">%forum.template.theme%</argument>
-                <argument key="post_class">%forum.model.post.class%</argument>
             </argument>
         </service>
 

@@ -3,14 +3,12 @@
 namespace Bundle\ForumBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\TextareaField;
+use Symfony\Component\Form\FormBuilder;
 
 class PostFormType extends AbstractType
 {
-    public function configure()
-    {
-        $this->setDataClass($this->getOption('post_class'));
-
-        $this->add(new TextareaField('message'));
+	public function buildForm(FormBuilder $builder, array $options)
+	{
+        $builder->add('message', 'textarea');
     }
 }

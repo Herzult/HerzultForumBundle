@@ -9,7 +9,7 @@
     </route>
 
     <route id="forum_search" pattern="/search">
-        <default key="_controller">forum.controller.form:searchAction</default>
+        <default key="_controller">forum.controller.forum:searchAction</default>
     </route>
 
 </routes>

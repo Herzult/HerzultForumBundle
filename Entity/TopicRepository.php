@@ -15,7 +15,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
     {
         return $this->findOneBy(array(
             'slug'		=> $slug,
-            'category'	=> $category
+            'category'	=> $category->getId()
         ));
     }
 	

@@ -3,22 +3,24 @@
 namespace Bundle\ForumBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\TextField;
-use Symfony\Component\Form\TextareaField;
+use Symfony\Component\Form\FormBuilder;
 use Bundle\ForumBundle\Model\CategoryRepositoryInterface;
 
 class NewTopicFormType extends AbstractType
 {
-    public function configure()
-    {
-        $this->setDataClass($this->getOption('topic_class'));
-
-        $this->add(new TextField('subject'));
-        $categoryField = new CategoryChoiceField('category', array(
-            'repository' => $this->getOption('category_repository'),
-            'required' => true
-        ));
-        $this->add($categoryField);
-        $this->add($this->getOption('post_form'));
+	public function buildForm(FormBuilder $builder, array $options)
+	{
+        $builder->add('subject');
+        $builder->add('category');
+        $builder->add('firstPost', $options['post_form'], array('data_class' => $options['post_class']));
     }
+
+	public function getDefaultOptions(array $options)
+	{
+		return array(
+			'post_class'	=> '',
+			'post_form'		=> '',
+			'data_class'	=> '',
+		);
+	}
 }

@@ -3,9 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome{% endblock %}</title>
-        {% stylesheet 'bundles/forum/css/forum.css' %}
-        {% stylesheets %}
-        {% javascripts %}
+        <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/forum/css/forum.css') }}" />
     </head>
     <body>
         <div id="header">
