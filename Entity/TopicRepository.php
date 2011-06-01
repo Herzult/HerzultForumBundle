@@ -9,6 +9,17 @@ use ZendPaginatorAdapter\DoctrineORMAdapter;
 class TopicRepository extends ObjectRepository implements TopicRepositoryInterface
 {
     /**
+     * @see TopicRepositoryInterface::findOneByCategoryAndSlug
+     */
+    public function findOneByCategoryAndSlug(Category $category, $slug)
+    {
+        return $this->findOneBy(array(
+            'slug'		=> $slug,
+            'category'	=> $category
+        ));
+    }
+	
+    /**
      * @see TopicRepositoryInterface::findOneById
      */
     public function findOneById($id)
