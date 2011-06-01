@@ -5,11 +5,11 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="forum.form.new_topic.class">Bundle\ForumBundle\Form\NewTopicForm</parameter>
+        <parameter key="forum.form.new_topic.class">Bundle\ForumBundle\Form\NewTopicFormType</parameter>
         <parameter key="forum.form.new_topic.name">forum_new_topic_form</parameter>
-        <parameter key="forum.form.first_post.class">Bundle\ForumBundle\Form\PostForm</parameter>
+        <parameter key="forum.form.first_post.class">Bundle\ForumBundle\Form\PostFormType</parameter>
         <parameter key="forum.form.first_post.name">firstPost</parameter>
-        <parameter key="forum.form.post.class">Bundle\ForumBundle\Form\PostForm</parameter>
+        <parameter key="forum.form.post.class">Bundle\ForumBundle\Form\PostFormType</parameter>
         <parameter key="forum.form.post.name">forum_post_form</parameter>
     </parameters>
 

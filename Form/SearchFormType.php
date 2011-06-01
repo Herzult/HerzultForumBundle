@@ -1,10 +1,11 @@
 <?php
 
 namespace Bundle\ForumBundle\Form;
-use Symfony\Component\Form\Form;
+
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\TextField;
 
-class SearchForm extends Form
+class SearchFormType extends AbstractType
 {
     public function configure()
     {
