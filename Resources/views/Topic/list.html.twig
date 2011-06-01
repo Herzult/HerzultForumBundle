@@ -14,4 +14,6 @@
 {% endfor %}
 </ul>
 
+{% if category %}
 {% include 'ForumBundle::pagination.html.twig' with {'pager': topics.pages, 'url': forum_urlForCategory(category)} %}
+{% endif %}
