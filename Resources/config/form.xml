@@ -16,7 +16,7 @@
     <services>
 
         <!-- NewTopic Form -->
-        <service id="forum.form.new_topic" factory-method="create" factory-service="form.factory" class="%form.factory.class%">
+        <service id="forum.form.new_topic" factory-method="create" factory-service="form.factory" class="Symfony\Component\Form\Form">
             <argument type="service" id="forum.form.type.new_topic" />
             <argument />
             <argument type="collection">
@@ -33,7 +33,7 @@
         </service>
 
         <!-- Post Form -->
-        <service id="forum.form.post" factory-method="create" factory-service="form.factory" class="%form.factory.class%">
+        <service id="forum.form.post" factory-method="create" factory-service="form.factory" class="Symfony\Component\Form\Form">
             <argument type="service" id="forum.form.type.post" />
             <argument />
             <argument type="collection">
@@ -48,7 +48,7 @@
         </service>
 
         <!-- FirstPost Form -->
-        <service id="forum.form.first_post" factory-method="create" factory-service="form.factory" class="%form.factory.class%">
+        <service id="forum.form.first_post" factory-method="create" factory-service="form.factory" class="Symfony\Component\Form\Form">
             <argument type="service" id="forum.form.type.first_post" />
             <argument />
             <argument type="collection">
