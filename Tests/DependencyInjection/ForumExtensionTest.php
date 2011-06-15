@@ -50,9 +50,9 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ForumBundle\Form\NewTopicForm', 'forum.form.new_topic.class');
-        $this->assertParameter('Bundle\ForumBundle\Form\PostForm', 'forum.form.post.class');
-        $this->assertParameter('Bundle\ForumBundle\Form\PostForm', 'forum.form.first_post.class');
+        $this->assertParameter('Bundle\ForumBundle\Form\NewTopicFormType', 'forum.form.new_topic.class');
+        $this->assertParameter('Bundle\ForumBundle\Form\PostFormType', 'forum.form.post.class');
+        $this->assertParameter('Bundle\ForumBundle\Form\PostFormType', 'forum.form.first_post.class');
     }
 
     public function testForumLoadFormClass()
