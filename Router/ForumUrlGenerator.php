@@ -2,32 +2,32 @@
 
 namespace Bundle\ForumBundle\Router;
 
-use Symfony\Component\Routing\Router;
 use Bundle\ForumBundle\Model\Category;
 use Bundle\ForumBundle\Model\Topic;
 use Bundle\ForumBundle\Model\Post;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ForumUrlGenerator
 {
-    protected $generator;
+    protected $urlGenerator;
     protected $nbPostsPerPage;
 
-    public function __construct(Router $router, $nbPostsPerPage)
+    public function __construct(UrlGeneratorInterface $urlGenerator, $nbPostsPerPage)
     {
-        $this->generator = $router->getGenerator();
+        $this->urlGenerator = $urlGenerator;
         $this->nbPostsPerPage = $nbPostsPerPage;
     }
 
     public function urlForCategory(Category $category, $absolute = false)
     {
-        return $this->generator->generate('forum_category_show', array(
+        return $this->urlGenerator->generate('forum_category_show', array(
             'slug' => $category->getSlug()
         ), $absolute);
     }
 
     public function urlForCategoryAtomFeed(Category $category, $absolute = false)
     {
-        return $this->generator->generate('forum_category_show', array(
+        return $this->urlGenerator->generate('forum_category_show', array(
             'slug'      => $category->getSlug(),
             '_format'   =>  'xml'
         ), $absolute);
@@ -35,7 +35,7 @@ class ForumUrlGenerator
 
     public function urlForTopic(Topic $topic, $absolute = false)
     {
-        return $this->generator->generate('forum_topic_show', array(
+        return $this->urlGenerator->generate('forum_topic_show', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
             'slug'          => $topic->getSlug()
         ), $absolute);
@@ -43,7 +43,7 @@ class ForumUrlGenerator
 
     public function urlForTopicAtomFeed(Topic $topic, $absolute = false)
     {
-        return $this->generator->generate('forum_topic_show', array(
+        return $this->urlGenerator->generate('forum_topic_show', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
             'slug'          => $topic->getSlug(),
             '_format'       => 'xml'
@@ -52,7 +52,7 @@ class ForumUrlGenerator
 
     public function urlForTopicReply(Topic $topic, $absolute = false)
     {
-        return $this->generator->generate('forum_topic_post_new', array(
+        return $this->urlGenerator->generate('forum_topic_post_new', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
             'slug'          => $topic->getSlug()
         ));
