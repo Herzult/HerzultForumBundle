@@ -8,21 +8,14 @@ use Twig_Function_Method;
 use Bundle\ForumBundle\Model\Category;
 use Bundle\ForumBundle\Model\Topic;
 use Bundle\ForumBundle\Model\Post;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ForumExtension extends Twig_Extension
 {
-    protected $container;
+    protected $urlGenerator;
 
-    /**
-     * We need the container to lazily load forum.router.url_generator
-     * and prevent DIC circular references when used with assetic
-     *
-     * @param ContainerInterface $container
-     */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ForumUrlGenerator $urlGenerator)
     {
-        $this->container = $container;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -62,47 +55,42 @@ class ForumExtension extends Twig_Extension
 
     public function urlForCategory(Category $category, $absolute = false)
     {
-        return $this->getUrlGenerator()->urlForCategory($category, $absolute);
+        return $this->urlGenerator->urlForCategory($category, $absolute);
     }
 
     public function urlForCategoryAtomFeed(Category $category, $absolute = false)
     {
-        return $this->getUrlGenerator()->urlForCategoryAtomFeed($category, $absolute);
+        return $this->urlGenerator->urlForCategoryAtomFeed($category, $absolute);
     }
 
     public function urlForTopic(Topic $topic, $absolute = false)
     {
-        return $this->getUrlGenerator()->urlForTopic($topic, $absolute);
+        return $this->urlGenerator->urlForTopic($topic, $absolute);
     }
 
     public function urlForTopicAtomFeed(Topic $topic, $absolute = false)
     {
-        return $this->getUrlGenerator()->urlForTopicAtomFeed($topic, $absolute);
+        return $this->urlGenerator->urlForTopicAtomFeed($topic, $absolute);
     }
 
     public function urlForTopicReply(Topic $topic, $absolute = false)
     {
-        return $this->getUrlGenerator()->urlForTopicReply($topic, $absolute);
+        return $this->urlGenerator->urlForTopicReply($topic, $absolute);
     }
 
     public function urlForPost(Post $post, $absolute = false)
     {
-        return $this->getUrlGenerator()->urlForPost($post, $absolute);
+        return $this->urlGenerator->urlForPost($post, $absolute);
     }
 
     public function topicNumPages(Topic $topic)
     {
-        return $this->getUrlGenerator()->getTopicNumPages($topic);
+        return $this->urlGenerator->getTopicNumPages($topic);
     }
 
     public function autoLink($text)
     {
-        return $this->getUrlGenerator()->autoLink($text);
-    }
-
-    public function getUrlGenerator()
-    {
-        return $this->container->get('forum.router.url_generator');
+        return $this->urlGenerator->autoLink($text);
     }
 
     public function getName()
