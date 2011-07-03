@@ -3,8 +3,8 @@
 namespace Bundle\ForumBundle\Entity;
 
 use Bundle\ForumBundle\Model\TopicRepositoryInterface;
-use Zend\Paginator\Paginator;
-use ZendPaginatorAdapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
 
 class TopicRepository extends ObjectRepository implements TopicRepositoryInterface
 {
@@ -18,7 +18,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
             'category'	=> $category->getId()
         ));
     }
-	
+
     /**
      * @see TopicRepositoryInterface::findOneById
      */
@@ -37,7 +37,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
                         ->getQuery();
 
         if ($asPaginator) {
-            return new Paginator(new DoctrineORMAdapter($query));
+            return new Pagerfanta(new DoctrineORMAdapter($query));
         } else {
             return $query->execute();
         }
@@ -53,7 +53,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
             ->where($qb->expr()->eq('topic.category', $category->getId()));
 
         if ($asPaginator) {
-            return new Paginator(new DoctrineORMAdapter($qb->getQuery()));
+            return new Pagerfanta(new DoctrineORMAdapter($qb->getQuery()));
         } else {
             return $qb->getQuery()->execute();
         }
@@ -80,7 +80,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
         $qb->orderBy('topic.pulledAt DESC')->where($db->expr()->like('topic.subject', '%' . $query . '%'));
 
         if ($asPaginator) {
-            return new Paginator(new DoctrineORMAdapter($qb->getQuery()));
+            return new Pagerfanta(new DoctrineORMAdapter($qb->getQuery()));
         }
 
         return $qb->getQuery->execute();

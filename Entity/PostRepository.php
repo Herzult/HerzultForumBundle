@@ -3,8 +3,8 @@
 namespace Bundle\ForumBundle\Entity;
 
 use Bundle\ForumBundle\Model\PostRepositoryInterface;
-use Zend\Paginator\Paginator;
-use ZendPaginatorAdapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
 
 class PostRepository extends ObjectRepository implements PostRepositoryInterface
 {
@@ -27,7 +27,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
             ->setParameter('topic', $topic->getId());
 
         if ($asPaginator) {
-            return new Paginator(new DoctrineORMAdapter($qb->getQuery()));
+            return new Pagerfanta(new DoctrineORMAdapter($qb->getQuery()));
         }
 
         return $qb->getQuery()->execute();
@@ -59,7 +59,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
 		;
 
         if ($asPaginator) {
-            return new Paginator(new DoctrineORMAdapter($qb->getQuery()));
+            return new Pagerfanta(new DoctrineORMAdapter($qb->getQuery()));
         }
 
         return $qb->getQuery()->execute();

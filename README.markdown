@@ -4,7 +4,7 @@ It's currently under *intensive* development.
 
 ## Dependencies
 
-- [ZendPaginatorAdapter](http://github.com/ornicar/ZendPaginatorAdapter/)
+- [PagerfantaBundle](http://github.com/whiteoctober/WhiteOctoberPagerfantaBundle)
 
 ## Installation
 

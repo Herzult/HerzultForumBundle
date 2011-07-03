@@ -3,8 +3,8 @@
 namespace Bundle\ForumBundle\Document;
 
 use Bundle\ForumBundle\Model\PostRepositoryInterface;
-use Zend\Paginator\Paginator;
-use ZendPaginatorAdapter\DoctrineMongoDBAdapter;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\DoctrineODMMongoDBAdapter;
 
 class PostRepository extends ObjectRepository implements PostRepositoryInterface
 {
@@ -28,7 +28,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
             ->equals(new \MongoId($topic->getId()));
 
         if ($asPaginator) {
-            return new Paginator(new DoctrineMongoDBAdapter($query));
+            return new Pagerfanta(new DoctrineODMMongoDBAdapter($query));
         }
 
         return array_values($query->getQuery()->execute()->toArray());
@@ -60,7 +60,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
         ;
 
         if ($asPaginator) {
-            return new Paginator(new DoctrineMongoDBAdapter($query));
+            return new Pagerfanta(new DoctrineODMMongoDBAdapter($query));
         }
 
         return array_values($query->getQuery()->execute()->toArray());

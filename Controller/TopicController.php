@@ -56,7 +56,7 @@ class TopicController extends Controller
         return new RedirectResponse($url);
     }
 
-    public function listAction(Category $category = null, $page = 1)
+    public function listAction(Category $category = null, array $pagerOptions)
     {
         if (null !== $category) {
             $topics = $this->get('forum.repository.topic')->findAllByCategory($category, true);
@@ -64,14 +64,14 @@ class TopicController extends Controller
             $topics = $this->get('forum.repository.topic')->findAll(true);
         }
 
-        $topics->setCurrentPageNumber($page);
-        $topics->setItemCountPerPage($this->container->getParameter('forum.paginator.topics_per_page'));
-        $topics->setPageRange(5);
+        $topics->setCurrentPage($pagerOptions['page']);
+        $topics->setMaxPerPage($this->container->getParameter('forum.paginator.topics_per_page'));
 
         $template = sprintf('ForumBundle:Topic:list.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array(
             'topics'    => $topics,
-            'category'  => $category
+            'category'  => $category,
+            'pagerOptions' => $pagerOptions
         ));
     }
 
@@ -83,9 +83,8 @@ class TopicController extends Controller
         if('html' === $this->get('request')->getRequestFormat()) {
             $page = $this->get('request')->query->get('page', 1);
             $posts = $this->get('forum.repository.post')->findAllByTopic($topic, true);
-            $posts->setCurrentPageNumber($page);
-            $posts->setItemCountPerPage($this->container->getParameter('forum.paginator.posts_per_page'));
-            $posts->setPageRange(5);
+            $posts->setCurrentPage($page);
+            $posts->setMaxPerPage($this->container->getParameter('forum.paginator.posts_per_page'));
         }
         else {
             $posts = $this->get('forum.repository.post')->findRecentByTopic($topic, 30);
