@@ -5,10 +5,10 @@ namespace Bundle\ForumBundle\Model;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Bundle\ForumBundle\Util\Inflector;
-use DoctrineExtensions\Sluggable\Sluggable;
+use Gedmo\Sluggable\Util\Urlizer;
 use DateTime;
 
-abstract class Topic implements Sluggable
+abstract class Topic
 {
     protected $id;
     /**
@@ -64,6 +64,7 @@ abstract class Topic implements Sluggable
     public function setSubject($subject)
     {
         $this->subject = $subject;
+        $this->setSlug(Urlizer::urlize($this->getSubject()));
     }
 
     /**
@@ -74,16 +75,6 @@ abstract class Topic implements Sluggable
     public function getSubject()
     {
         return $this->subject;
-    }
-
-    /**
-     * Retrieves the slug field name
-     *
-     * @return string
-     */
-    public function getSlugFieldName()
-    {
-        return 'slug';
     }
 
     /**
@@ -99,16 +90,6 @@ abstract class Topic implements Sluggable
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    }
-
-    /**
-     * Retrieves the Entity fields used to generate the slug value
-     *
-     * @return array
-     */
-    public function getSlugGeneratorFields()
-    {
-        return array('subject');
     }
 
     /**
