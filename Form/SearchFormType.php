@@ -19,4 +19,9 @@ class SearchFormType extends AbstractType
 			'csrf_protection'	=> false,
 		);
 	}
+
+    public function getName()
+    {
+        return 'Search';
+    }
 }

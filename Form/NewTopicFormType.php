@@ -23,4 +23,9 @@ class NewTopicFormType extends AbstractType
 			'data_class'	=> '',
 		);
 	}
+
+    public function getName()
+    {
+        return 'NewTopic';
+    }
 }
