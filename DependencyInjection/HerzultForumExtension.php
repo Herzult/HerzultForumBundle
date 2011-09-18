@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\DependencyInjection;
+namespace Herzult\Bundle\ForumBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\FileLoader;
 use Symfony\Component\Config\FileLocator;
 
-class ForumExtension extends Extension
+class HerzultForumExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {

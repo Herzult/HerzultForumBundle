@@ -1,12 +1,12 @@
 <?php
 
-namespace Bundle\ForumBundle\Tests\DependencyInjection;
+namespace Herzult\Bundle\ForumBundle\Tests\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Bundle\ForumBundle\DependencyInjection\ForumExtension;
+use Herzult\Bundle\ForumBundle\DependencyInjection\HerzultForumExtension;
 use Symfony\Component\Yaml\Parser;
 
-class ForumExtensionTest extends \PHPUnit_Framework_TestCase
+class HerzultForumExtensionTest extends \PHPUnit_Framework_TestCase
 {
     protected $configuration;
 
@@ -50,9 +50,9 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ForumBundle\Form\NewTopicFormType', 'forum.form.new_topic.class');
-        $this->assertParameter('Bundle\ForumBundle\Form\PostFormType', 'forum.form.post.class');
-        $this->assertParameter('Bundle\ForumBundle\Form\PostFormType', 'forum.form.first_post.class');
+        $this->assertParameter('Herzult\Bundle\ForumBundle\Form\NewTopicFormType', 'forum.form.new_topic.class');
+        $this->assertParameter('Herzult\Bundle\ForumBundle\Form\PostFormType', 'forum.form.post.class');
+        $this->assertParameter('Herzult\Bundle\ForumBundle\Form\PostFormType', 'forum.form.first_post.class');
     }
 
     public function testForumLoadFormClass()
@@ -103,10 +103,10 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ForumBundle\Controller\ForumController', 'forum.controller.forum.class');
-        $this->assertParameter('Bundle\ForumBundle\Controller\CategoryController', 'forum.controller.category.class');
-        $this->assertParameter('Bundle\ForumBundle\Controller\TopicController', 'forum.controller.topic.class');
-        $this->assertParameter('Bundle\ForumBundle\Controller\PostController', 'forum.controller.post.class');
+        $this->assertParameter('Herzult\Bundle\ForumBundle\Controller\ForumController', 'forum.controller.forum.class');
+        $this->assertParameter('Herzult\Bundle\ForumBundle\Controller\CategoryController', 'forum.controller.category.class');
+        $this->assertParameter('Herzult\Bundle\ForumBundle\Controller\TopicController', 'forum.controller.topic.class');
+        $this->assertParameter('Herzult\Bundle\ForumBundle\Controller\PostController', 'forum.controller.post.class');
     }
 
     public function testForumLoadControllerClass()
@@ -133,8 +133,8 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ForumBundle\Blamer\TopicBlamer', 'forum.blamer.topic.class');
-        $this->assertParameter('Bundle\ForumBundle\Blamer\PostBlamer', 'forum.blamer.post.class');
+        $this->assertParameter('Herzult\Bundle\ForumBundle\Blamer\TopicBlamer', 'forum.blamer.topic.class');
+        $this->assertParameter('Herzult\Bundle\ForumBundle\Blamer\PostBlamer', 'forum.blamer.post.class');
     }
 
     public function testForumLoadBlamerClass()
@@ -157,7 +157,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ForumBundle\Twig\ForumExtension', 'forum.twig.extension.class');
+        $this->assertParameter('Herzult\Bundle\ForumBundle\Twig\ForumExtension', 'forum.twig.extension.class');
     }
 
     public function testForumLoadTwigExtensionClass()
@@ -224,7 +224,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     protected function createEmptyConfiguration()
     {
         $this->configuration = new ContainerBuilder();
-        $loader = new ForumExtension('testkernel');
+        $loader = new HerzultForumExtension('testkernel');
         $config = $this->getEmptyConfig();
         $loader->load($config, $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
@@ -236,7 +236,7 @@ class ForumExtensionTest extends \PHPUnit_Framework_TestCase
     protected function createFullConfiguration()
     {
         $this->configuration = new ContainerBuilder();
-        $loader = new ForumExtension('testkernel');
+        $loader = new HerzultForumExtension('testkernel');
         $config = $this->getFullConfig();
         $loader->load($config, $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
@@ -313,5 +313,4 @@ EOF;
     {
         unset($this->configuration);
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Controller;
+namespace Herzult\Bundle\ForumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

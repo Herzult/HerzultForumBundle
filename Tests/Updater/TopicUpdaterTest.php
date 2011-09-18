@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Updater;
+namespace Herzult\Bundle\ForumBundle\Updater;
 
 class TopicUpdaterTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,11 +24,11 @@ class TopicUpdaterTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($lastPostDate));
         $posts = array($post1, $post2, $post3);
 
-        $category = $this->getMockBuilder('Bundle\ForumBundle\Model\Category')
+        $category = $this->getMockBuilder('Herzult\Bundle\ForumBundle\Model\Category')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $topic = $this->getMockBuilder('Bundle\ForumBundle\Model\Topic')
+        $topic = $this->getMockBuilder('Herzult\Bundle\ForumBundle\Model\Topic')
             ->disableOriginalConstructor()
             ->getMock();
         $topic->expects($this->once())
@@ -44,7 +44,7 @@ class TopicUpdaterTest extends \PHPUnit_Framework_TestCase
             ->method('setPulledAt')
             ->with($lastPostDate);
 
-        $postRepository = $this->getMockBuilder('Bundle\ForumBundle\Model\PostRepositoryInterface')
+        $postRepository = $this->getMockBuilder('Herzult\Bundle\ForumBundle\Model\PostRepositoryInterface')
             ->disableOriginalConstructor()
             ->getMock();
         $postRepository->expects($this->once())
@@ -58,7 +58,7 @@ class TopicUpdaterTest extends \PHPUnit_Framework_TestCase
 
     public function createPost()
     {
-        return $this->getMockBuilder('Bundle\ForumBundle\Model\Post')
+        return $this->getMockBuilder('Herzult\Bundle\ForumBundle\Model\Post')
             ->disableOriginalConstructor()
             ->getMock();
     }

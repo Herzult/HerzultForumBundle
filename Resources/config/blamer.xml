@@ -5,8 +5,8 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="forum.blamer.topic.class">Bundle\ForumBundle\Blamer\TopicBlamer</parameter>
-        <parameter key="forum.blamer.post.class">Bundle\ForumBundle\Blamer\PostBlamer</parameter>
+        <parameter key="forum.blamer.topic.class">Herzult\Bundle\ForumBundle\Blamer\TopicBlamer</parameter>
+        <parameter key="forum.blamer.post.class">Herzult\Bundle\ForumBundle\Blamer\PostBlamer</parameter>
     </parameters>
 
     <services>

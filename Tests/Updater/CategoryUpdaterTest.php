@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Updater;
+namespace Herzult\Bundle\ForumBundle\Updater;
 
 class CategoryUpdaterTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,7 +21,7 @@ class CategoryUpdaterTest extends \PHPUnit_Framework_TestCase
 
         $topics = array($topic1, $topic2);
 
-        $category = $this->getMockBuilder('Bundle\ForumBundle\Model\Category')
+        $category = $this->getMockBuilder('Herzult\Bundle\ForumBundle\Model\Category')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -38,7 +38,7 @@ class CategoryUpdaterTest extends \PHPUnit_Framework_TestCase
             ->method('setLastPost')
             ->with($lastPost2);
 
-        $topicRepository = $this->getMockBuilder('Bundle\ForumBundle\Model\TopicRepositoryInterface')
+        $topicRepository = $this->getMockBuilder('Herzult\Bundle\ForumBundle\Model\TopicRepositoryInterface')
             ->disableOriginalConstructor()
             ->getMock();
         $topicRepository->expects($this->once())
@@ -52,14 +52,14 @@ class CategoryUpdaterTest extends \PHPUnit_Framework_TestCase
 
     public function createPost()
     {
-        return $this->getMockBuilder('Bundle\ForumBundle\Model\Post')
+        return $this->getMockBuilder('Herzult\Bundle\ForumBundle\Model\Post')
             ->disableOriginalConstructor()
             ->getMock();
     }
 
     public function createTopic($lastPost)
     {
-        $topic = $this->getMockBuilder('Bundle\ForumBundle\Model\Topic')
+        $topic = $this->getMockBuilder('Herzult\Bundle\ForumBundle\Model\Topic')
             ->disableOriginalConstructor()
             ->getMock();
         $topic->expects($this->once())

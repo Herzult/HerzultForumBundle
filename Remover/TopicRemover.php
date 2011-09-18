@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\ForumBundle\Remover;
+namespace Herzult\Bundle\ForumBundle\Remover;
 
-use Bundle\ForumBundle\Model\Topic;
-use Bundle\ForumBundle\Model\PostRepositoryInterface;
-use Bundle\ForumBundle\Updater\CategoryUpdater;
+use Herzult\Bundle\ForumBundle\Model\Topic;
+use Herzult\Bundle\ForumBundle\Model\PostRepositoryInterface;
+use Herzult\Bundle\ForumBundle\Updater\CategoryUpdater;
 use LogicException;
 
 class TopicRemover

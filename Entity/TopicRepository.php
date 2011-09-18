@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Entity;
+namespace Herzult\Bundle\ForumBundle\Entity;
 
-use Bundle\ForumBundle\Model\TopicRepositoryInterface;
+use Herzult\Bundle\ForumBundle\Model\TopicRepositoryInterface;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 

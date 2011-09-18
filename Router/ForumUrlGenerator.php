@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\ForumBundle\Router;
+namespace Herzult\Bundle\ForumBundle\Router;
 
-use Bundle\ForumBundle\Model\Category;
-use Bundle\ForumBundle\Model\Topic;
-use Bundle\ForumBundle\Model\Post;
+use Herzult\Bundle\ForumBundle\Model\Category;
+use Herzult\Bundle\ForumBundle\Model\Topic;
+use Herzult\Bundle\ForumBundle\Model\Post;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ForumUrlGenerator

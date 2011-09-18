@@ -1,12 +1,12 @@
 <?php
 
-namespace Bundle\ForumBundle\Controller;
+namespace Herzult\Bundle\ForumBundle\Controller;
 
-use Bundle\ForumBundle\Form\TopicForm;
+use Herzult\Bundle\ForumBundle\Form\TopicForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Bundle\ForumBundle\Model\Topic;
-use Bundle\ForumBundle\Model\Category;
+use Herzult\Bundle\ForumBundle\Model\Topic;
+use Herzult\Bundle\ForumBundle\Model\Category;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class TopicController extends Controller

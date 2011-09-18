@@ -1,23 +1,23 @@
 <?php
 
-namespace Bundle\ForumBundle\Remover;
+namespace Herzult\Bundle\ForumBundle\Remover;
 
 class PostRemoverTest extends \PHPUnit_Framework_TestCase
 {
     public function testRemove()
     {
-        $category = $this->getMockBuilder('Bundle\ForumBundle\Model\Category')
+        $category = $this->getMockBuilder('Herzult\Bundle\ForumBundle\Model\Category')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $topic = $this->getMockBuilder('Bundle\ForumBundle\Model\Topic')
+        $topic = $this->getMockBuilder('Herzult\Bundle\ForumBundle\Model\Topic')
             ->disableOriginalConstructor()
             ->getMock();
         $topic->expects($this->once())
             ->method('getCategory')
             ->will($this->returnValue($category));
 
-        $post = $this->getMockBuilder('Bundle\ForumBundle\Model\Post')
+        $post = $this->getMockBuilder('Herzult\Bundle\ForumBundle\Model\Post')
             ->disableOriginalConstructor()
             ->setMethods(array('getTopic', 'getAuthorName', 'getNumber'))
             ->getMock();
@@ -38,7 +38,7 @@ class PostRemoverTest extends \PHPUnit_Framework_TestCase
         $objectManager->expects($this->exactly(2))
             ->method('flush');
 
-        $topicUpdater = $this->getMockBuilder('Bundle\ForumBundle\Updater\TopicUpdater')
+        $topicUpdater = $this->getMockBuilder('Herzult\Bundle\ForumBundle\Updater\TopicUpdater')
             ->disableOriginalConstructor()
             ->setMethods(array('update'))
             ->getMock();
@@ -46,7 +46,7 @@ class PostRemoverTest extends \PHPUnit_Framework_TestCase
             ->method('update')
             ->with($topic);
 
-        $categoryUpdater = $this->getMockBuilder('Bundle\ForumBundle\Updater\CategoryUpdater')
+        $categoryUpdater = $this->getMockBuilder('Herzult\Bundle\ForumBundle\Updater\CategoryUpdater')
             ->disableOriginalConstructor()
             ->setMethods(array('update'))
             ->getMock();

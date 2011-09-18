@@ -35,7 +35,7 @@ Category:
     // src/Application/ForumBundle/Document/Category.php
 
     namespace Application\ForumBundle\Document;
-    use Bundle\ForumBundle\Document\Category as BaseCategory;
+    use Herzult\Bundle\ForumBundle\Document\Category as BaseCategory;
 
     class Category extends BaseCategory {}
 
@@ -43,7 +43,7 @@ Topic:
     // src/Application/ForumBundle/Document/Topic.php
 
     namespace Application\ForumBundle\Document;
-    use Bundle\ForumBundle\Document\Topic as BaseTopic;
+    use Herzult\Bundle\ForumBundle\Document\Topic as BaseTopic;
 
     class Topic extends BaseTopic {}
 
@@ -51,7 +51,7 @@ Post:
     // src/Application/ForumBundle/Document/Post.php
 
     namespace Application\ForumBundle\Document;
-    use Bundle\ForumBundle\Document\Post as BasePost;
+    use Herzult\Bundle\ForumBundle\Document\Post as BasePost;
 
     class Post extends BasePost {}
 

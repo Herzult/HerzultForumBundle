@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\ForumBundle\Model;
+namespace Herzult\Bundle\ForumBundle\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
-use Bundle\ForumBundle\Util\Inflector;
+use Herzult\Bundle\ForumBundle\Util\Inflector;
 use Gedmo\Sluggable\Util\Urlizer;
 use DateTime;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Model;
+namespace Herzult\Bundle\ForumBundle\Model;
 
-use Bundle\ForumBundle\Util\Inflector;
+use Herzult\Bundle\ForumBundle\Util\Inflector;
 
 abstract class Category
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\ForumBundle\Model;
+namespace Herzult\Bundle\ForumBundle\Model;
 
 class TopicTest extends \PHPUnit_Framework_TestCase
 {
-    protected $categoryClass = 'Bundle\ForumBundle\Model\Category';
+    protected $categoryClass = 'Herzult\Bundle\ForumBundle\Model\Category';
 
     public function testSubject()
     {

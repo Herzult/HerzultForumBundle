@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\ForumBundle\Updater;
+namespace Herzult\Bundle\ForumBundle\Updater;
 
-use Bundle\ForumBundle\Model\Topic;
-use Bundle\ForumBundle\Model\PostRepositoryInterface;
+use Herzult\Bundle\ForumBundle\Model\Topic;
+use Herzult\Bundle\ForumBundle\Model\PostRepositoryInterface;
 
 class TopicUpdater
 {

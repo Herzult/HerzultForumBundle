@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Search;
+namespace Herzult\Bundle\ForumBundle\Search;
 
 use Symfony\Component\Validator\Constraints as Assert;
 

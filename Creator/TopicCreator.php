@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Creator;
+namespace Herzult\Bundle\ForumBundle\Creator;
 
-use Bundle\ForumBundle\Model\Topic;
+use Herzult\Bundle\ForumBundle\Model\Topic;
 use DateTime;
 use LogicException;
 

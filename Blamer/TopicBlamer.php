@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ForumBundle\Blamer;
+namespace Herzult\Bundle\ForumBundle\Blamer;
 
 class TopicBlamer extends AbstractSecurityBlamer implements BlamerInterface
 {

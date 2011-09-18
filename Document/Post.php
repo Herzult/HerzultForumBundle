@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ForumBundle\Document;
+namespace Herzult\Bundle\ForumBundle\Document;
 
-use Bundle\ForumBundle\Model\Post as BasePost;
+use Herzult\Bundle\ForumBundle\Model\Post as BasePost;
 
 abstract class Post extends BasePost
 {

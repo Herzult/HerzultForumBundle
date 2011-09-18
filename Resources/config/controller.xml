@@ -7,13 +7,13 @@
     <parameters>
         <parameter key="forum.template.renderer">twig</parameter>
 
-        <parameter key="forum.controller.forum.class">Bundle\ForumBundle\Controller\ForumController</parameter>
+        <parameter key="forum.controller.forum.class">Herzult\Bundle\ForumBundle\Controller\ForumController</parameter>
 
-        <parameter key="forum.controller.category.class">Bundle\ForumBundle\Controller\CategoryController</parameter>
+        <parameter key="forum.controller.category.class">Herzult\Bundle\ForumBundle\Controller\CategoryController</parameter>
 
-        <parameter key="forum.controller.topic.class">Bundle\ForumBundle\Controller\TopicController</parameter>
+        <parameter key="forum.controller.topic.class">Herzult\Bundle\ForumBundle\Controller\TopicController</parameter>
 
-        <parameter key="forum.controller.post.class">Bundle\ForumBundle\Controller\PostController</parameter>
+        <parameter key="forum.controller.post.class">Herzult\Bundle\ForumBundle\Controller\PostController</parameter>
     </parameters>
 
     <services>

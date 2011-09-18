@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\ForumBundle\Updater;
+namespace Herzult\Bundle\ForumBundle\Updater;
 
-use Bundle\ForumBundle\Model\Category;
-use Bundle\ForumBundle\Model\TopicRepositoryInterface;
+use Herzult\Bundle\ForumBundle\Model\Category;
+use Herzult\Bundle\ForumBundle\Model\TopicRepositoryInterface;
 
 class CategoryUpdater
 {

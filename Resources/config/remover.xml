@@ -5,8 +5,8 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="forum.remover.post.class">Bundle\ForumBundle\Remover\PostRemover</parameter>
-        <parameter key="forum.remover.topic.class">Bundle\ForumBundle\Remover\TopicRemover</parameter>
+        <parameter key="forum.remover.post.class">Herzult\Bundle\ForumBundle\Remover\PostRemover</parameter>
+        <parameter key="forum.remover.topic.class">Herzult\Bundle\ForumBundle\Remover\TopicRemover</parameter>
     </parameters>
 
     <services>

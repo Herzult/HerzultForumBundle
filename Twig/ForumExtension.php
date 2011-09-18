@@ -1,13 +1,13 @@
 <?php
 
-namespace Bundle\ForumBundle\Twig;
+namespace Herzult\Bundle\ForumBundle\Twig;
 
-use Bundle\ForumBundle\Router\ForumUrlGenerator;
+use Herzult\Bundle\ForumBundle\Router\ForumUrlGenerator;
 use Twig_Extension;
 use Twig_Function_Method;
-use Bundle\ForumBundle\Model\Category;
-use Bundle\ForumBundle\Model\Topic;
-use Bundle\ForumBundle\Model\Post;
+use Herzult\Bundle\ForumBundle\Model\Category;
+use Herzult\Bundle\ForumBundle\Model\Topic;
+use Herzult\Bundle\ForumBundle\Model\Post;
 
 class ForumExtension extends Twig_Extension
 {
