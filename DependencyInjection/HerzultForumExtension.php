@@ -12,10 +12,10 @@ class HerzultForumExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
-        $config = array();
-        foreach ($configs as $c) {
-            $config = array_merge($config, $c);
-        }
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $this->loadParameters($config, $container);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('model.xml');
@@ -25,75 +25,33 @@ class HerzultForumExtension extends Extension
         $loader->load('creator.xml');
         $loader->load('updater.xml');
         $loader->load('remover.xml');
-        $loader->load('templating.xml');
         $loader->load('twig.xml');
-        $loader->load('paginator.xml');
         $loader->load('router.xml');
 
-        if (!isset($config['db_driver'])) {
-            throw new \InvalidArgumentException('You must provide the forum.db_driver configuration');
-        }
-
-        try {
-            $loader->load(sprintf('%s.xml', $config['db_driver']));
-        } catch (\InvalidArgumentException $e) {
-            throw new \InvalidArgumentException(sprintf('The db_driver "%s" is not supported by forum', $config['db_driver']));
-        }
-
-        foreach(array('category', 'topic', 'post') as $model) {
-            if (!isset($config['class']['model'][$model])) {
-                throw new \InvalidArgumentException(sprintf('You must define your %s model class', $model));
-            }
-        }
-
-        $namespaces = array(
-            'form_name' => 'forum.form.%s.name',
-            'template' => 'forum.template.%s',
-            'paginator' => 'forum.paginator.%s'
-        );
-        $this->remapParametersNamespaces($config, $container, $namespaces);
-
-        $namespaces = array(
-            'model'      => 'forum.model.%s.class',
-            'form'       => 'forum.form.%s.class',
-            'controller' => 'forum.controller.%s.class',
-            'blamer'     => 'forum.blamer.%s.class',
-            'creator'    => 'forum.creator.%s.class',
-            'updater'    => 'forum.updater.%s.class',
-            'remover'    => 'forum.remover.%s.class',
-            'twig'       => 'forum.twig.%s.class'
-        );
-        $this->remapParametersNamespaces($config['class'], $container, $namespaces);
+        $loader->load(sprintf('%s.xml', $config['db_driver']));
     }
 
-    protected function remapParameters(array $config, ContainerBuilder $container, array $map)
+    private function loadParameters(array $config, ContainerBuilder $container)
     {
-        foreach ($map as $name => $paramName) {
-            if (isset($config[$name])) {
-                $container->setParameter($paramName, $config[$name]);
+        foreach ($config['class'] as $groupName => $group) {
+            foreach ($group as $name => $value) {
+                $container->setParameter(sprintf('herzult_forum.%s.%s.class', $groupName, $name), $value);
             }
         }
-    }
 
-    protected function remapParametersNamespaces(array $config, ContainerBuilder $container, array $namespaces)
-    {
-        foreach ($namespaces as $ns => $map) {
-            if ($ns) {
-                if (!isset($config[$ns])) {
-                    continue;
+        foreach ($config['form_name'] as $name => $value) {
+            $container->setParameter(sprintf('herzult_forum.form.%s.name', $name), $value);
+        }
+
+        unset($config['class'], $config['form_name']);
+
+        foreach ($config as $groupName => $group) {
+            if (is_array($group)) {
+                foreach ($group as $name => $value) {
+                    $container->setParameter(sprintf('herzult_forum.%s.%s', $groupName, $name), $value);
                 }
-                $namespaceConfig = $config[$ns];
             } else {
-                $namespaceConfig = $config;
-            }
-            if (is_array($map)) {
-                $this->remapParameters($namespaceConfig, $container, $map);
-            } else {
-                foreach ($namespaceConfig as $name => $value) {
-                    if(null !== $value) {
-                        $container->setParameter(sprintf($map, $name), $value);
-                    }
-                }
+                $container->setParameter(sprintf('herzult_forum.%s', $groupName), $group);
             }
         }
     }

@@ -6,7 +6,7 @@
 
     <services>
         <!-- Object Manager Service -->
-        <service id="forum.object_manager" alias="doctrine.odm.mongodb.document_manager" />
+        <service id="herzult_forum.object_manager" alias="doctrine.odm.mongodb.document_manager" />
     </services>
 
 </container>

@@ -4,23 +4,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="forum.remover.post.class">Herzult\Bundle\ForumBundle\Remover\PostRemover</parameter>
-        <parameter key="forum.remover.topic.class">Herzult\Bundle\ForumBundle\Remover\TopicRemover</parameter>
-    </parameters>
-
     <services>
 
-        <service id="forum.remover.post" class="%forum.remover.post.class%">
-            <argument type="service" id="forum.object_manager" />
-            <argument type="service" id="forum.updater.topic" />
-            <argument type="service" id="forum.updater.category" />
+        <service id="herzult_forum.remover.post" class="%herzult_forum.remover.post.class%">
+            <argument type="service" id="herzult_forum.object_manager" />
+            <argument type="service" id="herzult_forum.updater.topic" />
+            <argument type="service" id="herzult_forum.updater.category" />
         </service>
 
-        <service id="forum.remover.topic" class="%forum.remover.topic.class%">
-            <argument type="service" id="forum.object_manager" />
-            <argument type="service" id="forum.repository.post" />
-            <argument type="service" id="forum.updater.category" />
+        <service id="herzult_forum.remover.topic" class="%herzult_forum.remover.topic.class%">
+            <argument type="service" id="herzult_forum.object_manager" />
+            <argument type="service" id="herzult_forum.repository.post" />
+            <argument type="service" id="herzult_forum.updater.category" />
         </service>
 
     </services>

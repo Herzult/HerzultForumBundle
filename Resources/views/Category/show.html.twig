@@ -1,21 +1,21 @@
-{% extends 'ForumBundle::layout.html.twig' %}
+{% extends 'HerzultForumBundle::layout.html.twig' %}
 {% block title %}Topics List {% endblock %}
 {% block content %}
 <div class="forum category_show">
     <ul class="crumbs">
-        <li><a href="{{ path('forum_index') }}">Forum</a></li>
+        <li><a href="{{ path('herzult_forum_index') }}">Forum</a></li>
         <li>{{ category.name }}</li>
     </ul>
     <div class="main topics">
         <h2>{{ category.name }}</h2>
         <a href="{{ forum_urlForCategoryAtomFeed(category) }}" title="Atom feed" class="feed atom">Atom feed</a>
-        {% render 'ForumBundle:Topic:list' with {'category': category, 'pagerOptions': {'page': page, 'routeName': 'forum_category_show', 'routeParams': {'slug': category.slug}}} %}
+        {% render 'HerzultForumBundle:Topic:list' with {'category': category, 'pagerOptions': {'page': page, 'routeName': 'herzult_forum_category_show', 'routeParams': {'slug': category.slug}}} %}
     </div>
     <div class="side categories">
         <h2>Categories</h2>
-        {% render 'ForumBundle:Category:list' %}
+        {% render 'HerzultForumBundle:Category:list' %}
         <h2>Participate</h2>
-        <p><a href="{{ path('forum_category_topic_new', {'slug': category.slug} ) }}">Create a new topic</a></p>
+        <p><a href="{{ path('herzult_forum_category_topic_new', {'slug': category.slug} ) }}">Create a new topic</a></p>
     </div>
 </div>
 {% endblock %}

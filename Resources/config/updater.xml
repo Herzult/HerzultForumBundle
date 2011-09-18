@@ -4,19 +4,14 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="forum.updater.topic.class">Herzult\Bundle\ForumBundle\Updater\TopicUpdater</parameter>
-        <parameter key="forum.updater.category.class">Herzult\Bundle\ForumBundle\Updater\CategoryUpdater</parameter>
-    </parameters>
-
     <services>
 
-        <service id="forum.updater.topic" class="%forum.updater.topic.class%">
-            <argument type="service" id="forum.repository.post" />
+        <service id="herzult_forum.updater.topic" class="%herzult_forum.updater.topic.class%">
+            <argument type="service" id="herzult_forum.repository.post" />
         </service>
 
-        <service id="forum.updater.category" class="%forum.updater.category.class%">
-            <argument type="service" id="forum.repository.topic" />
+        <service id="herzult_forum.updater.category" class="%herzult_forum.updater.category.class%">
+            <argument type="service" id="herzult_forum.repository.topic" />
         </service>
 
     </services>

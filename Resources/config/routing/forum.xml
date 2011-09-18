@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<routes xmlns="http://symfony.com/schema/routing"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+<routes
+    xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="forum_index" pattern="/">
-        <default key="_controller">forum.controller.forum:indexAction</default>
+    <route id="herzult_forum_index" pattern="/">
+        <default key="_controller">herzult_forum.controller.forum:indexAction</default>
     </route>
 
-    <route id="forum_search" pattern="/search">
-        <default key="_controller">forum.controller.forum:searchAction</default>
+    <route id="herzult_forum_search" pattern="/search">
+        <default key="_controller">herzult_forum.controller.forum:searchAction</default>
     </route>
 
 </routes>

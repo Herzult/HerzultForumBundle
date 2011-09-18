@@ -4,14 +4,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="forum.router.url_generator.class">Herzult\Bundle\ForumBundle\Router\ForumUrlGenerator</parameter>
-    </parameters>
-
     <services>
-        <service id="forum.router.url_generator" class="%forum.router.url_generator.class%">
+        <service id="herzult_forum.router.url_generator" class="%herzult_forum.router.url_generator.class%">
             <argument type="service" id="router" />
-            <argument>%forum.paginator.posts_per_page%</argument>
+            <argument>%herzult_forum.paginator.posts_per_page%</argument>
         </service>
     </services>
 

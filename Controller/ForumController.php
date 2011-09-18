@@ -10,7 +10,7 @@ class ForumController extends Controller
 {
     public function indexAction()
     {
-        return $this->get('templating')->renderResponse('ForumBundle:Forum:index.html.'.$this->getRenderer(), array(
+        return $this->get('templating')->renderResponse('HerzultForumBundle:Forum:index.html.'.$this->getRenderer(), array(
             'page'  => $this->get('request')->query->get('page', 1)
         ));
     }
@@ -25,12 +25,12 @@ class ForumController extends Controller
         $results = null;
 		if($form->isValid()) {
 			$page = $this->get('request')->query->get('page', 1);
-			$results = $this->get('forum.repository.post')->search($query, true);
+			$results = $this->get('herzult_forum.repository.post')->search($query, true);
 			$results->setCurrentPage($page);
 			$results->setMaxPerPage($this->container->getParameter('forum.paginator.search_results_per_page'));
 		}
 
-        return $this->get('templating')->renderResponse('ForumBundle:Forum:search.html.'.$this->getRenderer(), array(
+        return $this->get('templating')->renderResponse('HerzultForumBundle:Forum:search.html.'.$this->getRenderer(), array(
             'form'		=> $form->createView(),
             'results'	=> $results,
             'query'		=> $query
@@ -39,6 +39,6 @@ class ForumController extends Controller
 
     protected function getRenderer()
     {
-        return $this->container->getParameter('forum.template.renderer');
+        return $this->container->getParameter('herzult_forum.templating.engine');
     }
 }

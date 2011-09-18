@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome{% endblock %}</title>
-        <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/forum/css/forum.css') }}" />
-    </head>
-    <body>
-        <div id="header">
-            <h1 id="site-identity" class="container">
-                <span class="name">Forum</span>
-                <span class="slogan">A simple Symfony2 forum</span>
-            </h1>
-        </div>
-        <div id="content" class="container">
-            {% block content %}{% endblock %}
-        </div>
-    </body>
-</html>
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    {% block content %}{% endblock %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/herzultforum/css/forum.css') }}" />
+{% endblock %}

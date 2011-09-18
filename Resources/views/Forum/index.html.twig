@@ -1,5 +1,5 @@
-{% extends 'ForumBundle::layout.html.twig' %}
-{% block title %}Forum, a simple Symfony2 forum{% endblock %}
+{% extends 'HerzultForumBundle::layout.html.twig' %}
+{% block title %}Simple forum bundle for Symfony{% endblock %}
 {% block content %}
 <div class="forum forum_index">
     <ul class="crumbs">
@@ -7,11 +7,11 @@
     </ul>
     <div class="main topics">
         <h2>Latest topics</h2>
-        {% render 'ForumBundle:Topic:list' with {'category': null, 'pagerOptions': {'page': page}} %}
+        {% render 'HerzultForumBundle:Topic:list' with {'category': null, 'pagerOptions': {'page': page}} %}
     </div>
     <div class="side categories">
         <h2>Categories</h2>
-        {% render 'ForumBundle:Category:list' %}
+        {% render 'HerzultForumBundle:Category:list' %}
     </div>
 </div>
 {% endblock %}

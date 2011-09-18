@@ -20,14 +20,14 @@ class ForumUrlGenerator
 
     public function urlForCategory(Category $category, $absolute = false)
     {
-        return $this->urlGenerator->generate('forum_category_show', array(
+        return $this->urlGenerator->generate('herzult_forum_category_show', array(
             'slug' => $category->getSlug()
         ), $absolute);
     }
 
     public function urlForCategoryAtomFeed(Category $category, $absolute = false)
     {
-        return $this->urlGenerator->generate('forum_category_show', array(
+        return $this->urlGenerator->generate('herzult_forum_category_show', array(
             'slug'      => $category->getSlug(),
             '_format'   =>  'xml'
         ), $absolute);
@@ -35,7 +35,7 @@ class ForumUrlGenerator
 
     public function urlForTopic(Topic $topic, $absolute = false)
     {
-        return $this->urlGenerator->generate('forum_topic_show', array(
+        return $this->urlGenerator->generate('herzult_forum_topic_show', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
             'slug'          => $topic->getSlug()
         ), $absolute);
@@ -43,7 +43,7 @@ class ForumUrlGenerator
 
     public function urlForTopicAtomFeed(Topic $topic, $absolute = false)
     {
-        return $this->urlGenerator->generate('forum_topic_show', array(
+        return $this->urlGenerator->generate('herzult_forum_topic_show', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
             'slug'          => $topic->getSlug(),
             '_format'       => 'xml'
@@ -52,7 +52,7 @@ class ForumUrlGenerator
 
     public function urlForTopicReply(Topic $topic, $absolute = false)
     {
-        return $this->urlGenerator->generate('forum_topic_post_new', array(
+        return $this->urlGenerator->generate('herzult_forum_topic_post_new', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
             'slug'          => $topic->getSlug()
         ));

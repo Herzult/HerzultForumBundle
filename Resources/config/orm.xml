@@ -6,7 +6,7 @@
 
     <services>
         <!-- Object Manager Service -->
-        <service id="forum.object_manager" alias="doctrine.orm.entity_manager" />
+        <service id="herzult_forum.object_manager" alias="doctrine.orm.entity_manager" />
     </services>
 
 </container>

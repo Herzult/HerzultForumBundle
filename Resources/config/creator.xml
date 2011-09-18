@@ -4,16 +4,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="forum.creator.post.class">Herzult\Bundle\ForumBundle\Creator\PostCreator</parameter>
-        <parameter key="forum.creator.topic.class">Herzult\Bundle\ForumBundle\Creator\TopicCreator</parameter>
-    </parameters>
-
     <services>
 
-        <service id="forum.creator.post" class="%forum.creator.post.class%" />
+        <service id="herzult_forum.creator.post" class="%herzult_forum.creator.post.class%" />
 
-        <service id="forum.creator.topic" class="%forum.creator.topic.class%" />
+        <service id="herzult_forum.creator.topic" class="%herzult_forum.creator.topic.class%" />
 
     </services>
 

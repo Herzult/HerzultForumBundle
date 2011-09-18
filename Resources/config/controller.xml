@@ -5,37 +5,32 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="forum.template.renderer">twig</parameter>
-
-        <parameter key="forum.controller.forum.class">Herzult\Bundle\ForumBundle\Controller\ForumController</parameter>
-
-        <parameter key="forum.controller.category.class">Herzult\Bundle\ForumBundle\Controller\CategoryController</parameter>
-
-        <parameter key="forum.controller.topic.class">Herzult\Bundle\ForumBundle\Controller\TopicController</parameter>
-
-        <parameter key="forum.controller.post.class">Herzult\Bundle\ForumBundle\Controller\PostController</parameter>
+        <parameter key="herzult_forum.controller.forum.class">Herzult\Bundle\ForumBundle\Controller\ForumController</parameter>
+        <parameter key="herzult_forum.controller.category.class">Herzult\Bundle\ForumBundle\Controller\CategoryController</parameter>
+        <parameter key="herzult_forum.controller.topic.class">Herzult\Bundle\ForumBundle\Controller\TopicController</parameter>
+        <parameter key="herzult_forum.controller.post.class">Herzult\Bundle\ForumBundle\Controller\PostController</parameter>
     </parameters>
 
     <services>
-        <service id="forum.controller.forum" class="%forum.controller.forum.class%">
+        <service id="herzult_forum.controller.forum" class="%herzult_forum.controller.forum.class%">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="forum.controller.category" class="%forum.controller.category.class%">
+        <service id="herzult_forum.controller.category" class="%herzult_forum.controller.category.class%">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="forum.controller.topic" class="%forum.controller.topic.class%">
+        <service id="herzult_forum.controller.topic" class="%herzult_forum.controller.topic.class%">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
         </service>
 
-        <service id="forum.controller.post" class="%forum.controller.post.class%">
+        <service id="herzult_forum.controller.post" class="%herzult_forum.controller.post.class%">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>

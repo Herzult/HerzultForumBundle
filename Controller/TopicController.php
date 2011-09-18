@@ -13,14 +13,14 @@ class TopicController extends Controller
 {
     public function newAction(Category $category = null)
     {
-        $form = $this->get('forum.form.new_topic');
-        $topic = $this->get('forum.repository.topic')->createNewTopic();
+        $form = $this->get('herzult_forum.form.new_topic');
+        $topic = $this->get('herzult_forum.repository.topic')->createNewTopic();
         if ($category) {
             $topic->setCategory($category);
         }
         $form->setData($topic);
 
-        return $this->get('templating')->renderResponse('ForumBundle:Topic:new.html.'.$this->getRenderer(), array(
+        return $this->get('templating')->renderResponse('HerzultForumBundle:Topic:new.html.'.$this->getRenderer(), array(
             'form'      => $form->createView(),
             'category'  => $category
         ));
@@ -28,30 +28,30 @@ class TopicController extends Controller
 
     public function createAction(Category $category = null)
     {
-        $form = $this->get('forum.form.new_topic');
+        $form = $this->get('herzult_forum.form.new_topic');
         $form->bindRequest($this->get('request'));
 		$topic = $form->getData();
 
         if(!$form->isValid()) {
-            return $this->get('templating')->renderResponse('ForumBundle:Topic:new.html.'.$this->getRenderer(), array(
+            return $this->get('templating')->renderResponse('HerzultForumBundle:Topic:new.html.'.$this->getRenderer(), array(
                 'form'      => $form->createView(),
                 'category'  => $category
             ));
         }
 
-        $this->get('forum.creator.topic')->create($topic);
-        $this->get('forum.blamer.topic')->blame($topic);
+        $this->get('herzult_forum.creator.topic')->create($topic);
+        $this->get('herzult_forum.blamer.topic')->blame($topic);
 
-        $this->get('forum.creator.post')->create($topic->getFirstPost());
-        $this->get('forum.blamer.post')->blame($topic->getFirstPost());
+        $this->get('herzult_forum.creator.post')->create($topic->getFirstPost());
+        $this->get('herzult_forum.blamer.post')->blame($topic->getFirstPost());
 
-        $objectManager = $this->get('forum.object_manager');
+        $objectManager = $this->get('herzult_forum.object_manager');
         $objectManager->persist($topic);
         $objectManager->persist($topic->getFirstPost());
         $objectManager->flush();
 
-        $this->get('session')->setFlash('forum_topic_create/success', true);
-        $url = $this->get('forum.router.url_generator')->urlForTopic($topic);
+        $this->get('session')->setFlash('herzult_forum_topic_create/success', true);
+        $url = $this->get('herzult_forum.router.url_generator')->urlForTopic($topic);
 
         return new RedirectResponse($url);
     }
@@ -59,15 +59,15 @@ class TopicController extends Controller
     public function listAction(Category $category = null, array $pagerOptions)
     {
         if (null !== $category) {
-            $topics = $this->get('forum.repository.topic')->findAllByCategory($category, true);
+            $topics = $this->get('herzult_forum.repository.topic')->findAllByCategory($category, true);
         } else {
-            $topics = $this->get('forum.repository.topic')->findAll(true);
+            $topics = $this->get('herzult_forum.repository.topic')->findAll(true);
         }
 
         $topics->setCurrentPage($pagerOptions['page']);
-        $topics->setMaxPerPage($this->container->getParameter('forum.paginator.topics_per_page'));
+        $topics->setMaxPerPage($this->container->getParameter('herzult_forum.paginator.topics_per_page'));
 
-        $template = sprintf('ForumBundle:Topic:list.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
+        $template = sprintf('HerzultForumBundle:Topic:list.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array(
             'topics'    => $topics,
             'category'  => $category,
@@ -78,19 +78,19 @@ class TopicController extends Controller
     public function showAction($categorySlug, $slug)
     {
         $topic = $this->findTopic($categorySlug, $slug);
-        $this->get('forum.repository.topic')->incrementTopicNumViews($topic);
+        $this->get('herzult_forum.repository.topic')->incrementTopicNumViews($topic);
 
         if('html' === $this->get('request')->getRequestFormat()) {
             $page = $this->get('request')->query->get('page', 1);
-            $posts = $this->get('forum.repository.post')->findAllByTopic($topic, true);
+            $posts = $this->get('herzult_forum.repository.post')->findAllByTopic($topic, true);
             $posts->setCurrentPage($page);
-            $posts->setMaxPerPage($this->container->getParameter('forum.paginator.posts_per_page'));
+            $posts->setMaxPerPage($this->container->getParameter('herzult_forum.paginator.posts_per_page'));
         }
         else {
-            $posts = $this->get('forum.repository.post')->findRecentByTopic($topic, 30);
+            $posts = $this->get('herzult_forum.repository.post')->findRecentByTopic($topic, 30);
         }
 
-        $template = sprintf('ForumBundle:Topic:show.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
+        $template = sprintf('HerzultForumBundle:Topic:show.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array(
             'topic' => $topic,
             'posts' => $posts
@@ -101,32 +101,32 @@ class TopicController extends Controller
     {
         $topic = $this->findTopic($categorySlug, $slug);
 
-        return $this->forward('ForumBundle:Post:new', array('topic' => $topic));
+        return $this->forward('HerzultForumBundle:Post:new', array('topic' => $topic));
     }
 
     public function postCreateAction($categorySlug, $slug)
     {
         $topic = $this->findTopic($categorySlug, $slug);
 
-        return $this->forward('ForumBundle:Post:create', array('topic' => $topic));
+        return $this->forward('HerzultForumBundle:Post:create', array('topic' => $topic));
     }
 
     public function deleteAction($id)
     {
-        $topic = $this->get('forum.repository.topic')->find($id);
+        $topic = $this->get('herzult_forum.repository.topic')->find($id);
         if(!$topic) {
             throw new NotFoundHttpException(sprintf('No topic found with id "%s"', $id));
         }
 
-        $this->get('forum.remover.topic')->remove($topic);
-        $this->get('forum.object_manager')->flush();
+        $this->get('herzult_forum.remover.topic')->remove($topic);
+        $this->get('herzult_forum.object_manager')->flush();
 
-        return new RedirectResponse($this->get('forum.router.url_generator')->urlForCategory($topic->getCategory()));
+        return new RedirectResponse($this->get('herzult_forum.router.url_generator')->urlForCategory($topic->getCategory()));
     }
 
     protected function getRenderer()
     {
-        return $this->container->getParameter('forum.template.renderer');
+        return $this->container->getParameter('herzult_forum.templating.engine');
     }
 
     /**
@@ -136,11 +136,11 @@ class TopicController extends Controller
      **/
     public function findTopic($categorySlug, $topicSlug)
     {
-        $category = $this->get('forum.repository.category')->findOneBySlug($categorySlug);
+        $category = $this->get('herzult_forum.repository.category')->findOneBySlug($categorySlug);
         if(!$category) {
             throw new NotFoundHttpException(sprintf('The category with slug "%s" does not exist', $categorySlug));
         }
-        $topic = $this->get('forum.repository.topic')->findOneByCategoryAndSlug($category, $topicSlug);
+        $topic = $this->get('herzult_forum.repository.topic')->findOneByCategoryAndSlug($category, $topicSlug);
         if(!$topic) {
             throw new NotFoundHttpException(sprintf('The topic with slug "%s" does not exist', $topicSlug));
         }

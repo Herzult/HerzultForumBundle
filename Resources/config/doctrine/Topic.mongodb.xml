@@ -1,36 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
-                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
-                        http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+<doctrine-mongo-mapping
+    xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+        http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <mapped-superclass name="Bundle\ForumBundle\Document\Topic" collection="forum_topic" repository-class="Bundle\ForumBundle\Document\TopicRepository">
+    <mapped-superclass
+        name="Herzult\Bundle\ForumBundle\Document\Topic"
+        collection="forum_topic"
+        repository-class="Herzult\Bundle\ForumBundle\Document\TopicRepository">
 
         <field name="id" fieldName="id" id="true" />
-
         <field name="subject" fieldName="subject" type="string" />
-
         <field name="slug" fieldName="slug" type="string" />
-
         <field name="numViews" fieldName="numViews" type="int" />
-
         <field name="numPosts" fieldName="numPosts" type="int" />
-
         <field name="isClosed" fieldName="isClosed" type="boolean" />
-
         <field name="isPinned" fieldName="isPinned" type="boolean" />
-
         <field name="isBuried" fieldName="isBuried" type="boolean" />
-
         <field name="createdAt" fieldName="createdAt" type="date" />
-
         <field name="pulledAt" fieldName="pulledAt" type="date" />
-
-        <!--<reference-one target-document="Category" field="category" />-->
-
-        <!--<reference-one target-document="Post" field="firstPost" />-->
-
-        <!--<reference-one target-document="Post" field="lastPost" />-->
 
         <indexes>
             <index name="pulled_desc">
