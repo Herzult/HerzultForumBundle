@@ -7,7 +7,7 @@ bundle with the following instructions.
 Create the entity classes
 -------------------------
 
-The bundle does not contains any concrete Doctrine entity but only a _mapped
+The bundle does not contain any concrete Doctrine entity but only a _mapped
 superclass_ for each model. So you have to create your own entity classes
 extending them.
 
@@ -61,7 +61,7 @@ _mapped superclasses_, you must map it on your entities.
 
 As you can see, there is a `->getAuthorName()` method returning an hard-coded
 string. This is because we did not configure any _blamer_ yet. We will speak
-about it later
+about it later.
 
 ### The Post entity
 

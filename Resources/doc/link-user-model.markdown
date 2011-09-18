@@ -5,7 +5,7 @@ There is no user entity in the forum bundle because it's not its business.
 The bundle assumes that you already have a _user_ model somewhere in your
 application or you can install a bundle like the [FOSUserBundle][fos-user].
 
-Howerver, it a common need for a forum to have its _topics_ and _posts_
+Howerver, it's a common need for a forum to have its _topics_ and _posts_
 linked to a user. Here is how to setup such a functionality.
 
 Create a blamer
