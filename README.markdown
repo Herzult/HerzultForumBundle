@@ -7,7 +7,7 @@ It's currently under *intensive* development.
 
 ## Dependencies
 
-- [WhiteOctoverPagerfantaBundle][pagerfanta-bundle]
+- [WhiteOctoberPagerfantaBundle][pagerfanta-bundle]
 
 ## Documentation
 
