@@ -4,20 +4,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="herzult_forum.blamer.topic.class">Herzult\Bundle\ForumBundle\Blamer\TopicBlamer</parameter>
-        <parameter key="herzult_forum.blamer.post.class">Herzult\Bundle\ForumBundle\Blamer\PostBlamer</parameter>
-    </parameters>
-
     <services>
 
-        <service id="herzult_forum.blamer.topic" class="%herzult_forum.blamer.topic.class%">
-            <argument type="service" id="security.context" on-invalid="ignore" />
-        </service>
-
-        <service id="herzult_forum.blamer.post" class="%herzult_forum.blamer.post.class%">
-            <argument type="service" id="security.context" on-invalid="ignore" />
-        </service>
+        <service id="herzult_forum.blamer.topic" class="%herzult_forum.blamer.topic.class%" public="false" />
+        <service id="herzult_forum.blamer.post" class="%herzult_forum.blamer.post.class%" public="false" />
 
     </services>
 

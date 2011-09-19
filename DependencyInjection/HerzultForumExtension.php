@@ -29,10 +29,49 @@ class HerzultForumExtension extends Extension
         $loader->load('router.xml');
 
         $loader->load(sprintf('%s.xml', $config['db_driver']));
+
+        if (isset($config['service'])) {
+            $this->replaceServices($config['service'], $container);
+        }
+    }
+
+    private function replaceServices(array $groups, ContainerBuilder $container)
+    {
+        foreach ($groups as $group => $services) {
+            $this->replaceServiceGroup($group, $services, $container);
+        }
+    }
+
+    private function replaceServiceGroup($group, array $services, ContainerBuilder $container)
+    {
+        foreach ($services as $name => $service) {
+            if (empty($service)) {
+                continue;
+            }
+
+            $this->replaceService($group, $name, $service, $container);
+        }
+    }
+
+    private function replaceService($group, $name, $service, ContainerBuilder $container)
+    {
+        $id = sprintf('herzult_forum.%s.%s', $group, $name);
+
+        if ( ! $container->hasDefinition($id)) {
+            throw new \RuntimeException(sprintf(
+                'Cannot replace service \'%s\' as it is not defined.',
+                $id
+            ));
+        }
+
+        $container->removeDefinition($id);
+        $container->setAlias($id, $service);
     }
 
     private function loadParameters(array $config, ContainerBuilder $container)
     {
+        unset($config['service']);
+
         foreach ($config['class'] as $groupName => $group) {
             foreach ($group as $name => $value) {
                 $container->setParameter(sprintf('herzult_forum.%s.%s.class', $groupName, $name), $value);

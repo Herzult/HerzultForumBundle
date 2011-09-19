@@ -8,140 +8,77 @@ use Herzult\Bundle\ForumBundle\DependencyInjection\HerzultForumExtension;
 class HerzultForumExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @dataProvider getDataToTestDefinedParameter
-     */
-    public function testDefinedParameter($parameter, $expected)
-    {
-        $container = $this->createContainer($this->getMinimalConfigs());
-
-        $this->assertTrue($container->hasParameter($parameter), sprintf('The parameter \'%s\' is defined.', $parameter));
-        $this->assertEquals($expected, $container->getParameter($parameter), sprintf('The parameter \'%s\' has the right value.', $parameter));
-    }
-
-    /**
      * @dataProvider getDataToTestDefinedService
      */
     public function testDefinedService($id)
     {
-        $container = $this->createContainer($this->getMinimalConfigs());
+        $container = new ContainerBuilder();
 
-        $this->assertTrue(($container->has($id) || $container->get($id)), sprintf('The service (or alias) \'%s\' is defined.', $id));
+        $this->loadExtension($this->getConfigs(), $container);
+
+        $this->assertTrue($container->hasDefinition($id), sprintf('The service \'%s\' is defined.', $id));
     }
 
-    public function getDataToTestDefinedParameter()
+    /**
+     * @dataProvider getDataToTestReplacedService
+     */
+    public function testReplacedService($id, $config, $replacementId)
     {
-        return array(
-            array(
-                'herzult_forum.form.new_topic.class',
-                'Herzult\Bundle\ForumBundle\Form\NewTopicFormType'
-            ),
-            array(
-                'herzult_forum.form.post.class',
-                'Herzult\Bundle\ForumBundle\Form\PostFormType'
-            ),
-            array(
-                'herzult_forum.form.first_post.class',
-                'Herzult\Bundle\ForumBundle\Form\PostFormType'
-            ),
-            array(
-                'herzult_forum.form.search.class',
-                'Herzult\Bundle\ForumBundle\Form\SearchFormType'
-            ),
-            array(
-                'herzult_forum.controller.forum.class',
-                'Herzult\Bundle\ForumBundle\Controller\ForumController'
-            ),
-            array(
-                'herzult_forum.controller.category.class',
-                'Herzult\Bundle\ForumBundle\Controller\CategoryController'
-            ),
-            array(
-                'herzult_forum.controller.topic.class',
-                'Herzult\Bundle\ForumBundle\Controller\TopicController'
-            ),
-            array(
-                'herzult_forum.controller.post.class',
-                'Herzult\Bundle\ForumBundle\Controller\PostController'
-            ),
-            array(
-                'herzult_forum.blamer.topic.class',
-                'Herzult\Bundle\ForumBundle\Blamer\TopicBlamer'
-            ),
-            array(
-                'herzult_forum.blamer.post.class',
-                'Herzult\Bundle\ForumBundle\Blamer\PostBlamer'
-            ),
-            array(
-                'herzult_forum.twig.extension.class',
-                'Herzult\Bundle\ForumBundle\Twig\ForumExtension'
-            ),
-            array(
-                'herzult_forum.templating.engine',
-                'twig'
-            ),
-            array(
-                'herzult_forum.templating.theme',
-                'Twig::form.html.twig'
-            ),
-            array(
-                'herzult_forum.paginator.posts_per_page',
-                10
-            ),
-            array(
-                'herzult_forum.paginator.topics_per_page',
-                10
-            ),
-            array(
-                'herzult_forum.paginator.search_results_per_page',
-                10
-            ),
-            array(
-                'herzult_forum.form.new_topic.name',
-                'forum_new_topic_form'
-            ),
-            array(
-                'herzult_forum.form.post.name',
-                'forum_post_form'
-            ),
-            array(
-                'herzult_forum.form.first_post.name',
-                'firstPost'
-            ),
-        );
+        $container = new ContainerBuilder();
+        $container->setDefinition($replacementId, $this->getDefinitionMock());
+
+        $this->loadExtension($this->getConfigs($config), $container);
+
+        $this->assertTrue($container->hasAlias($id), sprintf('The alias \'%s\' is defined.', $id));
+        $this->assertEquals($replacementId, (string) $container->getAlias($id), sprintf('The id \'%s\' is an alias of \'%s\'.', $id, $replacementId));
     }
 
     public function getDataToTestDefinedService()
     {
+        $data = array();
+        foreach ($this->getDefinedServices() as $id) {
+            $data[] = array($id);
+        }
+
+        return $data;
+    }
+
+    public function getDataToTestReplacedService()
+    {
+        $data = array();
+        foreach ($this->getDefinedServices() as $id) {
+            $replacementId = str_replace('herzult_forum', 'my_forum', $id);
+            list(, $group, $name) = explode('.', $id);
+            $config = array('service' => array($group => array($name => $replacementId)));
+
+            $data[] = array($id, $config, $replacementId);
+        }
+
+        return $data;
+    }
+
+    public function getDefinedServices()
+    {
         return array(
-            array('herzult_forum.object_manager'),
-            array('herzult_forum.repository.category'),
-            array('herzult_forum.repository.topic'),
-            array('herzult_forum.repository.post'),
-            array('herzult_forum.repository.category'),
-            array('herzult_forum.repository.topic'),
-            array('herzult_forum.repository.post'),
-            array('herzult_forum.form.new_topic'),
-            array('herzult_forum.form.post'),
-            array('herzult_forum.form.first_post'),
-            array('herzult_forum.form.new_topic'),
-            array('herzult_forum.form.post'),
-            array('herzult_forum.controller.forum'),
-            array('herzult_forum.controller.category'),
-            array('herzult_forum.controller.topic'),
-            array('herzult_forum.controller.post'),
-            array('herzult_forum.blamer.topic'),
-            array('herzult_forum.blamer.post'),
-            array('herzult_forum.twig.extension'),
-            array('herzult_forum.controller.forum'),
-            array('herzult_forum.controller.category'),
-            array('herzult_forum.controller.topic'),
-            array('herzult_forum.controller.post'),
-            array('herzult_forum.creator.topic'),
-            array('herzult_forum.creator.post'),
+            // creator services
+            'herzult_forum.creator.topic',
+            'herzult_forum.creator.post',
+
+            // updater services
+            'herzult_forum.creator.topic',
+            'herzult_forum.creator.post',
+
+            // remover services
+            'herzult_forum.remover.topic',
+            'herzult_forum.remover.post',
+
+            // blamer services
+            'herzult_forum.blamer.topic',
+            'herzult_forum.blamer.post',
         );
     }
 
-    public function getMinimalConfigs()
+    public function getConfigs(array $config = array())
     {
         return array(
             array(
@@ -154,15 +91,18 @@ class HerzultForumExtensionTest extends \PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
+            $config,
         );
     }
 
-    public function createContainer(array $configs)
+    public function loadExtension(array $configs, ContainerBuilder $container)
     {
-        $container = new ContainerBuilder();
         $extension = new HerzultForumExtension('testkernel');
         $extension->load($configs, $container);
+    }
 
-        return $container;
+    public function getDefinitionMock()
+    {
+        return $this->getMock('Symfony\Component\DependencyInjection\Definition');
     }
 }
