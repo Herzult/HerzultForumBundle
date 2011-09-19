@@ -78,4 +78,4 @@ You can now read the documentation specific to the choosed database driver:
  - `odm` [Doctrine MongoDB ODM][doctrine-mongodb-odm]
 
  [doctrine-orm]: doctrine-orm.markdown
- [doctrine-mongdob-odm]: doctrine-mongodb-odm.markdown
+ [doctrine-mongodb-odm]: doctrine-mongodb-odm.markdown
