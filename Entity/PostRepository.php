@@ -54,9 +54,9 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
     {
         $qb = $this->createQueryBuilder('post');
         $qb
-			->where($qb->expr()->like('post.message', $qb->expr()->literal('%' . $query . '%')))
-			->orderBy('post.createdAt')
-		;
+            ->where($qb->expr()->like('post.message', $qb->expr()->literal('%' . $query . '%')))
+            ->orderBy('post.createdAt')
+        ;
 
         if ($asPaginator) {
             return new Pagerfanta(new DoctrineORMAdapter($qb->getQuery()));
@@ -74,7 +74,7 @@ class PostRepository extends ObjectRepository implements PostRepositoryInterface
     {
         $candidate = null;
         foreach ($this->findAllByTopic($post->getTopic()) as $p) {
-            if($p !== $post) {
+            if ($p !== $post) {
                 if ($p->getNumber() > $post->getNumber()) {
                     break;
                 }

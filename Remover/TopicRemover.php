@@ -24,7 +24,7 @@ class TopicRemover
     {
         $category = $topic->getCategory();
 
-        if(1 === $category->getNumTopics()) {
+        if (1 === $category->getNumTopics()) {
             throw new LogicException('You shall not remove the first category topic. Remove the category instead');
         }
 

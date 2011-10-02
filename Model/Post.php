@@ -114,7 +114,7 @@ abstract class Post
 
     public function isPosteriorTo(Post $post = null)
     {
-        if(!$post) {
+        if (!$post) {
             return true;
         }
 

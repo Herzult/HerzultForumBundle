@@ -26,14 +26,14 @@ class PostController extends Controller
         $post->setTopic($topic);
         $form->bindRequest($this->get('request'));
 
-        if(!$form->isValid()) {
+        if (!$form->isValid()) {
             return $this->get('templating')->renderResponse('HerzultForumBundle:Post:new.html.'.$this->getRenderer(), array(
                 'form'  => $form->createView(),
                 'topic' => $topic,
             ));
         }
 
-		$post = $form->getData();
+        $post = $form->getData();
         $post->setTopic($topic);
         $this->get('herzult_forum.creator.post')->create($post);
         $this->get('herzult_forum.blamer.post')->blame($post);
@@ -51,7 +51,7 @@ class PostController extends Controller
     public function deleteAction($id)
     {
         $post = $this->get('herzult_forum.repository.post')->find($id);
-        if(!$post) {
+        if (!$post) {
             throw new NotFoundHttpException(sprintf('No post found with id "%s"', $id));
         }
 

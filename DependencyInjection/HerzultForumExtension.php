@@ -15,8 +15,6 @@ class HerzultForumExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $this->loadParameters($config, $container);
-
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('model.xml');
         $loader->load('controller.xml');
@@ -29,6 +27,8 @@ class HerzultForumExtension extends Extension
         $loader->load('router.xml');
 
         $loader->load(sprintf('%s.xml', $config['db_driver']));
+
+        $this->loadParameters($config, $container);
     }
 
     private function loadParameters(array $config, ContainerBuilder $container)
