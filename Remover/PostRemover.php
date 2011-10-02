@@ -24,7 +24,7 @@ class PostRemover
     {
         $topic = $post->getTopic();
 
-        if(1 === $post->getNumber()) {
+        if (1 === $post->getNumber()) {
             throw new LogicException('You shall not remove the first topic post. Remove the topic instead');
         }
 

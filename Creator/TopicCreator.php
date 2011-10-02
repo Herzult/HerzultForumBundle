@@ -10,7 +10,7 @@ class TopicCreator
 {
     public function create(Topic $topic)
     {
-        if(!$category = $topic->getCategory()) {
+        if (!$category = $topic->getCategory()) {
             throw new LogicException('Each topic must have a category');
         }
 
