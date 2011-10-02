@@ -10,14 +10,14 @@ class PostCreator
 {
     public function create(Post $post)
     {
-        if(!$topic = $post->getTopic()) {
+        if (!$topic = $post->getTopic()) {
             throw new LogicException('Each post must have a topic');
         }
-        if(!$category = $topic->getCategory()) {
+        if (!$category = $topic->getCategory()) {
             throw new LogicException('Each topic must have a category');
         }
 
-        if(!$topic->getFirstPost()) {
+        if (!$topic->getFirstPost()) {
             $topic->setFirstPost($post);
         }
         $topic->incrementNumPosts();

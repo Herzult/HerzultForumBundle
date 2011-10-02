@@ -20,10 +20,10 @@ class CategoryUpdater
         $category->setNumTopics(count($topics));
         $numPosts = 0;
         $lastPost = $lastTopic = null;
-        foreach($topics as $topic) {
+        foreach ($topics as $topic) {
             $numPosts += $topic->getNumPosts();
             $topicLastPost = $topic->getLastPost();
-            if($topicLastPost->isPosteriorTo($lastPost)) {
+            if ($topicLastPost->isPosteriorTo($lastPost)) {
                 $lastPost = $topicLastPost;
                 $lastTopic = $topic;
             }

@@ -30,9 +30,9 @@ class TopicController extends Controller
     {
         $form = $this->get('herzult_forum.form.new_topic');
         $form->bindRequest($this->get('request'));
-		$topic = $form->getData();
+        $topic = $form->getData();
 
-        if(!$form->isValid()) {
+        if (!$form->isValid()) {
             return $this->get('templating')->renderResponse('HerzultForumBundle:Topic:new.html.'.$this->getRenderer(), array(
                 'form'      => $form->createView(),
                 'category'  => $category
@@ -80,13 +80,12 @@ class TopicController extends Controller
         $topic = $this->findTopic($categorySlug, $slug);
         $this->get('herzult_forum.repository.topic')->incrementTopicNumViews($topic);
 
-        if('html' === $this->get('request')->getRequestFormat()) {
+        if ('html' === $this->get('request')->getRequestFormat()) {
             $page = $this->get('request')->query->get('page', 1);
             $posts = $this->get('herzult_forum.repository.post')->findAllByTopic($topic, true);
             $posts->setCurrentPage($page);
             $posts->setMaxPerPage($this->container->getParameter('herzult_forum.paginator.posts_per_page'));
-        }
-        else {
+        } else {
             $posts = $this->get('herzult_forum.repository.post')->findRecentByTopic($topic, 30);
         }
 
@@ -114,7 +113,7 @@ class TopicController extends Controller
     public function deleteAction($id)
     {
         $topic = $this->get('herzult_forum.repository.topic')->find($id);
-        if(!$topic) {
+        if (!$topic) {
             throw new NotFoundHttpException(sprintf('No topic found with id "%s"', $id));
         }
 
@@ -137,11 +136,11 @@ class TopicController extends Controller
     public function findTopic($categorySlug, $topicSlug)
     {
         $category = $this->get('herzult_forum.repository.category')->findOneBySlug($categorySlug);
-        if(!$category) {
+        if (!$category) {
             throw new NotFoundHttpException(sprintf('The category with slug "%s" does not exist', $categorySlug));
         }
         $topic = $this->get('herzult_forum.repository.topic')->findOneByCategoryAndSlug($category, $topicSlug);
-        if(!$topic) {
+        if (!$topic) {
             throw new NotFoundHttpException(sprintf('The topic with slug "%s" does not exist', $topicSlug));
         }
 
