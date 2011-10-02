@@ -3,5 +3,5 @@
     <title>{{ topic.subject }}</title>
     <id>{{ forum_urlForTopic(topic, true) }}</id>
     <updated>{{ topic.pulledAt|date('c') }}</updated>
-    {% include 'ForumBundle:Post:list.xml.twig' with {'posts': posts} %}
+    {% include 'HerzultForumBundle:Post:list.xml.twig' with {'posts': posts} %}
 </feed>

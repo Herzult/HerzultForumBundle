@@ -95,6 +95,6 @@ class ForumExtension extends Twig_Extension
 
     public function getName()
     {
-        return 'forum';
+        return 'herzult_forum';
     }
 }
