@@ -33,7 +33,8 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
     public function findAll($asPaginator = false)
     {
         $query = $this->createQueryBuilder('topic')
-                        ->orderBy('topic.pulledAt', 'DESC')
+                        ->orderBy('topic.isPinned', 'DESC')
+                        ->addOrderBy('topic.pulledAt', 'DESC')
                         ->getQuery();
 
         if ($asPaginator) {
@@ -49,7 +50,8 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
     public function findAllByCategory($category, $asPaginator = false)
     {
         $qb = $this->createQueryBuilder('topic');
-        $qb->orderBy('topic.pulledAt', 'DESC')
+        $qb->orderBy('topic.isPinned', 'DESC')
+            ->addOrderBy('topic.pulledAt', 'DESC')
             ->where($qb->expr()->eq('topic.category', $category->getId()));
 
         if ($asPaginator) {
