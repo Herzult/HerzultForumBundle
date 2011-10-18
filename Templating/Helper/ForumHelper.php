@@ -21,14 +21,14 @@ class ForumHelper extends Helper
 
     public function urlForCategory(Category $category, $absolute = false)
     {
-        return $this->router->generate('forum_category_show', array(
+        return $this->router->generate('herzult_forum_category_show', array(
             'slug' => $category->getSlug()
         ), $absolute);
     }
 
     public function urlForCategoryAtomFeed(Category $category, $absolute = false)
     {
-        return $this->router->generate('forum_category_show', array(
+        return $this->router->generate('herzult_forum_category_show', array(
             'slug'      => $category->getSlug(),
             '_format'   =>  'xml'
         ), $absolute);
