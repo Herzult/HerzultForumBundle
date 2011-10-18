@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <route id="herzult_forum_post_delete" pattern="/post/delete/{id}">
-        <default key="_controller">forum.controller.post:deleteAction</default>
+        <default key="_controller">herzult_forum.controller.post:deleteAction</default>
         <requirement key="id">\w+</requirement>
     </route>
 
