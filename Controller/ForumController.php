@@ -27,7 +27,7 @@ class ForumController extends Controller
             $page = $this->get('request')->query->get('page', 1);
             $results = $this->get('herzult_forum.repository.post')->search($query, true);
             $results->setCurrentPage($page);
-            $results->setMaxPerPage($this->container->getParameter('forum.paginator.search_results_per_page'));
+            $results->setMaxPerPage($this->container->getParameter('herzult_forum.paginator.search_results_per_page'));
         }
 
         return $this->get('templating')->renderResponse('HerzultForumBundle:Forum:search.html.'.$this->getRenderer(), array(
