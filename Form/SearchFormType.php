@@ -15,7 +15,7 @@ class SearchFormType extends AbstractType
     public function getDefaultOptions(array $options)
     {
         return array(
-            'data_class'        => 'Bundle\ForumBundle\Search\Search',
+            'data_class'        => 'Herzult\Bundle\ForumBundle\Search\Search',
             'csrf_protection'   => false,
         );
     }
