@@ -24,7 +24,7 @@ Update your `deps` file adding the following lines:
 
     [DoctrineExtensions]
         git=https://github.com/l3pp4rd/DoctrineExtensions.git
-        target=/bundles/doctrine-extensions
+        target=/doctrine-extensions
 
 And install the new dependencies:
 
