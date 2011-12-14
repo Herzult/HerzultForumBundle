@@ -38,7 +38,9 @@ class TopicController extends Controller
                 'category'  => $category
             ));
         }
-
+        
+        $topicWithSameSlug = $this->get('herzult_forum.repository.topic')->findOneByCategoryAndSlug($category, $topic->getSlug());
+        
         $this->get('herzult_forum.creator.topic')->create($topic);
         $this->get('herzult_forum.blamer.topic')->blame($topic);
 
@@ -49,6 +51,13 @@ class TopicController extends Controller
         $objectManager->persist($topic);
         $objectManager->persist($topic->getFirstPost());
         $objectManager->flush();
+        
+        // a topic has already the same slug. so we had the topic's uniqueid to the slug.
+        if($topicWithSameSlug){
+            $topic->setSlug($topic->getId() . '-' . $topic->getSlug());
+            $objectManager->persist($topic);
+            $objectManager->flush();
+        }
 
         $this->get('session')->setFlash('herzult_forum_topic_create/success', true);
         $url = $this->get('herzult_forum.router.url_generator')->urlForTopic($topic);
