@@ -10,8 +10,9 @@ class CategoryController extends Controller
     public function listAction()
     {
         $categories = $this->get('herzult_forum.repository.category')->findAll();
-
-        return $this->get('templating')->renderResponse('HerzultForumBundle:Category:list.html.'.$this->getRenderer(), array('categories' => $categories));
+        
+        $template = sprintf('%s:list.html.%s', $this->container->getParameter('herzult_forum.templating.location.category'), $this->getRenderer());
+        return $this->get('templating')->renderResponse($template, array('categories' => $categories));
     }
 
     public function showAction($slug)
@@ -22,7 +23,7 @@ class CategoryController extends Controller
             throw new NotFoundHttpException(sprintf('The category %s does not exist.', $slug));
         }
 
-        $template = sprintf('HerzultForumBundle:Category:show.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
+        $template = sprintf('%s:show.%s.%s', $this->container->getParameter('herzult_forum.templating.location.category'), $this->get('request')->getRequestFormat(), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array(
             'category'  => $category,
             'page'      => $this->get('request')->query->get('page', 1)

@@ -19,8 +19,9 @@ class TopicController extends Controller
             $topic->setCategory($category);
         }
         $form->setData($topic);
-
-        return $this->get('templating')->renderResponse('HerzultForumBundle:Topic:new.html.'.$this->getRenderer(), array(
+        
+        $template = sprintf('%s:new.html.%s', $this->container->getParameter('herzult_forum.templating.location.topic'), $this->getRenderer());
+        return $this->get('templating')->renderResponse($template, array(
             'form'      => $form->createView(),
             'category'  => $category
         ));
@@ -33,6 +34,7 @@ class TopicController extends Controller
         $topic = $form->getData();
 
         if (!$form->isValid()) {
+            $template = sprintf('%s:new.html.%s', $this->container->getParameter('herzult_forum.templating.location.topic'), $this->getRenderer());
             return $this->get('templating')->renderResponse('HerzultForumBundle:Topic:new.html.'.$this->getRenderer(), array(
                 'form'      => $form->createView(),
                 'category'  => $category
@@ -67,7 +69,7 @@ class TopicController extends Controller
         $topics->setCurrentPage($pagerOptions['page']);
         $topics->setMaxPerPage($this->container->getParameter('herzult_forum.paginator.topics_per_page'));
 
-        $template = sprintf('HerzultForumBundle:Topic:list.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
+        $template = sprintf('%s:list.%s.%s', $this->container->getParameter('herzult_forum.templating.location.topic'), $this->get('request')->getRequestFormat(), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array(
             'topics'    => $topics,
             'category'  => $category,
@@ -89,7 +91,7 @@ class TopicController extends Controller
             $posts = $this->get('herzult_forum.repository.post')->findRecentByTopic($topic, 30);
         }
 
-        $template = sprintf('HerzultForumBundle:Topic:show.%s.%s', $this->get('request')->getRequestFormat(), $this->getRenderer());
+        $template = sprintf('%s:show.%s.%s', $this->container->getParameter('herzult_forum.templating.location.topic'), $this->get('request')->getRequestFormat(), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array(
             'topic' => $topic,
             'posts' => $posts
