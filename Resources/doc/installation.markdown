@@ -22,6 +22,10 @@ Update your `deps` file adding the following lines:
         git=http://github.com/Herzult/HerzultForumBundle.git
         target=/bundles/Herzult/Bundle/ForumBundle
 
+    [DoctrineExtensions]
+        git=https://github.com/l3pp4rd/DoctrineExtensions.git
+        target=/bundles/doctrine-extensions
+
 And install the new dependencies:
 
     $ ./bin/vendor install
@@ -37,6 +41,7 @@ Register the namespaces that are not already registered in your autoloader:
         'Pagerfanta'    => __DIR__.'/../vendor/pagerfanta/src',
         'WhiteOctober'  => __DIR__.'/../vendor/bundles',
         'Herzult'       => __DIR__.'/../vendor/bundles',
+        'Gedmo'         => __DIR__.'/../vendor/doctrine-extensions/lib',
     ));
 
 Register the bundles
