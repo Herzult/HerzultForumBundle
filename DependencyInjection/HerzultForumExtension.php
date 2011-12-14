@@ -48,7 +48,13 @@ class HerzultForumExtension extends Extension
         foreach ($config as $groupName => $group) {
             if (is_array($group)) {
                 foreach ($group as $name => $value) {
-                    $container->setParameter(sprintf('herzult_forum.%s.%s', $groupName, $name), $value);
+                    if (is_array($value)) {
+                        foreach ($value as $subname => $subvalue) {
+                            $container->setParameter(sprintf('herzult_forum.%s.%s.%s', $groupName, $name, $subname), $subvalue);                    
+                        }
+                    }else{
+                        $container->setParameter(sprintf('herzult_forum.%s.%s', $groupName, $name), $value);                    
+                    }
                 }
             } else {
                 $container->setParameter(sprintf('herzult_forum.%s', $groupName), $group);
