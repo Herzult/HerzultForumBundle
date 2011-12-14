@@ -14,7 +14,7 @@
             <generator strategy="AUTO" />
         </id>
 
-        <field name="name" column="name" type="string" unique="true" />
+        <field name="name" column="name" type="string" />
         <field name="description" column="description" type="string" nullable="true" />
         <field name="slug" column="slug" type="string" unique="true" />
         <field name="position" column="position" type="integer" />
