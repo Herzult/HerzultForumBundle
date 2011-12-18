@@ -13,7 +13,9 @@ class PostController extends Controller
     public function newAction(Topic $topic)
     {
         $form = $this->get('herzult_forum.form.post');
-        return $this->get('templating')->renderResponse('HerzultForumBundle:Post:new.html.'.$this->getRenderer(), array(
+        
+        $template = sprintf('%s:new.html.%s', $this->container->getParameter('herzult_forum.templating.location.post'), $this->getRenderer());
+        return $this->get('templating')->renderResponse($template, array(
             'form'  => $form->createView(),
             'topic' => $topic,
         ));
@@ -27,6 +29,7 @@ class PostController extends Controller
         $form->bindRequest($this->get('request'));
 
         if (!$form->isValid()) {
+            $template = sprintf('%s:new.html.%s', $this->container->getParameter('herzult_forum.templating.location.post'), $this->getRenderer());
             return $this->get('templating')->renderResponse('HerzultForumBundle:Post:new.html.'.$this->getRenderer(), array(
                 'form'  => $form->createView(),
                 'topic' => $topic,
