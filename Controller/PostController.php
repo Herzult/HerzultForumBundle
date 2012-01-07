@@ -10,21 +10,30 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PostController extends Controller
 {
-    public function newAction(Topic $topic)
+    public function newAction($categorySlug, $slug)
     {
-        $form = $this->get('herzult_forum.form.post');
-        
-        $template = sprintf('%s:new.html.%s', $this->container->getParameter('herzult_forum.templating.location.post'), $this->getRenderer());
-        return $this->get('templating')->renderResponse($template, array(
-            'form'  => $form->createView(),
-            'topic' => $topic,
-        ));
+        $topic    = $this->findTopicOr404($categorySlug, $slug);
+        $form     = $this->get('herzult_forum.form.post');
+        $template = sprintf(
+            '%s:new.html.%s',
+            $this->container->getParameter('herzult_forum.templating.location.post'),
+            $this->getRenderer()
+        );
+
+        return $this->render(
+            $template,
+            array(
+                'form'  => $form->createView(),
+                'topic' => $topic,
+            )
+        );
     }
 
-    public function createAction(Topic $topic)
+    public function createAction($categorySlug, $slug)
     {
-        $form = $this->get('herzult_forum.form.post');
-        $post = $this->get('herzult_forum.repository.post')->createNewPost();
+        $topic = $this->findTopicOr404($categorySlug, $slug);
+        $form  = $this->get('herzult_forum.form.post');
+        $post  = $this->get('herzult_forum.repository.post')->createNewPost();
         $post->setTopic($topic);
         $form->bindRequest($this->get('request'));
 
@@ -63,6 +72,36 @@ class PostController extends Controller
         $this->get('herzult_forum.object_manager')->flush();
 
         return new RedirectResponse($this->get('herzult_forum.router.url_generator')->urlForPost($precedentPost));
+    }
+
+    protected function findTopicOr404($categorySlug, $slug)
+    {
+        $category = $this
+            ->get('herzult_forum.repository.category')
+            ->findOneBySlug($categorySlug)
+        ;
+
+        if (null === $category) {
+            throw new NotFoundHttpException(sprintf(
+                'The category with slug "%s" was not found.',
+                $categorySlug
+            ));
+        }
+
+        $topic = $this
+            ->get('herzult_forum.repository.topic')
+            ->findOneByCategoryAndSlug($category, $slug)
+        ;
+
+        if (null === $topic) {
+            throw new NotFoundHttpException(sprintf(
+                'The topic with slug "%s" was not found in category with slug "%s".',
+                $slug,
+                $categorySlug
+            ));
+        }
+
+        return $topic;
     }
 
     protected function getRenderer()

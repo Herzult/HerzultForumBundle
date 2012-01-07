@@ -19,7 +19,7 @@ class TopicController extends Controller
             $topic->setCategory($category);
         }
         $form->setData($topic);
-        
+
         $template = sprintf('%s:new.html.%s', $this->container->getParameter('herzult_forum.templating.location.topic'), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array(
             'form'      => $form->createView(),
@@ -58,12 +58,14 @@ class TopicController extends Controller
         return new RedirectResponse($url);
     }
 
-    public function listAction(Category $category = null, array $pagerOptions)
+    public function listAction($categorySlug, array $pagerOptions)
     {
-        if (null !== $category) {
-            $topics = $this->get('herzult_forum.repository.topic')->findAllByCategory($category, true);
+        if (null === $categorySlug) {
+            $category = null;
+            $topics   = $this->get('herzult_forum.repository.topic')->findAll(true);
         } else {
-            $topics = $this->get('herzult_forum.repository.topic')->findAll(true);
+            $category = $this->findCategoryOr404($categorySlug);
+            $topics   = $this->get('herzult_forum.repository.topic')->findAllByCategory($category, true);
         }
 
         $topics->setCurrentPage($pagerOptions['page']);
@@ -100,16 +102,18 @@ class TopicController extends Controller
 
     public function postNewAction($categorySlug, $slug)
     {
-        $topic = $this->findTopic($categorySlug, $slug);
-
-        return $this->forward('HerzultForumBundle:Post:new', array('topic' => $topic));
+        return $this->forward('HerzultForumBundle:Post:new', array(
+            'categorySlug'  => $categorySlug,
+            'slug'          => $slug
+        ));
     }
 
     public function postCreateAction($categorySlug, $slug)
     {
-        $topic = $this->findTopic($categorySlug, $slug);
-
-        return $this->forward('HerzultForumBundle:Post:create', array('topic' => $topic));
+        return $this->forward('HerzultForumBundle:Post:create', array(
+            'categorySlug' => $categorySlug,
+            'slug'         => $slug
+        ));
     }
 
     public function deleteAction($id)
@@ -147,5 +151,30 @@ class TopicController extends Controller
         }
 
         return $topic;
+    }
+
+    /**
+     * Finds the category having the specified slug or throws a 404 exception
+     *
+     * @param  string $slug
+     *
+     * @return Category
+     * @throws NotFoundHttpException
+     */
+    protected function findCategoryOr404($slug)
+    {
+        $category = $this
+            ->get('herzult_forum.repository.category')
+            ->findOneBySlug($slug)
+        ;
+
+        if (!$category) {
+            throw new NotFoundHttpException(sprintf(
+                'The category with slug "%s" was not found.',
+                $slug
+            ));
+        }
+
+        return $category;
     }
 }
