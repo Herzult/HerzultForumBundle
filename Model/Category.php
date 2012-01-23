@@ -172,6 +172,9 @@ abstract class Category
      */
     public function incrementNumTopics()
     {
+        if($this->parentCategory)
+            $this->parentCategory->incrementNumTopics();
+
         $this->numTopics++;
     }
 
@@ -180,6 +183,9 @@ abstract class Category
      */
     public function decrementNumTopics()
     {
+        if($this->parentCategory)
+            $this->parentCategory->decrementNumTopics();
+
         $this->numTopics--;
     }
 
@@ -208,6 +214,9 @@ abstract class Category
      */
     public function incrementNumPosts()
     {
+        if($this->parentCategory)
+            $this->parentCategory->incrementNumPosts();
+
         $this->numPosts++;
     }
 
@@ -216,6 +225,9 @@ abstract class Category
      */
     public function decrementNumPosts()
     {
+        if($this->parentCategory)
+            $this->parentCategory->decrementNumPosts();
+
         $this->numPosts--;
     }
 
