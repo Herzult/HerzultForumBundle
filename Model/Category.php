@@ -124,7 +124,7 @@ abstract class Category
      */
     public function generateSlug()
     {
-        $this->setSlug($this->getId()."-".$this->getSubject());
+        $this->setSlug($this->getId()."-".$this->getName());
     }
 
     /**
