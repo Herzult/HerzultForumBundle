@@ -26,11 +26,6 @@
             <join-column name="parent_id" referenced-column-name="id" />
         </many-to-one>
 
-        <lifecycle-callbacks>
-            <lifecycle-callback type="prePersist" method="generateSlug" />
-            <lifecycle-callback type="preUpdate" method="generateSlug" />
-        </lifecycle-callbacks>
-
     </mapped-superclass>
 
 </doctrine-mapping>

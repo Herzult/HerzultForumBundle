@@ -52,6 +52,10 @@ class TopicController extends Controller
         $objectManager->persist($topic->getFirstPost());
         $objectManager->flush();
 
+        // Seems to be a dirty hack... but I have no better idea atm.
+        $topic->generateSlug();
+        $objectManager->flush();
+
         $this->get('session')->setFlash('herzult_forum_topic_create/success', true);
         $url = $this->get('herzult_forum.router.url_generator')->urlForTopic($topic);
 

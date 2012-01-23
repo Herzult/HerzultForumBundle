@@ -120,13 +120,11 @@ abstract class Category
     }
 
     /**
-     * Generates the slug whether it is empty
+     * Generates the slug or updates it.
      */
     public function generateSlug()
     {
-        if (empty($this->slug)) {
-            $this->setSlug($this->getName());
-        }
+        $this->setSlug($this->getId()."-".$this->getSubject());
     }
 
     /**
