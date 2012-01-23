@@ -5,7 +5,7 @@
 
     <ul class="crumbs">
         <li><a href="{{ path('herzult_forum_index') }}">Forum</a></li>
-        <li><a href="{{ forum_urlForCategory(topic.category) }}">{{ topic.category.name }}</a></li>
+        {{ forum_generateCategoryBreadcrumbs(topic.category) }}
         <li>{{ topic.subject }}</li>
     </ul>
 

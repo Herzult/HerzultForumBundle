@@ -16,11 +16,17 @@ abstract class Category
     protected $lastTopic;
     protected $lastPost;
 
+    protected $parentCategory;
+
+    /**
+     * Initialize the Object
+     */
     public function __construct()
     {
-        $this->position = 0;
+        $this->position  = 0;
         $this->numTopics = 0;
-        $this->numPosts = 0;
+        $this->numPosts  = 0;
+        $this->parentId  = null;
     }
 
     /**
@@ -31,6 +37,26 @@ abstract class Category
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Gets the parent category
+     *
+     * @return Category
+     */
+    public function getParentCategory()
+    {
+        return $this->parentCategory;
+    }
+
+    /**
+     * Sets the parent category
+     *
+     * @param Category $parent
+     */
+    public function setParentCategory(Category $parent)
+    {
+        $this->parentCategory = $parent;
     }
 
     /**

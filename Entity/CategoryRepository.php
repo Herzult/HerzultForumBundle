@@ -27,6 +27,33 @@ class CategoryRepository extends ObjectRepository implements CategoryRepositoryI
     }
 
     /**
+     * @see CategoryRepositoryInteface::findAllRootCategories
+     */
+    public function findAllRootCategories()
+    {
+        return $this->createQueryBuilder('c')
+                    ->select('c')
+                    ->orderBy('c.position')
+                    ->where('c.parentCategory is NULL')
+                    ->getQuery()
+                    ->execute();
+    }
+
+    /**
+     * @see CategoryRepositoryInteface::findAllSubCategories
+     */
+    public function findAllSubCategories($id)
+    {
+        return $this->createQueryBuilder('c')
+                    ->select('c')
+                    ->where('c.parentCategory = ?1')
+                    ->orderBy('c.position')
+                    ->setParameter(1, $id)
+                    ->getQuery()
+                    ->execute();
+    }
+
+    /**
      * @see CategoryRepositoryInterface::findAllIndexById
      */
     public function findAllIndexById()

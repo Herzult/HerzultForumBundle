@@ -21,6 +21,11 @@
         <field name="numTopics" column="num_topics" type="integer" />
         <field name="numPosts" column="num_posts" type="integer" />
 
+        <!--<one-to-many field="subCategories" target-entity="Category" mapped-by="parent_id" />-->
+        <many-to-one field="parentCategory" target-entity="Category">
+            <join-column name="parent_id" referenced-column-name="id" />
+        </many-to-one>
+
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="generateSlug" />
             <lifecycle-callback type="preUpdate" method="generateSlug" />

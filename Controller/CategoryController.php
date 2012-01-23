@@ -5,11 +5,16 @@ namespace Herzult\Bundle\ForumBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use \Herzult\Bundle\ForumBundle\Model\Category;
+
 class CategoryController extends Controller
 {
-    public function listAction()
+    public function listAction($id = null)
     {
-        $categories = $this->get('herzult_forum.repository.category')->findAll();
+        if($id == null)
+            $categories = $this->get('herzult_forum.repository.category')->findAllRootCategories();
+        else
+            $categories = $this->get('herzult_forum.repository.category')->findAllSubCategories($id);
         
         $template = sprintf('%s:list.html.%s', $this->container->getParameter('herzult_forum.templating.location.category'), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array('categories' => $categories));
