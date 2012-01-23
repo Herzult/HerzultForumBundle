@@ -21,6 +21,68 @@ class UpdateStatsCommand extends ContainerAwareCommand
     }
 
     /**
+     * Updates the Topic count and returns the summarized count of posts.
+     *
+     * @param Topic[] $topicArray The array of topics which should be updated.
+     *
+     * @return int The count of Posts over all given Topics.
+     */
+    protected function updateTopicStatsAndReturnPostCount($topicArray)
+    {
+        /** @var $postRepo \Herzult\Bundle\ForumBundle\Model\PostRepositoryInterface */
+        $postRepo      = $this->getContainer()->get('herzult_forum.repository.post');
+        $postNumReturn = 0;
+
+        foreach($topicArray as $topic)
+        {
+            $postNum = count($postRepo->findAllByTopic($topic, false));
+            $topic->setNumPosts($postNum);
+
+            $postNumReturn += $postNum;
+        }
+
+        return $postNumReturn;
+    }
+
+    /**
+     * Updates the Categories.
+     *
+     * @param Category $category A root category
+     *
+     * @return array The count of topics and posts contained in the given category.
+     */
+    protected function updateCategoryStats(\Herzult\Bundle\ForumBundle\Model\Category $category)
+    {
+        /** @var $topicRepo \Herzult\Bundle\ForumBundle\Model\TopicRepositoryInterface */
+        $topicRepo    = $this->getContainer()->get('herzult_forum.repository.topic');
+
+        /** @var $categoryRepo \Herzult\Bundle\ForumBundle\Model\CategoryRepositoryInterface */
+        $categoryRepo = $this->getContainer()->get('herzult_forum.repository.category');
+
+        $topicArray      = $topicRepo->findAllByCategory($category, false);
+        $topicNum        = count($topicArray);
+        $postNumCategory = $this->updateTopicStatsAndReturnPostCount($topicArray);
+
+        // Update all sub categories
+        foreach($categoryRepo->findAllSubCategories($category->getId()) as $subcategory)
+        {
+            $statArray = $this->updateCategoryStats($subcategory);
+
+            // We add the topic and thread count of the sub forums to the category.
+            $topicNum        += $statArray['topics'];
+            $postNumCategory += $statArray['posts'];
+        }
+
+        $category->setNumPosts($postNumCategory);
+        $category->setNumTopics($topicNum);
+
+        return array(
+            'topics' => $topicNum,
+            'posts'  => $postNumCategory,
+        );
+    }
+
+    /**
      * Executes the update.
      *
      * @param \Symfony\Component\Console\Input\InputInterface   $input  Input
@@ -30,26 +92,10 @@ class UpdateStatsCommand extends ContainerAwareCommand
     {
         /** @var $categoryRepo \Herzult\Bundle\ForumBundle\Model\CategoryRepositoryInterface */
         $categoryRepo = $this->getContainer()->get('herzult_forum.repository.category');
-        /** @var $topicRepo \Herzult\Bundle\ForumBundle\Model\TopicRepositoryInterface */
-        $topicRepo    = $this->getContainer()->get('herzult_forum.repository.topic');
-        /** @var $postRepo \Herzult\Bundle\ForumBundle\Model\PostRepositoryInterface */
-        $postRepo     = $this->getContainer()->get('herzult_forum.repository.post');
 
-        foreach($categoryRepo->findAll() as $category)
+        foreach($categoryRepo->findAllRootCategories() as $category)
         {
-            $postNumCategory = 0;
-            $topicArray      = $topicRepo->findAllByCategory($category, false);
-            $topicNum        = count($topicArray);
-
-            foreach($topicArray as $topic)
-            {
-                $postNum = count($postRepo->findAllByTopic($topic, false));
-                $topic->setNumPosts($postNum);
-                $postNumCategory += $postNum;
-            }
-
-            $category->setNumPosts($postNumCategory);
-            $category->setNumTopics($topicNum);
+            $this->updateCategoryStats($category);
         }
 
         // Flush it into our database.
