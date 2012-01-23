@@ -16,7 +16,7 @@ interface CategoryRepositoryInterface extends RepositoryInterface
     /**
      * Find all categories
      *
-     * @return array An array of Category objects
+     * @return Category[] An array of Category objects
      */
     function findAll();
 
@@ -25,14 +25,14 @@ interface CategoryRepositoryInterface extends RepositoryInterface
      *
      * @param integer $id
      *
-     * @return array An array of Category objects
+     * @return Category[] An array of Category objects
      */
     function findAllSubCategories($id);
 
     /**
      * Find all categories without a parent - so called root categories.
      *
-     * @return array An array of Category objects
+     * @return Category[] An array of Category objects
      */
     function findAllRootCategories();
 
@@ -41,7 +41,7 @@ interface CategoryRepositoryInterface extends RepositoryInterface
     /**
      * Find all categories indexed by id
      *
-     * @return array An array of Category objects
+     * @return Category[] An array of Category objects
      */
     function findAllIndexById();
 }

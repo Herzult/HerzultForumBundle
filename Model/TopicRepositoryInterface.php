@@ -25,7 +25,7 @@ interface TopicRepositoryInterface extends RepositoryInterface
      * Finds all topics ordered by their last pull date
      *
      * @param boolean $asPaginator Will return a Paginator instance if true
-     * @return array|Paginator
+     * @return Topic[]|Paginator
      */
     function findAll($asPaginator);
 
@@ -35,7 +35,7 @@ interface TopicRepositoryInterface extends RepositoryInterface
      *
      * @param integer|Category $category
      * @param boolean $asPaginator Will return a Paginator instance if true
-     * @return array|Paginator
+     * @return Topic[]|Paginator
      */
     function findAllByCategory($category, $asPaginator);
 
@@ -43,7 +43,7 @@ interface TopicRepositoryInterface extends RepositoryInterface
      * Get topics which have the more recent last post
      *
      * @param int $number
-     * @return array of Topics
+     * @return Topic[] of Topics
      */
     function findLatestPosted($number);
 
@@ -53,7 +53,7 @@ interface TopicRepositoryInterface extends RepositoryInterface
      *
      * @param string $query
      * @param boolean $asPaginator Will return a Paginator instance if true
-     * @return array|Paginator
+     * @return Topic[]|Paginator
      */
     function search($query, $asPaginator);
 
