@@ -15,5 +15,5 @@
 </ul>
 
 {% if category %}
-{{ pagerfanta(topics, 'default', pagerOptions|merge({'proximity': 3})) }}
+{{ pagerfanta(topics, 'default_translated', pagerOptions|merge({'proximity': 3})) }}
 {% endif %}
