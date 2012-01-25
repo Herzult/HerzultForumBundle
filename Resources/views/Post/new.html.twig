@@ -1,24 +1,23 @@
 {% extends 'HerzultForumBundle::layout.html.twig' %}
-{% block title %}New Reply{% endblock %}
 {% block content %}
-<div class="forum  post_new">
+<div class="forum post_new">
     <ul class="crumbs">
-        <li><a href="{{ path('herzult_forum_index') }} ">Forum</a></li>
-        <li><a href="{{ forum_urlForCategory(topic.category) }}">{{ topic.category.name }}</a></li>
+        <li><a href="{{ path('herzult_forum_index') }} ">{{'forum.title' | trans({} , 'HerzultForumBundle')}}</a></li>
+        {{ forum_generateCategoryBreadcrumbs(topic.category) }}
         <li><a href="{{ forum_urlForTopic(topic) }}">{{ topic.subject }}</a></li>
-        <li>New Reply</li>
+        <li>{{'action.post.create' | trans({} , 'HerzultForumBundle')}}</li>
     </ul>
     <div class="main">
-        <h2>New Reply</h2>
+        <h2>{{'action.post.create' | trans({} , 'HerzultForumBundle')}}</h2>
         <form action="{{ url('herzult_forum_topic_post_create', { 'slug': topic.slug, 'categorySlug' : topic.category.slug }) }}" method="post">
             {{ form_widget(form) }}
             <div>
-                <button type="submit" name="reply">Add post</button>
+                <button type="submit" name="reply">{{'action.create' | trans({} , 'HerzultForumBundle')}}</button>
             </div>
         </form>
     </div>
     <div class="side">
-        <p><a href="{{ forum_urlForTopic(topic) }}">Back to the topic</a></p>
+        <p><a href="{{ forum_urlForTopic(topic) }}">{{'post.backToTopic' | trans({} , 'HerzultForumBundle')}}</a></p>
     </div>
 </div>
 {% endblock %}

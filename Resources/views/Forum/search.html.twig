@@ -1,9 +1,8 @@
 {% extends 'HerzultForumBundle::layout.html.twig' %}
-{% block title %}Search in forum{% endblock %}
 {% block content %}
 <div class="forum forum_search">
     <ul class="crumbs">
-        <li>Forum</li>
+        <li>{{'forum.title' | trans({} | 'HerzultForumBundle')}}</li>
     </ul>
     <form class="clearfix" action="{{ url('herzult_forum_search') }}" method="get">
         <div>
@@ -11,7 +10,7 @@
             <input type="text" name="q" value="{{ query }}" />
         </div>
         <div>
-            <button type="submit" value="Search">Search</button>
+            <button type="submit" value="Search">{{'forum.searcg' | trans({} | 'HerzultForumBundle')}}</button>
         </div>
     </form>
 

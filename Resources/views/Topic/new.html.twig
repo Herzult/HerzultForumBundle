@@ -1,20 +1,25 @@
 {% extends 'HerzultForumBundle::layout.html.twig' %}
-{% block title %}New Topic{% endblock %}
 {% block content %}
 <div class="forum topic_new">
     <ul class="crumbs">
-        <li><a href="{{ path('herzult_forum_index') }}">Forum</a></li>
-        <li>New Topic</li>
+        <li><a href="{{ path('herzult_forum_index') }}">{{'forum.title' | trans({} , 'HerzultForumBundle')}}</a></li>
+        <li>{{'action.topic.create' | trans({} , 'HerzultForumBundle')}}</li>
     </ul>
     <div class="main">
-        <h2>New Topic</h2>
+        <h2>{{'action.topic.create' | trans({} , 'HerzultForumBundle')}}</h2>
         <form action="{{ path('herzult_forum_category_topic_create', {'slug': category.slug}) }}" method="post">
-            {{ form_widget(form) }}
-            <button type="submit" name="create">Create topic</button>
+            {# We just hide this, as the user don't need to specify #}
+            <div style="display:none">{{form_widget(form.category)}}</div>
+
+            <div>{{form_label(form.subject)}}: {{ form_widget(form.subject) }}</div>
+            <div>{{form_label(form.firstPost.message)}}: {{ form_widget(form.firstPost.message) }}</div>
+            {{ form_rest(form) }}
+
+            <button type="submit" name="create">{{'action.create' | trans({}, 'HerzultForumBundle')}}</button>
         </form>
     </div>
     <div class="side">
-        <p><a href="{{ path('herzult_forum_index') }}">Cancel</a></p>
+        <p><a href="{{ path('herzult_forum_index') }}">{{'action.cancel' | trans({}, 'HerzultForumBundle')}}</a></p>
     </div>
 </div>
 {% endblock %}

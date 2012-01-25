@@ -5,9 +5,8 @@
             <a class="subject" href="{{ forum_urlForTopic(topic) }}">{{ topic.subject }}</a>
         </div>
         <div class="metas">
-            <span class="creation">Created <span class="createdAt">{{ topic.createdAt|date }}</span> by
-            <span class="author">{{ topic.authorName }}</span>
-            | <span class="numPosts">{{ topic.numPosts }} {{ topic.numPosts > 1 ? 'posts' : 'post' }}</span>
+            <span class="creation">{{'forum.createdBy' | trans({'%date%': topic.createdAt|date, '%user%': topic.authorName}, 'HerzultForumBundle')}}</span>
+            | <span class="numPosts">{{'topic.postCount' | transchoice(topic.numPosts, {'%count%': topic.numPosts}, 'HerzultForumBundle')}}</span>
             | <a class="category" href="{{ forum_urlForCategory(topic.category) }}">{{ topic.category.name }}</a>
         </div>
     </li>

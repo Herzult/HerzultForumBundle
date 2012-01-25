@@ -9,7 +9,14 @@ class PostFormType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->add('message', 'textarea');
+        $builder->add('message', 'textarea', array('translation_domain' => 'HerzultForumBundle_forms'));
+    }
+
+    public function getDefaultOptions(array $options)
+    {
+        return array(
+            'translation_domain' => 'HerzultForumBundle_forms',
+        );
     }
 
     public function getName()

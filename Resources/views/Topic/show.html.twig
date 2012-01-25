@@ -1,10 +1,9 @@
 {% extends 'HerzultForumBundle::layout.html.twig' %}
-{% block title %}{{ topic.subject}}{% endblock %}
 {% block content %}
 <div class="forum forum_topic">
 
     <ul class="crumbs">
-        <li><a href="{{ path('herzult_forum_index') }}">Forum</a></li>
+        <li><a href="{{ path('herzult_forum_index') }}">{{'forum.title' | trans({} , 'HerzultForumBundle')}}</a></li>
         {{ forum_generateCategoryBreadcrumbs(topic.category) }}
         <li>{{ topic.subject }}</li>
     </ul>
@@ -17,7 +16,7 @@
     </div>
 
     <div class="side menu">
-        <a href="{{ forum_urlForTopicReply(topic) }}">Add a New Reply</a>
+        <a href="{{ forum_urlForTopicReply(topic) }}">{{'action.post.create' | trans({} , 'HerzultForumBundle')}}</a>
     </div>
 
 </div>

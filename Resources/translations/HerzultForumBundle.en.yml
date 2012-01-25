@@ -1,0 +1,42 @@
+forum:
+  title: Forum
+  search: Search
+  createdBy: Created %date% by %user%
+
+category:
+  topicCount: '{0} No topics.|{1} One topic.|]1,Inf] %count% topics.'
+  title:      '{0,1} Category|]1,Inf]Categories'
+
+topic:
+  title: '{0,1} Topic|]1,Inf]Topics'
+  postCount:  '{0} %count% posts|{1} %count% post|]1,Inf] %count% posts'
+  latest: Latest topics
+
+post:
+  title:       '{0,1} Post|]1,Inf] Posts'
+  backToTopic: Back to the topic
+  latest:      Latest post
+
+action:
+  title: Participate
+
+  create: Create
+  edit:   Edit
+  delete: Delete
+  save:   Save
+  cancel: Cancel
+
+  category:
+    create: Create new category
+    edit:   Edit category
+    delete: Delete category
+
+  topic:
+    create: Create new topic
+    delete: Delete topic
+
+  post:
+    create: New reply
+    edit:   Edit post
+    delete: Delete post
+
