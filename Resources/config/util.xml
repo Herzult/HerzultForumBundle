@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="herzult_forum.util.breadcrumb_helper.class">Herzult\Bundle\ForumBundle\Util\BreadcrumbHelper</parameter>
+
+    </parameters>
+
+    <services>
+        <service id="herzult_forum.util.breadcrumb_helper" class="%herzult_forum.util.breadcrumb_helper.class%">
+            <argument type="service" id="herzult_forum.router.url_generator" />
+            <argument type="service" id="white_october_breadcrumbs" />
+            <argument type="service" id="translator" />
+        </service>
+    </services>
+
+</container>

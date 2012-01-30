@@ -18,6 +18,11 @@ class ForumUrlGenerator
         $this->nbPostsPerPage = $nbPostsPerPage;
     }
 
+    public function urlForForum()
+    {
+        return $this->urlGenerator->generate('herzult_forum_index');
+    }
+
     public function urlForCategory(Category $category, $absolute = false)
     {
         return $this->urlGenerator->generate('herzult_forum_category_show', array(

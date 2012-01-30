@@ -25,6 +25,7 @@ class HerzultForumExtension extends Extension
         $loader->load('remover.xml');
         $loader->load('twig.xml');
         $loader->load('router.xml');
+        $loader->load('util.xml');
 
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 

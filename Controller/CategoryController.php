@@ -24,6 +24,9 @@ class CategoryController extends Controller
     {
         $category = $this->get('herzult_forum.repository.category')->findOneBySlug($slug);
 
+        $this->get('herzult_forum.util.breadcrumb_helper')->generateForumTitleCrumb();
+        $this->get('herzult_forum.util.breadcrumb_helper')->generateCategoryBreadcrumbs($category);
+
         if (!$category) {
             throw new NotFoundHttpException(sprintf('The category %s does not exist.', $slug));
         }

@@ -50,48 +50,8 @@ class ForumExtension extends Twig_Extension
             'forum_autoLink' => new \Twig_Function_Method($this, 'autoLink', array(
                 'is_safe' => array('html')
             )),
-            'forum_generateCategoryBreadcrumbs' => new \Twig_Function_Method($this, 'generateCategoryBreadcrumbs', array(
-                'is_safe' => array('html')
-            ))
         );
     }
-    
-    public function generateCategoryBreadcrumbs(Category $category, $doNotLinkLast = false)
-    {
-        $categories = array();
-        do{
-            $categories[] = $category;
-        }while(($category = $category->getParentCategory()) !== null);
-
-        $categoryNum = count($categories);
-        $retVal      = "";
-
-        // Reversed, as we want the last parent, which in fact is the first category in hierarchy
-        for($i = $categoryNum; $i > 0; $i--)
-        {
-            // We start with the count, the array is indexed by a base of 0, the count by 1 so we need to subtract 1.
-            $currentIdx = $i - 1;
-
-            // For last breadcrumb in the category overview.
-            if($currentIdx == 0 && $doNotLinkLast)
-            {
-                $retVal .= sprintf(
-                    '<li>%s</li>',
-                    $categories[$currentIdx]->getName()
-                );
-            }else{
-                $retVal .= sprintf(
-                    '<li><a href="%s">%s</a></li>',
-                    $this->urlForCategory($categories[$currentIdx]),
-                    $categories[$currentIdx]->getName()
-                );
-            }
-        }
-
-
-        return $retVal;
-    }
-    
 
     public function urlForCategory(Category $category, $absolute = false)
     {

@@ -20,6 +20,13 @@ class TopicController extends Controller
         }
         $form->setData($topic);
 
+        $this->get('herzult_forum.util.breadcrumb_helper')->generateForumTitleCrumb();
+        $this->get('herzult_forum.util.breadcrumb_helper')->generateCategoryBreadcrumbs($category);
+        $this->get("white_october_breadcrumbs")->addItem(
+            $this->get('translator')->trans('action.topic.create', array(), 'HerzultForumBundle'),
+            '#'
+        );
+
         $template = sprintf('%s:new.html.%s', $this->container->getParameter('herzult_forum.templating.location.topic'), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array(
             'form'      => $form->createView(),
@@ -34,11 +41,7 @@ class TopicController extends Controller
         $topic = $form->getData();
 
         if (!$form->isValid()) {
-            $template = sprintf('%s:new.html.%s', $this->container->getParameter('herzult_forum.templating.location.topic'), $this->getRenderer());
-            return $this->get('templating')->renderResponse('HerzultForumBundle:Topic:new.html.'.$this->getRenderer(), array(
-                'form'      => $form->createView(),
-                'category'  => $category
-            ));
+            return $this->forward('HerzultForumBundle:Topic:new', array('category' => $category));
         }
 
         $this->get('herzult_forum.creator.topic')->create($topic);
@@ -62,7 +65,7 @@ class TopicController extends Controller
         return new RedirectResponse($url);
     }
 
-    public function listAction($categorySlug, array $pagerOptions)
+    public function listAction($categorySlug, array $pagerOptions, $show_categories = false)
     {
         if (null === $categorySlug) {
             $category = null;
@@ -79,7 +82,8 @@ class TopicController extends Controller
         return $this->get('templating')->renderResponse($template, array(
             'topics'    => $topics,
             'category'  => $category,
-            'pagerOptions' => $pagerOptions
+            'pagerOptions' => $pagerOptions,
+            'show_categories' => $show_categories
         ));
     }
 
@@ -93,6 +97,13 @@ class TopicController extends Controller
             $posts = $this->get('herzult_forum.repository.post')->findAllByTopic($topic, true);
             $posts->setCurrentPage($page);
             $posts->setMaxPerPage($this->container->getParameter('herzult_forum.paginator.posts_per_page'));
+
+            $this->get('herzult_forum.util.breadcrumb_helper')->generateForumTitleCrumb();
+            $this->get('herzult_forum.util.breadcrumb_helper')->generateCategoryBreadcrumbs($topic->getCategory());
+            $this->get("white_october_breadcrumbs")->addItem(
+                $topic->getSubject(),
+                $this->get('herzult_forum.router.url_generator')->urlForTopic($topic)
+            );
         } else {
             $posts = $this->get('herzult_forum.repository.post')->findRecentByTopic($topic, 30);
         }

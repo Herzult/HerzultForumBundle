@@ -20,6 +20,13 @@ class PostController extends Controller
             $this->getRenderer()
         );
 
+        $this->get('herzult_forum.util.breadcrumb_helper')->generateForumTitleCrumb();
+        $this->get('herzult_forum.util.breadcrumb_helper')->generateCategoryBreadcrumbs($topic->getCategory());
+        $this->get("white_october_breadcrumbs")->addItem(
+            $this->get('translator')->trans('action.post.create', array(), 'HerzultForumBundle'),
+            '#'
+        );
+
         return $this->render(
             $template,
             array(
@@ -38,11 +45,7 @@ class PostController extends Controller
         $form->bindRequest($this->get('request'));
 
         if (!$form->isValid()) {
-            $template = sprintf('%s:new.html.%s', $this->container->getParameter('herzult_forum.templating.location.post'), $this->getRenderer());
-            return $this->get('templating')->renderResponse('HerzultForumBundle:Post:new.html.'.$this->getRenderer(), array(
-                'form'  => $form->createView(),
-                'topic' => $topic,
-            ));
+            return $this->forward('HerzultForumBundle:Post:new', array('categorySlug' => $categorySlug, 'slug' => $slug));
         }
 
         $post = $form->getData();

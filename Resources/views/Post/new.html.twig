@@ -1,12 +1,7 @@
 {% extends 'HerzultForumBundle::layout.html.twig' %}
 {% block content %}
 <div class="forum post_new">
-    <ul class="crumbs">
-        <li><a href="{{ path('herzult_forum_index') }} ">{{'forum.title' | trans({} , 'HerzultForumBundle')}}</a></li>
-        {{ forum_generateCategoryBreadcrumbs(topic.category) }}
-        <li><a href="{{ forum_urlForTopic(topic) }}">{{ topic.subject }}</a></li>
-        <li>{{'action.post.create' | trans({} , 'HerzultForumBundle')}}</li>
-    </ul>
+    {% include 'HerzultForumBundle:Traits:breadcrumbs.html.twig' %}
     <div class="main">
         <h2>{{'action.post.create' | trans({} , 'HerzultForumBundle')}}</h2>
         <form action="{{ url('herzult_forum_topic_post_create', { 'slug': topic.slug, 'categorySlug' : topic.category.slug }) }}" method="post">

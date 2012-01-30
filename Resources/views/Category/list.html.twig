@@ -8,5 +8,7 @@
             <span class="numTopics"> {{ 'category.topicCount' | transchoice(category.numTopics, {'%count%': category.numTopics}, 'HerzultForumBundle') }}</span>
         </div>
     </li>
+    {%else%}
+    <li>Es existieren keine untergeordneten Kategorien.</li>
     {% endfor %}
 </ul>

@@ -1,12 +1,10 @@
 {% extends 'HerzultForumBundle::layout.html.twig' %}
 {% block content %}
 <div class="forum forum_index">
-    <ul class="crumbs">
-        <li>{{'forum.title' | trans({} , 'HerzultForumBundle')}}</li>
-    </ul>
+    {% include 'HerzultForumBundle:Traits:breadcrumbs.html.twig' %}
     <div class="main topics">
         <h2>{{'topic.latest' | trans({}, 'HerzultForumBundle')}}</h2>
-        {% render 'HerzultForumBundle:Topic:list' with {'categorySlug': null, 'pagerOptions': {'page': page}} %}
+        {% render 'HerzultForumBundle:Topic:list' with {'categorySlug': null, 'pagerOptions': {'page': page}, 'show_categories': true} %}
     </div>
     <div class="side categories">
         <h2>{{'category.title' | transchoice(2, {}, 'HerzultForumBundle')}}</h2>
