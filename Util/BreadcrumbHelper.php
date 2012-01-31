@@ -28,8 +28,10 @@ class BreadcrumbHelper
         return $this;
     }
 
-    public function generateCategoryBreadcrumbs(Category $category)
+    public function generateCategoryBreadcrumbs($category)
     {
+        if($category == null || !($category instanceof Category)) return $this;
+
         $categories = array();
         do{
             $categories[] = $category;
