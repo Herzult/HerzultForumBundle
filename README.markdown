@@ -9,6 +9,8 @@ Before reinventing the whole wheel I will start by using the edgy one and try to
 Side note: As I don't use mongodb I can't keep the Document Entities updated.
 I will therefore add TODOs and implement Exceptions.
 
+## Additional Dependencies
+- [WhiteOctoberBreadcrumbsBundle][CraueTwigExtensionsBundle]
 
 Some original Notes:
 ====================
