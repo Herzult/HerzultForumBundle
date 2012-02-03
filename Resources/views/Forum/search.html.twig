@@ -1,7 +1,6 @@
 {% extends 'HerzultForumBundle::layout.html.twig' %}
 {% block content %}
 <div class="forum forum_search">
-    {% include 'HerzultForumBundle:Traits:breadcrumbs.html.twig' %}
     <form class="clearfix" action="{{ url('herzult_forum_search') }}" method="get">
         <div>
             <label for="q">{{ form_label(form.query) }}</label>

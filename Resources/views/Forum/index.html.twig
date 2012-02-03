@@ -1,7 +1,6 @@
 {% extends 'HerzultForumBundle::layout.html.twig' %}
 {% block content %}
 <div class="forum forum_index">
-    {% include 'HerzultForumBundle:Traits:breadcrumbs.html.twig' %}
     <div class="main topics">
         <h2>{{'topic.latest' | trans({}, 'HerzultForumBundle')}}</h2>
         {% render 'HerzultForumBundle:Topic:list' with {'categorySlug': null, 'pagerOptions': {'page': page}, 'show_categories': true} %}

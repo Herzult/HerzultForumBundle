@@ -1,7 +1,6 @@
 {% extends 'HerzultForumBundle::layout.html.twig' %}
 {% block content %}
 <div class="forum category_show">
-    {% include 'HerzultForumBundle:Traits:breadcrumbs.html.twig' %}
     <div class="main topics">
         <h2>{{ category.name }}</h2>
         <a href="{{ forum_urlForCategoryAtomFeed(category) }}" title="Atom feed" class="feed atom">Atom feed</a>

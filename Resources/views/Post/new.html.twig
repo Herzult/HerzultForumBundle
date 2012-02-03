@@ -1,7 +1,6 @@
 {% extends 'HerzultForumBundle::layout.html.twig' %}
 {% block content %}
 <div class="forum post_new">
-    {% include 'HerzultForumBundle:Traits:breadcrumbs.html.twig' %}
     <div class="main">
         <h2>{{'action.post.create' | trans({} , 'HerzultForumBundle')}}</h2>
         <form action="{{ url('herzult_forum_topic_post_create', { 'slug': topic.slug, 'categorySlug' : topic.category.slug }) }}" method="post">
