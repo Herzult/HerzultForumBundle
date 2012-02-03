@@ -21,10 +21,21 @@
         <field name="numTopics" column="num_topics" type="integer" />
         <field name="numPosts" column="num_posts" type="integer" />
 
-        <!--<one-to-many field="subCategories" target-entity="Category" mapped-by="parent_id" />-->
+
+        <!-- Define these in your application -->
+        <!--
+        <many-to-one field="lastPost" target-entity="Post">
+            <join-column name="last_post" referenced-column-name="id" />
+        </many-to-one>
+
+        <many-to-one field="lastTopic" target-entity="Topic">
+            <join-column name="last_topic" referenced-column-name="id" />
+        </many-to-one>
+
         <many-to-one field="parentCategory" target-entity="Category">
             <join-column name="parent_id" referenced-column-name="id" />
         </many-to-one>
+        -->
 
     </mapped-superclass>
 
