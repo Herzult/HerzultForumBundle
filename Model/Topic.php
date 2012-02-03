@@ -29,6 +29,7 @@ abstract class Topic
      * @Assert\Valid
      */
     protected $category;
+
     protected $firstPost;
     protected $lastPost;
 
@@ -341,5 +342,6 @@ abstract class Topic
     {
         return (string) $this->getSubject();
     }
+
 
 }

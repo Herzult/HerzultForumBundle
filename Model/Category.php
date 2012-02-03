@@ -238,6 +238,9 @@ abstract class Category
      */
     public function setLastTopic(Topic $topic)
     {
+        if($this->parentCategory != null)
+            $this->parentCategory->setLastTopic($topic);
+
         $this->lastTopic = $topic;
     }
 
@@ -268,6 +271,9 @@ abstract class Category
      */
     public function setLastPost(Post $post)
     {
+        if($this->parentCategory != null)
+            $this->parentCategory->setLastPost($post);
+
         $this->lastPost = $post;
     }
 
