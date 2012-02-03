@@ -5,11 +5,14 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="herzult_forum_category_show" pattern="/{slug}.{_format}">
+    <route id="herzult_forum_category_show" pattern="/{slug}-{page}.{_format}">
         <default key="_controller">herzult_forum.controller.category:showAction</default>
         <default key="_format">html</default>
+        <default key="page">1</default>
+
+        <requirement key="slug">[-\w]+?</requirement>
+        <requirement key="page">[0-9]?</requirement>
         <requirement key="_format">(html|xml)</requirement>
-        <requirement key="slug">[-\w]+</requirement>
     </route>
 
     <route id="herzult_forum_category_topic_new" pattern="/{slug}/topic/new">

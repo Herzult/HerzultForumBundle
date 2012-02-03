@@ -20,7 +20,7 @@ class CategoryController extends Controller
         return $this->get('templating')->renderResponse($template, array('categories' => $categories));
     }
 
-    public function showAction($slug)
+    public function showAction($slug, $page=1)
     {
         $category = $this->get('herzult_forum.repository.category')->findOneBySlug($slug);
 
@@ -34,7 +34,7 @@ class CategoryController extends Controller
         $template = sprintf('%s:show.%s.%s', $this->container->getParameter('herzult_forum.templating.location.category'), $this->get('request')->getRequestFormat(), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array(
             'category'  => $category,
-            'page'      => $this->get('request')->query->get('page', 1)
+            'page'      => $page//$this->get('request')->query->get('page', 1)
         ));
     }
 

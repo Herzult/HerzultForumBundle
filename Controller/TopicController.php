@@ -87,13 +87,13 @@ class TopicController extends Controller
         ));
     }
 
-    public function showAction($categorySlug, $slug)
+    public function showAction($categorySlug, $slug, $page = 1)
     {
         $topic = $this->findTopic($categorySlug, $slug);
         $this->get('herzult_forum.repository.topic')->incrementTopicNumViews($topic);
 
         if ('html' === $this->get('request')->getRequestFormat()) {
-            $page = $this->get('request')->query->get('page', 1);
+            //$page = $this->get('request')->query->get('page', 1);
             $posts = $this->get('herzult_forum.repository.post')->findAllByTopic($topic, true);
             $posts->setCurrentPage($page);
             $posts->setMaxPerPage($this->container->getParameter('herzult_forum.paginator.posts_per_page'));
