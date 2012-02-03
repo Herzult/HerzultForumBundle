@@ -60,7 +60,7 @@ class ForumUrlGenerator
         return $this->urlGenerator->generate('herzult_forum_topic_post_new', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
             'slug'          => $topic->getSlug()
-        ));
+        ), $absolute);
     }
 
     public function urlForPost(Post $post, $absolute = false)
