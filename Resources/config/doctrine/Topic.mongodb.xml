@@ -28,8 +28,8 @@
                 <option name="unique" value="false" />
                 <option name="dropDups" value="false" />
             </index>
-            <index name="category_asc">
-                <key name="category" order="asc" />
+            <index name="category_id_asc">
+                <key name="category.$id" order="asc" />
                 <option name="safe" value="true" />
                 <option name="unique" value="false" />
                 <option name="dropDups" value="false" />

@@ -23,8 +23,8 @@
                 <option name="unique" value="false" />
                 <option name="dropDups" value="false" />
             </index>
-            <index name="topic_asc">
-                <key name="topic" order="asc" />
+            <index name="topic_id_asc">
+                <key name="topic.$id" order="asc" />
                 <option name="safe" value="true" />
                 <option name="unique" value="false" />
                 <option name="dropDups" value="false" />
