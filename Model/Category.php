@@ -198,9 +198,11 @@ abstract class Category
     /**
      * Sets the last topic
      *
-     * @param Topic $topic
+     * Sets the last topic, null for empty category
+     *
+     * @param Topic|null $topic
      */
-    public function setLastTopic(Topic $topic)
+    public function setLastTopic($topic)
     {
         $this->lastTopic = $topic;
     }
@@ -228,9 +230,11 @@ abstract class Category
     /**
      * Sets the last post
      *
-     * @param Post $post
+     * Sets the last post, null for empty category
+     *
+     * @param Post|null $post
      */
-    public function setLastPost(Post $post)
+    public function setLastPost($post)
     {
         $this->lastPost = $post;
     }
