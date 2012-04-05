@@ -1,0 +1,24 @@
+{
+    "name": "herzult/forum-bundle",
+    "description": "A simple Symfony forum bundle.",
+    "keywords": ["symfony", "forum"],
+    "homepage": "https://github.com/Herzult/HerzultForumBundle.git",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Antoine Hérault",
+            "email": "antoine.herault@gmail.com",
+            "homepage": "https://github.com/Herzult"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+	"pagerfanta/pagerfanta" : "*",
+	"white-october/pagerfanta-bundle" : "*"
+    },
+    "autoload": {
+        "psr-0": { "Herzult\\HerzultForumBundle": "" }
+    },
+    "target-dir": "Herzult/HerzultForumBundle"
+}
