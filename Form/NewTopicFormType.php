@@ -15,7 +15,7 @@ class NewTopicFormType extends AbstractType
         $builder->add('firstPost', $options['post_form'], array('data_class' => $options['post_class']));
     }
 
-    public function getDefaultOptions(array $options)
+    public function getDefaultOptions()
     {
         return array(
             'post_class'    => '',
