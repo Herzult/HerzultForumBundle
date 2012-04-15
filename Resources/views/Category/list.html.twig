@@ -5,8 +5,10 @@
             <a class="name" href="{{ forum_urlForCategory(category) }}">{{ category.name }}</a>
         </div>
         <div class="metas">
-            <span class="numTopics">{{ category.numTopics }} {{ category.numTopics > 1 ? 'topics' : 'topic' }}</span>
+            <span class="numTopics"> {{ 'category.topicCount' | transchoice(category.numTopics, {'%count%': category.numTopics}, 'HerzultForumBundle') }}</span>
         </div>
     </li>
+    {%else%}
+    <li>Es existieren keine untergeordneten Kategorien.</li>
     {% endfor %}
 </ul>

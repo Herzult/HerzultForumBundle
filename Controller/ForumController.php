@@ -10,6 +10,8 @@ class ForumController extends Controller
 {
     public function indexAction()
     {
+        $this->get('herzult_forum.util.breadcrumb_helper')->generateForumTitleCrumb();
+
         $template = sprintf('%s:index.html.%s', $this->container->getParameter('herzult_forum.templating.location.forum'), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array(
             'page'  => $this->get('request')->query->get('page', 1)
@@ -22,6 +24,12 @@ class ForumController extends Controller
         $form = $this->get('form.factory')->create(new SearchFormType(), $search);
         $form->bind(array('query' => $this->get('request')->query->get('q')));
         $query = $form->getData()->getQuery();
+
+        $this->get('herzult_forum.util.breadcrumb_helper')->generateForumTitleCrumb();
+        $this->get("white_october_breadcrumbs")->addItem(
+            $this->get('translator')->trans('forum.search', array(), 'HerzultForumBundle'),
+            '#'
+        );
 
         $results = null;
         if ($form->isValid()) {

@@ -26,6 +26,15 @@ Update your `deps` file adding the following lines:
         git=https://github.com/l3pp4rd/DoctrineExtensions.git
         target=/doctrine-extensions
 
+    [WhiteOctoberBreadcrumbsBundle]
+        git=git://github.com/whiteoctober/BreadcrumbsBundle.git
+        target=/bundles/WhiteOctober/BreadcrumbsBundle
+
+    [CraueTwigExtensionsBundle]
+        git=https://github.com/craue/TwigExtensionsBundle.git
+        target=bundles/Craue/TwigExtensionsBundle
+
+
 And install the new dependencies:
 
     $ ./bin/vendor install
@@ -42,6 +51,7 @@ Register the namespaces that are not already registered in your autoloader:
         'WhiteOctober'  => __DIR__.'/../vendor/bundles',
         'Herzult'       => __DIR__.'/../vendor/bundles',
         'Gedmo'         => __DIR__.'/../vendor/doctrine-extensions/lib',
+        'Craue'         => __DIR__.'/../vendor/bundles',
     ));
 
 Register the bundles
@@ -55,6 +65,8 @@ application kernel:
     {
         return array(
             // ...
+            new Craue\TwigExtensionsBundle\CraueTwigExtensionsBundle(),
+            new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Herzult\Bundle\ForumBundle\HerzultForumBundle(),
         );

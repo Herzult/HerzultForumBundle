@@ -16,11 +16,17 @@ abstract class Category
     protected $lastTopic;
     protected $lastPost;
 
+    protected $parentCategory;
+
+    /**
+     * Initialize the Object
+     */
     public function __construct()
     {
-        $this->position = 0;
+        $this->position  = 0;
         $this->numTopics = 0;
-        $this->numPosts = 0;
+        $this->numPosts  = 0;
+        $this->parentId  = null;
     }
 
     /**
@@ -31,6 +37,26 @@ abstract class Category
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Gets the parent category
+     *
+     * @return Category
+     */
+    public function getParentCategory()
+    {
+        return $this->parentCategory;
+    }
+
+    /**
+     * Sets the parent category
+     *
+     * @param Category $parent
+     */
+    public function setParentCategory(Category $parent)
+    {
+        $this->parentCategory = $parent;
     }
 
     /**
@@ -94,13 +120,11 @@ abstract class Category
     }
 
     /**
-     * Generates the slug whether it is empty
+     * Generates the slug or updates it.
      */
     public function generateSlug()
     {
-        if (empty($this->slug)) {
-            $this->setSlug($this->getName());
-        }
+        $this->setSlug($this->getId()."-".$this->getName());
     }
 
     /**
@@ -148,6 +172,9 @@ abstract class Category
      */
     public function incrementNumTopics()
     {
+        if($this->parentCategory)
+            $this->parentCategory->incrementNumTopics();
+
         $this->numTopics++;
     }
 
@@ -156,6 +183,9 @@ abstract class Category
      */
     public function decrementNumTopics()
     {
+        if($this->parentCategory)
+            $this->parentCategory->decrementNumTopics();
+
         $this->numTopics--;
     }
 
@@ -184,6 +214,9 @@ abstract class Category
      */
     public function incrementNumPosts()
     {
+        if($this->parentCategory)
+            $this->parentCategory->incrementNumPosts();
+
         $this->numPosts++;
     }
 
@@ -192,6 +225,9 @@ abstract class Category
      */
     public function decrementNumPosts()
     {
+        if($this->parentCategory)
+            $this->parentCategory->decrementNumPosts();
+
         $this->numPosts--;
     }
 
@@ -204,6 +240,9 @@ abstract class Category
      */
     public function setLastTopic($topic)
     {
+        if($this->parentCategory != null)
+            $this->parentCategory->setLastTopic($topic);
+
         $this->lastTopic = $topic;
     }
 
@@ -236,6 +275,9 @@ abstract class Category
      */
     public function setLastPost($post)
     {
+        if($this->parentCategory != null)
+            $this->parentCategory->setLastPost($post);
+
         $this->lastPost = $post;
     }
 

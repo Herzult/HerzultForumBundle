@@ -5,19 +5,27 @@ namespace Herzult\Bundle\ForumBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use \Herzult\Bundle\ForumBundle\Model\Category;
+
 class CategoryController extends Controller
 {
-    public function listAction()
+    public function listAction($id = null)
     {
-        $categories = $this->get('herzult_forum.repository.category')->findAll();
+        if($id == null)
+            $categories = $this->get('herzult_forum.repository.category')->findAllRootCategories();
+        else
+            $categories = $this->get('herzult_forum.repository.category')->findAllSubCategories($id);
         
         $template = sprintf('%s:list.html.%s', $this->container->getParameter('herzult_forum.templating.location.category'), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array('categories' => $categories));
     }
 
-    public function showAction($slug)
+    public function showAction($slug, $page=1)
     {
         $category = $this->get('herzult_forum.repository.category')->findOneBySlug($slug);
+
+        $this->get('herzult_forum.util.breadcrumb_helper')->generateForumTitleCrumb();
+        $this->get('herzult_forum.util.breadcrumb_helper')->generateCategoryBreadcrumbs($category);
 
         if (!$category) {
             throw new NotFoundHttpException(sprintf('The category %s does not exist.', $slug));
@@ -26,7 +34,7 @@ class CategoryController extends Controller
         $template = sprintf('%s:show.%s.%s', $this->container->getParameter('herzult_forum.templating.location.category'), $this->get('request')->getRequestFormat(), $this->getRenderer());
         return $this->get('templating')->renderResponse($template, array(
             'category'  => $category,
-            'page'      => $this->get('request')->query->get('page', 1)
+            'page'      => $page//$this->get('request')->query->get('page', 1)
         ));
     }
 

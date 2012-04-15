@@ -18,6 +18,11 @@ class ForumUrlGenerator
         $this->nbPostsPerPage = $nbPostsPerPage;
     }
 
+    public function urlForForum()
+    {
+        return $this->urlGenerator->generate('herzult_forum_index');
+    }
+
     public function urlForCategory(Category $category, $absolute = false)
     {
         return $this->urlGenerator->generate('herzult_forum_category_show', array(
@@ -55,7 +60,7 @@ class ForumUrlGenerator
         return $this->urlGenerator->generate('herzult_forum_topic_post_new', array(
             'categorySlug'  => $topic->getCategory()->getSlug(),
             'slug'          => $topic->getSlug()
-        ));
+        ), $absolute);
     }
 
     public function urlForPost(Post $post, $absolute = false)

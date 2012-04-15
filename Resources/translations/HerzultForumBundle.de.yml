@@ -1,0 +1,45 @@
+forum:
+  title: Forum
+  search: Suche
+  createdBy: Erstellt am %date% von %user%
+
+category:
+  topicCount: '{0} Keine Themen.|{1} Ein Thema.|]1,Inf] %count% Themen.'
+  title:      '{0,1} Kategorie|]1,Inf] Kategorien'
+
+topic:
+  title: '{0,1} Thema|]1,Inf] Themen'
+  postCount:  '{0} %count% Beiträge|{1} %count% Beitrag|]1,Inf] %count% Beiträge'
+  latest: Neuste Themen
+
+post:
+  title:       '{0,1} Beitrag|]1,Inf] Beiträge'
+  backToTopic: Zurück zum Thema
+  latest:      Neuste Beiträge
+
+action:
+  title: Aktionen
+
+  create: Erstellen
+  edit:   Bearbeiten
+  delete: Löschen
+  save:   Speichern
+  cancel: Abbrechen
+
+  category:
+    create: Neue Kategorie erstellen
+    edit:   Kategorie bearbeiten
+    delete: Kategorie löschen
+
+  topic:
+    create: Neues Thema erstellen
+    delete: Thema löschen
+
+  post:
+    create: Neuen Beitrag erstellen
+    edit:   Beitrag bearbeiten
+    delete: Beitrag löschen
+
+
+
+NewTopic_subject: Test

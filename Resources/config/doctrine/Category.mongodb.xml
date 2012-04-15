@@ -11,6 +11,7 @@
         repository-class="Herzult\Bundle\ForumBundle\Document\CategoryRepository">
 
         <field name="id" fieldName="id" id="true" />
+        <field name="parentId" column="parent_id" type="integer" />
         <field name="name" fieldName="name" type="string" />
         <field name="description" fieldName="description" type="string" />
         <field name="slug" fieldName="slug" type="string" unique="true" />

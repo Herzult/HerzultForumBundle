@@ -15,7 +15,7 @@
         </id>
 
         <field name="subject" column="subject" type="string" />
-        <field name="slug" column="slug" type="string" />
+        <field name="slug" column="slug" type="string" unique="true" />
         <field name="numViews" column="num_views" type="integer" />
         <field name="numPosts" column="num_posts" type="integer" />
         <field name="isClosed" column="is_closed" type="boolean" />

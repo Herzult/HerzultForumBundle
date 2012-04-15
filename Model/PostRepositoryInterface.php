@@ -18,7 +18,7 @@ interface PostRepositoryInterface extends RepositoryInterface
      *
      * @param Topic $topic
      * @param boolean $asPaginator Will return a Paginator instance if true
-     * @return array|Paginator
+     * @return Post[]|Paginator
      */
     function findAllByTopic($topic, $asPaginator);
 
@@ -27,7 +27,7 @@ interface PostRepositoryInterface extends RepositoryInterface
      *
      * @param Topic $topic
      * @param int $number max number of posts to fetch
-     * @return array of Post
+     * @return Post[] of Post
      */
     function findRecentByTopic($topic, $number);
 
@@ -37,7 +37,7 @@ interface PostRepositoryInterface extends RepositoryInterface
      *
      * @param string $query
      * @param boolean $asPaginator Will return a Paginator instance if true
-     * @return array|Paginator
+     * @return Post[]|Paginator
      */
     function search($query, $asPaginator);
 

@@ -13,5 +13,7 @@
             {{ post.message }}
         </div>
     </li>
+    {% else %}
+        <li>Es wurden noch keine Beiträge verfasst.</li>
     {% endfor %}
 </ul>

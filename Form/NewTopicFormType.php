@@ -10,8 +10,8 @@ class NewTopicFormType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->add('subject');
-        $builder->add('category');
+        $builder->add('subject', null, array('translation_domain' => 'HerzultForumBundle_forms'));
+        $builder->add('category' , null, array('translation_domain' => 'HerzultForumBundle_forms'));
         $builder->add('firstPost', $options['post_form'], array('data_class' => $options['post_class']));
     }
 
@@ -21,6 +21,7 @@ class NewTopicFormType extends AbstractType
             'post_class'    => '',
             'post_form'     => '',
             'data_class'    => '',
+            'translation_domain' => 'HerzultForumBundle_forms',
         );
     }
 

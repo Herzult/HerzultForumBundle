@@ -24,6 +24,25 @@ class CategoryRepository extends ObjectRepository implements CategoryRepositoryI
     }
 
     /**
+     * @see CategoryRepositoryInterface::findAllSubCategories
+     */
+    function findAllSubCategories($id)
+    {
+        // TODO: Implement findAllSubCategories() method.
+        throw new \Exception("To be implemented.");
+    }
+
+    /**
+     * @see CategoryRepositoryInterface::findAllRootCategories
+     */
+    function findAllRootCategories()
+    {
+        // TODO: Implement findAllRootCategories() method.
+        throw new \Exception("To be implemented.");
+    }
+
+
+    /**
      * @see CategoryRepositoryInterface::findAllIndexById
      */
     public function findAllIndexById()

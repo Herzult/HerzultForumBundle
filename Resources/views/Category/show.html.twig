@@ -1,21 +1,28 @@
 {% extends 'HerzultForumBundle::layout.html.twig' %}
-{% block title %}Topics List {% endblock %}
 {% block content %}
 <div class="forum category_show">
-    <ul class="crumbs">
-        <li><a href="{{ path('herzult_forum_index') }}">Forum</a></li>
-        <li>{{ category.name }}</li>
-    </ul>
     <div class="main topics">
         <h2>{{ category.name }}</h2>
         <a href="{{ forum_urlForCategoryAtomFeed(category) }}" title="Atom feed" class="feed atom">Atom feed</a>
-        {% render 'HerzultForumBundle:Topic:list' with {'categorySlug': category.slug, 'pagerOptions': {'page': page, 'routeName': 'herzult_forum_category_show', 'routeParams': {'slug': category.slug}}} %}
+
+
+        <div>
+            <h3>Unterkategorien</h3>
+            <div>{% render 'HerzultForumBundle:Category:list' with {'id': category.id} %}</div>
+        </div>
+
+        <div>
+            <h3>Beiträge in dieser Kategorie</h3>
+            <div>{% render 'HerzultForumBundle:Topic:list' with {'categorySlug': category.slug, 'pagerOptions': {'page': page, 'routeName': 'herzult_forum_category_show', 'routeParams': {'slug': category.slug}}} %}</div>
+        </div>
+
     </div>
+
     <div class="side categories">
-        <h2>Categories</h2>
+        <h2>{{'category.title' | transchoice(2, {}, 'HerzultForumBundle')}}</h2>
         {% render 'HerzultForumBundle:Category:list' %}
-        <h2>Participate</h2>
-        <p><a href="{{ path('herzult_forum_category_topic_new', {'slug': category.slug} ) }}">Create a new topic</a></p>
+        <h2>{{ 'action.title' | trans({}, 'HerzultForumBundle')}}</h2>
+        <p><a href="{{ path('herzult_forum_category_topic_new', {'slug': category.slug} ) }}">{{ 'action.topic.create' | trans({}, 'HerzultForumBundle')}}</a></p>
     </div>
 </div>
 {% endblock %}

@@ -49,7 +49,7 @@ class ForumExtension extends Twig_Extension
             )),
             'forum_autoLink' => new \Twig_Function_Method($this, 'autoLink', array(
                 'is_safe' => array('html')
-            ))
+            )),
         );
     }
 

@@ -29,6 +29,7 @@ abstract class Topic
      * @Assert\Valid
      */
     protected $category;
+
     protected $firstPost;
     protected $lastPost;
 
@@ -64,7 +65,14 @@ abstract class Topic
     public function setSubject($subject)
     {
         $this->subject = $subject;
-        $this->setSlug(Urlizer::urlize($this->getSubject()));
+    }
+
+    /**
+     * Generates the slug or updates it.
+     */
+    public function generateSlug()
+    {
+        $this->setSlug($this->getId()."-".$this->getSubject());
     }
 
     /**
@@ -87,9 +95,14 @@ abstract class Topic
         return $this->slug;
     }
 
+    /**
+     * Sets the slug
+     *
+     * @param string $slug
+     */
     public function setSlug($slug)
     {
-        $this->slug = $slug;
+        $this->slug = Inflector::slugify($slug);
     }
 
     /**
@@ -329,5 +342,6 @@ abstract class Topic
     {
         return (string) $this->getSubject();
     }
+
 
 }

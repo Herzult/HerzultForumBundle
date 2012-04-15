@@ -1,23 +1,15 @@
 {% extends 'HerzultForumBundle::layout.html.twig' %}
-{% block title %}{{ topic.subject}}{% endblock %}
 {% block content %}
 <div class="forum forum_topic">
-
-    <ul class="crumbs">
-        <li><a href="{{ path('herzult_forum_index') }}">Forum</a></li>
-        <li><a href="{{ forum_urlForCategory(topic.category) }}">{{ topic.category.name }}</a></li>
-        <li>{{ topic.subject }}</li>
-    </ul>
-
     <div class="main topic">
         <h2>{{ topic.subject }}</h2>
         <a href="{{ forum_urlForTopicAtomFeed(topic) }}" title="Atom feed" class="feed atom">Atom feed</a>
         {% include 'HerzultForumBundle:Post:list.html.twig' with {'posts': posts} %}
-        {{ pagerfanta(posts, 'default', {'proximity': 3}) }}
+        {{ pagerfanta(posts, 'default_translated', {'proximity': 3}) }}
     </div>
 
     <div class="side menu">
-        <a href="{{ forum_urlForTopicReply(topic) }}">Add a New Reply</a>
+        <a href="{{ forum_urlForTopicReply(topic) }}">{{'action.post.create' | trans({} , 'HerzultForumBundle')}}</a>
     </div>
 
 </div>
