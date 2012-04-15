@@ -14,11 +14,11 @@
     ],
     "require": {
         "php": ">=5.3.0",
-	"pagerfanta/pagerfanta" : "*",
-	"white-october/pagerfanta-bundle" : "*"
+        "pagerfanta/pagerfanta" : "*",
+        "white-october/pagerfanta-bundle" : "*"
     },
     "autoload": {
-        "psr-0": { "Herzult\\HerzultForumBundle": "" }
+        "psr-0": { "Herzult\\Bundle\\ForumBundle": "." }
     },
-    "target-dir": "Herzult/HerzultForumBundle"
+    "target-dir": "Herzult/Bundle/ForumBundle"
 }
