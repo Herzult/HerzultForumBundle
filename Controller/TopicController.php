@@ -35,7 +35,7 @@ class TopicController extends Controller
 
         if (!$form->isValid()) {
             $template = sprintf('%s:new.html.%s', $this->container->getParameter('herzult_forum.templating.location.topic'), $this->getRenderer());
-            return $this->get('templating')->renderResponse('HerzultForumBundle:Topic:new.html.'.$this->getRenderer(), array(
+            return $this->get('templating')->renderResponse($template, array(
                 'form'      => $form->createView(),
                 'category'  => $category
             ));
