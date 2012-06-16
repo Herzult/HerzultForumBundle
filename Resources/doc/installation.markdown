@@ -28,7 +28,7 @@ Update your `deps` file adding the following lines:
 
 And install the new dependencies:
 
-    $ ./bin/vendor install
+    $ bin/vendors install
 
 Add them to the autoloader
 --------------------------
