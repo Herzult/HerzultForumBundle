@@ -12,7 +12,7 @@ class SearchFormType extends AbstractType
         $builder->add('query', 'text');
     }
 
-    public function getDefaultOptions()
+    public function getDefaultOptions(array $options)
     {
         return array(
             'data_class'        => 'Herzult\Bundle\ForumBundle\Search\Search',
