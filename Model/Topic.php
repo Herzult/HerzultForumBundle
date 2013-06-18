@@ -13,7 +13,7 @@ abstract class Topic
     protected $id;
     /**
      * @Assert\NotBlank()
-     * @Assert\MinLength(limit=4, message="Just a little too short.")
+     * @Assert\Range(min=4, minMessage="Just a little too short.")
      */
     protected $subject;
     protected $slug;
