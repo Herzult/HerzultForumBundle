@@ -9,7 +9,7 @@
         <!-- NewTopic Form -->
         <service id="herzult_forum.form.new_topic" factory-method="create" factory-service="form.factory" class="Symfony\Component\Form\Form">
             <argument type="service" id="herzult_forum.form.type.new_topic" />
-            <argument />
+            <argument>null</argument>
             <argument type="collection">
                 <argument key="data_class">%herzult_forum.model.topic.class%</argument>
                 <argument key="post_class">%herzult_forum.model.post.class%</argument>
@@ -25,7 +25,7 @@
         <!-- Post Form -->
         <service id="herzult_forum.form.post" factory-method="create" factory-service="form.factory" class="Symfony\Component\Form\Form">
             <argument type="service" id="herzult_forum.form.type.post" />
-            <argument />
+            <argument>null</argument>
             <argument type="collection">
                 <argument key="data_class">%herzult_forum.model.post.class%</argument>
             </argument>
@@ -39,7 +39,7 @@
         <!-- FirstPost Form -->
         <service id="herzult_forum.form.first_post" factory-method="create" factory-service="form.factory" class="Symfony\Component\Form\Form">
             <argument type="service" id="herzult_forum.form.type.first_post" />
-            <argument />
+            <argument>null</argument>
             <argument type="collection">
                 <argument key="data_class">%herzult_forum.model.post.class%</argument>
             </argument>
