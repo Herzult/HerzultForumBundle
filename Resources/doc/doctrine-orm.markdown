@@ -20,7 +20,7 @@ _mapped superclasses_, you must map it on your entities.
 
     namespace Acme\ForumBundle\Entity;
 
-    use Herzult\Bundle\ForumBundle\Entity\Category as BaseCategory
+    use Herzult\Bundle\ForumBundle\Entity\Category as BaseCategory;
     use Doctrine\ORM\Mapping as ORM;
 
     /**
