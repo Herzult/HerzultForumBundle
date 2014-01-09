@@ -70,9 +70,9 @@ The bundle requires you to write a minimum of configuration.
         db_driver:          orm     # can be either "orm" or "odm"
         class:
             model:
-                category:   Acme\Model\Category
-                topic:      Acme\Model\Topic
-                post:       Acme\Model\Post
+                category:   Acme\ForumBundle\Entity\Category
+                topic:      Acme\ForumBundle\Entity\Topic
+                post:       Acme\ForumBundle\Entity\Post
 
 As you can see, you must choose a database driver and configure your model
 classes.
