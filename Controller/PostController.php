@@ -39,7 +39,7 @@ class PostController extends Controller
 
         if (!$form->isValid()) {
             $template = sprintf('%s:new.html.%s', $this->container->getParameter('herzult_forum.templating.location.post'), $this->getRenderer());
-            return $this->get('templating')->renderResponse('HerzultForumBundle:Post:new.html.'.$this->getRenderer(), array(
+            return $this->get('templating')->renderResponse($template, array(
                 'form'  => $form->createView(),
                 'topic' => $topic,
             ));
