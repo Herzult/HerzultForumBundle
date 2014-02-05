@@ -48,6 +48,7 @@ class TopicRepository extends ObjectRepository implements TopicRepositoryInterfa
     {
         $query = $this->createQueryBuilder('t')
             ->field('category.$id')->equals(new \MongoId($category->getId()))
+            ->sort('isPinned', 'DESC')
             ->sort('pulledAt', 'DESC')
         ;
 
