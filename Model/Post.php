@@ -16,7 +16,7 @@ abstract class Post
     protected $topic;
     /**
      * @Assert\NotBlank(message="Please write a message")
-     * @Assert\MinLength(limit=4, message="Just a little too short.")
+     * @Assert\Length(min=4, minMessage="Just a little too short.")
      *
      * @var string
      */

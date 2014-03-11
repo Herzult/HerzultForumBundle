@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
 
         <!-- NewTopic Form -->
-        <service id="herzult_forum.form.new_topic" factory-method="create" factory-service="form.factory" class="Symfony\Component\Form\Form">
+        <service id="herzult_forum.form.new_topic" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
+            <argument>NewTopic</argument>
             <argument type="service" id="herzult_forum.form.type.new_topic" />
-            <argument />
+            <argument>null</argument>
             <argument type="collection">
                 <argument key="data_class">%herzult_forum.model.topic.class%</argument>
                 <argument key="post_class">%herzult_forum.model.post.class%</argument>
@@ -23,9 +24,10 @@
         </service>
 
         <!-- Post Form -->
-        <service id="herzult_forum.form.post" factory-method="create" factory-service="form.factory" class="Symfony\Component\Form\Form">
+        <service id="herzult_forum.form.post" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
+            <argument>Post</argument>
             <argument type="service" id="herzult_forum.form.type.post" />
-            <argument />
+            <argument>null</argument>
             <argument type="collection">
                 <argument key="data_class">%herzult_forum.model.post.class%</argument>
             </argument>
@@ -37,7 +39,8 @@
         </service>
 
         <!-- FirstPost Form -->
-        <service id="herzult_forum.form.first_post" factory-method="create" factory-service="form.factory" class="Symfony\Component\Form\Form">
+        <service id="herzult_forum.form.first_post" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
+            <argument>Post</argument>
             <argument type="service" id="herzult_forum.form.type.first_post" />
             <argument />
             <argument type="collection">
