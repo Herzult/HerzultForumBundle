@@ -35,7 +35,7 @@ class PostController extends Controller
         $form  = $this->get('herzult_forum.form.post');
         $post  = $this->get('herzult_forum.repository.post')->createNewPost();
         $post->setTopic($topic);
-        $form->bindRequest($this->get('request'));
+        $form->handleRequest($this->get('request'));
 
         if (!$form->isValid()) {
             $template = sprintf('%s:new.html.%s', $this->container->getParameter('herzult_forum.templating.location.post'), $this->getRenderer());
